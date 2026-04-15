@@ -1347,8 +1347,20 @@ function ErrorState({ type, onRetry }: { type: string; onRetry?: () => void }) {
       desc: 'Looks like you closed payment. Profile saved — complete when ready.',
     },
     api_down: {
-      title: 'High Demand',
-      desc: 'High demand right now. Try again in a few minutes.',
+      title: 'Cannot load results',
+      desc: 'We could not reach the server or the response was unexpected. Check your connection and try again.',
+    },
+    order_not_found: {
+      title: 'Order not found',
+      desc: 'This link may be incorrect or the order is not in our system. Use Recover with your purchase email or open the link from your results email.',
+    },
+    rate_limited: {
+      title: 'Too many requests',
+      desc: 'Please wait a minute and try again. Keep this page in a single tab while results load.',
+    },
+    server_error: {
+      title: 'Server error',
+      desc: 'Something went wrong on our side. Try again in a few minutes.',
     },
     timeout: {
       title: 'Almost There',
@@ -1361,18 +1373,23 @@ function ErrorState({ type, onRetry }: { type: string; onRetry?: () => void }) {
   };
 
   const msg = messages[type] || messages.api_down;
+  const isSoft = type === 'rate_limited' || type === 'server_error' || type === 'api_down';
 
   return (
-    <div className="li-card p-6 text-center">
-      <h3 className="text-lg font-bold mb-2" style={{ color: 'var(--li-red)' }}>{msg.title}</h3>
+    <div className="li-card p-6 text-center max-w-md">
+      <h3 className="text-lg font-bold mb-2" style={{ color: isSoft ? 'var(--text-primary)' : 'var(--li-red)' }}>{msg.title}</h3>
       <p className="text-sm mb-4" style={{ color: 'var(--li-text-secondary)' }}>{msg.desc}</p>
+      {type === 'order_not_found' && (
+        <a href="/recover" className="inline-block text-sm font-semibold mb-3" style={{ color: 'var(--accent)' }}>Recover my results →</a>
+      )}
       {onRetry && (
         <button
+          type="button"
           onClick={onRetry}
           className="px-6 py-2.5 rounded-full text-white text-sm font-semibold cursor-pointer border-none"
-          style={{ background: 'var(--li-blue)' }}
+          style={{ background: 'var(--accent)' }}
         >
-          Try Again
+          Try again
         </button>
       )}
     </div>
@@ -1639,6 +1656,18 @@ export default function ResultsPage() {
     try {
       const res = await fetch(`${API_URL}/api/orders/${orderId}`);
       if (!res.ok) {
+        if (res.status === 404) {
+          setError('order_not_found');
+          return;
+        }
+        if (res.status === 429) {
+          setError('rate_limited');
+          return;
+        }
+        if (res.status >= 500) {
+          setError('server_error');
+          return;
+        }
         setError('api_down');
         return;
       }
@@ -1682,7 +1711,7 @@ export default function ResultsPage() {
         setError('timeout');
       }
     } catch {
-      setError('api_down');
+      setError('api_down'); // network / CORS / wrong API URL
     }
   }, [orderId]);
 
@@ -1710,7 +1739,14 @@ export default function ResultsPage() {
       <div className="saas-app-canvas min-h-screen flex flex-col">
         <SaasMarketingHeader />
         <main className="flex flex-1 items-center justify-center px-4">
-          <ErrorState type={error} onRetry={error === 'api_down' ? () => { setError(null); fetchOrder(); } : undefined} />
+          <ErrorState
+            type={error}
+            onRetry={
+              error && ['api_down', 'rate_limited', 'server_error'].includes(error)
+                ? () => { setError(null); fetchOrder(); }
+                : undefined
+            }
+          />
         </main>
       </div>
     );

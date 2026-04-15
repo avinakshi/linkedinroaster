@@ -1,22 +1,22 @@
-/* ProfileRoaster landing — Teal / career-coach SaaS (Teal HQ–inspired, not affiliated) */
+/* ProfileRoaster landing — LinkedIn-style blue / white */
 
 .pr-landing {
-  --accent: #0d9488;
-  --accent-hover: #0f766e;
-  --accent-subtle: #ccfbf1;
-  --bg-canvas: #f3faf8;
+  --accent: #0a66c2;
+  --accent-hover: #004182;
+  --accent-subtle: #eff6ff;
+  --bg-canvas: #f8fafc;
   --bg-surface: #ffffff;
-  --bg-subtle: #ecfdf5;
-  --border-default: rgba(13, 148, 136, 0.12);
-  --border-strong: rgba(13, 148, 136, 0.22);
+  --bg-subtle: #eff6ff;
+  --border-default: rgba(10, 102, 194, 0.12);
+  --border-strong: rgba(10, 102, 194, 0.22);
   --text-primary: #0f172a;
   --text-secondary: #475569;
   --text-muted: #94a3b8;
-  --pr-glow: rgba(45, 212, 191, 0.35);
+  --pr-glow: rgba(10, 102, 194, 0.22);
   --pr-violet: #6366f1;
   --pr-amber: #d97706;
   --shadow-soft: 0 4px 24px rgba(15, 23, 42, 0.06);
-  --shadow-card: 0 1px 3px rgba(15, 23, 42, 0.04), 0 12px 40px rgba(13, 148, 136, 0.08);
+  --shadow-card: 0 1px 3px rgba(15, 23, 42, 0.04), 0 12px 40px rgba(10, 102, 194, 0.08);
   --radius-xl: 20px;
   --radius-2xl: 28px;
 }
@@ -27,6 +27,14 @@
   -webkit-backdrop-filter: blur(16px) saturate(1.2);
   border-bottom: 1px solid var(--border-default) !important;
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8) inset;
+}
+
+/* globals.css applies word-break:break-word to all `a`/`span`; reset in nav */
+.pr-nav a,
+.pr-nav span,
+.pr-nav button {
+  word-break: normal;
+  overflow-wrap: normal;
 }
 
 .pr-nav__inner {
@@ -42,27 +50,58 @@
 .pr-nav__logo {
   text-decoration: none;
   display: flex;
-  align-items: center;
+  align-items: baseline;
+  flex-wrap: nowrap;
+  white-space: nowrap;
   gap: 2px;
   letter-spacing: -0.03em;
+  line-height: 1;
 }
 
 .pr-nav__logo-mark {
   font-size: 19px;
   font-weight: 800;
   color: var(--accent);
+  line-height: 1;
+  display: inline-block;
+  vertical-align: baseline;
 }
 
 .pr-nav__logo-text {
   font-size: 19px;
   font-weight: 800;
   color: var(--text-primary);
+  line-height: 1;
+  display: inline-block;
+  vertical-align: baseline;
 }
 
+/* Mobile: keep logo + menu icon optically centered in bar */
+.pr-nav__menu-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  margin: 0;
+  line-height: 1;
+  font-size: 22px;
+}
+
+/* Must not rely on Tailwind `hidden` alone: this file can load after utilities and
+   `display:flex` would override `display:none`, squeezing links + global word-break → vertical letters */
 .pr-nav__links {
-  display: flex;
+  display: none;
   align-items: center;
   gap: 8px 28px;
+}
+
+@media (min-width: 640px) {
+  .pr-nav__links {
+    display: flex;
+  }
 }
 
 .pr-nav__link {
@@ -71,6 +110,7 @@
   color: var(--text-secondary);
   text-decoration: none;
   transition: color 0.15s ease;
+  white-space: nowrap;
 }
 
 .pr-nav__link:hover {
@@ -79,27 +119,28 @@
 
 .pr-nav__cta {
   padding: 10px 22px;
-  background: linear-gradient(135deg, var(--accent) 0%, #14b8a6 100%);
+  background: linear-gradient(135deg, var(--accent-hover) 0%, var(--accent) 100%);
   color: #fff !important;
   border: none;
   border-radius: 999px;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 4px 14px rgba(13, 148, 136, 0.35);
+  box-shadow: 0 4px 14px rgba(10, 102, 194, 0.35);
   transition: transform 0.15s ease, box-shadow 0.15s ease;
+  white-space: nowrap;
 }
 
 .pr-nav__cta:hover {
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(13, 148, 136, 0.4);
+  box-shadow: 0 6px 20px rgba(10, 102, 194, 0.4);
 }
 
 .pr-hero {
   position: relative;
   padding: 72px 0 56px;
   overflow: hidden;
-  background: linear-gradient(165deg, #ecfdf5 0%, #f0fdfa 28%, #f8fafc 62%, #ffffff 100%);
+  background: linear-gradient(165deg, #eff6ff 0%, #f8fafc 38%, #ffffff 100%);
 }
 
 .pr-hero::before {
@@ -146,8 +187,8 @@
   margin-bottom: 14px;
   padding: 6px 12px;
   border-radius: 999px;
-  background: rgba(204, 251, 241, 0.9);
-  border: 1px solid rgba(13, 148, 136, 0.15);
+  background: rgba(239, 246, 255, 0.95);
+  border: 1px solid rgba(10, 102, 194, 0.18);
 }
 
 .pr-hero__title {
@@ -165,7 +206,7 @@
 }
 
 .pr-hero__title-accent {
-  background: linear-gradient(135deg, var(--accent-hover) 0%, #2dd4bf 100%);
+  background: linear-gradient(135deg, var(--accent-hover) 0%, #3b82f6 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -298,7 +339,7 @@
 }
 
 .pr-cta-final {
-  background: linear-gradient(135deg, var(--accent-hover) 0%, var(--accent) 48%, #2dd4bf 100%);
+  background: linear-gradient(135deg, var(--accent-hover) 0%, var(--accent) 55%, #2563eb 100%);
   padding: 80px 0;
   text-align: center;
   position: relative;
@@ -317,7 +358,7 @@
   padding: 40px 24px;
   background: linear-gradient(180deg, #0f172a 0%, #0c1222 100%);
   color: #e2e8f0;
-  border-top: 1px solid rgba(45, 212, 191, 0.12);
+  border-top: 1px solid rgba(59, 130, 246, 0.15);
 }
 
 .pr-footer__logo {
@@ -326,7 +367,7 @@
 }
 
 .pr-footer__logo span:first-child {
-  color: #5eead4;
+  color: #93c5fd;
 }
 
 .pr-footer a {
@@ -337,7 +378,7 @@
 }
 
 .pr-footer a:hover {
-  color: #ccfbf1;
+  color: #bfdbfe;
 }
 
 .pr-mobile-panel {
@@ -359,7 +400,7 @@
 
 .pr-mobile-panel button {
   padding: 12px;
-  background: linear-gradient(135deg, var(--accent) 0%, #14b8a6 100%);
+  background: linear-gradient(135deg, var(--accent-hover) 0%, var(--accent) 100%);
   color: white;
   border: none;
   border-radius: 999px;
@@ -385,7 +426,7 @@
   font-size: 20px;
 }
 
-/* FAQ rows — calmer Teal-style dividers */
+/* FAQ rows */
 .pr-landing #faq button span:first-child {
   color: var(--text-primary);
   font-weight: 600;

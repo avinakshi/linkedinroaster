@@ -292,7 +292,7 @@ function ProfileInputForm({
       description: `${plan === 'pro' ? 'Pro' : 'Standard'} Career Transformation`,
       order_id: orderData.razorpay_order_id,
       prefill: { email: userEmail },
-      theme: { color: '#0d9488' },
+      theme: { color: '#0A66C2' },
       handler: function () {
         window.location.href = `/results/${orderData.order_id}`;
       },
@@ -1126,7 +1126,15 @@ export default function Home() {
             <a href="/dashboard" className="pr-nav__link">Dashboard</a>
             <button type="button" className="pr-nav__cta" onClick={() => heroRef.current?.scrollIntoView({ behavior: 'smooth' })}>Get started</button>
           </div>
-          <button type="button" className="sm:hidden" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 8, fontSize: 22, color: 'var(--text-primary)' }} aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}>{mobileMenuOpen ? '✕' : '☰'}</button>
+          <button
+            type="button"
+            className="sm:hidden pr-nav__menu-toggle"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-primary)' }}
+            aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+          >
+            {mobileMenuOpen ? '✕' : '☰'}
+          </button>
         </div>
         {mobileMenuOpen && (
           <div className="sm:hidden pr-mobile-panel">
