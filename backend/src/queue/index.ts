@@ -1,10 +1,13 @@
-import { PgBoss } from 'pg-boss';
+import PgBoss from 'pg-boss';
 import * as Sentry from '@sentry/node';
 import { query } from '../db';
 import { runPipeline, stage4b_proRewrite } from '../ai/pipeline';
 
 // --- pg-boss instance (shared) ---
-export const boss = new PgBoss({ connectionString: process.env.DATABASE_URL!, ssl: { rejectUnauthorized: false } });
+export const boss = new PgBoss({
+  connectionString: process.env.DATABASE_URL!,
+  ssl: { rejectUnauthorized: false },
+});
 
 // Queue names
 const PROFILE_QUEUE = 'process-profile';
@@ -28,37 +31,41 @@ export async function startQueueWorkers() {
   await boss.start();
 
   // WORKER 1: Process new orders
-  await boss.work(PROFILE_QUEUE, { localConcurrency: 8 }, async (job: any) => {
-    const { razorpay_order_id, order_id } = job.data as any;
-    let orderId = order_id;
-    if (!orderId && razorpay_order_id) {
-      const orderResult = await query('SELECT id FROM orders WHERE razorpay_order_id=$1', [razorpay_order_id]);
-      if (!orderResult.rows[0]) throw new Error('Order not found: ' + razorpay_order_id);
-      orderId = orderResult.rows[0].id;
+  await boss.work(PROFILE_QUEUE, async (jobs: PgBoss.Job[]) => {
+    for (const job of jobs) {
+      const { razorpay_order_id, order_id } = job.data as any;
+      let orderId = order_id;
+      if (!orderId && razorpay_order_id) {
+        const orderResult = await query('SELECT id FROM orders WHERE razorpay_order_id=$1', [razorpay_order_id]);
+        if (!orderResult.rows[0]) throw new Error('Order not found: ' + razorpay_order_id);
+        orderId = orderResult.rows[0].id;
+      }
+      if (!orderId) throw new Error('No order_id or razorpay_order_id provided');
+      await runPipeline(orderId);
     }
-    if (!orderId) throw new Error('No order_id or razorpay_order_id provided');
-    await runPipeline(orderId);
   });
 
   // WORKER 2: Process upgrades (only Stage 4b — no full pipeline)
-  await boss.work(UPGRADE_QUEUE, { localConcurrency: 8 }, async (job: any) => {
-    const { order_id } = job.data as any;
-    const orderResult = await query('SELECT * FROM orders WHERE id=$1', [order_id]);
-    const o = orderResult.rows[0];
-    if (!o) throw new Error('Order not found: ' + order_id);
+  await boss.work(UPGRADE_QUEUE, async (jobs: PgBoss.Job[]) => {
+    for (const job of jobs) {
+      const { order_id } = job.data as any;
+      const orderResult = await query('SELECT * FROM orders WHERE id=$1', [order_id]);
+      const o = orderResult.rows[0];
+      if (!o) throw new Error('Order not found: ' + order_id);
 
-    const proRewrite = await stage4b_proRewrite(
-      o.parsed_profile,
-      o.analysis,
-      o.job_description,
-    );
+      const proRewrite = await stage4b_proRewrite(
+        o.parsed_profile,
+        o.analysis,
+        o.job_description,
+      );
 
-    await query(
-      'UPDATE orders SET rewrite=$1, plan=$2 WHERE id=$3',
-      [JSON.stringify(proRewrite), 'pro', order_id],
-    );
+      await query(
+        'UPDATE orders SET rewrite=$1, plan=$2 WHERE id=$3',
+        [JSON.stringify(proRewrite), 'pro', order_id],
+      );
 
-    console.log(`[STUB] sendResultsEmail for upgraded order ${order_id}`);
+      console.log(`[STUB] sendResultsEmail for upgraded order ${order_id}`);
+    }
   });
 
   // Error handler
