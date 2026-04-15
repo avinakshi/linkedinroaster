@@ -32,6 +32,19 @@ async function migrate() {
     }
   }
 
+  // Run kv_store migration (replaces Redis)
+  try {
+    const kvSql = readFileSync(join(__dirname, 'kv-migration.sql'), 'utf-8');
+    await pool.query(kvSql);
+    console.log('KV store migration completed.');
+  } catch (error: any) {
+    if (error.message?.includes('already exists')) {
+      console.log('KV store table already exists — skipped.');
+    } else {
+      console.error('KV store migration warning:', error.message);
+    }
+  }
+
   await pool.end();
 }
 

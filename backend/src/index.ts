@@ -3,7 +3,7 @@ import cors from 'cors';
 import crypto from 'crypto';
 import helmet from 'helmet';
 import dotenv from 'dotenv';
-import Redis from 'ioredis';
+import { kvGet, kvSet, kvSetex, kvIncr, kvExpire, kvTtl, kvDel, startKvCleanup } from './lib/kv';
 import Razorpay from 'razorpay';
 import * as Sentry from '@sentry/node';
 import { checkConnection, query } from './db';
@@ -24,14 +24,17 @@ if (process.env.SENTRY_DSN) {
   Sentry.init({ dsn: process.env.SENTRY_DSN, tracesSampleRate: 0.1 });
 }
 
-import { profileQueue, upgradeQueue } from './queue';
-import { buildQueue } from './queue/build-queue';
+import { profileQueue, upgradeQueue, startQueueWorkers } from './queue';
+import { buildQueue, startBuildWorker } from './queue/build-queue';
 
 const app = express();
 const PORT = process.env.PORT || 4000;
 
-// --- Redis ---
-const redis = new Redis(process.env.UPSTASH_REDIS_URL!);
+// Railway / reverse proxies — required for accurate client IP (rate limits, logging)
+app.set('trust proxy', 1);
+
+// --- KV Store (PostgreSQL-backed, replaces Redis) ---
+startKvCleanup(60_000);
 
 // --- Razorpay ---
 const razorpay = new Razorpay({
@@ -41,7 +44,7 @@ const razorpay = new Razorpay({
 
 // PostHog via services/analytics module
 
-// BullMQ queues imported from ./queue
+// pg-boss queues imported from ./queue
 
 // --- Security: Helmet ---
 app.use(helmet());
@@ -81,21 +84,50 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 // Raw body for webhook (required for HMAC signature verification)
 app.use('/api/webhooks/razorpay', express.raw({ type: 'application/json' }));
 
+// --- Client IP (use X-Forwarded-For when trust proxy is set) ---
+function getClientIp(req: Request): string {
+  const xff = req.headers['x-forwarded-for'];
+  if (typeof xff === 'string' && xff.trim()) {
+    return xff.split(',')[0].trim().slice(0, 64);
+  }
+  if (Array.isArray(xff) && xff[0]) {
+    return String(xff[0]).split(',')[0].trim().slice(0, 64);
+  }
+  const ip = req.ip || req.socket?.remoteAddress || 'unknown';
+  return String(ip).slice(0, 64);
+}
+
 // --- Rate limiter ---
-function rateLimiter(key: string, limit: number, windowSecs: number) {
+/** Optional keyPart scopes the bucket (e.g. order id for GET /api/orders/:id poll). */
+function rateLimiter(
+  key: string,
+  limit: number,
+  windowSecs: number,
+  keyPartFromReq?: (req: Request) => string,
+) {
   return async (req: Request, res: Response, next: NextFunction) => {
-    const k = `${key}:${req.ip}`;
-    const count = await redis.incr(k);
-    if (count === 1) await redis.expire(k, windowSecs);
-    if (count > limit) {
-      const ttl = await redis.ttl(k);
-      return res.status(429).json({
-        error: 'rate_limit_exceeded',
-        retry_after_seconds: ttl,
-        message: `${limit} requests per ${windowSecs / 3600} hour(s). Try the full rewrite for ₹499.`,
-      });
+    try {
+      const part = keyPartFromReq ? keyPartFromReq(req) : '';
+      const k = part ? `${key}:${part}:${getClientIp(req)}` : `${key}:${getClientIp(req)}`;
+      const count = await kvIncr(k);
+      if (count === 1) await kvExpire(k, windowSecs);
+      if (count > limit) {
+        const ttl = await kvTtl(k);
+        const timeLabel =
+          windowSecs >= 3600
+            ? `${Math.round(windowSecs / 3600)} hour(s)`
+            : `${Math.max(1, Math.ceil(windowSecs / 60))} minute(s)`;
+        return res.status(429).json({
+          error: 'rate_limit_exceeded',
+          retry_after_seconds: ttl,
+          message: `Too many requests (${limit} per ${timeLabel}). Please wait and try again.`,
+        });
+      }
+      next();
+    } catch (e) {
+      console.error('rateLimiter kv error:', e);
+      next(); // fail open — avoid blocking users if KV is briefly unavailable
     }
-    next();
   };
 }
 
@@ -129,7 +161,7 @@ app.post('/api/linkedin-pdf/parse', rateLimiter('linkedin-pdf', 10, 3600),
     // Check cache by PDF content hash
     const pdfHash = crypto.createHash('sha256').update(req.file.buffer).digest('hex');
     const cacheKey = `pdf-parse:v2:${pdfHash}`;
-    const cached = await redis.get(cacheKey);
+    const cached = await kvGet(cacheKey);
     if (cached) {
       const cachedResult = JSON.parse(cached);
       return res.json({ ...cachedResult, cached: true });
@@ -268,7 +300,7 @@ CRITICAL RULES:
     };
 
     // Cache for 7 days
-    await redis.setex(cacheKey, 604800, JSON.stringify(responseData));
+    await kvSetex(cacheKey, 604800, JSON.stringify(responseData));
 
     res.json(responseData);
   } catch (err: any) {
@@ -745,7 +777,7 @@ app.post('/api/teaser', rateLimiter('teaser', 5, 3600), async (req: Request, res
       .update(headline.trim().toLowerCase().replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, ' '))
       .digest('hex');
     const cacheKey = `teaser:hash:${headlineHash}`;
-    const cached = await redis.get(cacheKey);
+    const cached = await kvGet(cacheKey);
     if (cached) {
       const cachedResult = JSON.parse(cached);
       // Still save the attempt for analytics
@@ -767,7 +799,7 @@ app.post('/api/teaser', rateLimiter('teaser', 5, 3600), async (req: Request, res
     const result = await teaserAnalysis(stripHtml(headline) || headline);
 
     // Cache for 24 hours
-    await redis.setex(cacheKey, 86400, JSON.stringify(result));
+    await kvSetex(cacheKey, 86400, JSON.stringify(result));
 
     // Save to teaser_attempts
     const saved = await query(
@@ -880,7 +912,14 @@ app.post('/api/build/:id/upgrade', async (req: Request, res: Response) => {
 });
 
 // GET /api/orders/:id — complete results response
-app.get('/api/orders/:id', rateLimiter('poll', 60, 60), async (req: Request, res: Response) => {
+// Per order + IP (was global per req.ip without trust proxy → one bucket for all users)
+app.get(
+  '/api/orders/:id',
+  rateLimiter('poll', 120, 60, (req) => {
+    const id = req.params.id;
+    return Array.isArray(id) ? id[0] || '' : String(id || '');
+  }),
+  async (req: Request, res: Response) => {
   try {
     const result = await query('SELECT * FROM orders WHERE id=$1', [req.params.id]);
     if (!result.rows.length)
@@ -990,7 +1029,7 @@ app.post('/api/recover/send-otp', rateLimiter('recover-otp', 5, 3600), async (re
 
     // Generate 6-digit OTP
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
-    await redis.setex(`otp:${email}`, 600, otp);
+    await kvSetex(`otp:${email}`, 600, otp);
 
     // Send OTP email via Resend
     const { Resend } = require('resend');
@@ -1024,11 +1063,11 @@ app.post('/api/recover/verify-otp', async (req: Request, res: Response) => {
     if (!email || !otp)
       return res.status(400).json({ error: 'Missing email or OTP' });
 
-    const storedOtp = await redis.get(`otp:${email}`);
+    const storedOtp = await kvGet(`otp:${email}`);
     if (!storedOtp || storedOtp !== otp)
       return res.status(401).json({ error: 'Invalid or expired OTP' });
 
-    await redis.del(`otp:${email}`);
+    await kvDel(`otp:${email}`);
 
     // Find all completed orders for this email
     const orders = await query(
@@ -1080,11 +1119,11 @@ app.post('/api/recover/delete', async (req: Request, res: Response) => {
     if (!email) return res.status(400).json({ error: 'Missing email' });
 
     // Require valid OTP session — re-verify or use a token
-    const storedOtp = await redis.get(`otp:${email}`);
+    const storedOtp = await kvGet(`otp:${email}`);
     if (!storedOtp || storedOtp !== otp)
       return res.status(401).json({ error: 'Please verify your email first' });
 
-    await redis.del(`otp:${email}`);
+    await kvDel(`otp:${email}`);
 
     // Delete order data (keep payment record but clear personal data)
     await query(
@@ -1102,9 +1141,12 @@ app.post('/api/recover/delete', async (req: Request, res: Response) => {
 });
 
 // ==================== START ====================
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
   console.log(`Server running on port ${PORT}`);
   startAllCrons();
+  // Start pg-boss queue workers
+  await startQueueWorkers();
+  await startBuildWorker();
 });
 
 export default app;

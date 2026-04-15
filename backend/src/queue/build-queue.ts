@@ -1,22 +1,21 @@
-import { Queue, Worker, Job } from 'bullmq';
-import Redis from 'ioredis';
 import * as Sentry from '@sentry/node';
 import { query } from '../db';
 import { runBuildPipeline } from '../ai/build-pipeline';
+import { boss } from './index';
 
-// --- Redis connection for BullMQ ---
-const connection = new Redis(process.env.UPSTASH_REDIS_URL!, {
-  maxRetriesPerRequest: null,
-});
+const BUILD_QUEUE = 'process-build';
 
-// QUEUE: Build profile processing
-export const buildQueue = new Queue('process-build', { connection });
+// Helper to match BullMQ's queue.add() interface
+export const buildQueue = {
+  add: async (_name: string, data: any) => {
+    await boss.send(BUILD_QUEUE, data);
+  },
+};
 
-// WORKER: Process build orders
-export const buildWorker = new Worker(
-  'process-build',
-  async (job: Job) => {
-    const { razorpay_order_id, order_id } = job.data;
+// Register build worker (called after boss.start() in queue/index.ts)
+export async function startBuildWorker() {
+  await boss.work(BUILD_QUEUE, { localConcurrency: 4 }, async (job: any) => {
+    const { razorpay_order_id, order_id } = job.data as any;
     let orderId = order_id;
     if (!orderId && razorpay_order_id) {
       const orderResult = await query('SELECT id FROM build_orders WHERE razorpay_order_id=$1', [razorpay_order_id]);
@@ -25,16 +24,7 @@ export const buildWorker = new Worker(
     }
     if (!orderId) throw new Error('No order_id or razorpay_order_id provided');
     await runBuildPipeline(orderId);
-  },
-  { connection, concurrency: 4 },
-);
+  });
 
-// Error handlers
-buildWorker.on('failed', (job: Job | undefined, err: Error) => {
-  console.error(`[WORKER] process-build failed job ${job?.id}:`, err.message);
-  Sentry.captureException(err, { extra: { job_id: job?.id } });
-});
-
-buildWorker.on('completed', (job: Job) => {
-  console.log(`[WORKER] process-build completed job ${job.id}`);
-});
+  console.log('[pg-boss] Worker started: process-build');
+}

@@ -1,23 +1,22 @@
 import { Router, Request, Response } from 'express';
 import crypto from 'crypto';
-import Redis from 'ioredis';
 import { Resend } from 'resend';
 import { query } from '../db';
 import { validateEmail } from '../lib/validation';
+import { kvGet, kvSetex, kvDel } from '../lib/kv';
 
 const router = Router();
-const redis = new Redis(process.env.UPSTASH_REDIS_URL!);
 const resend = new Resend(process.env.RESEND_API_KEY || 'dummy_key');
 const FROM = `Profile Roaster <${process.env.FROM_EMAIL || 'support@profileroaster.in'}>`;
 
 const SESSION_TTL = 7 * 24 * 60 * 60; // 7 days in seconds
 
-// Auth middleware — sessions stored in Redis for persistence across deploys
+// Auth middleware — sessions stored in PostgreSQL kv_store for persistence across deploys
 async function dashAuth(req: Request, res: Response, next: Function) {
   const token = req.headers.authorization?.replace('Bearer ', '');
   if (!token) return res.status(401).json({ error: 'Not logged in' });
   try {
-    const sessionData = await redis.get(`dash-session:${token}`);
+    const sessionData = await kvGet(`dash-session:${token}`);
     if (!sessionData) return res.status(401).json({ error: 'Session expired' });
     const session = JSON.parse(sessionData);
     (req as any).userEmail = session.email;
@@ -49,13 +48,13 @@ router.post('/send-otp', async (req: Request, res: Response) => {
 
     // Rate limit: max 3 OTPs per email per 10 minutes
     const otpRateKey = `dash-otp-rate:${email}`;
-    const otpCount = parseInt(await redis.get(otpRateKey) || '0', 10);
+    const otpCount = parseInt(await kvGet(otpRateKey) || '0', 10);
     if (otpCount >= 3) return res.status(429).json({ error: 'Too many OTP requests. Try again in a few minutes.' });
-    await redis.setex(otpRateKey, 600, (otpCount + 1).toString());
+    await kvSetex(otpRateKey, 600, (otpCount + 1).toString());
 
     // Generate OTP
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
-    await redis.setex(`dash-otp:${email}`, 600, otp); // 10 min
+    await kvSetex(`dash-otp:${email}`, 600, otp); // 10 min
 
     // Send OTP email
     await resend.emails.send({
@@ -85,11 +84,11 @@ router.post('/verify-otp', async (req: Request, res: Response) => {
     const { email, otp } = req.body;
     if (!email || !otp) return res.status(400).json({ error: 'Missing email or code' });
 
-    const stored = await redis.get(`dash-otp:${email}`);
+    const stored = await kvGet(`dash-otp:${email}`);
     if (!stored || stored !== otp)
       return res.status(401).json({ error: 'Invalid or expired code' });
 
-    await redis.del(`dash-otp:${email}`);
+    await kvDel(`dash-otp:${email}`);
 
     // Upsert user
     const result = await query(
@@ -102,7 +101,7 @@ router.post('/verify-otp', async (req: Request, res: Response) => {
 
     // Create session in Redis
     const token = crypto.randomBytes(32).toString('hex');
-    await redis.setex(`dash-session:${token}`, SESSION_TTL, JSON.stringify({ email, userId }));
+    await kvSetex(`dash-session:${token}`, SESSION_TTL, JSON.stringify({ email, userId }));
 
     res.json({ token, email, userId });
   } catch (err: any) {

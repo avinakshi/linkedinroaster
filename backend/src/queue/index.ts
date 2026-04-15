@@ -1,25 +1,35 @@
-import { Queue, Worker, Job } from 'bullmq';
-import Redis from 'ioredis';
+import { PgBoss } from 'pg-boss';
 import * as Sentry from '@sentry/node';
 import { query } from '../db';
 import { runPipeline, stage4b_proRewrite } from '../ai/pipeline';
 
-// --- Redis connection for BullMQ ---
-const connection = new Redis(process.env.UPSTASH_REDIS_URL!, {
-  maxRetriesPerRequest: null, // required for BullMQ
-});
+// --- pg-boss instance (shared) ---
+export const boss = new PgBoss({ connectionString: process.env.DATABASE_URL!, ssl: { rejectUnauthorized: false } });
 
-// QUEUE 1: Normal AI processing
-export const profileQueue = new Queue('process-profile', { connection });
+// Queue names
+const PROFILE_QUEUE = 'process-profile';
+const UPGRADE_QUEUE = 'process-upgrade';
 
-// QUEUE 2: Upgrade processing (Stage 4b only)
-export const upgradeQueue = new Queue('process-upgrade', { connection });
+// Helper to match BullMQ's queue.add() interface
+export const profileQueue = {
+  add: async (_name: string, data: any) => {
+    await boss.send(PROFILE_QUEUE, data);
+  },
+};
 
-// WORKER 1: Process new orders
-export const profileWorker = new Worker(
-  'process-profile',
-  async (job: Job) => {
-    const { razorpay_order_id, order_id } = job.data;
+export const upgradeQueue = {
+  add: async (_name: string, data: any) => {
+    await boss.send(UPGRADE_QUEUE, data);
+  },
+};
+
+// Start boss + register workers
+export async function startQueueWorkers() {
+  await boss.start();
+
+  // WORKER 1: Process new orders
+  await boss.work(PROFILE_QUEUE, { localConcurrency: 8 }, async (job: any) => {
+    const { razorpay_order_id, order_id } = job.data as any;
     let orderId = order_id;
     if (!orderId && razorpay_order_id) {
       const orderResult = await query('SELECT id FROM orders WHERE razorpay_order_id=$1', [razorpay_order_id]);
@@ -28,53 +38,34 @@ export const profileWorker = new Worker(
     }
     if (!orderId) throw new Error('No order_id or razorpay_order_id provided');
     await runPipeline(orderId);
-  },
-  { connection, concurrency: 8 },
-);
+  });
 
-// WORKER 2: Process upgrades (only Stage 4b — no full pipeline)
-export const upgradeWorker = new Worker(
-  'process-upgrade',
-  async (job: Job) => {
-    const { order_id } = job.data;
+  // WORKER 2: Process upgrades (only Stage 4b — no full pipeline)
+  await boss.work(UPGRADE_QUEUE, { localConcurrency: 8 }, async (job: any) => {
+    const { order_id } = job.data as any;
     const orderResult = await query('SELECT * FROM orders WHERE id=$1', [order_id]);
     const o = orderResult.rows[0];
     if (!o) throw new Error('Order not found: ' + order_id);
 
-    // Reuse saved parsed_profile + analysis — only run stage4b
     const proRewrite = await stage4b_proRewrite(
       o.parsed_profile,
       o.analysis,
       o.job_description,
     );
 
-    // Update order with Pro rewrite
     await query(
       'UPDATE orders SET rewrite=$1, plan=$2 WHERE id=$3',
       [JSON.stringify(proRewrite), 'pro', order_id],
     );
 
-    // Stub: re-send results email with Pro content
     console.log(`[STUB] sendResultsEmail for upgraded order ${order_id}`);
-  },
-  { connection, concurrency: 8 },
-);
+  });
 
-// Error handlers
-profileWorker.on('failed', (job: Job | undefined, err: Error) => {
-  console.error(`[WORKER] process-profile failed job ${job?.id}:`, err.message);
-  Sentry.captureException(err, { extra: { job_id: job?.id } });
-});
+  // Error handler
+  boss.on('error', (err: Error) => {
+    console.error('[pg-boss] error:', err.message);
+    Sentry.captureException(err);
+  });
 
-upgradeWorker.on('failed', (job: Job | undefined, err: Error) => {
-  console.error(`[WORKER] process-upgrade failed job ${job?.id}:`, err.message);
-  Sentry.captureException(err, { extra: { job_id: job?.id } });
-});
-
-profileWorker.on('completed', (job: Job) => {
-  console.log(`[WORKER] process-profile completed job ${job.id}`);
-});
-
-upgradeWorker.on('completed', (job: Job) => {
-  console.log(`[WORKER] process-upgrade completed job ${job.id}`);
-});
+  console.log('[pg-boss] Workers started: process-profile, process-upgrade');
+}

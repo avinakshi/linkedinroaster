@@ -280,7 +280,7 @@ export default function TermsPage() {
               <li><strong>Supabase:</strong> Data storage and card image hosting</li>
               <li><strong>Resend:</strong> Transactional email delivery</li>
               <li><strong>Sentry:</strong> Error monitoring and performance tracking</li>
-              <li><strong>Upstash:</strong> Redis caching and session management</li>
+              <li><strong>PostgreSQL:</strong> Database, caching, and session management</li>
             </ul>
             <p className="mt-2">
               We are not responsible for the availability, accuracy, or practices of these third-party services.
