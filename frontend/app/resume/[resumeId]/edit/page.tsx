@@ -3,6 +3,8 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useParams } from 'next/navigation';
 import { TEMPLATES, renderResumeHTML, buildPrintHTML } from '../../../../components/resume/ResumeTemplates';
+import AtsGauge from '../../../../components/ui/AtsGauge';
+import TemplatePickerModal from '../../../../components/ui/TemplatePickerModal';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
 
@@ -227,6 +229,8 @@ export default function ResumeEditorPage() {
   const [dragOverBullet, setDragOverBullet] = useState<{expIndex: number; bulletIndex: number} | null>(null);
   const [dragExp, setDragExp] = useState<number | null>(null);
   const [dragOverExp, setDragOverExp] = useState<number | null>(null);
+  const [showTemplateModal, setShowTemplateModal] = useState(false);
+  const [accordionOpen, setAccordionOpen] = useState<Record<string, boolean>>({ typography: false, spacing: true, borders: false });
 
   // Advanced Styles
   const [styleSettings, setStyleSettings] = useState({
@@ -741,9 +745,10 @@ export default function ResumeEditorPage() {
             )}
             {/* Actions — Desktop */}
             <div className="hidden sm:flex" style={{ gap: 6, alignItems: 'center', flexShrink: 0 }}>
-              <select value={templateId} onChange={e => setTemplateId(e.target.value)} style={{ padding: '6px 10px', border: '1px solid #D1D5DB', borderRadius: 8, fontSize: 12, outline: 'none', maxWidth: 180, color: '#374151', background: 'white', cursor: 'pointer' }}>
-                {TEMPLATES.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
-              </select>
+              <button onClick={() => setShowTemplateModal(true)} className="saas-btn saas-btn-ghost" style={{ padding: '6px 12px', gap: 8 }}>
+                <span style={{ fontSize: 13, fontWeight: 600 }}>{TEMPLATES.find(t => t.id === templateId)?.name || 'Template'}</span>
+                <span style={{ fontSize: 11, color: 'var(--text-muted)' }}>Change</span>
+              </button>
               <button onClick={handleDownloadPDF} disabled={pdfGenerating} style={{ padding: '6px 16px', fontSize: 12, fontWeight: 600, background: '#057642', color: 'white', border: 'none', borderRadius: 8, cursor: 'pointer', opacity: pdfGenerating ? 0.6 : 1 }}>{pdfGenerating ? 'Generating...' : 'Download PDF'}</button>
               <a href={`${API_URL}/api/resume/${resumeId}/download/txt`} style={{ padding: '6px 12px', fontSize: 12, fontWeight: 500, color: '#374151', border: '1px solid #D1D5DB', borderRadius: 8, textDecoration: 'none', background: '#F9FAFB' }}>TXT</a>
             </div>
@@ -773,7 +778,7 @@ export default function ResumeEditorPage() {
         )}
 
         {/* Form Panel */}
-        <div style={{ width: isMobile ? '100%' : 0, flex: isMobile ? undefined : '1 1 0', display: (!isMobile || mobileView === 'edit') ? 'block' : 'none', background: '#FFFFFF', overflowY: 'auto', height: 'calc(100vh - 52px)', padding: '20px 24px', maxWidth: isMobile ? undefined : 560, borderRight: '1px solid #E5E7EB' }}>
+        <div style={{ width: isMobile ? '100%' : 0, flex: isMobile ? undefined : '1 1 0', display: (!isMobile || mobileView === 'edit') ? 'block' : 'none', background: '#FFFFFF', overflowY: 'auto', height: 'calc(100vh - 56px)', padding: '20px 24px', maxWidth: isMobile ? undefined : 560, borderRight: '1px solid #E5E7EB' }}>
           {/* Mobile tab bar (horizontal) */}
           {isMobile && (
             <div style={{ display: 'flex', borderBottom: '1px solid var(--border-default)', marginBottom: 0, overflowX: 'auto', WebkitOverflowScrolling: 'touch', gap: 0 }}>
@@ -1441,161 +1446,179 @@ export default function ResumeEditorPage() {
                 <div style={{ fontSize: 18, fontWeight: 700, color: '#111827', marginBottom: 4 }}>Advanced Styles</div>
                 <div style={{ fontSize: 13, color: '#6B7280', marginBottom: 24 }}>Fine-tune your resume&apos;s appearance</div>
 
-                {/* Bullet Style */}
-                <div style={{ marginBottom: 24 }}>
-                  <label style={{ ...labelStyle, marginBottom: 10 }}>Bullet Style</label>
-                  <div style={{ display: 'flex', gap: 6 }}>
-                    {['\u2022', '-', '\u00BB', '\u2192', '\u25B8', '\u25A0'].map(b => (
-                      <button key={b} onClick={() => updateStyle('bullet', '', b)} style={{
-                        width: 40, height: 40, borderRadius: 8, border: styleSettings.bullet === b ? '2px solid #0B69C7' : '1.5px solid #D1D5DB',
-                        background: styleSettings.bullet === b ? '#EFF6FF' : '#FAFBFC', fontSize: 16, cursor: 'pointer',
-                        display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#111827', fontWeight: 600,
-                      }}>{b}</button>
-                    ))}
-                  </div>
-                </div>
+                {/* ── Typography Accordion ── */}
+                <div className="accordion-group">
+                  <button className="accordion-trigger" onClick={() => setAccordionOpen(prev => ({ ...prev, typography: !prev.typography }))}>
+                    <span>Typography</span>
+                    <span style={{ transform: accordionOpen.typography ? 'rotate(180deg)' : 'rotate(0)', transition: 'transform 0.2s' }}>&#9662;</span>
+                  </button>
+                  {accordionOpen.typography && (
+                    <div className="accordion-content">
+                      {/* Bullet Style */}
+                      <div style={{ marginBottom: 24 }}>
+                        <label style={{ ...labelStyle, marginBottom: 10 }}>Bullet Style</label>
+                        <div style={{ display: 'flex', gap: 6 }}>
+                          {['\u2022', '-', '\u00BB', '\u2192', '\u25B8', '\u25A0'].map(b => (
+                            <button key={b} onClick={() => updateStyle('bullet', '', b)} style={{
+                              width: 40, height: 40, borderRadius: 8, border: styleSettings.bullet === b ? '2px solid #0B69C7' : '1.5px solid #D1D5DB',
+                              background: styleSettings.bullet === b ? '#EFF6FF' : '#FAFBFC', fontSize: 16, cursor: 'pointer',
+                              display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#111827', fontWeight: 600,
+                            }}>{b}</button>
+                          ))}
+                        </div>
+                      </div>
 
-                {/* Separator */}
-                <div style={{ marginBottom: 24 }}>
-                  <label style={{ ...labelStyle, marginBottom: 10 }}>Contact Separator</label>
-                  <div style={{ display: 'flex', gap: 6 }}>
-                    {['|', '\u2022', '-', ',', '/', '\u00B7'].map(s => (
-                      <button key={s} onClick={() => updateStyle('separator', '', s)} style={{
-                        width: 40, height: 40, borderRadius: 8, border: styleSettings.separator === s ? '2px solid #0B69C7' : '1.5px solid #D1D5DB',
-                        background: styleSettings.separator === s ? '#EFF6FF' : '#FAFBFC', fontSize: 16, cursor: 'pointer',
-                        display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#111827', fontWeight: 600,
-                      }}>{s}</button>
-                    ))}
-                  </div>
-                </div>
+                      {/* Separator */}
+                      <div style={{ marginBottom: 24 }}>
+                        <label style={{ ...labelStyle, marginBottom: 10 }}>Contact Separator</label>
+                        <div style={{ display: 'flex', gap: 6 }}>
+                          {['|', '\u2022', '-', ',', '/', '\u00B7'].map(s => (
+                            <button key={s} onClick={() => updateStyle('separator', '', s)} style={{
+                              width: 40, height: 40, borderRadius: 8, border: styleSettings.separator === s ? '2px solid #0B69C7' : '1.5px solid #D1D5DB',
+                              background: styleSettings.separator === s ? '#EFF6FF' : '#FAFBFC', fontSize: 16, cursor: 'pointer',
+                              display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#111827', fontWeight: 600,
+                            }}>{s}</button>
+                          ))}
+                        </div>
+                      </div>
 
-                {/* Divider */}
-                <div style={{ height: 1, background: '#E5E7EB', margin: '8px 0 20px' }} />
+                      {/* Text Sizes */}
+                      <div style={{ marginBottom: 24 }}>
+                        <label style={{ ...labelStyle, fontSize: 14, fontWeight: 700, marginBottom: 14 }}>Text Sizes</label>
+                        {[
+                          { key: 'body', label: 'Body Copy' },
+                          { key: 'heading1', label: 'Primary Heading' },
+                          { key: 'heading2', label: 'Secondary Heading' },
+                          { key: 'section', label: 'Section Titles' },
+                          { key: 'name', label: 'Full Name' },
+                          { key: 'minor', label: 'Minor Copy' },
+                        ].map(item => (
+                          <div key={item.key} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10, padding: '6px 0' }}>
+                            <span style={{ fontSize: 13, color: '#374151' }}>{item.label}</span>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                              <button onClick={() => updateStyle('fontSize', item.key, Math.max(8, (styleSettings.fontSize as any)[item.key] - 1))} style={{ width: 28, height: 28, borderRadius: 6, border: '1px solid #D1D5DB', background: '#FAFBFC', cursor: 'pointer', fontSize: 14, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>-</button>
+                              <span style={{ fontSize: 14, fontWeight: 600, color: '#111827', width: 24, textAlign: 'center' }}>{(styleSettings.fontSize as any)[item.key]}</span>
+                              <button onClick={() => updateStyle('fontSize', item.key, Math.min(36, (styleSettings.fontSize as any)[item.key] + 1))} style={{ width: 28, height: 28, borderRadius: 6, border: '1px solid #D1D5DB', background: '#FAFBFC', cursor: 'pointer', fontSize: 14, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>+</button>
+                              <span style={{ fontSize: 11, color: '#9CA3AF', width: 16 }}>pt</span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
 
-                {/* Text Sizes */}
-                <div style={{ marginBottom: 24 }}>
-                  <label style={{ ...labelStyle, fontSize: 14, fontWeight: 700, marginBottom: 14 }}>Text Sizes</label>
-                  {[
-                    { key: 'body', label: 'Body Copy' },
-                    { key: 'heading1', label: 'Primary Heading' },
-                    { key: 'heading2', label: 'Secondary Heading' },
-                    { key: 'section', label: 'Section Titles' },
-                    { key: 'name', label: 'Full Name' },
-                    { key: 'minor', label: 'Minor Copy' },
-                  ].map(item => (
-                    <div key={item.key} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10, padding: '6px 0' }}>
-                      <span style={{ fontSize: 13, color: '#374151' }}>{item.label}</span>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                        <button onClick={() => updateStyle('fontSize', item.key, Math.max(8, (styleSettings.fontSize as any)[item.key] - 1))} style={{ width: 28, height: 28, borderRadius: 6, border: '1px solid #D1D5DB', background: '#FAFBFC', cursor: 'pointer', fontSize: 14, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>-</button>
-                        <span style={{ fontSize: 14, fontWeight: 600, color: '#111827', width: 24, textAlign: 'center' }}>{(styleSettings.fontSize as any)[item.key]}</span>
-                        <button onClick={() => updateStyle('fontSize', item.key, Math.min(36, (styleSettings.fontSize as any)[item.key] + 1))} style={{ width: 28, height: 28, borderRadius: 6, border: '1px solid #D1D5DB', background: '#FAFBFC', cursor: 'pointer', fontSize: 14, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>+</button>
-                        <span style={{ fontSize: 11, color: '#9CA3AF', width: 16 }}>pt</span>
+                      {/* Text Weights */}
+                      <div style={{ marginBottom: 24 }}>
+                        <label style={{ ...labelStyle, fontSize: 14, fontWeight: 700, marginBottom: 14 }}>Text Weights</label>
+                        {[
+                          { key: 'body', label: 'Body Copy' },
+                          { key: 'heading1', label: 'Primary Heading' },
+                          { key: 'heading2', label: 'Secondary Heading' },
+                          { key: 'section', label: 'Section Titles' },
+                          { key: 'name', label: 'Full Name' },
+                          { key: 'minor', label: 'Minor Copy' },
+                        ].map(item => (
+                          <div key={item.key} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
+                            <span style={{ fontSize: 13, color: '#374151' }}>{item.label}</span>
+                            <select value={(styleSettings.fontWeight as any)[item.key]} onChange={e => updateStyle('fontWeight', item.key, e.target.value)} style={{ padding: '6px 10px', border: '1.5px solid #D1D5DB', borderRadius: 8, fontSize: 12, background: '#FAFBFC', cursor: 'pointer', minWidth: 110 }}>
+                              <option value="100">Thin</option>
+                              <option value="200">Extra Light</option>
+                              <option value="300">Light</option>
+                              <option value="normal">Normal</option>
+                              <option value="500">Medium</option>
+                              <option value="600">Semi-Bold</option>
+                              <option value="700">Bold</option>
+                              <option value="800">Extra Bold</option>
+                            </select>
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* Text Transformations */}
+                      <div style={{ marginBottom: 24 }}>
+                        <label style={{ ...labelStyle, fontSize: 14, fontWeight: 700, marginBottom: 14 }}>Text Transformations</label>
+                        {[
+                          { key: 'heading1', label: 'Primary Heading' },
+                          { key: 'heading2', label: 'Secondary Heading' },
+                          { key: 'section', label: 'Section Titles' },
+                          { key: 'name', label: 'Full Name' },
+                          { key: 'minor', label: 'Minor Copy' },
+                        ].map(item => (
+                          <div key={item.key} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
+                            <span style={{ fontSize: 13, color: '#374151' }}>{item.label}</span>
+                            <select value={(styleSettings.textTransform as any)[item.key]} onChange={e => updateStyle('textTransform', item.key, e.target.value)} style={{ padding: '6px 10px', border: '1.5px solid #D1D5DB', borderRadius: 8, fontSize: 12, background: '#FAFBFC', cursor: 'pointer', minWidth: 110 }}>
+                              <option value="none">As Written</option>
+                              <option value="uppercase">ALL CAPS</option>
+                              <option value="capitalize">Capitalize</option>
+                              <option value="lowercase">lowercase</option>
+                            </select>
+                          </div>
+                        ))}
                       </div>
                     </div>
-                  ))}
+                  )}
                 </div>
 
-                {/* Divider */}
-                <div style={{ height: 1, background: '#E5E7EB', margin: '8px 0 20px' }} />
-
-                {/* Text Weights */}
-                <div style={{ marginBottom: 24 }}>
-                  <label style={{ ...labelStyle, fontSize: 14, fontWeight: 700, marginBottom: 14 }}>Text Weights</label>
-                  {[
-                    { key: 'body', label: 'Body Copy' },
-                    { key: 'heading1', label: 'Primary Heading' },
-                    { key: 'heading2', label: 'Secondary Heading' },
-                    { key: 'section', label: 'Section Titles' },
-                    { key: 'name', label: 'Full Name' },
-                    { key: 'minor', label: 'Minor Copy' },
-                  ].map(item => (
-                    <div key={item.key} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
-                      <span style={{ fontSize: 13, color: '#374151' }}>{item.label}</span>
-                      <select value={(styleSettings.fontWeight as any)[item.key]} onChange={e => updateStyle('fontWeight', item.key, e.target.value)} style={{ padding: '6px 10px', border: '1.5px solid #D1D5DB', borderRadius: 8, fontSize: 12, background: '#FAFBFC', cursor: 'pointer', minWidth: 110 }}>
-                        <option value="100">Thin</option>
-                        <option value="200">Extra Light</option>
-                        <option value="300">Light</option>
-                        <option value="normal">Normal</option>
-                        <option value="500">Medium</option>
-                        <option value="600">Semi-Bold</option>
-                        <option value="700">Bold</option>
-                        <option value="800">Extra Bold</option>
-                      </select>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Divider */}
-                <div style={{ height: 1, background: '#E5E7EB', margin: '8px 0 20px' }} />
-
-                {/* Text Transformations */}
-                <div style={{ marginBottom: 24 }}>
-                  <label style={{ ...labelStyle, fontSize: 14, fontWeight: 700, marginBottom: 14 }}>Text Transformations</label>
-                  {[
-                    { key: 'heading1', label: 'Primary Heading' },
-                    { key: 'heading2', label: 'Secondary Heading' },
-                    { key: 'section', label: 'Section Titles' },
-                    { key: 'name', label: 'Full Name' },
-                    { key: 'minor', label: 'Minor Copy' },
-                  ].map(item => (
-                    <div key={item.key} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
-                      <span style={{ fontSize: 13, color: '#374151' }}>{item.label}</span>
-                      <select value={(styleSettings.textTransform as any)[item.key]} onChange={e => updateStyle('textTransform', item.key, e.target.value)} style={{ padding: '6px 10px', border: '1.5px solid #D1D5DB', borderRadius: 8, fontSize: 12, background: '#FAFBFC', cursor: 'pointer', minWidth: 110 }}>
-                        <option value="none">As Written</option>
-                        <option value="uppercase">ALL CAPS</option>
-                        <option value="capitalize">Capitalize</option>
-                        <option value="lowercase">lowercase</option>
-                      </select>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Divider */}
-                <div style={{ height: 1, background: '#E5E7EB', margin: '8px 0 20px' }} />
-
-                {/* Vertical Spacing */}
-                <div style={{ marginBottom: 24 }}>
-                  <label style={{ ...labelStyle, fontSize: 14, fontWeight: 700, marginBottom: 14 }}>Vertical Spacing</label>
-                  {[
-                    { key: 'betweenSections', label: 'Between Sections' },
-                    { key: 'titleContent', label: 'Titles & Content' },
-                    { key: 'headings', label: 'Between Headings' },
-                    { key: 'contentBlocks', label: 'Content Blocks' },
-                    { key: 'listItems', label: 'List Items' },
-                  ].map(item => (
-                    <div key={item.key} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
-                      <span style={{ fontSize: 13, color: '#374151' }}>{item.label}</span>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                        <button onClick={() => updateStyle('spacing', item.key, Math.max(0, (styleSettings.spacing as any)[item.key] - 1))} style={{ width: 28, height: 28, borderRadius: 6, border: '1px solid #D1D5DB', background: '#FAFBFC', cursor: 'pointer', fontSize: 14, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>-</button>
-                        <span style={{ fontSize: 14, fontWeight: 600, color: '#111827', width: 24, textAlign: 'center' }}>{(styleSettings.spacing as any)[item.key]}</span>
-                        <button onClick={() => updateStyle('spacing', item.key, Math.min(40, (styleSettings.spacing as any)[item.key] + 1))} style={{ width: 28, height: 28, borderRadius: 6, border: '1px solid #D1D5DB', background: '#FAFBFC', cursor: 'pointer', fontSize: 14, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>+</button>
-                        <span style={{ fontSize: 11, color: '#9CA3AF', width: 16 }}>pt</span>
+                {/* ── Spacing Accordion ── */}
+                <div className="accordion-group">
+                  <button className="accordion-trigger" onClick={() => setAccordionOpen(prev => ({ ...prev, spacing: !prev.spacing }))}>
+                    <span>Spacing</span>
+                    <span style={{ transform: accordionOpen.spacing ? 'rotate(180deg)' : 'rotate(0)', transition: 'transform 0.2s' }}>&#9662;</span>
+                  </button>
+                  {accordionOpen.spacing && (
+                    <div className="accordion-content">
+                      {/* Vertical Spacing */}
+                      <div style={{ marginBottom: 24 }}>
+                        <label style={{ ...labelStyle, fontSize: 14, fontWeight: 700, marginBottom: 14 }}>Vertical Spacing</label>
+                        {[
+                          { key: 'betweenSections', label: 'Between Sections' },
+                          { key: 'titleContent', label: 'Titles & Content' },
+                          { key: 'headings', label: 'Between Headings' },
+                          { key: 'contentBlocks', label: 'Content Blocks' },
+                          { key: 'listItems', label: 'List Items' },
+                        ].map(item => (
+                          <div key={item.key} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
+                            <span style={{ fontSize: 13, color: '#374151' }}>{item.label}</span>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                              <button onClick={() => updateStyle('spacing', item.key, Math.max(0, (styleSettings.spacing as any)[item.key] - 1))} style={{ width: 28, height: 28, borderRadius: 6, border: '1px solid #D1D5DB', background: '#FAFBFC', cursor: 'pointer', fontSize: 14, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>-</button>
+                              <span style={{ fontSize: 14, fontWeight: 600, color: '#111827', width: 24, textAlign: 'center' }}>{(styleSettings.spacing as any)[item.key]}</span>
+                              <button onClick={() => updateStyle('spacing', item.key, Math.min(40, (styleSettings.spacing as any)[item.key] + 1))} style={{ width: 28, height: 28, borderRadius: 6, border: '1px solid #D1D5DB', background: '#FAFBFC', cursor: 'pointer', fontSize: 14, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>+</button>
+                              <span style={{ fontSize: 11, color: '#9CA3AF', width: 16 }}>pt</span>
+                            </div>
+                          </div>
+                        ))}
                       </div>
                     </div>
-                  ))}
+                  )}
                 </div>
 
-                {/* Divider */}
-                <div style={{ height: 1, background: '#E5E7EB', margin: '8px 0 20px' }} />
-
-                {/* Borders */}
-                <div style={{ marginBottom: 24 }}>
-                  <label style={{ ...labelStyle, fontSize: 14, fontWeight: 700, marginBottom: 14 }}>Borders</label>
-                  {[
-                    { key: 'aboveHeader', label: 'Above Header' },
-                    { key: 'belowHeader', label: 'Below Header' },
-                    { key: 'sectionTitles', label: 'Section Titles' },
-                  ].map(item => (
-                    <div key={item.key} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
-                      <span style={{ fontSize: 13, color: '#374151' }}>{item.label}</span>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                        <button onClick={() => updateStyle('borders', item.key, Math.max(0, (styleSettings.borders as any)[item.key] - 1))} style={{ width: 28, height: 28, borderRadius: 6, border: '1px solid #D1D5DB', background: '#FAFBFC', cursor: 'pointer', fontSize: 14, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>-</button>
-                        <span style={{ fontSize: 14, fontWeight: 600, color: '#111827', width: 24, textAlign: 'center' }}>{(styleSettings.borders as any)[item.key]}</span>
-                        <button onClick={() => updateStyle('borders', item.key, Math.min(5, (styleSettings.borders as any)[item.key] + 1))} style={{ width: 28, height: 28, borderRadius: 6, border: '1px solid #D1D5DB', background: '#FAFBFC', cursor: 'pointer', fontSize: 14, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>+</button>
-                        <span style={{ fontSize: 11, color: '#9CA3AF', width: 16 }}>pt</span>
+                {/* ── Borders Accordion ── */}
+                <div className="accordion-group">
+                  <button className="accordion-trigger" onClick={() => setAccordionOpen(prev => ({ ...prev, borders: !prev.borders }))}>
+                    <span>Borders</span>
+                    <span style={{ transform: accordionOpen.borders ? 'rotate(180deg)' : 'rotate(0)', transition: 'transform 0.2s' }}>&#9662;</span>
+                  </button>
+                  {accordionOpen.borders && (
+                    <div className="accordion-content">
+                      {/* Borders */}
+                      <div style={{ marginBottom: 24 }}>
+                        <label style={{ ...labelStyle, fontSize: 14, fontWeight: 700, marginBottom: 14 }}>Borders</label>
+                        {[
+                          { key: 'aboveHeader', label: 'Above Header' },
+                          { key: 'belowHeader', label: 'Below Header' },
+                          { key: 'sectionTitles', label: 'Section Titles' },
+                        ].map(item => (
+                          <div key={item.key} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
+                            <span style={{ fontSize: 13, color: '#374151' }}>{item.label}</span>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                              <button onClick={() => updateStyle('borders', item.key, Math.max(0, (styleSettings.borders as any)[item.key] - 1))} style={{ width: 28, height: 28, borderRadius: 6, border: '1px solid #D1D5DB', background: '#FAFBFC', cursor: 'pointer', fontSize: 14, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>-</button>
+                              <span style={{ fontSize: 14, fontWeight: 600, color: '#111827', width: 24, textAlign: 'center' }}>{(styleSettings.borders as any)[item.key]}</span>
+                              <button onClick={() => updateStyle('borders', item.key, Math.min(5, (styleSettings.borders as any)[item.key] + 1))} style={{ width: 28, height: 28, borderRadius: 6, border: '1px solid #D1D5DB', background: '#FAFBFC', cursor: 'pointer', fontSize: 14, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>+</button>
+                              <span style={{ fontSize: 11, color: '#9CA3AF', width: 16 }}>pt</span>
+                            </div>
+                          </div>
+                        ))}
                       </div>
                     </div>
-                  ))}
+                  )}
                 </div>
 
                 {/* Reset button */}
@@ -1654,6 +1677,14 @@ export default function ResumeEditorPage() {
           </div>
         </div>
       )}
+
+      <TemplatePickerModal
+        isOpen={showTemplateModal}
+        onClose={() => setShowTemplateModal(false)}
+        selectedId={templateId}
+        resumeData={resumeData}
+        onSelect={setTemplateId}
+      />
     </div>
   );
 }

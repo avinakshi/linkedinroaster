@@ -900,13 +900,13 @@ function ResumeBuilderSection({ orderId, maxResumes = 3, plan = 'standard' }: { 
   }
 
   return (
-    <div style={{ background: '#EFF6FF', border: '1px solid #BFDBFE', borderLeft: '4px solid #0A66C2', borderRadius: 12, padding: '20px 24px', marginTop: 24, marginBottom: 24 }}>
+    <div style={{ background: 'var(--accent-subtle)', border: '1px solid var(--border-default)', borderLeft: '4px solid var(--accent)', borderRadius: 12, padding: '20px 24px', marginTop: 24, marginBottom: 24 }}>
       <h3 style={{ fontSize: 18, fontWeight: 800, color: '#1E40AF', marginBottom: 8 }}>ATS Resume Builder</h3>
 
       {/* Show existing resumes */}
       {resumes.length > 0 && (
         <div style={{ marginBottom: 16 }}>
-          <p style={{ fontSize: 13, fontWeight: 600, color: '#374151', marginBottom: 8 }}>Your Resumes ({resumes.length}/{maxResumes})</p>
+          <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--text-primary)', marginBottom: 8 }}>Your Resumes ({resumes.length}/{maxResumes})</p>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
             {resumes.map((r: any) => (
               <a
@@ -916,12 +916,12 @@ function ResumeBuilderSection({ orderId, maxResumes = 3, plan = 'standard' }: { 
                 rel="noreferrer"
                 style={{
                   display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-                  background: 'white', border: '1px solid #E0E0E0', borderRadius: 8,
+                  background: 'white', border: '1px solid var(--border-default)', borderRadius: 8,
                   padding: '10px 16px', textDecoration: 'none',
                 }}
               >
                 <div>
-                  <div style={{ fontSize: 14, fontWeight: 600, color: '#191919' }}>{r.target_role || 'Resume'}{r.target_company ? ` at ${r.target_company}` : ''}</div>
+                  <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--text-primary)' }}>{r.target_role || 'Resume'}{r.target_company ? ` at ${r.target_company}` : ''}</div>
                   <div style={{ fontSize: 11, color: '#888', marginTop: 2 }}>
                     {new Date(r.created_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })} &bull; {r.template_id || 'classic'}
                   </div>
@@ -929,11 +929,11 @@ function ResumeBuilderSection({ orderId, maxResumes = 3, plan = 'standard' }: { 
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                   <span style={{
                     fontSize: 13, fontWeight: 700,
-                    color: r.ats_score >= 80 ? '#057642' : r.ats_score >= 60 ? '#0A66C2' : '#E16B00',
+                    color: r.ats_score >= 80 ? 'var(--success)' : r.ats_score >= 60 ? 'var(--accent)' : 'var(--warning)',
                   }}>
                     ATS: {r.ats_score}%
                   </span>
-                  <span style={{ fontSize: 12, color: '#0A66C2' }}>&rarr;</span>
+                  <span style={{ fontSize: 12, color: 'var(--accent)' }}>&rarr;</span>
                 </div>
               </a>
             ))}
@@ -947,7 +947,7 @@ function ResumeBuilderSection({ orderId, maxResumes = 3, plan = 'standard' }: { 
           <p style={{ fontSize: 14, color: '#444', lineHeight: 1.6, marginBottom: 12 }}>
             Turn your rewrite into an ATS-optimized resume + cover letter. Paste a job description and get everything in 60 seconds.
           </p>
-          <a href={`/resume?orderId=${orderId}`} style={{ display: 'inline-block', background: '#0A66C2', color: 'white', padding: '10px 24px', borderRadius: 50, fontSize: 14, fontWeight: 700, textDecoration: 'none' }}>
+          <a href={`/resume?orderId=${orderId}`} style={{ display: 'inline-block', background: 'var(--accent)', color: 'white', padding: '10px 24px', borderRadius: 50, fontSize: 14, fontWeight: 700, textDecoration: 'none' }}>
             Build My Resume &rarr;
           </a>
         </>
@@ -955,14 +955,14 @@ function ResumeBuilderSection({ orderId, maxResumes = 3, plan = 'standard' }: { 
 
       {/* Has resumes but quota NOT full — show secondary build link */}
       {resumes.length > 0 && !quotaFull && (
-        <a href={`/resume?orderId=${orderId}`} style={{ display: 'inline-block', fontSize: 13, color: '#0A66C2', fontWeight: 600, textDecoration: 'none', marginTop: 4 }}>
+        <a href={`/resume?orderId=${orderId}`} style={{ display: 'inline-block', fontSize: 13, color: 'var(--accent)', fontWeight: 600, textDecoration: 'none', marginTop: 4 }}>
           + Build another resume ({maxResumes - resumes.length} remaining)
         </a>
       )}
 
       {/* Quota full — Standard user: show upgrade */}
       {quotaFull && plan === 'standard' && (
-        <div style={{ background: 'linear-gradient(135deg, #004182, #0A66C2)', borderRadius: 10, padding: '16px 20px', marginTop: 4 }}>
+        <div style={{ background: 'linear-gradient(135deg, var(--accent-hover), var(--accent))', borderRadius: 10, padding: '16px 20px', marginTop: 4 }}>
           <p style={{ fontSize: 14, fontWeight: 700, color: 'white', margin: '0 0 4px' }}>Want more resumes?</p>
           <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.85)', margin: '0 0 12px', lineHeight: 1.5 }}>
             5 headline variations, all 11 templates, 3 cover letters, ATS keywords
@@ -971,7 +971,7 @@ function ResumeBuilderSection({ orderId, maxResumes = 3, plan = 'standard' }: { 
             onClick={handleUpgrade}
             style={{
               display: 'inline-block', padding: '10px 24px',
-              background: 'white', color: '#0A66C2', borderRadius: 50, border: 'none',
+              background: 'white', color: 'var(--accent)', borderRadius: 50, border: 'none',
               fontSize: 14, fontWeight: 700, cursor: 'pointer',
             }}
           >
@@ -984,7 +984,7 @@ function ResumeBuilderSection({ orderId, maxResumes = 3, plan = 'standard' }: { 
       {/* Quota full — Pro user: friendly message */}
       {quotaFull && plan === 'pro' && (
         <div style={{ background: '#F0FDF4', border: '1px solid #BBF7D0', borderRadius: 10, padding: '14px 18px', marginTop: 4 }}>
-          <p style={{ fontSize: 14, fontWeight: 600, color: '#057642', margin: 0 }}>
+          <p style={{ fontSize: 14, fontWeight: 600, color: 'var(--success)', margin: 0 }}>
             You{"'"}re on the Pro plan — all resume slots used. View or edit your resumes above.
           </p>
         </div>
@@ -1397,233 +1397,6 @@ function ErrorState({ type, onRetry }: { type: string; onRetry?: () => void }) {
 }
 
 // ═══════════════════════════════════════════
-// Side Column Components
-// ═══════════════════════════════════════════
-
-function ResultsNavColumn() {
-  const navItems = [
-    { id: 'score-section', label: 'Score', icon: '📊' },
-    { id: 'strength-section', label: 'Your Strength', icon: '💪' },
-    { id: 'rewrite-section', label: 'Rewrite', icon: '✍️' },
-    { id: 'resume-section', label: 'Resume Builder', icon: '📄' },
-    { id: 'share-section', label: 'Share & Earn', icon: '🎁' },
-  ];
-
-  const allCards = [
-    { type: 'tip', title: 'PRO TIP', text: 'Copy your new headline first — it makes the biggest difference in recruiter views.', color: '#0A66C2' },
-    { type: 'tip', title: 'DID YOU KNOW', text: 'Recruiters spend 7.4 seconds on your profile. A strong headline buys you 3 more seconds.', color: '#057642' },
-    { type: 'tip', title: 'LINKEDIN HACK', text: 'Profiles with numbers in the headline get 40% more clicks. Your rewrite has numbers.', color: '#E16B00' },
-    { type: 'tip', title: 'CAREER TIP', text: '85% of jobs are filled through networking. Your LinkedIn IS your first impression.', color: '#0A66C2' },
-    { type: 'tip', title: 'ATS INSIGHT', text: 'ATS systems scan for exact keyword matches. Your rewrite includes industry-specific keywords.', color: '#057642' },
-    { type: 'tip', title: 'RESUME TIP', text: 'An ATS resume with JD-matched keywords gets 3x more interview calls.', color: '#0A66C2' },
-    { type: 'tip', title: 'HEADLINE HACK', text: 'Adding your key achievement in the headline gets 5x more clicks.', color: '#E16B00' },
-    { type: 'tip', title: 'ABOUT SECTION', text: 'Start your About with a hook, not "I am a..." — recruiters decide in 2 seconds.', color: '#057642' },
-    { type: 'tip', title: 'EXPERIENCE TIP', text: 'Bullets starting with "Managed" or "Led" are 60% more likely to catch a recruiter\'s eye.', color: '#0A66C2' },
-    { type: 'tip', title: 'NETWORK HACK', text: 'Commenting on 5 posts/day gets more profile views than 100 connection requests.', color: '#E16B00' },
-    { type: 'tip', title: 'PHOTO TIP', text: 'Professional headshots get 14x more profile views. No selfies, no group crops.', color: '#057642' },
-  ];
-
-  return (
-    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%', gap: 0 }}>
-      {/* Navigation */}
-      <div style={{ background: 'white', borderRadius: 12, padding: '12px 8px', boxShadow: '0 1px 8px rgba(0,0,0,0.05)', marginBottom: 10 }}>
-        <div style={{ fontSize: 10, fontWeight: 700, color: '#999', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 8, paddingLeft: 12 }}>YOUR RESULTS</div>
-        {navItems.map((item) => (
-          <button
-            key={item.id}
-            onClick={() => document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
-            style={{
-              display: 'flex', alignItems: 'center', gap: 8,
-              padding: '7px 12px', border: 'none', background: 'transparent',
-              cursor: 'pointer', borderRadius: 8, textAlign: 'left', width: '100%',
-              fontSize: 12, color: '#555', fontWeight: 500, transition: 'all 0.15s',
-            }}
-            onMouseEnter={e => { e.currentTarget.style.background = '#F0F7FF'; e.currentTarget.style.color = '#0A66C2'; }}
-            onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#555'; }}
-          >
-            <span style={{ fontSize: 13 }}>{item.icon}</span>
-            {item.label}
-          </button>
-        ))}
-      </div>
-
-      {/* Tips — spread evenly */}
-      {allCards.map((card, i) => (
-          <div key={i} style={{ background: 'white', borderRadius: 12, padding: '13px 15px', boxShadow: '0 1px 6px rgba(0,0,0,0.04)', marginBottom: 0 }}>
-            <div style={{ fontSize: 9, fontWeight: 700, color: (card as any).color || '#0A66C2', letterSpacing: 1, marginBottom: 4 }}>{(card as any).title}</div>
-            <div style={{ fontSize: 11, color: '#555', lineHeight: 1.5 }}>{card.text}</div>
-          </div>
-      ))}
-
-      {/* Final CTA */}
-      <div style={{ background: '#F0F7FF', borderRadius: 12, padding: '16px', textAlign: 'center', border: '1px solid #BFDBFE' }}>
-        <div style={{ fontSize: 12, fontWeight: 700, color: '#1E40AF', marginBottom: 6 }}>Found this helpful?</div>
-        <div style={{ fontSize: 11, color: '#666', marginBottom: 10 }}>Share with a friend</div>
-        <button onClick={() => document.getElementById('share-section')?.scrollIntoView({ behavior: 'smooth' })} style={{ padding: '8px 16px', background: '#0A66C2', color: 'white', border: 'none', borderRadius: 16, fontSize: 12, fontWeight: 600, cursor: 'pointer' }}>Share &amp; Earn &#8377;50</button>
-      </div>
-    </div>
-  );
-}
-
-function HinglishWisdomCard() {
-  const [idx, setIdx] = useState(0);
-  const quotes = [
-    { text: 'HR be like: "We\'ll get back to you." Translation: Delete.', persona: 'The Recruiter' },
-    { text: 'Apna headline fix karo, recruiter ka mood fix ho jayega.', persona: 'The AI' },
-    { text: 'Resume mein "proficient in MS Office" likhna band karo. 2026 hai bhai.', persona: 'Your Resume' },
-    { text: 'Manager: "You\'re like family here." Also Manager: "Budget mein raise nahi hai."', persona: 'Corporate Life' },
-    { text: 'LinkedIn pe "Open to work" lagaya, phir bhi ghost ho gaye. Profile check karo.', persona: 'Reality Check' },
-    { text: '"We need someone with 5 years React experience." React was released 3 years ago.', persona: 'Job Posting' },
-  ];
-  useEffect(() => { const t = setInterval(() => setIdx(p => (p + 1) % quotes.length), 10000); return () => clearInterval(t); }, []);
-  const q = quotes[idx];
-  return (
-    <div key={idx} style={{ background: 'white', borderRadius: 14, padding: '14px 16px', boxShadow: '0 2px 12px rgba(0,0,0,0.05)', animation: 'resultAppear 0.5s ease forwards' }}>
-      <div style={{ fontSize: 10, fontWeight: 700, color: '#E16B00', letterSpacing: 1, marginBottom: 6 }}>{q.persona.toUpperCase()}</div>
-      <div style={{ fontSize: 12, color: '#374151', lineHeight: 1.55, fontStyle: 'italic' }}>{q.text}</div>
-    </div>
-  );
-}
-
-function ResultsContextColumn({ scores, isPro, orderId }: { scores: any; isPro: boolean; orderId: string }) {
-  const improvement = scores.after.overall - scores.before.overall;
-  const afterScore = scores.after.overall;
-  const ranking = afterScore >= 80 ? 'Top 10%' : afterScore >= 70 ? 'Top 20%' : afterScore >= 60 ? 'Top 35%' : afterScore >= 50 ? 'Top 50%' : 'Improving';
-
-  function handleResumeCTA() {
-    const maxResumes = isPro ? 10 : 5;
-    fetch(`${API_URL}/api/resume/by-order/${orderId}`)
-      .then(r => r.json())
-      .then(d => {
-        const count = d.resumes?.length || 0;
-        if (count < maxResumes) {
-          window.location.href = `/resume?orderId=${orderId}`;
-        } else {
-          document.getElementById('resume-section')?.scrollIntoView({ behavior: 'smooth' });
-        }
-      })
-      .catch(() => {
-        document.getElementById('resume-section')?.scrollIntoView({ behavior: 'smooth' });
-      });
-  }
-
-  return (
-    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%', gap: 0 }}>
-      {/* Score */}
-      <div style={{ background: 'white', borderRadius: 14, padding: '18px', boxShadow: '0 1px 8px rgba(0,0,0,0.05)', textAlign: 'center' }}>
-        <div style={{ fontSize: 9, fontWeight: 700, color: '#999', letterSpacing: 2, marginBottom: 6 }}>YOUR IMPROVEMENT</div>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}>
-          <span style={{ fontSize: 22, fontWeight: 800, color: '#CC1016' }}>{scores.before.overall}</span>
-          <span style={{ fontSize: 14, color: '#ccc' }}>&rarr;</span>
-          <span style={{ fontSize: 28, fontWeight: 800, color: '#057642' }}>{scores.after.overall}</span>
-        </div>
-        <div style={{ background: '#DCFCE7', color: '#057642', fontSize: 13, fontWeight: 800, padding: '3px 14px', borderRadius: 16, display: 'inline-block', marginTop: 6 }}>+{improvement} pts</div>
-      </div>
-
-      {/* Ranking */}
-      <div style={{ background: afterScore >= 70 ? '#F0FDF4' : '#FEF9F0', border: `1px solid ${afterScore >= 70 ? '#BBF7D0' : '#FDE8CD'}`, borderRadius: 12, padding: '12px 16px', textAlign: 'center' }}>
-        <div style={{ fontSize: 16, fontWeight: 800, color: afterScore >= 70 ? '#057642' : '#E16B00' }}>{ranking}</div>
-        <div style={{ fontSize: 10, color: '#888' }}>of LinkedIn profiles</div>
-      </div>
-
-      {/* Quick actions */}
-      <div style={{ background: 'white', borderRadius: 12, padding: '14px', boxShadow: '0 1px 8px rgba(0,0,0,0.05)' }}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-          <button onClick={handleResumeCTA} style={{ display: 'block', width: '100%', padding: '8px', background: '#0A66C2', borderRadius: 8, fontSize: 12, fontWeight: 600, color: 'white', border: 'none', cursor: 'pointer', textAlign: 'center' }}>Build ATS Resume</button>
-          <button onClick={() => document.getElementById('share-section')?.scrollIntoView({ behavior: 'smooth' })} style={{ padding: '8px', background: '#F0FDF4', borderRadius: 8, fontSize: 12, fontWeight: 600, color: '#057642', border: 'none', cursor: 'pointer' }}>Share &amp; Earn &#8377;50</button>
-        </div>
-      </div>
-
-      {/* Hinglish quote */}
-      <HinglishWisdomCard />
-
-      {/* Social proof */}
-      <div style={{ background: 'white', borderRadius: 10, padding: '10px 14px', boxShadow: '0 1px 6px rgba(0,0,0,0.04)', textAlign: 'center' }}>
-        <div style={{ fontSize: 9, fontWeight: 700, color: '#999', letterSpacing: 2 }}>RECENT RESULTS</div>
-        <div style={{ fontSize: 10, color: '#888', marginTop: 2 }}>Real transformations from this week</div>
-      </div>
-      {[
-        { name: 'Rahul S.', role: 'MBA, Delhi', before: 22, after: 71, quote: '3 recruiter messages in 1 week' },
-        { name: 'Priya M.', role: 'Engineer, Bangalore', before: 28, after: 76, quote: 'Shortlisted at 2 MNCs' },
-        { name: 'Sneha R.', role: 'HR, Mumbai', before: 38, after: 84, quote: 'Best ₹299 on my career' },
-        { name: 'Arjun T.', role: 'BDM, Pune', before: 31, after: 78, quote: 'Profile views jumped 4x' },
-        { name: 'Kavya N.', role: 'Analyst, Hyderabad', before: 25, after: 72, quote: 'Finally getting interview calls' },
-        { name: 'Amit K.', role: 'PM, Gurgaon', before: 42, after: 85, quote: 'Landed dream job in 3 weeks' },
-      ].map((p, i) => (
-        <div key={i} style={{ background: 'white', borderRadius: 12, padding: '14px', boxShadow: '0 1px 6px rgba(0,0,0,0.04)' }}>
-          <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginBottom: 8 }}>
-            <div style={{ width: 28, height: 28, borderRadius: '50%', background: '#E5E7EB', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, color: '#666' }}>{p.name.charAt(0)}</div>
-            <div>
-              <div style={{ fontSize: 12, fontWeight: 700, color: '#191919' }}>{p.name}</div>
-              <div style={{ fontSize: 9, color: '#888' }}>{p.role}</div>
-            </div>
-            <span style={{ marginLeft: 'auto', background: '#DCFCE7', color: '#057642', fontSize: 10, fontWeight: 700, padding: '2px 8px', borderRadius: 10 }}>+{p.after - p.before}</span>
-          </div>
-          <div style={{ fontSize: 10, color: '#666', fontStyle: 'italic' }}>&ldquo;{p.quote}&rdquo;</div>
-        </div>
-      ))}
-
-      {/* Career insights */}
-      <div style={{ background: 'white', borderRadius: 10, padding: '10px 14px', boxShadow: '0 1px 6px rgba(0,0,0,0.04)', textAlign: 'center' }}>
-        <div style={{ fontSize: 9, fontWeight: 700, color: '#999', letterSpacing: 2 }}>CAREER INSIGHTS</div>
-        <div style={{ fontSize: 10, color: '#888', marginTop: 2 }}>What top professionals know about LinkedIn</div>
-      </div>
-      {[
-        { title: 'The Hidden Job Market', text: '70% of jobs are never posted publicly. A strong LinkedIn profile gets you found by recruiters who have unpublished roles.', color: '#004182' },
-        { title: 'First Impressions Matter', text: 'Your LinkedIn headline is seen 5x more than any other section. Recruiters scan headlines before clicking profiles.', color: '#057642' },
-        { title: 'The About Section Secret', text: 'Profiles with a compelling About section get 30% more connection requests. Most people leave it blank.', color: '#E16B00' },
-        { title: 'ATS Reality Check', text: '75% of resumes are rejected by ATS before a human sees them. Keyword matching is everything.', color: '#004182' },
-        { title: 'The Referral Advantage', text: 'Referred candidates are 4x more likely to be hired. Your LinkedIn network is your referral pipeline.', color: '#057642' },
-        { title: 'Salary Negotiation', text: 'Candidates with strong LinkedIn profiles negotiate 10-20% higher salaries because they have competing offers.', color: '#E16B00' },
-      ].map((insight, i) => (
-        <div key={i} style={{ background: 'white', borderRadius: 12, padding: '14px', boxShadow: '0 1px 6px rgba(0,0,0,0.04)', borderLeft: `3px solid ${insight.color}` }}>
-          <div style={{ fontSize: 11, fontWeight: 700, color: insight.color, marginBottom: 4 }}>{insight.title}</div>
-          <div style={{ fontSize: 10, color: '#555', lineHeight: 1.5 }}>{insight.text}</div>
-        </div>
-      ))}
-
-      {/* Facts */}
-      <div style={{ background: 'white', borderRadius: 10, padding: '10px 14px', boxShadow: '0 1px 6px rgba(0,0,0,0.04)', textAlign: 'center' }}>
-        <div style={{ fontSize: 9, fontWeight: 700, color: '#999', letterSpacing: 2 }}>DID YOU KNOW</div>
-        <div style={{ fontSize: 10, color: '#888', marginTop: 2 }}>LinkedIn statistics that matter</div>
-      </div>
-      {[
-        { stat: '7.4s', text: 'Avg recruiter time on a profile' },
-        { stat: '40%', text: 'More views with strong headline' },
-        { stat: '6x', text: 'More messages with complete profile' },
-        { stat: '85%', text: 'Jobs filled via LinkedIn networking' },
-        { stat: '71%', text: 'Recruiters reject in under 10 seconds' },
-        { stat: '3x', text: 'More callbacks with ATS-optimized resume' },
-        { stat: '14x', text: 'More views with professional headshot' },
-        { stat: '50%', text: 'Profiles never viewed by any recruiter' },
-      ].map((f, i) => (
-        <div key={i} style={{ background: 'white', borderRadius: 12, padding: '12px 14px', boxShadow: '0 1px 6px rgba(0,0,0,0.04)', textAlign: 'center' }}>
-          <div style={{ fontSize: 22, fontWeight: 800, color: '#0A66C2', lineHeight: 1 }}>{f.stat}</div>
-          <div style={{ fontSize: 10, color: '#666', marginTop: 3 }}>{f.text}</div>
-        </div>
-      ))}
-
-      {/* 500+ */}
-      <div style={{ background: 'white', borderRadius: 12, padding: '14px', boxShadow: '0 1px 6px rgba(0,0,0,0.04)', textAlign: 'center' }}>
-        <div style={{ fontSize: 24, fontWeight: 800, color: '#0A66C2' }}>500+</div>
-        <div style={{ fontSize: 10, color: '#888' }}>Professionals improved</div>
-        <div style={{ display: 'flex', justifyContent: 'center', gap: 3, marginTop: 5 }}>
-          {[1,2,3,4,5].map(i => <div key={i} style={{ width: 5, height: 5, borderRadius: '50%', background: i <= 4 ? '#057642' : '#E0E0E0' }} />)}
-        </div>
-        <div style={{ fontSize: 9, color: '#057642', fontWeight: 600, marginTop: 2 }}>4.8 avg rating</div>
-      </div>
-
-      {/* Final CTA */}
-      <div style={{ background: '#F0FDF4', borderRadius: 12, padding: '16px', textAlign: 'center', border: '1px solid #BBF7D0' }}>
-        <div style={{ fontSize: 12, fontWeight: 700, color: '#057642', marginBottom: 6 }}>Ready for the next step?</div>
-        <div style={{ fontSize: 11, color: '#666', marginBottom: 10 }}>Turn your rewrite into an ATS resume</div>
-        <button onClick={handleResumeCTA} style={{ display: 'inline-block', padding: '8px 16px', background: '#057642', color: 'white', borderRadius: 16, fontSize: 12, fontWeight: 600, border: 'none', cursor: 'pointer' }}>Build Resume &rarr;</button>
-      </div>
-    </div>
-  );
-}
-
-// ═══════════════════════════════════════════
 // Main Results Page
 // ═══════════════════════════════════════════
 export default function ResultsPage() {
@@ -1914,7 +1687,7 @@ export default function ResultsPage() {
       <style>{`@keyframes countUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }`}</style>
 
       {/* Tab Navigation — Premium */}
-      <div style={{ background: '#FFFFFF', borderBottom: '1px solid #E5E7EB', position: 'sticky', top: 0, zIndex: 50, boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
+      <div className="tab-bar" style={{ position: 'sticky', top: 0, zIndex: 50 }}>
         <div style={{ maxWidth: 900, margin: '0 auto', padding: '0 16px', display: 'flex', gap: 0, overflowX: 'auto' }}>
           {[
             { key: 'score', label: 'Score', icon: '\ud83d\udcca', num: 1 },
@@ -1925,24 +1698,10 @@ export default function ResultsPage() {
           ].map(tab => (
             <button
               key={tab.key}
+              className={`tab-bar-item${activeSection === tab.key ? ' active' : ''}`}
               onClick={() => setActiveSection(tab.key as any)}
-              style={{
-                padding: '16px 20px',
-                background: 'none',
-                border: 'none',
-                borderBottom: activeSection === tab.key ? '3px solid #0B69C7' : '3px solid transparent',
-                cursor: 'pointer',
-                fontSize: 13,
-                fontWeight: activeSection === tab.key ? 700 : 500,
-                color: activeSection === tab.key ? '#0B69C7' : '#9CA3AF',
-                whiteSpace: 'nowrap',
-                display: 'flex',
-                alignItems: 'center',
-                gap: 8,
-                transition: 'all 0.2s',
-              }}
             >
-              <span style={{ width: 20, height: 20, borderRadius: '50%', background: activeSection === tab.key ? '#0B69C7' : '#E5E7EB', color: activeSection === tab.key ? 'white' : '#9CA3AF', fontSize: 10, fontWeight: 700, display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>{tab.num}</span>
+              <span className="pill-badge pill-badge-neutral" style={{ marginRight: 6 }}>{tab.num}</span>
               {tab.label}
             </button>
           ))}
@@ -1954,10 +1713,10 @@ export default function ResultsPage() {
         <>
           {/* Score Banner */}
           <div style={{ maxWidth: 1100, margin: '0 auto', padding: '20px 16px 0' }}>
-            <div style={{ background: '#FFFFFF', borderRadius: 16, border: '1px solid #E5E7EB', overflow: 'hidden', marginBottom: 16, boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
+            <div style={{ background: '#FFFFFF', borderRadius: 16, border: '1px solid var(--border-default)', overflow: 'hidden', marginBottom: 16, boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
 
               {/* Banner gradient */}
-              <div style={{ background: 'linear-gradient(135deg, #004182 0%, #0B69C7 50%, #057642 100%)', padding: '24px 28px 20px', color: 'white' }}>
+              <div style={{ background: 'linear-gradient(135deg, var(--accent-hover) 0%, var(--accent) 50%, var(--success) 100%)', padding: '24px 28px 20px', color: 'white' }}>
                 <div style={{ textAlign: 'center', fontSize: 10, fontWeight: 700, letterSpacing: 2, opacity: 0.7, marginBottom: 8, textTransform: 'uppercase' }}>
                   {isResumeMode ? 'ATS Resume Score' : isQuestionnaireMode ? 'Profile Score' : 'LinkedIn Profile Score'}
                 </div>
@@ -1997,7 +1756,7 @@ export default function ResultsPage() {
               <div style={{ padding: '0 20px 20px' }}>
                 <div style={{ marginTop: -24, marginBottom: 10 }}>
                   <div style={{
-                    width: 52, height: 52, borderRadius: '50%', background: '#0B69C7',
+                    width: 52, height: 52, borderRadius: '50%', background: 'var(--accent)',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                     fontSize: 20, fontWeight: 800, color: 'white',
                     border: '3px solid white', boxShadow: '0 2px 8px rgba(0,0,0,0.12)',
@@ -2005,14 +1764,14 @@ export default function ResultsPage() {
                     {rewrite.rewritten_headline?.charAt(0)?.toUpperCase() || 'P'}
                   </div>
                 </div>
-                <div style={{ fontSize: 18, fontWeight: 700, color: '#191919', marginBottom: 2 }}>{userName}</div>
-                {userLocation && <div style={{ fontSize: 13, color: '#666', marginBottom: 4 }}>{userLocation}</div>}
-                <div style={{ fontSize: 13, fontWeight: 600, color: afterScore >= 70 ? '#057642' : '#92400E' }}>
+                <div style={{ fontSize: 18, fontWeight: 700, color: 'var(--text-primary)', marginBottom: 2 }}>{userName}</div>
+                {userLocation && <div style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 4 }}>{userLocation}</div>}
+                <div style={{ fontSize: 13, fontWeight: 600, color: afterScore >= 70 ? 'var(--success)' : '#92400E' }}>
                   {rankLabel} of {isResumeMode ? 'resumes' : 'LinkedIn profiles'}
                 </div>
                 {improvement > 0 && (
                   <div style={{ marginTop: 16, background: '#F0FDF4', border: '1px solid #BBF7D0', borderRadius: 10, padding: '14px 16px' }}>
-                    <div style={{ fontSize: 13, fontWeight: 600, color: '#057642' }}>
+                    <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--success)' }}>
                       &#9989; {isResumeMode
                         ? 'Your ATS resume score improved by ' + improvement + ' points. Build your optimized resume and copy LinkedIn content below.'
                         : isQuestionnaireMode
@@ -2022,7 +1781,7 @@ export default function ResultsPage() {
                   </div>
                 )}
                 {isResumeMode && (
-                  <div style={{ marginTop: 12, background: '#EFF6FF', border: '1px solid #BFDBFE', borderRadius: 10, padding: '16px 18px' }}>
+                  <div style={{ marginTop: 12, background: 'var(--accent-subtle)', border: '1px solid var(--border-default)', borderRadius: 10, padding: '16px 18px' }}>
                     <input
                       type="file"
                       accept=".pdf"
@@ -2051,36 +1810,36 @@ export default function ResultsPage() {
                     />
                     <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                       <div style={{ flex: 1 }}>
-                        <div style={{ fontSize: 13, fontWeight: 600, color: '#0A66C2', marginBottom: 4 }}>
+                        <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--accent)', marginBottom: 4 }}>
                           Get a LinkedIn-specific analysis
                         </div>
-                        <div style={{ fontSize: 12, color: '#64748B', lineHeight: 1.5 }}>
+                        <div style={{ fontSize: 12, color: 'var(--text-secondary)', lineHeight: 1.5 }}>
                           Upload your LinkedIn PDF for a detailed profile score and rewrite tailored to LinkedIn.
                         </div>
                       </div>
                       <button
                         onClick={() => linkedinFileRef.current?.click()}
                         disabled={linkedinUploading}
-                        style={{ padding: '10px 18px', background: '#0A66C2', color: 'white', border: 'none', borderRadius: 8, fontSize: 13, fontWeight: 600, cursor: 'pointer', whiteSpace: 'nowrap', opacity: linkedinUploading ? 0.6 : 1 }}
+                        style={{ padding: '10px 18px', background: 'var(--accent)', color: 'white', border: 'none', borderRadius: 8, fontSize: 13, fontWeight: 600, cursor: 'pointer', whiteSpace: 'nowrap', opacity: linkedinUploading ? 0.6 : 1 }}
                       >
                         {linkedinUploading ? 'Parsing...' : 'Upload LinkedIn PDF'}
                       </button>
                     </div>
                     {linkedinFile && !linkedinUploading && (
-                      <div style={{ marginTop: 8, fontSize: 12, color: '#057642' }}>
+                      <div style={{ marginTop: 8, fontSize: 12, color: 'var(--success)' }}>
                         &#10003; {linkedinFile.name} parsed — redirecting to start your LinkedIn analysis...
                       </div>
                     )}
                   </div>
                 )}
                 {isQuestionnaireMode && (
-                  <div style={{ marginTop: 12, background: '#EFF6FF', border: '1px solid #BFDBFE', borderRadius: 10, padding: '14px 16px' }}>
-                    <div style={{ fontSize: 13, fontWeight: 600, color: '#0A66C2', marginBottom: 4 }}>
+                  <div style={{ marginTop: 12, background: 'var(--accent-subtle)', border: '1px solid var(--border-default)', borderRadius: 10, padding: '14px 16px' }}>
+                    <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--accent)', marginBottom: 4 }}>
                       Want a more accurate score?
                     </div>
-                    <div style={{ fontSize: 12, color: '#64748B', lineHeight: 1.5 }}>
+                    <div style={{ fontSize: 12, color: 'var(--text-secondary)', lineHeight: 1.5 }}>
                       Upload your resume or LinkedIn PDF for a detailed, personalized analysis.{' '}
-                      <a href="/?tab=resume" style={{ color: '#0A66C2', fontWeight: 600 }}>Upload Resume &rarr;</a>
+                      <a href="/?tab=resume" style={{ color: 'var(--accent)', fontWeight: 600 }}>Upload Resume &rarr;</a>
                     </div>
                   </div>
                 )}
@@ -2091,50 +1850,50 @@ export default function ResultsPage() {
           {/* What Was Holding Your Profile Back */}
           {(missingKeywords.length > 0 || weakVerbs.length > 0 || quantBreakdown) && (
             <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 16px 16px' }}>
-              <div style={{ fontSize: 18, fontWeight: 700, color: '#191919', marginBottom: 12 }}>{isResumeMode ? 'Resume Improvements — What AI Fixed' : isQuestionnaireMode ? 'Profile Improvements' : 'What Was Holding Your Profile Back'}</div>
+              <div style={{ fontSize: 18, fontWeight: 700, color: 'var(--text-primary)', marginBottom: 12 }}>{isResumeMode ? 'Resume Improvements — What AI Fixed' : isQuestionnaireMode ? 'Profile Improvements' : 'What Was Holding Your Profile Back'}</div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 12 }}>
 
                 {/* Card 1: Missing Keywords */}
                 {missingKeywords.length > 0 && (
-                  <div style={{ background: '#FFFFFF', borderRadius: 16, border: '1px solid #E5E7EB', padding: '24px 28px', boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
+                  <div style={{ background: '#FFFFFF', borderRadius: 16, border: '1px solid var(--border-default)', padding: '24px 28px', boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                         <span style={{ fontSize: 20 }}>&#128269;</span>
-                        <span style={{ fontSize: 14, fontWeight: 700, color: '#191919' }}>Missing ATS Keywords</span>
+                        <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--text-primary)' }}>Missing ATS Keywords</span>
                       </div>
-                      <span style={{ fontSize: 11, fontWeight: 700, color: '#057642', background: '#F0FDF4', padding: '2px 8px', borderRadius: 8 }}>&#9989; Fixed</span>
+                      <span style={{ fontSize: 11, fontWeight: 700, color: 'var(--success)', background: '#F0FDF4', padding: '2px 8px', borderRadius: 8 }}>&#9989; Fixed</span>
                     </div>
-                    <div style={{ fontSize: 13, color: '#666', lineHeight: 1.5, marginBottom: 8 }}>
+                    <div style={{ fontSize: 13, color: 'var(--text-muted)', lineHeight: 1.5, marginBottom: 8 }}>
                       {missingKeywords.length} keyword{missingKeywords.length !== 1 ? 's' : ''} recruiters search for were absent from your profile.
                     </div>
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4 }}>
                       {missingKeywords.slice(0, 6).map((k, i) => (
-                        <span key={i} style={{ background: '#FEF2F2', color: '#CC1016', padding: '2px 8px', borderRadius: 8, fontSize: 11, textDecoration: 'line-through' }}>{k}</span>
+                        <span key={i} style={{ background: '#FEF2F2', color: 'var(--danger)', padding: '2px 8px', borderRadius: 8, fontSize: 11, textDecoration: 'line-through' }}>{k}</span>
                       ))}
-                      {missingKeywords.length > 6 && <span style={{ fontSize: 11, color: '#666', padding: '2px 4px' }}>+{missingKeywords.length - 6} more</span>}
+                      {missingKeywords.length > 6 && <span style={{ fontSize: 11, color: 'var(--text-muted)', padding: '2px 4px' }}>+{missingKeywords.length - 6} more</span>}
                     </div>
                   </div>
                 )}
 
                 {/* Card 2: Weak Verbs */}
                 {weakVerbs.length > 0 && (
-                  <div style={{ background: '#FFFFFF', borderRadius: 16, border: '1px solid #E5E7EB', padding: '24px 28px', boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
+                  <div style={{ background: '#FFFFFF', borderRadius: 16, border: '1px solid var(--border-default)', padding: '24px 28px', boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                         <span style={{ fontSize: 20 }}>&#9997;&#65039;</span>
-                        <span style={{ fontSize: 14, fontWeight: 700, color: '#191919' }}>Weak Action Verbs</span>
+                        <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--text-primary)' }}>Weak Action Verbs</span>
                       </div>
-                      <span style={{ fontSize: 11, fontWeight: 700, color: '#057642', background: '#F0FDF4', padding: '2px 8px', borderRadius: 8 }}>&#9989; Fixed</span>
+                      <span style={{ fontSize: 11, fontWeight: 700, color: 'var(--success)', background: '#F0FDF4', padding: '2px 8px', borderRadius: 8 }}>&#9989; Fixed</span>
                     </div>
-                    <div style={{ fontSize: 13, color: '#666', lineHeight: 1.5, marginBottom: 8 }}>
+                    <div style={{ fontSize: 13, color: 'var(--text-muted)', lineHeight: 1.5, marginBottom: 8 }}>
                       {weakVerbs.length} weak verb{weakVerbs.length !== 1 ? 's' : ''} replaced with high-impact power verbs.
                     </div>
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4 }}>
                       {weakVerbs.slice(0, 5).map((v, i) => (
-                        <span key={i} style={{ fontSize: 12, color: '#666' }}>
-                          <span style={{ textDecoration: 'line-through', color: '#CC1016' }}>{v.verb}</span>
-                          <span style={{ color: '#999', margin: '0 3px' }}>&rarr;</span>
-                          <span style={{ color: '#057642', fontWeight: 600 }}>{v.suggested_replacement}</span>
+                        <span key={i} style={{ fontSize: 12, color: 'var(--text-muted)' }}>
+                          <span style={{ textDecoration: 'line-through', color: 'var(--danger)' }}>{v.verb}</span>
+                          <span style={{ color: 'var(--text-secondary)', margin: '0 3px' }}>&rarr;</span>
+                          <span style={{ color: 'var(--success)', fontWeight: 600 }}>{v.suggested_replacement}</span>
                           {i < Math.min(weakVerbs.length, 5) - 1 && <span style={{ color: '#DDD', margin: '0 4px' }}>|</span>}
                         </span>
                       ))}
@@ -2144,22 +1903,22 @@ export default function ResultsPage() {
 
                 {/* Card 3: Quantification */}
                 {quantBreakdown && (
-                  <div style={{ background: '#FFFFFF', borderRadius: 16, border: '1px solid #E5E7EB', padding: '24px 28px', boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
+                  <div style={{ background: '#FFFFFF', borderRadius: 16, border: '1px solid var(--border-default)', padding: '24px 28px', boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                         <span style={{ fontSize: 20 }}>&#128202;</span>
-                        <span style={{ fontSize: 14, fontWeight: 700, color: '#191919' }}>Low Quantification</span>
+                        <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--text-primary)' }}>Low Quantification</span>
                       </div>
-                      <span style={{ fontSize: 11, fontWeight: 700, color: '#057642', background: '#F0FDF4', padding: '2px 8px', borderRadius: 8 }}>&#9989; Fixed</span>
+                      <span style={{ fontSize: 11, fontWeight: 700, color: 'var(--success)', background: '#F0FDF4', padding: '2px 8px', borderRadius: 8 }}>&#9989; Fixed</span>
                     </div>
-                    <div style={{ fontSize: 13, color: '#666', lineHeight: 1.5, marginBottom: 8 }}>
+                    <div style={{ fontSize: 13, color: 'var(--text-muted)', lineHeight: 1.5, marginBottom: 8 }}>
                       Only {quantBreakdown.quantified_bullets} of {quantBreakdown.total_bullets} bullets had numbers or metrics.
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                      <div style={{ flex: 1, height: 6, borderRadius: 3, background: '#F3F4F6', overflow: 'hidden' }}>
-                        <div style={{ width: `${quantBreakdown.percentage}%`, height: '100%', borderRadius: 3, background: quantBreakdown.percentage < 40 ? '#EF4444' : quantBreakdown.percentage < 70 ? '#F59E0B' : '#057642' }} />
+                      <div style={{ flex: 1, height: 6, borderRadius: 3, background: 'var(--bg-subtle)', overflow: 'hidden' }}>
+                        <div style={{ width: `${quantBreakdown.percentage}%`, height: '100%', borderRadius: 3, background: quantBreakdown.percentage < 40 ? 'var(--danger)' : quantBreakdown.percentage < 70 ? 'var(--warning)' : 'var(--success)' }} />
                       </div>
-                      <span style={{ fontSize: 12, fontWeight: 700, color: '#191919' }}>{quantBreakdown.percentage}% — Grade: {quantBreakdown.grade}</span>
+                      <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--text-primary)' }}>{quantBreakdown.percentage}% — Grade: {quantBreakdown.grade}</span>
                     </div>
                   </div>
                 )}
@@ -2169,7 +1928,7 @@ export default function ResultsPage() {
 
           {/* Next Step CTA */}
           <div style={{ maxWidth: 900, margin: '24px auto', padding: '0 16px' }}>
-            <button onClick={() => setActiveSection('rewrite')} style={{ width: '100%', padding: '16px', background: 'linear-gradient(135deg, #0B69C7, #004182)', color: 'white', border: 'none', borderRadius: 12, fontSize: 15, fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
+            <button onClick={() => setActiveSection('rewrite')} style={{ width: '100%', padding: '16px', background: 'linear-gradient(135deg, var(--accent), var(--accent-hover))', color: 'white', border: 'none', borderRadius: 12, fontSize: 15, fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
               Next: Copy Your LinkedIn Rewrite <span style={{ fontSize: 18 }}>{'\u2192'}</span>
             </button>
           </div>

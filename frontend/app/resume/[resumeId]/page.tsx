@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import { TEMPLATES, renderResumeHTML, buildPrintHTML, getRecommendedTemplates, getContentDensity, getAdaptiveSpacingStyle, getAdaptiveSpacingCSS } from '../../../components/resume/ResumeTemplates';
+import AtsGauge from '../../../components/ui/AtsGauge';
+import TemplatePickerModal from '../../../components/ui/TemplatePickerModal';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
 
@@ -205,29 +207,33 @@ export default function ResumePreviewPage() {
         <div style={{ width: 320, flexShrink: 0, background: '#FFFFFF', borderRight: '1px solid #E5E7EB', overflowY: 'auto', padding: '24px 20px' }}>
 
           {/* ATS Score */}
-          <div style={{ background: resume.ats_score >= 80 ? 'linear-gradient(135deg, #F0FDF4, #DCFCE7)' : resume.ats_score >= 60 ? 'linear-gradient(135deg, #EFF6FF, #DBEAFE)' : 'linear-gradient(135deg, #FFFBEB, #FEF3C7)', border: `1px solid ${resume.ats_score >= 80 ? '#BBF7D0' : resume.ats_score >= 60 ? '#BFDBFE' : '#FDE68A'}`, borderRadius: 12, padding: '20px', marginBottom: 20, textAlign: 'center' }}>
-            <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: 2, color: '#6B7280', marginBottom: 8, textTransform: 'uppercase' }}>ATS Score</div>
-            <div style={{ fontSize: 42, fontWeight: 800, color: scoreColor, lineHeight: 1 }}>{resume.ats_score}%</div>
-            <div style={{ fontSize: 13, fontWeight: 600, color: scoreColor, marginTop: 4 }}>{scoreLabel}</div>
-            <div style={{ height: 6, borderRadius: 3, background: '#E5E7EB', marginTop: 12 }}>
-              <div style={{ height: '100%', borderRadius: 3, background: scoreColor, width: `${resume.ats_score}%`, transition: 'width 0.5s' }} />
+          <div className="saas-card" style={{ padding: '16px', marginBottom: 20, textAlign: 'center' }}>
+            <AtsGauge score={resume.ats_score} size={110} />
+            <div style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 4 }}>
+              {resume.keywords_matched?.length || 0} keywords matched
             </div>
           </div>
 
           {/* Template Selector */}
           <div style={{ marginBottom: 20 }}>
-            <label style={{ fontSize: 12, fontWeight: 600, color: '#374151', marginBottom: 6, display: 'block' }}>Template</label>
-            <select
-              value={templateId}
-              onChange={e => setTemplateId(e.target.value)}
-              style={{ width: '100%', padding: '10px 14px', border: '1px solid #D1D5DB', borderRadius: 8, fontSize: 14, background: 'white', cursor: 'pointer' }}
+            <label style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-secondary)', marginBottom: 6, display: 'block' }}>Template</label>
+            <button
+              onClick={() => setShowTemplateModal(true)}
+              className="saas-btn saas-btn-ghost"
+              style={{ width: '100%', padding: '10px 14px', justifyContent: 'space-between', borderRadius: 'var(--radius-sm)' }}
             >
-              {TEMPLATES.map(t => (
-                <option key={t.id} value={t.id}>{t.name} {(t as any).proOnly && orderPlan !== 'pro' ? '\uD83D\uDD12' : ''} {t.ats === 'high' ? '\u2713 ATS' : ''}</option>
-              ))}
-            </select>
+              <span style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                <span style={{ width: 28, height: 40, background: 'var(--bg-subtle)', borderRadius: 4, overflow: 'hidden', position: 'relative', flexShrink: 0, border: '1px solid var(--border-default)' }}>
+                  <div style={{ width: 794, height: 1122, transform: 'scale(0.0353)', transformOrigin: 'top left', pointerEvents: 'none', position: 'absolute', top: 0, left: 0 }}>
+                    {renderResumeHTML(resume.resume_data, templateId)}
+                  </div>
+                </span>
+                <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--text-primary)' }}>{currentTemplate?.name || 'Classic Professional'}</span>
+              </span>
+              <span style={{ fontSize: 11, color: 'var(--text-muted)' }}>Change</span>
+            </button>
             {currentTemplate && (
-              <div style={{ fontSize: 11, color: '#9CA3AF', marginTop: 4 }}>{currentTemplate.description}</div>
+              <div style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 4 }}>{currentTemplate.description}</div>
             )}
           </div>
 
@@ -362,18 +368,28 @@ export default function ResumePreviewPage() {
       </div>
 
       {/* MOBILE STICKY BOTTOM BAR — 2 rows */}
-      <div className="lg:hidden" style={{ position: 'fixed', bottom: 0, left: 0, right: 0, background: 'white', borderTop: '1px solid #E5E7EB', padding: '8px 16px 12px', zIndex: 50, boxShadow: '0 -4px 12px rgba(0,0,0,0.06)' }}>
+      <div className="lg:hidden" style={{ position: 'fixed', bottom: 0, left: 0, right: 0, background: 'white', borderTop: '1px solid var(--border-default)', padding: '8px 16px 12px', zIndex: 50, boxShadow: '0 -4px 12px rgba(0,0,0,0.06)' }}>
         <div style={{ display: 'flex', gap: 8, marginBottom: 6 }}>
-          <button onClick={handleDownloadPDF} disabled={pdfGenerating} style={{ flex: 1, padding: '11px', background: '#057642', color: 'white', border: 'none', borderRadius: 8, fontSize: 14, fontWeight: 700, cursor: 'pointer' }}>
+          <button onClick={handleDownloadPDF} disabled={pdfGenerating} className="saas-btn saas-btn-success" style={{ flex: 1, padding: '11px', fontSize: 14, borderRadius: 'var(--radius-sm)' }}>
             {pdfGenerating ? 'Generating...' : 'Download PDF'}
           </button>
         </div>
         <div style={{ display: 'flex', gap: 8 }}>
-          <a href={`/resume/${resumeId}/edit`} style={{ flex: 1, padding: '9px', background: 'white', color: '#0B69C7', border: '1.5px solid #0B69C7', borderRadius: 8, fontSize: 13, fontWeight: 600, textDecoration: 'none', textAlign: 'center' }}>Edit</a>
-          <button onClick={() => handleInterview()} disabled={prepLoading} style={{ flex: 1, padding: '9px', background: '#0B69C7', color: 'white', border: 'none', borderRadius: 8, fontSize: 13, fontWeight: 600, cursor: 'pointer' }}>Interview Prep</button>
-          <a href={`${API_URL}/api/resume/${resumeId}/download/txt`} style={{ padding: '9px 14px', background: '#F3F4F6', color: '#374151', border: '1px solid #D1D5DB', borderRadius: 8, fontSize: 12, fontWeight: 500, textDecoration: 'none', textAlign: 'center' }}>TXT</a>
+          <a href={`/resume/${resumeId}/edit`} className="saas-btn saas-btn-ghost" style={{ flex: 1, padding: '9px', justifyContent: 'center', borderRadius: 'var(--radius-sm)', color: 'var(--accent)' }}>Edit</a>
+          <button onClick={() => handleInterview()} disabled={prepLoading} className="saas-btn saas-btn-primary" style={{ flex: 1, padding: '9px', borderRadius: 'var(--radius-sm)' }}>Interview Prep</button>
+          <a href={`${API_URL}/api/resume/${resumeId}/download/txt`} className="saas-btn saas-btn-ghost" style={{ padding: '9px 14px', borderRadius: 'var(--radius-sm)' }}>TXT</a>
         </div>
       </div>
+
+      {/* Template Picker Modal */}
+      <TemplatePickerModal
+        isOpen={showTemplateModal}
+        onClose={() => setShowTemplateModal(false)}
+        selectedId={templateId}
+        resumeData={resume.resume_data}
+        onSelect={setTemplateId}
+        orderPlan={orderPlan}
+      />
     </div>
   );
 }

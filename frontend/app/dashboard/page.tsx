@@ -53,7 +53,7 @@ function LoginForm({ onLogin }: { onLogin: (email: string) => void }) {
   return (
     <div style={{ fontFamily: "'Inter', system-ui, sans-serif", background: 'var(--bg-canvas)', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
       <div style={{ maxWidth: 440, width: '100%' }}>
-        <div style={{ background: 'var(--accent)', padding: '24px', borderRadius: '16px 16px 0 0', textAlign: 'center' }}>
+        <div style={{ background: 'linear-gradient(135deg, var(--accent-hover) 0%, var(--accent) 100%)', padding: '24px', borderRadius: '16px 16px 0 0', textAlign: 'center' }}>
           <div style={{ fontSize: 22, fontWeight: 800, color: 'white' }}>Dashboard</div>
           <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.7)', marginTop: 4 }}>profileroaster.in</div>
         </div>
@@ -220,12 +220,7 @@ function DashboardContent({ email, onLogout }: { email: string; onLogout: () => 
         {/* ═══ LEFT NAV (desktop) ═══ */}
         <nav className="hidden md:flex" style={{ width: 200, flexShrink: 0, flexDirection: 'column', background: 'var(--bg-surface)', borderRight: '1px solid var(--border-default)', padding: '16px 0', overflowY: 'auto' }}>
           {sections.map(s => (
-            <button key={s.key} onClick={() => setSection(s.key)} style={{
-              display: 'block', width: '100%', padding: '10px 20px', background: section === s.key ? 'var(--accent-subtle)' : 'transparent',
-              border: 'none', borderLeft: section === s.key ? '3px solid var(--accent)' : '3px solid transparent',
-              color: section === s.key ? 'var(--accent)' : 'var(--text-secondary)', fontSize: 13, fontWeight: 600,
-              cursor: 'pointer', textAlign: 'left', transition: 'all var(--transition)', whiteSpace: 'nowrap',
-            }}>{s.label}</button>
+            <button key={s.key} className={`dash-nav-item${section === s.key ? ' active' : ''}`} onClick={() => setSection(s.key)}>{s.label}</button>
           ))}
           <div style={{ borderTop: '1px solid var(--border-default)', margin: '12px 20px', paddingTop: 12 }}>
             <a href="/" style={{ display: 'block', padding: '8px 0', fontSize: 12, color: 'var(--text-muted)', textDecoration: 'none' }}>+ New Order</a>
@@ -265,7 +260,7 @@ function DashboardContent({ email, onLogout }: { email: string; onLogout: () => 
                   ].map((k, i) => (
                     <div key={i} className="saas-card" style={{ padding: '14px 20px', display: 'flex', alignItems: 'center', gap: 12, flex: '1 1 140px' }}>
                       <div style={{ width: 40, height: 40, borderRadius: 'var(--radius-sm)', background: k.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                        <span style={{ fontSize: 18, fontWeight: 800, color: k.c }}>{k.v}</span>
+                        <span style={{ fontSize: 24, fontWeight: 800, color: k.c }}>{k.v}</span>
                       </div>
                       <span style={{ fontSize: 12, color: 'var(--text-secondary)', fontWeight: 500 }}>{k.l}</span>
                     </div>
@@ -287,11 +282,10 @@ function DashboardContent({ email, onLogout }: { email: string; onLogout: () => 
                         const tc = typeColors[item.type] || { color: 'var(--text-muted)', bg: 'var(--bg-subtle)' };
                         const sc = statusColors[item.status] || statusColors.pending;
                         return (
-                          <a key={item.id} href={item.url} target="_blank" rel="noreferrer" style={{
+                          <a key={item.id} href={item.url} target="_blank" rel="noreferrer" className="activity-row" style={{
                             display: 'flex', alignItems: 'center', gap: 12, padding: '12px 16px', textDecoration: 'none',
                             borderBottom: i < Math.min(activity.length, 8) - 1 ? '1px solid var(--bg-subtle)' : 'none',
-                            transition: 'background var(--transition)',
-                          }} onMouseEnter={e => (e.currentTarget.style.background = 'var(--bg-subtle)')} onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}>
+                          }}>
                             <span style={{ fontSize: 10, fontWeight: 700, color: tc.color, background: tc.bg, padding: '2px 8px', borderRadius: 4, textTransform: 'uppercase', flexShrink: 0, letterSpacing: '0.03em' }}>{item.type}</span>
                             <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--text-primary)', flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{item.title}</span>
                             {item.score && <span style={{ fontSize: 12, fontWeight: 600, color: 'var(--success)', flexShrink: 0 }}>{item.score}</span>}
@@ -328,11 +322,10 @@ function DashboardContent({ email, onLogout }: { email: string; onLogout: () => 
                     const tc = typeColors[item.type] || { color: 'var(--text-muted)', bg: 'var(--bg-subtle)' };
                     const sc = statusColors[item.status] || statusColors.pending;
                     return (
-                      <a key={item.id} href={item.url} target="_blank" rel="noreferrer" style={{
+                      <a key={item.id} href={item.url} target="_blank" rel="noreferrer" className="activity-row" style={{
                         display: 'flex', alignItems: 'center', gap: 12, padding: '12px 16px', textDecoration: 'none',
                         borderBottom: i < activity.length - 1 ? '1px solid var(--bg-subtle)' : 'none',
-                        transition: 'background var(--transition)',
-                      }} onMouseEnter={e => (e.currentTarget.style.background = 'var(--bg-subtle)')} onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}>
+                      }}>
                         <span style={{ fontSize: 10, fontWeight: 700, color: tc.color, background: tc.bg, padding: '2px 8px', borderRadius: 4, textTransform: 'uppercase', flexShrink: 0 }}>{item.type}</span>
                         <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--text-primary)', flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{item.title}</span>
                         {item.score && <span style={{ fontSize: 12, fontWeight: 600, color: 'var(--success)', flexShrink: 0 }}>{item.score}</span>}

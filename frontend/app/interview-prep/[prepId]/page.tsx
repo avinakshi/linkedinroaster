@@ -128,7 +128,7 @@ const LOADING_STAGES = [
 // ─── Category colors ───
 const CATEGORY_COLORS: Record<string, string> = {
   behavioral: '#0A66C2',
-  role_specific: '#057642',
+  role_specific: 'var(--success)',
   situational: '#7C3AED',
   culture: '#E67E22',
 };
@@ -143,7 +143,7 @@ const CATEGORY_LABELS: Record<string, string> = {
 // ─── STAR colors ───
 const STAR_COLORS: Record<string, string> = {
   S: '#0A66C2',
-  T: '#057642',
+  T: 'var(--success)',
   A: '#7C3AED',
   R: '#E67E22',
 };
@@ -250,7 +250,7 @@ export default function InterviewPrepPage() {
       <div style={{ minHeight: '100vh', background: 'var(--bg-canvas)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <div style={{ textAlign: 'center', maxWidth: 400 }}>
           <div style={{
-            width: 48, height: 48, border: '4px solid #E0E0E0', borderTopColor: '#0A66C2',
+            width: 48, height: 48, border: '4px solid var(--border-default)', borderTopColor: '#0A66C2',
             borderRadius: '50%', animation: 'spin 0.8s linear infinite', margin: '0 auto 20px',
           }} />
           <div style={{ fontSize: 18, fontWeight: 700, color: '#333', marginBottom: 8 }}>
@@ -280,7 +280,7 @@ export default function InterviewPrepPage() {
     const errorMsg = error || prep?.error_message || 'Failed to generate interview prep.';
     return (
       <div style={{ minHeight: '100vh', background: 'var(--bg-canvas)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <div style={{ textAlign: 'center', background: '#fff', borderRadius: 12, padding: '40px 32px', border: '1px solid #E0E0E0', maxWidth: 440 }}>
+        <div style={{ textAlign: 'center', background: '#fff', borderRadius: 12, padding: '40px 32px', border: '1px solid var(--border-default)', maxWidth: 440 }}>
           <div style={{ fontSize: 18, fontWeight: 700, color: '#CC1016', marginBottom: 8 }}>
             {isFailed ? 'Generation Failed' : 'Something went wrong'}
           </div>
@@ -402,18 +402,13 @@ export default function InterviewPrepPage() {
       {/* Failed preps are caught by the error screen above — no dead block here */}
 
       {/* ─── TABS ─── */}
-      <div style={{ background: '#fff', borderBottom: '1px solid #E0E0E0', padding: '0 16px' }}>
+      <div className="tab-bar" style={{ position: 'sticky', top: 0, zIndex: 10 }}>
         <div style={{ maxWidth: 900, margin: '0 auto', display: 'flex', gap: 4, overflowX: 'auto', paddingBottom: 0 }}>
           {tabs.map(tab => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              style={{
-                padding: '10px 16px', fontSize: 13, fontWeight: 600, cursor: 'pointer',
-                border: 'none', borderBottom: activeTab === tab.id ? '3px solid #0B69C7' : '3px solid transparent',
-                background: 'none', color: activeTab === tab.id ? '#0B69C7' : '#666',
-                whiteSpace: 'nowrap',
-              }}
+              className={`tab-bar-item${activeTab === tab.id ? ' active' : ''}`}
             >{tab.label}</button>
           ))}
         </div>
@@ -421,7 +416,7 @@ export default function InterviewPrepPage() {
 
       {/* ─── JD COVERAGE SUMMARY ─── */}
       {hasGapMap && (
-        <div style={{ background: '#fff', borderBottom: '1px solid #E0E0E0', padding: '12px 16px' }}>
+        <div style={{ background: '#fff', borderBottom: '1px solid var(--border-default)', padding: '12px 16px' }}>
           <div style={{ maxWidth: 900, margin: '0 auto', display: 'flex', gap: 16, alignItems: 'center', flexWrap: 'wrap' }}>
             <span style={{ fontSize: 13, fontWeight: 700, color: '#333' }}>JD Coverage:</span>
             {(() => {
@@ -442,7 +437,7 @@ export default function InterviewPrepPage() {
         </div>
       )}
       {!hasJdAnalysis && (
-        <div style={{ background: '#F8FAFC', borderBottom: '1px solid #E0E0E0', padding: '10px 16px' }}>
+        <div style={{ background: '#F8FAFC', borderBottom: '1px solid var(--border-default)', padding: '10px 16px' }}>
           <div style={{ maxWidth: 900, margin: '0 auto', fontSize: 12, color: '#64748B', display: 'flex', alignItems: 'center', gap: 6 }}>
             <span>&#9432;</span> No job description provided — questions are role-based. Add a JD when generating for job-specific prep.
           </div>
@@ -457,7 +452,7 @@ export default function InterviewPrepPage() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
             {/* JD Requirements Summary */}
             {hasJdAnalysis && (
-              <div style={{ background: '#fff', borderRadius: 12, padding: 20, border: '1px solid #E0E0E0', marginBottom: 4 }}>
+              <div style={{ background: '#fff', borderRadius: 12, padding: 20, border: '1px solid var(--border-default)', marginBottom: 4 }}>
                 <div style={{ fontSize: 14, fontWeight: 700, color: '#333', marginBottom: 12 }}>JD Requirements</div>
                 <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 8 }}>
                   {data.jd_analysis!.must_have_skills.map((s, i) => (
@@ -480,7 +475,7 @@ export default function InterviewPrepPage() {
               const statusColors = { strong: { bg: '#ECFDF5', border: '#059669', text: '#059669', icon: '\u2713' }, partial: { bg: '#FEF3C7', border: '#D97706', text: '#92400E', icon: '\u25CB' }, gap: { bg: '#FEF2F2', border: '#DC2626', text: '#DC2626', icon: '\u2717' } };
               const c = statusColors[gap.status] || statusColors.gap;
               return (
-                <div key={i} style={{ background: '#fff', borderRadius: 12, border: '1px solid #E0E0E0', overflow: 'hidden' }}>
+                <div key={i} style={{ background: '#fff', borderRadius: 12, border: '1px solid var(--border-default)', overflow: 'hidden' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '14px 20px', borderLeft: `4px solid ${c.border}` }}>
                     <span style={{ fontSize: 16, color: c.text, fontWeight: 700, width: 24, textAlign: 'center' }}>{c.icon}</span>
                     <div style={{ flex: 1 }}>
@@ -523,7 +518,7 @@ export default function InterviewPrepPage() {
               </div>
             )}
             {/* Interview Style */}
-            <div style={{ background: '#fff', borderRadius: 12, padding: 20, border: '1px solid #E0E0E0' }}>
+            <div style={{ background: '#fff', borderRadius: 12, padding: 20, border: '1px solid var(--border-default)' }}>
               <div style={{ fontSize: 14, fontWeight: 700, color: '#333', marginBottom: 8 }}>Interview Style</div>
               <span style={{
                 display: 'inline-block', padding: '4px 14px', background: '#E8F0FE', color: '#0A66C2',
@@ -532,12 +527,12 @@ export default function InterviewPrepPage() {
             </div>
 
             {/* What JD Emphasizes */}
-            <div style={{ background: '#fff', borderRadius: 12, padding: 20, border: '1px solid #E0E0E0' }}>
+            <div style={{ background: '#fff', borderRadius: 12, padding: 20, border: '1px solid var(--border-default)' }}>
               <div style={{ fontSize: 14, fontWeight: 700, color: '#333', marginBottom: 12 }}>What the JD Emphasizes</div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                 {data.company_brief.what_jd_emphasizes.map((item, i) => (
                   <div key={i} style={{ display: 'flex', gap: 8, alignItems: 'flex-start' }}>
-                    <span style={{ color: '#057642', fontWeight: 700, flexShrink: 0 }}>&#8226;</span>
+                    <span style={{ color: 'var(--success)', fontWeight: 700, flexShrink: 0 }}>&#8226;</span>
                     <span style={{ fontSize: 13, color: '#333', lineHeight: 1.5 }}>{item}</span>
                   </div>
                 ))}
@@ -545,7 +540,7 @@ export default function InterviewPrepPage() {
             </div>
 
             {/* What They Value */}
-            <div style={{ background: '#fff', borderRadius: 12, padding: 20, border: '1px solid #E0E0E0' }}>
+            <div style={{ background: '#fff', borderRadius: 12, padding: 20, border: '1px solid var(--border-default)' }}>
               <div style={{ fontSize: 14, fontWeight: 700, color: '#333', marginBottom: 12 }}>What They Value</div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                 {data.company_brief.what_they_value.map((item, i) => (
@@ -558,7 +553,7 @@ export default function InterviewPrepPage() {
             </div>
 
             {/* Red Flags */}
-            <div style={{ background: '#fff', borderRadius: 12, padding: 20, border: '1px solid #E0E0E0' }}>
+            <div style={{ background: '#fff', borderRadius: 12, padding: 20, border: '1px solid var(--border-default)' }}>
               <div style={{ fontSize: 14, fontWeight: 700, color: '#CC1016', marginBottom: 12 }}>Red Flags They Screen For</div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                 {data.company_brief.red_flags.map((item, i) => (
@@ -590,7 +585,7 @@ export default function InterviewPrepPage() {
                   style={{
                     padding: '6px 14px', borderRadius: 20, fontSize: 12, fontWeight: 600,
                     cursor: 'pointer', border: 'none',
-                    background: questionFilter === f.id ? '#0B69C7' : '#fff',
+                    background: questionFilter === f.id ? 'var(--accent)' : '#fff',
                     color: questionFilter === f.id ? '#fff' : '#666',
                     boxShadow: questionFilter === f.id ? 'none' : '0 0 0 1px #D0D0D0',
                   }}
@@ -604,7 +599,7 @@ export default function InterviewPrepPage() {
                 const isExpanded = expandedIds.has(q.id);
                 const catColor = CATEGORY_COLORS[q.category] || '#666';
                 return (
-                  <div key={q.id} style={{ background: '#fff', borderRadius: 12, border: '1px solid #E0E0E0', overflow: 'hidden' }}>
+                  <div key={q.id} style={{ background: '#fff', borderRadius: 12, border: '1px solid var(--border-default)', borderLeft: `4px solid ${catColor}`, overflow: 'hidden' }}>
                     {/* Header — always visible */}
                     <button
                       onClick={() => toggleExpand(q.id)}
@@ -615,11 +610,7 @@ export default function InterviewPrepPage() {
                       }}
                     >
                       <div style={{ flex: 1 }}>
-                        <span style={{
-                          display: 'inline-block', fontSize: 10, fontWeight: 700, color: catColor,
-                          background: `${catColor}15`, padding: '2px 8px', borderRadius: 10, marginBottom: 6,
-                          textTransform: 'uppercase', letterSpacing: 0.5,
-                        }}>{CATEGORY_LABELS[q.category] || q.category}</span>
+                        <span className="pill-badge" style={{ color: catColor, background: `${catColor}15`, marginBottom: 6 }}>{CATEGORY_LABELS[q.category] || q.category}</span>
                         <div style={{ fontSize: 14, fontWeight: 600, color: '#1a1a1a', lineHeight: 1.5 }}>{q.question}</div>
                       </div>
                       <span style={{ fontSize: 18, color: '#999', flexShrink: 0, transform: isExpanded ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }}>
@@ -629,7 +620,7 @@ export default function InterviewPrepPage() {
 
                     {/* Expanded content */}
                     {isExpanded && (
-                      <div style={{ padding: '0 20px 20px', borderTop: '1px solid #F0F0F0' }}>
+                      <div style={{ padding: '0 20px 20px', borderTop: '1px solid var(--bg-subtle)' }}>
                         {/* Why They Ask */}
                         <div style={{ marginTop: 16, marginBottom: 16 }}>
                           <div style={{ fontSize: 12, fontWeight: 700, color: '#666', marginBottom: 4, textTransform: 'uppercase' }}>Why They Ask</div>
@@ -658,15 +649,13 @@ export default function InterviewPrepPage() {
                           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                             {(['S', 'T', 'A', 'R'] as const).map((letter) => {
                               const key = { S: 'situation', T: 'task', A: 'action', R: 'result' }[letter] as keyof typeof q.suggested_answer;
-                              const label = { S: 'Situation', T: 'Task', A: 'Action', R: 'Result' }[letter];
+                              const label = { S: 'SITUATION', T: 'TASK', A: 'ACTION', R: 'RESULT' }[letter];
+                              const starColor = STAR_COLORS[letter];
                               return (
-                                <div key={letter} style={{ display: 'flex', gap: 0, borderRadius: 8, overflow: 'hidden' }}>
-                                  <div style={{
-                                    width: 4, background: STAR_COLORS[letter], flexShrink: 0,
-                                  }} />
-                                  <div style={{ padding: '8px 12px', background: '#FAFAFA', flex: 1 }}>
-                                    <span style={{ fontSize: 11, fontWeight: 700, color: STAR_COLORS[letter] }}>{label}</span>
-                                    <div style={{ fontSize: 13, color: '#333', lineHeight: 1.6, marginTop: 2 }}>{q.suggested_answer[key]}</div>
+                                <div key={letter} style={{ borderLeft: `3px solid ${starColor}`, borderRadius: 8, overflow: 'hidden' }}>
+                                  <div style={{ padding: '8px 12px', background: 'var(--bg-canvas)', flex: 1 }}>
+                                    <span style={{ fontSize: 11, fontWeight: 700, color: starColor, textTransform: 'uppercase' }}>{label}</span>
+                                    <div style={{ fontSize: 14, color: 'var(--text-primary)', lineHeight: 1.6, marginTop: 2 }}>{q.suggested_answer[key]}</div>
                                   </div>
                                 </div>
                               );
@@ -712,7 +701,7 @@ export default function InterviewPrepPage() {
               </div>
             )}
             {(data.ask_them || []).map((item, i) => (
-              <div key={i} style={{ background: '#fff', borderRadius: 12, padding: 20, border: '1px solid #E0E0E0' }}>
+              <div key={i} style={{ background: '#fff', borderRadius: 12, padding: 20, border: '1px solid var(--border-default)' }}>
                 <div style={{ fontSize: 14, fontWeight: 600, color: '#1a1a1a', marginBottom: 8 }}>{item.question}</div>
                 <div style={{ fontSize: 13, color: '#666', lineHeight: 1.5, background: '#F9FAFB', padding: '8px 12px', borderRadius: 8 }}>
                   <span style={{ fontWeight: 600, color: '#0A66C2' }}>Why it matters: </span>{item.why_it_matters}
@@ -727,11 +716,11 @@ export default function InterviewPrepPage() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             {/* Key Numbers */}
             {data.cheat_sheet.key_numbers?.length > 0 && (
-              <div style={{ background: '#fff', borderRadius: 12, padding: 20, border: '1px solid #E0E0E0' }}>
+              <div style={{ background: '#fff', borderRadius: 12, padding: 20, border: '1px solid var(--border-default)' }}>
                 <div style={{ fontSize: 14, fontWeight: 700, color: '#333', marginBottom: 12 }}>Key Numbers to Remember</div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
                   {data.cheat_sheet.key_numbers.map((num, i) => (
-                    <div key={i} style={{ fontSize: 14, fontWeight: 700, color: '#057642', lineHeight: 1.5 }}>
+                    <div key={i} style={{ fontSize: 14, fontWeight: 700, color: 'var(--success)', lineHeight: 1.5 }}>
                       &#8226; {num}
                     </div>
                   ))}
@@ -741,7 +730,7 @@ export default function InterviewPrepPage() {
 
             {/* Power Stories */}
             {data.cheat_sheet.power_stories?.length > 0 && (
-              <div style={{ background: '#fff', borderRadius: 12, padding: 20, border: '1px solid #E0E0E0' }}>
+              <div style={{ background: '#fff', borderRadius: 12, padding: 20, border: '1px solid var(--border-default)' }}>
                 <div style={{ fontSize: 14, fontWeight: 700, color: '#333', marginBottom: 12 }}>Power Stories</div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                   {data.cheat_sheet.power_stories.map((story, i) => (
@@ -760,7 +749,7 @@ export default function InterviewPrepPage() {
 
             {/* JD Keywords */}
             {data.cheat_sheet.jd_keywords?.length > 0 && (
-              <div style={{ background: '#fff', borderRadius: 12, padding: 20, border: '1px solid #E0E0E0' }}>
+              <div style={{ background: '#fff', borderRadius: 12, padding: 20, border: '1px solid var(--border-default)' }}>
                 <div style={{ fontSize: 14, fontWeight: 700, color: '#333', marginBottom: 12 }}>JD Keywords to Use</div>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
                   {data.cheat_sheet.jd_keywords.map((kw, i) => (
@@ -775,17 +764,17 @@ export default function InterviewPrepPage() {
 
             {/* Avoid / Use Instead */}
             {data.cheat_sheet.avoid_phrases?.length > 0 && (
-              <div style={{ background: '#fff', borderRadius: 12, padding: 20, border: '1px solid #E0E0E0' }}>
+              <div style={{ background: '#fff', borderRadius: 12, padding: 20, border: '1px solid var(--border-default)' }}>
                 <div style={{ fontSize: 14, fontWeight: 700, color: '#333', marginBottom: 12 }}>Avoid / Use Instead</div>
-                <div style={{ borderRadius: 8, overflow: 'hidden', border: '1px solid #E5E7EB' }}>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', background: '#F3F4F6' }}>
+                <div style={{ borderRadius: 8, overflow: 'hidden', border: '1px solid var(--border-default)' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', background: 'var(--bg-subtle)' }}>
                     <div style={{ padding: '8px 12px', fontSize: 12, fontWeight: 700, color: '#CC1016' }}>Avoid</div>
-                    <div style={{ padding: '8px 12px', fontSize: 12, fontWeight: 700, color: '#057642' }}>Use Instead</div>
+                    <div style={{ padding: '8px 12px', fontSize: 12, fontWeight: 700, color: 'var(--success)' }}>Use Instead</div>
                   </div>
                   {data.cheat_sheet.avoid_phrases.map((item, i) => (
-                    <div key={i} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', borderTop: '1px solid #E5E7EB' }}>
+                    <div key={i} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', borderTop: '1px solid var(--border-default)' }}>
                       <div style={{ padding: '8px 12px', fontSize: 13, color: '#CC1016' }}>{item.avoid}</div>
-                      <div style={{ padding: '8px 12px', fontSize: 13, color: '#057642' }}>{item.use_instead}</div>
+                      <div style={{ padding: '8px 12px', fontSize: 13, color: 'var(--success)' }}>{item.use_instead}</div>
                     </div>
                   ))}
                 </div>
@@ -803,8 +792,8 @@ export default function InterviewPrepPage() {
               </div>
             ) : quizComplete ? (
               /* Final Score */
-              <div style={{ background: '#fff', borderRadius: 12, padding: 32, border: '1px solid #E0E0E0', textAlign: 'center' }}>
-                <div style={{ fontSize: 48, fontWeight: 800, color: quizScore >= 7 ? '#057642' : quizScore >= 5 ? '#E67E22' : '#CC1016', marginBottom: 8 }}>
+              <div style={{ background: '#fff', borderRadius: 12, padding: 32, border: '1px solid var(--border-default)', textAlign: 'center' }}>
+                <div style={{ fontSize: 48, fontWeight: 800, color: quizScore >= 7 ? 'var(--success)' : quizScore >= 5 ? '#E67E22' : '#CC1016', marginBottom: 8 }}>
                   {quizScore}/{mcqs.length}
                 </div>
                 <div style={{ fontSize: 18, fontWeight: 700, color: '#333', marginBottom: 8 }}>
@@ -826,10 +815,10 @@ export default function InterviewPrepPage() {
               </div>
             ) : mcqs.length > 0 ? (
               /* Current Question */
-              <div style={{ background: '#fff', borderRadius: 12, padding: 24, border: '1px solid #E0E0E0' }}>
+              <div style={{ background: '#fff', borderRadius: 12, padding: 24, border: '1px solid var(--border-default)' }}>
                 <div style={{ fontSize: 12, color: '#888', marginBottom: 8 }}>Question {quizIndex + 1} of {mcqs.length}</div>
                 {/* Progress bar */}
-                <div style={{ height: 4, background: '#E5E7EB', borderRadius: 2, marginBottom: 16 }}>
+                <div style={{ height: 4, background: 'var(--border-default)', borderRadius: 2, marginBottom: 16 }}>
                   <div style={{ height: '100%', width: `${((quizIndex + 1) / mcqs.length) * 100}%`, background: '#0A66C2', borderRadius: 2, transition: 'width 0.3s' }} />
                 </div>
                 <div style={{ fontSize: 16, fontWeight: 600, color: '#1a1a1a', marginBottom: 20, lineHeight: 1.5 }}>
@@ -844,7 +833,7 @@ export default function InterviewPrepPage() {
                     let borderColor = '#D0D0D0';
                     let textColor = '#333';
                     if (isRevealed) {
-                      if (isCorrect) { bg = '#DCFCE7'; borderColor = '#057642'; textColor = '#057642'; }
+                      if (isCorrect) { bg = '#DCFCE7'; borderColor = 'var(--success)'; textColor = 'var(--success)'; }
                       else if (isSelected) { bg = '#FEE2E2'; borderColor = '#CC1016'; textColor = '#CC1016'; }
                     }
                     return (

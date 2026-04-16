@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, useMemo } from 'react';
 import { TEMPLATES, renderResumeHTML, getRecommendedTemplates } from '../components/resume/ResumeTemplates';
+import SiteFooter from '../components/saas/SiteFooter';
 import '../styles/landing-pr.css';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
@@ -496,6 +497,22 @@ function pdfToResumeData(parsed: any): any {
 }
 
 
+// ─── Sample resume data for template gallery ───
+const SAMPLE_RESUME = {
+  contact: { name: 'Priya Mehta', email: 'priya.mehta@gmail.com', phone: '9876543210', location: 'Bangalore, India', linkedin: 'linkedin.com/in/priyamehta' },
+  summary: 'Results-driven Full-Stack Engineer with 5+ years of experience building scalable web applications serving 50K+ daily active users. Expert in React, Node.js, and cloud infrastructure. Proven track record of reducing deployment time by 60% and improving API performance across enterprise products.',
+  experience: [
+    { role: 'Senior Software Engineer', company: 'TechCorp India', location: 'Bangalore', dates: 'Jan 2022 - Present', bullets: ['Led a cross-functional team of 8 engineers delivering 3 high-impact products generating $2M ARR', 'Reduced API response latency by 40% through query optimization and Redis caching layer implementation', 'Architected microservices migration serving 50K+ daily users with 99.9% uptime SLA', 'Mentored 4 junior developers through structured code reviews and pair programming sessions'] },
+    { role: 'Software Engineer', company: 'StartupXYZ', location: 'Mumbai', dates: 'Jun 2019 - Dec 2021', bullets: ['Built real-time analytics dashboard processing 1M+ events daily using React and D3.js', 'Implemented CI/CD pipeline reducing deployment time from 2 hours to 15 minutes', 'Designed RESTful APIs consumed by 3 client applications with comprehensive test coverage'] },
+    { role: 'Junior Developer', company: 'WebSolutions', location: 'Pune', dates: 'Jul 2018 - May 2019', bullets: ['Developed responsive frontend components using React and TypeScript', 'Collaborated with UX team to improve user engagement metrics by 25%'] },
+  ],
+  education: [
+    { degree: 'B.Tech Computer Science', institution: 'IIT Delhi', year: '2018', gpa: '8.7' },
+  ],
+  skills: ['React', 'Node.js', 'TypeScript', 'Python', 'AWS', 'Docker', 'PostgreSQL', 'Redis', 'GraphQL', 'CI/CD'],
+  achievements: ['Best Innovation Award at TechCorp 2023', 'Open source contributor — 500+ GitHub stars'],
+};
+
 // ════════════════════════════════════════
 // MAIN PAGE
 // ════════════════════════════════════════
@@ -606,6 +623,9 @@ export default function Home() {
   const [showPricing, setShowPricing] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState<'standard' | 'pro' | null>(null);
   const [rateLimited, setRateLimited] = useState(false);
+
+  // Template gallery filter
+  const [galleryFilter, setGalleryFilter] = useState('All');
 
   // Resume upload state
   const [resumeUploading, setResumeUploading] = useState(false);
@@ -1200,9 +1220,12 @@ export default function Home() {
                 <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--accent)' }}>+45 pts avg improvement</div>
               </div>
 
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 16 }}>
-                <div className="pr-live-dot" />
-                <span style={{ fontSize: 14, fontWeight: 600, color: 'var(--text-primary)' }}>2,400+ resumes analyzed this month</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginTop: 16, flexWrap: 'wrap' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <div className="pr-live-dot" />
+                  <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--text-primary)' }}>2,400+ resumes analyzed this month</span>
+                </div>
+                <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--text-secondary)' }}>&#9733; 4.8 avg rating</span>
               </div>
             </div>
 
@@ -1704,130 +1727,79 @@ export default function Home() {
 
       {/* ── Trusted by professionals logo bar ── */}
       <section className="pr-trust-strip">
-        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 32, flexWrap: 'wrap' }}>
-          <span className="pr-trust-strip__label">Trusted by professionals at</span>
+        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12, flexWrap: 'wrap' }}>
+          <span style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-muted)', marginRight: 8 }}>Trusted by professionals at</span>
           {['TCS', 'Infosys', 'Wipro', 'Amazon', 'Google', 'Deloitte', 'Accenture', 'HDFC'].map(name => (
-            <span key={name} className="pr-trust-strip__co">{name}</span>
+            <span key={name} style={{ background: 'var(--bg-subtle)', border: '1px solid var(--border-default)', padding: '6px 14px', borderRadius: 'var(--radius-sm)', fontSize: 12, fontWeight: 700, color: 'var(--text-secondary)', letterSpacing: '0.02em', transition: 'all var(--transition)' }}>{name}</span>
           ))}
         </div>
       </section>
 
-      {/* Product Showcase — floating preview */}
+      {/* ═══════════════════════════════════ */}
+      {/* RESUME TEMPLATE GALLERY             */}
+      {/* ═══════════════════════════════════ */}
       <section id="templates" className="pr-showcase-section">
-        <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 16px', textAlign: 'center' }}>
-          <div className="pr-section-kicker" style={{ letterSpacing: '0.18em' }}>See it in action</div>
-          <h2 className="pr-section-title" style={{ maxWidth: 640, margin: '0 auto 12px' }}>Upload your resume. Get everything back in 90 seconds.</h2>
-          <p className="pr-section-desc" style={{ marginBottom: 40 }}>AI scores your profile, rewrites your LinkedIn, builds an ATS resume, and preps you for interviews.</p>
-
-          {/* Simulated product flow — 3 cards */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 24, textAlign: 'left' }}>
-
-            {/* Card 1: Score */}
-            <div style={{ background: 'white', borderRadius: 12, border: '1px solid rgba(15,23,42,0.08)', overflow: 'hidden', boxShadow: '0 1px 3px rgba(15,23,42,0.04)' }}>
-              <div style={{ background: 'linear-gradient(135deg, #DC2626, #991B1B)', padding: '20px 24px', color: 'white' }}>
-                <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: 2, opacity: 0.7 }}>YOUR PROFILE SCORE</div>
-                <div style={{ display: 'flex', alignItems: 'baseline', gap: 12, marginTop: 8 }}>
-                  <span style={{ fontSize: 42, fontWeight: 900 }}>38</span>
-                  <span style={{ fontSize: 18, opacity: 0.7 }}>&rarr;</span>
-                  <span style={{ fontSize: 42, fontWeight: 900, color: '#4ADE80' }}>84</span>
-                  <span style={{ fontSize: 14, fontWeight: 700, background: 'rgba(255,255,255,0.2)', padding: '4px 10px', borderRadius: 12 }}>+46 pts</span>
-                </div>
-              </div>
-              <div style={{ padding: '16px 24px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: '#6B7280', marginBottom: 6 }}><span>ATS Keywords</span><span style={{ color: '#DC2626', fontWeight: 600 }}>28/100</span></div>
-                <div style={{ height: 4, borderRadius: 2, background: '#E5E7EB', marginBottom: 12 }}><div style={{ height: '100%', borderRadius: 2, background: '#DC2626', width: '28%' }} /></div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: '#6B7280', marginBottom: 6 }}><span>Experience Impact</span><span style={{ color: '#F59E0B', fontWeight: 600 }}>52/100</span></div>
-                <div style={{ height: 4, borderRadius: 2, background: '#E5E7EB', marginBottom: 12 }}><div style={{ height: '100%', borderRadius: 2, background: '#F59E0B', width: '52%' }} /></div>
-                <div style={{ fontSize: 11, color: '#DC2626', fontWeight: 600, marginTop: 8 }}>Missing: microservices, CI/CD, agile, AWS</div>
-              </div>
-            </div>
-
-            {/* Card 2: Resume */}
-            <div style={{ background: 'white', borderRadius: 12, border: '1px solid rgba(15,23,42,0.08)', overflow: 'hidden', boxShadow: '0 1px 3px rgba(15,23,42,0.04)' }}>
-              <div style={{ background: 'var(--accent)', padding: '12px 24px', color: 'white', fontSize: 10, fontWeight: 700, letterSpacing: 2 }}>ATS-OPTIMIZED RESUME</div>
-              <div style={{ padding: '20px 24px' }}>
-                <div style={{ background: 'white', border: '1px solid #E5E7EB', borderRadius: 8, padding: '16px', marginBottom: 12 }}>
-                  <div style={{ fontSize: 16, fontWeight: 700, color: '#111827', marginBottom: 2 }}>Priya Mehta</div>
-                  <div style={{ fontSize: 11, color: '#6B7280', marginBottom: 10 }}>Full-Stack Engineer &bull; Bangalore</div>
-                  <div style={{ fontSize: 9, fontWeight: 700, color: 'var(--accent)', letterSpacing: 1, marginBottom: 4 }}>EXPERIENCE</div>
-                  <div style={{ height: 5, background: '#F3F4F6', borderRadius: 2, marginBottom: 3 }} />
-                  <div style={{ height: 5, background: '#F3F4F6', borderRadius: 2, marginBottom: 3, width: '85%' }} />
-                  <div style={{ height: 5, background: '#F3F4F6', borderRadius: 2, marginBottom: 8, width: '70%' }} />
-                  <div style={{ fontSize: 9, fontWeight: 700, color: 'var(--accent)', letterSpacing: 1, marginBottom: 4 }}>SKILLS</div>
-                  <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>
-                    {['React', 'Node.js', 'Python', 'AWS'].map(s => (
-                      <span key={s} style={{ fontSize: 9, background: '#EFF6FF', color: 'var(--accent)', padding: '2px 6px', borderRadius: 4 }}>{s}</span>
-                    ))}
-                  </div>
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span style={{ fontSize: 12, color: '#057642', fontWeight: 600 }}>ATS Score: 87%</span>
-                  <span style={{ fontSize: 11, color: '#6B7280' }}>11 templates available</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Card 3: Interview Prep */}
-            <div style={{ background: 'white', borderRadius: 12, border: '1px solid rgba(15,23,42,0.08)', overflow: 'hidden', boxShadow: '0 1px 3px rgba(15,23,42,0.04)' }}>
-              <div style={{ background: 'linear-gradient(135deg, #7C3AED, #5B21B6)', padding: '12px 24px', color: 'white', fontSize: 10, fontWeight: 700, letterSpacing: 2 }}>INTERVIEW PREP</div>
-              <div style={{ padding: '16px 24px' }}>
-                {[
-                  { type: 'Behavioral', q: 'Tell me about a time you led a team through a tight deadline.', color: 'var(--accent)' },
-                  { type: 'Technical', q: 'How would you optimize a slow SQL query in production?', color: '#057642' },
-                  { type: 'HR', q: 'Why should we hire you over other candidates?', color: '#E16B00' },
-                ].map((item, i) => (
-                  <div key={i} style={{ background: 'white', border: '1px solid #E5E7EB', borderRadius: 8, padding: '10px 12px', marginBottom: 8 }}>
-                    <div style={{ fontSize: 9, fontWeight: 700, color: item.color, letterSpacing: 0.5, marginBottom: 3 }}>{item.type.toUpperCase()}</div>
-                    <div style={{ fontSize: 12, color: '#374151', lineHeight: 1.4 }}>{item.q}</div>
-                  </div>
-                ))}
-                <div style={{ fontSize: 11, color: '#6B7280', textAlign: 'center', marginTop: 4 }}>15 questions + STAR answers + cheat sheet + quiz</div>
-              </div>
-            </div>
+        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 20px' }}>
+          <div style={{ textAlign: 'center', marginBottom: 40 }}>
+            <div className="pr-section-kicker" style={{ letterSpacing: '0.18em' }}>Professional templates</div>
+            <h2 className="pr-section-title" style={{ maxWidth: 600, margin: '0 auto 12px' }}>{TEMPLATES.length} ATS-Optimized Resume Templates</h2>
+            <p className="pr-section-desc">Pick a template. We fill it with your rewritten content and optimized keywords. Download as PDF.</p>
           </div>
 
-          {/* Template carousel */}
-          <div style={{ marginTop: 40, textAlign: 'left' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-              <h3 style={{ fontSize: 20, fontWeight: 700, color: '#0F172A', margin: 0 }}>{TEMPLATES.length} ATS-optimized templates</h3>
-              <a href="/pricing" style={{ fontSize: 14, fontWeight: 600, color: 'var(--accent)', textDecoration: 'none' }}>See all →</a>
-            </div>
-            <div style={{ display: 'flex', gap: 16, overflowX: 'auto', paddingBottom: 8, scrollSnapType: 'x mandatory' }}>
-              {TEMPLATES.slice(0, 8).map(t => (
-                <div key={t.id} style={{ flex: '0 0 200px', scrollSnapAlign: 'start', background: 'white', borderRadius: 10, border: '1px solid rgba(15,23,42,0.08)', overflow: 'hidden', boxShadow: '0 1px 2px rgba(0,0,0,0.04)' }}>
-                  <div style={{ height: 240, background: '#F8FAFC', borderBottom: '1px solid rgba(15,23,42,0.06)', overflow: 'hidden', position: 'relative' }}>
-                    <div style={{ transform: 'scale(0.2)', transformOrigin: 'top left', width: 1000, height: 1300, pointerEvents: 'none' }}>
-                      {renderResumeHTML({
-                        contact: { name: 'Priya Mehta', email: 'priya.mehta@gmail.com', phone: '9876543210', location: 'Bangalore, India', linkedin: 'linkedin.com/in/priyamehta' },
-                        summary: 'Results-driven Full-Stack Engineer with 5+ years of experience building scalable web applications serving 50K+ daily active users. Expert in React, Node.js, and cloud infrastructure. Proven track record of reducing deployment time by 60% and improving API performance across enterprise products.',
-                        experience: [
-                          { role: 'Senior Software Engineer', company: 'TechCorp India', location: 'Bangalore', dates: 'Jan 2022 - Present', bullets: ['Led a cross-functional team of 8 engineers delivering 3 high-impact products generating $2M ARR', 'Reduced API response latency by 40% through query optimization and Redis caching layer implementation', 'Architected microservices migration serving 50K+ daily users with 99.9% uptime SLA', 'Mentored 4 junior developers through structured code reviews and pair programming sessions'] },
-                          { role: 'Software Engineer', company: 'StartupXYZ', location: 'Mumbai', dates: 'Jun 2019 - Dec 2021', bullets: ['Built real-time analytics dashboard processing 1M+ events daily using React and D3.js', 'Implemented CI/CD pipeline reducing deployment time from 2 hours to 15 minutes', 'Designed RESTful APIs consumed by 3 client applications with comprehensive test coverage'] },
-                          { role: 'Junior Developer', company: 'WebSolutions', location: 'Pune', dates: 'Jul 2018 - May 2019', bullets: ['Developed responsive frontend components using React and TypeScript', 'Collaborated with UX team to improve user engagement metrics by 25%'] },
-                        ],
-                        education: [
-                          { degree: 'B.Tech Computer Science', institution: 'IIT Delhi', year: '2018', gpa: '8.7' },
-                        ],
-                        skills: ['React', 'Node.js', 'TypeScript', 'Python', 'AWS', 'Docker', 'PostgreSQL', 'Redis', 'GraphQL', 'CI/CD'],
-                        achievements: ['Best Innovation Award at TechCorp 2023', 'Open source contributor — 500+ GitHub stars'],
-                      }, t.id)}
-                    </div>
-                  </div>
-                  <div style={{ padding: '10px 12px' }}>
-                    <div style={{ fontSize: 13, fontWeight: 600, color: '#0F172A' }}>{t.name}</div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginTop: 4 }}>
-                      {t.ats === 'high' && <span style={{ fontSize: 10, fontWeight: 600, color: '#059669', background: '#ECFDF5', padding: '1px 6px', borderRadius: 4 }}>ATS High</span>}
-                      {t.ats === 'medium' && <span style={{ fontSize: 10, fontWeight: 600, color: '#D97706', background: '#FFFBEB', padding: '1px 6px', borderRadius: 4 }}>ATS Medium</span>}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
+          {/* Filter tabs */}
+          <div className="filter-tabs" style={{ justifyContent: 'center', marginBottom: 28 }}>
+            {['All', 'ATS-Friendly', 'Professional', 'India'].map(cat => (
+              <button key={cat} className={`filter-tab${galleryFilter === cat ? ' active' : ''}`} onClick={() => setGalleryFilter(cat)}>
+                {cat}{cat === 'All' ? ` (${TEMPLATES.length})` : ''}
+              </button>
+            ))}
           </div>
 
-          <button type="button" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="pr-nav__cta" style={{ marginTop: 32, padding: '14px 36px', fontSize: 15 }}>
-            Try It Free &mdash; Upload Your Resume
-          </button>
+          {/* Template grid */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: 20 }}>
+            {TEMPLATES.filter(t => {
+              if (galleryFilter === 'All') return true;
+              return t.category === galleryFilter;
+            }).map((t, idx) => (
+              <div key={t.id} className="template-card" style={{ animationDelay: `${idx * 40}ms` }}>
+                {/* A4 thumbnail */}
+                <div style={{ height: 311, overflow: 'hidden', position: 'relative', background: 'var(--bg-canvas)' }}>
+                  <div style={{ width: 794, height: 1122, transform: 'scale(0.277)', transformOrigin: 'top left', pointerEvents: 'none' }}>
+                    {renderResumeHTML(SAMPLE_RESUME, t.id)}
+                  </div>
+                  {/* Hover overlay */}
+                  <div className="template-card-overlay">
+                    <button
+                      type="button"
+                      onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                      className="saas-btn saas-btn-primary"
+                      style={{ padding: '10px 24px', fontSize: 14, borderRadius: 'var(--radius-pill)' }}
+                    >
+                      Use This Template
+                    </button>
+                    <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.8)', fontWeight: 500 }}>{t.name}</span>
+                  </div>
+                </div>
+                {/* Card footer */}
+                <div style={{ padding: '10px 14px', borderTop: '1px solid var(--border-default)' }}>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--text-primary)', marginBottom: 6 }}>{t.name}</div>
+                  <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+                    {t.ats === 'high' && <span className="pill-badge pill-badge-success">ATS High</span>}
+                    {t.ats === 'medium' && <span className="pill-badge pill-badge-warning">ATS Medium</span>}
+                    {idx < 3 && <span className="pill-badge pill-badge-accent">Popular</span>}
+                    {t.category === 'India' && <span className="pill-badge pill-badge-neutral">India</span>}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div style={{ textAlign: 'center', marginTop: 36 }}>
+            <button type="button" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="pr-nav__cta" style={{ padding: '14px 36px', fontSize: 15 }}>
+              Try It Free &mdash; Upload Your Resume
+            </button>
+            <p style={{ fontSize: 13, color: 'var(--text-muted)', marginTop: 10 }}>All templates included with every plan. No extra cost.</p>
+          </div>
         </div>
       </section>
 
@@ -2462,26 +2434,7 @@ export default function Home() {
       {/* ═══════════════════════════════════ */}
       {/* FOOTER                              */}
       {/* ═══════════════════════════════════ */}
-      <footer className="pr-footer">
-        <div style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 20 }}>
-          <div>
-            <div className="pr-footer__logo"><span>Profile</span>Roaster</div>
-            <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 6 }}>AI-powered career tools for Indian professionals</div>
-          </div>
-          <div style={{ display: 'flex', gap: 20, flexWrap: 'wrap' }}>
-            {[
-              { label: 'Pricing', href: '/pricing' },
-              { label: 'Dashboard', href: '/dashboard' },
-              { label: 'Terms', href: '/terms' },
-              { label: 'Privacy', href: '/privacy' },
-              { label: 'Refund', href: '/refund' },
-            ].map((l, i) => (
-              <a key={i} href={l.href}>{l.label}</a>
-            ))}
-          </div>
-          <div style={{ fontSize: 12, color: '#64748b' }}>&copy; 2026 ProfileRoaster. All rights reserved.</div>
-        </div>
-      </footer>
+      <SiteFooter variant="dark" />
     </main>
   );
 }

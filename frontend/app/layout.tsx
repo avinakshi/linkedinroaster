@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import SiteFooter from '../components/saas/SiteFooter';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -26,19 +27,7 @@ export default function RootLayout({
       </head>
       <body>
         {children}
-        <footer className="site-footer-saas">
-          <div className="site-footer-saas-inner">
-            <div className="site-footer-saas-links">
-              <a href="/terms">Terms &amp; Conditions</a>
-              <a href="/privacy">Privacy Policy</a>
-              <a href="/refund">Refund Policy</a>
-              <span>Contact: support@profileroaster.in</span>
-            </div>
-            <p className="site-footer-saas-copy">
-              &copy; 2026 Profile Roaster. Not affiliated with LinkedIn Corporation.
-            </p>
-          </div>
-        </footer>
+        <SiteFooter variant="light" />
       </body>
     </html>
   );

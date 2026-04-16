@@ -54,7 +54,7 @@ function TagInput({ tags, setTags, placeholder }: { tags: string[]; setTags: (t:
             key={tag}
             style={{
               display: 'inline-flex', alignItems: 'center', gap: 4,
-              background: '#E8F0FE', color: '#0A66C2', borderRadius: 16,
+              background: '#E8F0FE', color: 'var(--accent)', borderRadius: 16,
               padding: '4px 10px', fontSize: 13, fontWeight: 500,
             }}
           >
@@ -62,7 +62,7 @@ function TagInput({ tags, setTags, placeholder }: { tags: string[]; setTags: (t:
             <button
               type="button"
               onClick={() => setTags(tags.filter((t) => t !== tag))}
-              style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#0A66C2', fontWeight: 700, fontSize: 14, lineHeight: 1, padding: 0 }}
+              style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--accent)', fontWeight: 700, fontSize: 14, lineHeight: 1, padding: 0 }}
               aria-label={`Remove ${tag}`}
             >
               &times;
@@ -84,18 +84,18 @@ function TagInput({ tags, setTags, placeholder }: { tags: string[]; setTags: (t:
 
 // ─── Shared Styles ───
 const inputStyle: React.CSSProperties = {
-  width: '100%', padding: '10px 12px', border: '1px solid #CCC',
+  width: '100%', padding: '10px 12px', border: '1px solid var(--border-default)',
   borderRadius: 6, fontSize: 14, outline: 'none', boxSizing: 'border-box',
   transition: 'border-color 0.2s',
 };
 
 const labelStyle: React.CSSProperties = {
-  display: 'block', fontSize: 13, fontWeight: 600, color: '#191919', marginBottom: 4,
+  display: 'block', fontSize: 13, fontWeight: 600, color: 'var(--text-primary)', marginBottom: 4,
 };
 
 const sectionHeading: React.CSSProperties = {
-  fontSize: 14, fontWeight: 700, color: '#191919', marginBottom: 16, paddingBottom: 8,
-  borderBottom: '1px solid #E0E0E0',
+  fontSize: 'var(--fs-md)' as any, fontWeight: 700, color: 'var(--text-primary)', marginBottom: 16, paddingBottom: 12,
+  borderBottom: '1px solid var(--border-default)',
 };
 
 // ─── Loading Stages ───
@@ -528,7 +528,7 @@ function ResumeFormContent() {
                   onDragLeave={() => setDragOver(false)}
                   onDrop={(e) => { e.preventDefault(); setDragOver(false); handleFileSelect(e.dataTransfer.files?.[0]); }}
                   style={{
-                    border: `2px dashed ${dragOver ? '#0A66C2' : '#D1D5DB'}`,
+                    border: `2px dashed ${dragOver ? 'var(--accent)' : 'var(--border-default)'}`,
                     borderRadius: 12,
                     padding: 32,
                     textAlign: 'center',
@@ -537,11 +537,11 @@ function ResumeFormContent() {
                     transition: 'all 0.2s',
                   }}
                 >
-                  <div style={{ fontSize: 32, marginBottom: 8, color: '#9CA3AF' }}>&#128196;</div>
-                  <div style={{ fontSize: 14, fontWeight: 600, color: '#374151', marginBottom: 4 }}>
+                  <div style={{ fontSize: 32, marginBottom: 8, color: 'var(--text-muted)' }}>&#128196;</div>
+                  <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--text-secondary)', marginBottom: 4 }}>
                     {uploadFile ? uploadFile.name : 'Click or drag & drop your resume here'}
                   </div>
-                  <div style={{ fontSize: 12, color: '#9CA3AF' }}>PDF or DOCX, max 10MB</div>
+                  <div style={{ fontSize: 12, color: 'var(--text-muted)' }}>PDF or DOCX, max 10MB</div>
                 </div>
 
                 {uploadFile && (
@@ -551,7 +551,7 @@ function ResumeFormContent() {
                       onClick={handleUploadParse}
                       disabled={uploading}
                       style={{
-                        padding: '10px 20px', background: uploading ? '#93C5FD' : '#0A66C2', color: '#fff',
+                        padding: '10px 20px', background: uploading ? '#93C5FD' : 'var(--accent)', color: '#fff',
                         border: 'none', borderRadius: 8, fontSize: 14, fontWeight: 600,
                         cursor: uploading ? 'not-allowed' : 'pointer', transition: 'background 0.2s',
                       }}
@@ -584,7 +584,9 @@ function ResumeFormContent() {
           </div>
 
           {/* SECTION 1 - Your Details */}
-          <h2 style={sectionHeading}>Your Details</h2>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16, paddingBottom: 12, borderBottom: '1px solid var(--border-default)' }}>
+            <h3 style={{ fontSize: 'var(--fs-md)', fontWeight: 700, color: 'var(--text-primary)', margin: 0 }}>Your Details</h3>
+          </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 16, marginBottom: 28 }}>
             <div>
               <label style={labelStyle}>Full Name <span style={{ color: '#CC1016' }}>*</span></label>
@@ -613,7 +615,9 @@ function ResumeFormContent() {
           </div>
 
           {/* SECTION 2 - Target Job */}
-          <h2 style={sectionHeading}>Target Job</h2>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16, paddingBottom: 12, borderBottom: '1px solid var(--border-default)' }}>
+            <h3 style={{ fontSize: 'var(--fs-md)', fontWeight: 700, color: 'var(--text-primary)', margin: 0 }}>Target Job</h3>
+          </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 16, marginBottom: 16 }}>
             <div>
               <label style={labelStyle}>Target Role <span style={{ color: '#CC1016' }}>*</span></label>
@@ -627,8 +631,8 @@ function ResumeFormContent() {
           <div style={{ marginBottom: 28 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
               <label style={labelStyle}>Job Description {!noJd && <span style={{ color: '#CC1016' }}>*</span>}</label>
-              <label style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, color: '#0B69C7', cursor: 'pointer', fontWeight: 600 }}>
-                <input type="checkbox" checked={noJd} onChange={e => setNoJd(e.target.checked)} style={{ accentColor: '#0B69C7' }} />
+              <label style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, color: 'var(--accent)', cursor: 'pointer', fontWeight: 600 }}>
+                <input type="checkbox" checked={noJd} onChange={e => setNoJd(e.target.checked)} style={{ accentColor: 'var(--accent)' }} />
                 No specific JD — make a general resume
               </label>
             </div>
@@ -701,7 +705,7 @@ function ResumeFormContent() {
                       onChange={(e) => setExpYears(Math.max(0, Math.min(50, parseInt(e.target.value) || 0)))}
                       style={{ ...inputStyle, width: 70, textAlign: 'center' }}
                     />
-                    <span style={{ fontSize: 13, color: '#666' }}>years</span>
+                    <span style={{ fontSize: 13, color: 'var(--text-muted)' }}>years</span>
                     <input
                       type="number"
                       min={0}
@@ -710,7 +714,7 @@ function ResumeFormContent() {
                       onChange={(e) => setExpMonths(Math.max(0, Math.min(11, parseInt(e.target.value) || 0)))}
                       style={{ ...inputStyle, width: 70, textAlign: 'center' }}
                     />
-                    <span style={{ fontSize: 13, color: '#666' }}>months</span>
+                    <span style={{ fontSize: 13, color: 'var(--text-muted)' }}>months</span>
                   </div>
                 </div>
               </div>
@@ -718,7 +722,9 @@ function ResumeFormContent() {
           </div>
 
           {/* SECTION 4 - Preferences */}
-          <h2 style={sectionHeading}>Preferences</h2>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16, paddingBottom: 12, borderBottom: '1px solid var(--border-default)' }}>
+            <h3 style={{ fontSize: 'var(--fs-md)', fontWeight: 700, color: 'var(--text-primary)', margin: 0 }}>Preferences</h3>
+          </div>
           <div style={{ marginBottom: 20 }}>
             <label style={{ ...labelStyle, marginBottom: 10 }}>Template ({TEMPLATES.length} designs)</label>
             {/* Category filter */}
@@ -729,8 +735,8 @@ function ResumeFormContent() {
                 return (
                   <button key={cat} type="button" onClick={() => setTemplateFilter(cat)} style={{
                     padding: '4px 10px', borderRadius: 16, fontSize: 11, fontWeight: 600, cursor: 'pointer', border: 'none',
-                    background: templateFilter === cat ? '#0A66C2' : 'var(--bg-subtle)',
-                    color: templateFilter === cat ? '#fff' : '#666',
+                    background: templateFilter === cat ? 'var(--accent)' : 'var(--bg-subtle)',
+                    color: templateFilter === cat ? '#fff' : 'var(--text-muted)',
                     whiteSpace: 'nowrap',
                   }}>{cat} ({count})</button>
                 );
@@ -746,16 +752,15 @@ function ResumeFormContent() {
                 return (
                   <label
                     key={t.id}
+                    className={`template-card${selected ? ' selected' : ''}`}
                     onClick={(e) => {
                       if (isLocked) { e.preventDefault(); setTemplate(t.id); }
                     }}
                     style={{
                       display: 'flex', flexDirection: 'column', gap: 4,
-                      padding: 12, borderRadius: 8, cursor: 'pointer',
-                      border: selected ? '2px solid #0A66C2' : isLocked ? '1px solid #E0E0E0' : '1px solid #CCC',
-                      background: selected ? '#F0F7FF' : isLocked ? '#F9FAFB' : '#fff',
+                      padding: 12, cursor: 'pointer',
                       opacity: isLocked ? 0.75 : 1,
-                      transition: 'all 0.15s', position: 'relative',
+                      position: 'relative',
                     }}
                   >
                     {isLocked && (
@@ -768,17 +773,17 @@ function ResumeFormContent() {
                       style={{ display: 'none' }}
                     />
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                      <span style={{ fontSize: 14, fontWeight: selected ? 700 : 600, color: isLocked ? '#999' : selected ? '#0A66C2' : '#191919' }}>{t.name}</span>
+                      <span style={{ fontSize: 14, fontWeight: selected ? 700 : 600, color: isLocked ? 'var(--text-muted)' : selected ? 'var(--accent)' : 'var(--text-primary)' }}>{t.name}</span>
                       <span style={{
                         fontSize: 10, fontWeight: 600, padding: '2px 6px', borderRadius: 4,
                         background: t.category === 'ATS-Friendly' ? '#E8F0FE' : t.category === 'Professional' ? '#FEF3C7' : t.category === 'Premium' ? '#FDF2F8' : t.category === 'Visual' ? '#F0FDF4' : '#E8F0FE',
-                        color: t.category === 'ATS-Friendly' ? '#0A66C2' : t.category === 'Professional' ? '#92400E' : t.category === 'Premium' ? '#9D174D' : t.category === 'Visual' ? '#057642' : '#0A66C2',
+                        color: t.category === 'ATS-Friendly' ? 'var(--accent)' : t.category === 'Professional' ? '#92400E' : t.category === 'Premium' ? '#9D174D' : t.category === 'Visual' ? '#057642' : 'var(--accent)',
                       }}>{t.category}</span>
                     </div>
-                    <span style={{ fontSize: 12, color: '#666', lineHeight: 1.4 }}>{t.description}</span>
+                    <span style={{ fontSize: 12, color: 'var(--text-muted)', lineHeight: 1.4 }}>{t.description}</span>
                     <div style={{ display: 'flex', gap: 4, marginTop: 4 }}>
-                      {t.ats === 'high' && <span style={{ fontSize: 9, fontWeight: 700, color: '#057642', background: '#F0FDF4', padding: '2px 6px', borderRadius: 4 }}>ATS High</span>}
-                      {t.ats === 'medium' && <span style={{ fontSize: 9, fontWeight: 700, color: '#92400E', background: '#FFFBEB', padding: '2px 6px', borderRadius: 4 }}>ATS Medium</span>}
+                      {t.ats === 'high' && <span className="pill-badge pill-badge-success" style={{ fontSize: 9 }}>ATS High</span>}
+                      {t.ats === 'medium' && <span className="pill-badge pill-badge-warning" style={{ fontSize: 9 }}>ATS Medium</span>}
                     </div>
                   </label>
                 );
@@ -806,7 +811,7 @@ function ResumeFormContent() {
                         const opts = {
                           key: data.razorpay_key, amount: data.amount, currency: data.currency,
                           order_id: data.razorpay_order_id, name: 'ProfileRoaster',
-                          description: 'Upgrade to Pro', theme: { color: '#0A66C2' },
+                          description: 'Upgrade to Pro', theme: { color: 'var(--accent)' },
                           handler: () => { window.location.reload(); },
                           modal: { ondismiss: () => { document.body.style.overflow = ''; document.body.style.position = ''; document.documentElement.style.overflow = ''; } },
                         };
@@ -816,7 +821,7 @@ function ResumeFormContent() {
                   }}
                   style={{
                     display: 'inline-block', marginTop: 10, padding: '10px 24px',
-                    background: '#0A66C2', color: 'white', borderRadius: 50, border: 'none',
+                    background: 'var(--accent)', color: 'white', borderRadius: 50, border: 'none',
                     fontSize: 14, fontWeight: 700, cursor: 'pointer',
                   }}
                 >
@@ -829,13 +834,13 @@ function ResumeFormContent() {
           {/* Submit Button / Loading */}
           {submitting ? (
             <div style={{ textAlign: 'center', padding: '24px 0' }}>
-              <p style={{ fontSize: 15, fontWeight: 600, color: '#191919', marginBottom: 6 }}>
+              <p style={{ fontSize: 15, fontWeight: 600, color: 'var(--text-primary)', marginBottom: 6 }}>
                 Generating... (30-45 seconds)
               </p>
               {/* Progress bar */}
-              <div style={{ width: '100%', background: '#E0E0E0', borderRadius: 8, height: 6, marginBottom: 16, overflow: 'hidden' }}>
+              <div style={{ width: '100%', background: 'var(--border-default)', borderRadius: 8, height: 6, marginBottom: 16, overflow: 'hidden' }}>
                 <div style={{
-                  height: '100%', background: '#0A66C2', borderRadius: 8,
+                  height: '100%', background: 'var(--accent)', borderRadius: 8,
                   width: `${((loadingStage + 1) / LOADING_STAGES.length) * 100}%`,
                   transition: 'width 1s ease',
                 }} />
@@ -846,15 +851,15 @@ function ResumeFormContent() {
                     <span style={{
                       width: 18, height: 18, borderRadius: '50%', display: 'inline-flex',
                       alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700,
-                      background: i <= loadingStage ? '#0A66C2' : '#E0E0E0',
-                      color: i <= loadingStage ? '#fff' : '#999',
+                      background: i <= loadingStage ? 'var(--accent)' : 'var(--border-default)',
+                      color: i <= loadingStage ? '#fff' : 'var(--text-muted)',
                       transition: 'all 0.3s',
                     }}>
                       {i < loadingStage ? '\u2713' : i + 1}
                     </span>
                     <span style={{
                       fontSize: 13,
-                      color: i <= loadingStage ? '#191919' : '#999',
+                      color: i <= loadingStage ? 'var(--text-primary)' : 'var(--text-muted)',
                       fontWeight: i === loadingStage ? 600 : 400,
                     }}>
                       {stage}
@@ -866,14 +871,8 @@ function ResumeFormContent() {
           ) : (
             <button
               type="submit"
-              style={{
-                width: '100%', background: '#0A66C2', color: '#fff',
-                border: 'none', borderRadius: 50, padding: 14,
-                fontSize: 16, fontWeight: 700, cursor: 'pointer',
-                transition: 'background 0.2s',
-              }}
-              onMouseEnter={(e) => { (e.target as HTMLButtonElement).style.background = '#004182'; }}
-              onMouseLeave={(e) => { (e.target as HTMLButtonElement).style.background = '#0A66C2'; }}
+              className="saas-btn saas-btn-primary"
+              style={{ width: '100%', borderRadius: 50, padding: 14, fontSize: 16 }}
             >
               Generate My ATS Resume &rarr;
             </button>
