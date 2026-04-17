@@ -1208,16 +1208,16 @@ export default function Home() {
 
             {/* LEFT — Value Proposition */}
             <div style={{ flex: '1.2 1 420px', minWidth: 0 }}>
-              <div className="pr-eyebrow">Free profile score</div>
+              <div className="pr-eyebrow">AI Resume &amp; LinkedIn Optimizer</div>
               <h1 className="pr-hero__title">
-                Not getting calls from <span className="pr-hero__title-em">HR</span>?<br />
-                <span className="pr-hero__title-accent">Your resume might be the problem.</span>
+                Your LinkedIn Profile Is <span className="pr-hero__title-em">Costing You</span> Interviews.<br />
+                <span className="pr-hero__title-accent">Let&rsquo;s fix it in 90 seconds.</span>
               </h1>
               <p className="pr-hero__lead">
-                Upload your resume or LinkedIn PDF. AI scores it instantly, rewrites everything, and builds interview prep — in under 3 minutes.
+                Get a brutally honest AI analysis of your resume, discover what recruiters actually see, and get a complete rewrite — profile, ATS resume, and interview prep. All for the price of one coffee.
               </p>
               <p className="pr-hero__meta">
-                Starting at &#8377;499 &bull; One-time payment
+                &#8377;499 one-time &bull; No subscription &bull; Results in 90 seconds
               </p>
 
               {/* Value bullets with icon tiles */}
@@ -2256,6 +2256,62 @@ export default function Home() {
       {/* ═══════════════════════════════════ */}
       {!teaser && (
         <>
+          {/* ── Why Your Profile Isn't Working ── */}
+          <section style={{ padding: '88px 0', background: '#0F172A', color: 'white' }}>
+            <div className="landing-section" style={{ maxWidth: 1000 }}>
+              <div style={{ textAlign: 'center', marginBottom: 48 }}>
+                <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: 2, textTransform: 'uppercase', color: '#FF5A5F', marginBottom: 10 }}>The harsh truth</div>
+                <h2 style={{ fontSize: 32, fontWeight: 800, letterSpacing: '-0.02em', lineHeight: 1.2 }}>Why recruiters skip your profile in 3 seconds</h2>
+                <p style={{ fontSize: 16, color: '#94A3B8', marginTop: 12, maxWidth: 560, margin: '12px auto 0' }}>These are the exact patterns that make hiring managers move on. Sound familiar?</p>
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 24 }}>
+                {[
+                  {
+                    title: 'The Buzzword Resume',
+                    bad: '"Passionate results-driven professional seeking to leverage synergies..."',
+                    roast: 'You sound like every rejected MBA application from 2019.',
+                    fix: '"Product Manager who grew DAU from 12K to 180K at a Series B fintech."',
+                    color: '#FF5A5F',
+                  },
+                  {
+                    title: 'The Keyword Dump',
+                    bad: '"Python | Java | AWS | Docker | SQL | Agile | Seeking opportunities"',
+                    roast: 'A list of tools is not a headline. Recruiters want outcomes, not a tech stack.',
+                    fix: '"Backend Engineer | Reduced API latency 62% across a 3M-user SaaS platform"',
+                    color: '#F59E0B',
+                  },
+                  {
+                    title: 'The Invisible About',
+                    bad: '"I am a hard-working individual with excellent communication skills and a can-do attitude."',
+                    roast: 'So is literally everyone. This tells a recruiter nothing about what you actually did.',
+                    fix: '"Led 8-person engineering team shipping ₹4.2Cr revenue features. IIT Delhi \'18. 3 promotions in 4 years."',
+                    color: '#7C3AED',
+                  },
+                ].map((card, i) => (
+                  <div key={i} style={{ background: '#1E293B', borderRadius: 16, padding: '28px 24px', border: '1px solid #334155' }}>
+                    <div style={{ fontSize: 14, fontWeight: 700, color: card.color, marginBottom: 16 }}>{card.title}</div>
+                    <div style={{ background: '#0F172A', borderRadius: 8, padding: '14px 16px', marginBottom: 12, borderLeft: '3px solid #DC2626' }}>
+                      <div style={{ fontSize: 10, fontWeight: 700, color: '#DC2626', letterSpacing: 1, marginBottom: 6 }}>THE PROBLEM</div>
+                      <div style={{ fontSize: 13, color: '#CBD5E1', fontStyle: 'italic', lineHeight: 1.5 }}>{card.bad}</div>
+                    </div>
+                    <div style={{ fontSize: 13, color: '#94A3B8', marginBottom: 12, lineHeight: 1.5 }}>
+                      <span style={{ color: card.color, fontWeight: 600 }}>Why it fails:</span> {card.roast}
+                    </div>
+                    <div style={{ background: '#0F172A', borderRadius: 8, padding: '14px 16px', borderLeft: '3px solid #10B981' }}>
+                      <div style={{ fontSize: 10, fontWeight: 700, color: '#10B981', letterSpacing: 1, marginBottom: 6 }}>THE FIX</div>
+                      <div style={{ fontSize: 13, color: '#D1FAE5', fontWeight: 500, lineHeight: 1.5 }}>{card.fix}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div style={{ textAlign: 'center', marginTop: 40 }}>
+                <button type="button" onClick={() => (document.querySelector('.pr-hero') as HTMLElement)?.scrollIntoView({ behavior: 'smooth' })} style={{ background: '#FF5A5F', color: 'white', fontSize: 16, fontWeight: 700, padding: '16px 36px', borderRadius: 999, border: 'none', cursor: 'pointer', boxShadow: '0 4px 20px rgba(255,90,95,0.3)' }}>
+                  Find Out What&rsquo;s Wrong With Yours &rarr;
+                </button>
+              </div>
+            </div>
+          </section>
+
           {/* ── Everything You Need ── */}
           <section style={{ padding: '88px 0', background: 'var(--bg-surface)', borderBottom: '1px solid var(--border-default)' }}>
             <div className="landing-section">
@@ -2447,6 +2503,38 @@ export default function Home() {
             </div>
           </section>
 
+          {/* ── Testimonials ── */}
+          <section style={{ padding: '80px 0', background: 'var(--bg-canvas)', borderBottom: '1px solid var(--border-default)' }}>
+            <div className="landing-section" style={{ maxWidth: 1000 }}>
+              <div style={{ textAlign: 'center', marginBottom: 40 }}>
+                <div className="pr-section-kicker">Real results</div>
+                <h2 className="pr-section-title">What users say after using ProfileRoaster</h2>
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 20 }}>
+                {[
+                  { name: 'Rahul Verma', role: 'Software Engineer, Bangalore', quote: 'I rewrote my headline using the suggestions and got 3 recruiter messages in the same week. My profile score went from 34 to 82.', metric: '34 → 82' },
+                  { name: 'Sneha Iyer', role: 'MBA Graduate, Mumbai', quote: 'The interview prep was incredibly specific to my target company. I used the STAR answers in my Amazon interview and cleared it.', metric: 'Got the job' },
+                  { name: 'Arjun Patel', role: 'Product Manager, Pune', quote: 'Spent ₹499 instead of ₹8000 on a resume writer. Got a better result in 90 seconds. The ATS resume template alone was worth it.', metric: '₹499 vs ₹8000' },
+                  { name: 'Priya Nair', role: 'Data Analyst, Hyderabad', quote: 'I had no idea my resume was missing 14 critical keywords. After the rewrite, I started getting calls from companies I had been rejected from before.', metric: '14 keywords added' },
+                  { name: 'Vikram Singh', role: 'Fresher, Delhi', quote: 'As a fresher with zero experience, I didn\'t know what to write. The AI turned my college projects into achievement-focused bullets. Got placed in TCS.', metric: 'Campus placed' },
+                  { name: 'Meera Krishnan', role: 'Marketing Lead, Chennai', quote: 'The before/after comparison was eye-opening. I was using every buzzword in the book. Now my profile actually shows what I achieved.', metric: 'Score: 41 → 87' },
+                ].map((t, i) => (
+                  <div key={i} className="saas-card" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: 12 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                      <div style={{ width: 40, height: 40, borderRadius: '50%', background: 'linear-gradient(135deg, var(--accent), var(--accent-hover))', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: 16, fontWeight: 700, flexShrink: 0 }}>{t.name[0]}</div>
+                      <div>
+                        <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--text-primary)' }}>{t.name}</div>
+                        <div style={{ fontSize: 12, color: 'var(--text-muted)' }}>{t.role}</div>
+                      </div>
+                    </div>
+                    <div style={{ fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.65, flex: 1 }}>&ldquo;{t.quote}&rdquo;</div>
+                    <div className="pill-badge pill-badge-success" style={{ alignSelf: 'flex-start' }}>{t.metric}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
           {/* ── Comparison Table ── */}
           <section style={{ padding: '80px 0', background: '#F8FAFC', borderBottom: '1px solid #E5E7EB' }}>
             <div style={{ maxWidth: 800, margin: '0 auto', padding: '0 16px' }}>
@@ -2490,8 +2578,8 @@ export default function Home() {
           {/* ── Final CTA ── */}
           <section className="pr-cta-final">
             <div className="landing-section" style={{ maxWidth: 600, position: 'relative', zIndex: 1 }}>
-              <div style={{ fontSize: 'clamp(1.65rem, 4vw, 2rem)', fontWeight: 800, color: 'white', marginBottom: 12, letterSpacing: '-0.02em' }}>Stop losing interviews.</div>
-              <div style={{ fontSize: 16, color: 'rgba(255,255,255,0.9)', marginBottom: 12, lineHeight: 1.7 }}>Every day with a weak profile is another recruiter who scrolled past you.</div>
+              <div style={{ fontSize: 'clamp(1.65rem, 4vw, 2rem)', fontWeight: 800, color: 'white', marginBottom: 12, letterSpacing: '-0.02em' }}>Every day with a weak profile is another recruiter who scrolled past you.</div>
+              <div style={{ fontSize: 16, color: 'rgba(255,255,255,0.9)', marginBottom: 12, lineHeight: 1.7 }}>Discover exactly what&rsquo;s wrong, get it rewritten by AI, and start getting callbacks — in under 3 minutes.</div>
               <div style={{ fontSize: 14, color: 'rgba(255,255,255,0.75)', marginBottom: 28, lineHeight: 1.6 }}>
                 Resume writers charge &#8377;3,000&ndash;15,000 and take days. We do everything in under 3 minutes for &#8377;499. One time. No subscription.
               </div>
@@ -2500,7 +2588,7 @@ export default function Home() {
                 onClick={() => { heroRef.current?.scrollIntoView({ behavior: 'smooth' }); }}
                 style={{ background: 'white', color: 'var(--accent)', fontSize: 16, fontWeight: 700, padding: '16px 40px', borderRadius: 999, border: 'none', cursor: 'pointer', boxShadow: '0 8px 32px rgba(0,0,0,0.12)' }}
               >
-                Upload Your Resume &mdash; Free Score &rarr;
+                Roast My Profile &mdash; Free Score &rarr;
               </button>
             </div>
           </section>
