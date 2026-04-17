@@ -40,58 +40,45 @@ function LiveCounter() {
   return null;
 }
 
-// ─── ScaledResume — renders a resume template scaled to fit its container width ───
+// ─── ScaledResume — renders a resume template scaled to fit container width, A4 ratio ───
 function ScaledResume({ templateId, data }: { templateId: string; data: any }) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const innerRef = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(0);
-  const [contentHeight, setContentHeight] = useState(0);
 
   useEffect(() => {
-    const el = containerRef.current;
-    const inner = innerRef.current;
+    const el = ref.current;
     if (!el) return;
-    const measure = () => {
-      const s = el.clientWidth / 794;
-      setScale(s);
-      if (inner) {
-        // Measure actual content height at full 794px width, then scale
-        setContentHeight(inner.scrollHeight * s);
-      }
-    };
-    // Delay to let content render
-    requestAnimationFrame(() => requestAnimationFrame(measure));
-    const ro = new ResizeObserver(() => requestAnimationFrame(measure));
+    const measure = () => setScale(el.clientWidth / 794);
+    measure();
+    const ro = new ResizeObserver(measure);
     ro.observe(el);
     return () => ro.disconnect();
-  }, [templateId]);
+  }, []);
 
+  // Show ~80% of the A4 page height (clips bottom), matching Teal's card style.
+  // This keeps cards a manageable height while showing the most important content.
   return (
-    <div
-      ref={containerRef}
-      style={{
-        background: '#FFFFFF',
-        borderRadius: 4,
-        overflow: 'hidden',
-        boxShadow: '0 2px 12px rgba(0,0,0,0.06)',
-        position: 'relative',
-        // Use measured content height if available, else fallback to A4 ratio
-        height: contentHeight > 0 ? contentHeight : undefined,
-        paddingBottom: contentHeight > 0 ? 0 : '129.4%',
-      }}
-    >
-      <div ref={innerRef} style={{
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: 794,
-        transform: scale > 0 ? `scale(${scale})` : 'scale(0.001)',
-        transformOrigin: 'top left',
-        pointerEvents: 'none',
-        opacity: scale > 0 ? 1 : 0,
-      }}>
-        {renderResumeHTML(data, templateId)}
-      </div>
+    <div ref={ref} style={{
+      background: '#FFFFFF',
+      borderRadius: 4,
+      overflow: 'hidden',
+      position: 'relative',
+      width: '100%',
+      aspectRatio: '3 / 4',
+    }}>
+      {scale > 0 && (
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: 794,
+          transform: `scale(${scale})`,
+          transformOrigin: 'top left',
+          pointerEvents: 'none',
+        }}>
+          {renderResumeHTML(data, templateId)}
+        </div>
+      )}
     </div>
   );
 }
