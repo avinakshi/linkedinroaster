@@ -624,8 +624,9 @@ export default function Home() {
   const [selectedPlan, setSelectedPlan] = useState<'standard' | 'pro' | null>(null);
   const [rateLimited, setRateLimited] = useState(false);
 
-  // Template gallery filter
+  // Template gallery
   const [galleryFilter, setGalleryFilter] = useState('All');
+  const [carouselPage, setCarouselPage] = useState(0);
 
   // Resume upload state
   const [resumeUploading, setResumeUploading] = useState(false);
@@ -1736,69 +1737,103 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════════════════════ */}
-      {/* RESUME TEMPLATE GALLERY             */}
+      {/* RESUME TEMPLATE SHOWCASE            */}
       {/* ═══════════════════════════════════ */}
-      <section id="templates" className="pr-showcase-section">
+      <section id="templates" className="pr-showcase-section" style={{ background: '#F5F0E8', padding: '80px 0 60px' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 20px' }}>
-          <div style={{ textAlign: 'center', marginBottom: 40 }}>
-            <div className="pr-section-kicker" style={{ letterSpacing: '0.18em' }}>Professional templates</div>
-            <h2 className="pr-section-title" style={{ maxWidth: 600, margin: '0 auto 12px' }}>{TEMPLATES.length} ATS-Optimized Resume Templates</h2>
-            <p className="pr-section-desc">Pick a template. We fill it with your rewritten content and optimized keywords. Download as PDF.</p>
+
+          {/* Tabs: Resumes / Cover Letters */}
+          <div style={{ display: 'flex', justifyContent: 'center', gap: 40, marginBottom: 48 }}>
+            <button type="button" style={{ fontSize: 20, fontWeight: 700, color: 'var(--text-primary)', background: 'none', border: 'none', cursor: 'pointer', paddingBottom: 10, borderBottom: '3px solid var(--text-primary)', fontFamily: 'inherit' }}>
+              Resumes
+            </button>
+            <button type="button" style={{ fontSize: 20, fontWeight: 500, color: 'var(--text-muted)', background: 'none', border: 'none', cursor: 'pointer', paddingBottom: 10, borderBottom: '3px solid transparent', fontFamily: 'inherit' }}>
+              Cover Letters
+            </button>
           </div>
 
-          {/* Filter tabs */}
-          <div className="filter-tabs" style={{ justifyContent: 'center', marginBottom: 28 }}>
-            {['All', 'ATS-Friendly', 'Professional', 'India'].map(cat => (
-              <button key={cat} className={`filter-tab${galleryFilter === cat ? ' active' : ''}`} onClick={() => setGalleryFilter(cat)}>
-                {cat}{cat === 'All' ? ` (${TEMPLATES.length})` : ''}
-              </button>
+          {/* Large resume carousel — 3 at a time */}
+          <div style={{ position: 'relative', overflow: 'hidden' }}>
+            <div style={{
+              display: 'flex',
+              transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
+              transform: `translateX(-${carouselPage * 100}%)`,
+            }}>
+              {/* Render pages of 3 templates */}
+              {Array.from({ length: Math.ceil(TEMPLATES.length / 3) }).map((_, pageIdx) => (
+                <div key={pageIdx} style={{ display: 'flex', gap: 24, minWidth: '100%', justifyContent: 'center', padding: '0 12px', boxSizing: 'border-box' }}>
+                  {TEMPLATES.slice(pageIdx * 3, pageIdx * 3 + 3).map((t, i) => {
+                    const bgColors = ['#F5E6C8', '#FFFFFF', '#F0F0F0', '#E8F0FE', '#FFF3E0', '#E8F5E9', '#F3E5F5', '#FFF8E1', '#E0F2F1', '#FCE4EC', '#ECEFF1'];
+                    const globalIdx = pageIdx * 3 + i;
+                    return (
+                      <div key={t.id} style={{
+                        flex: '1 1 0',
+                        maxWidth: 380,
+                        background: bgColors[globalIdx % bgColors.length],
+                        borderRadius: 16,
+                        padding: '28px 20px 24px',
+                        boxShadow: '0 2px 16px rgba(0,0,0,0.06)',
+                        transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                        cursor: 'pointer',
+                      }}
+                        onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-6px)'; e.currentTarget.style.boxShadow = '0 12px 32px rgba(0,0,0,0.12)'; }}
+                        onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 2px 16px rgba(0,0,0,0.06)'; }}
+                        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                      >
+                        {/* Full-page resume preview — readable */}
+                        <div style={{
+                          background: '#FFFFFF',
+                          borderRadius: 8,
+                          overflow: 'hidden',
+                          boxShadow: '0 1px 8px rgba(0,0,0,0.08)',
+                          position: 'relative',
+                          aspectRatio: '8.5 / 11',
+                        }}>
+                          <div style={{
+                            width: 794,
+                            height: 1122,
+                            transform: `scale(${340 / 794})`,
+                            transformOrigin: 'top left',
+                            pointerEvents: 'none',
+                          }}>
+                            {renderResumeHTML(SAMPLE_RESUME, t.id)}
+                          </div>
+                        </div>
+                        {/* Template name */}
+                        <div style={{ textAlign: 'center', marginTop: 14 }}>
+                          <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--text-primary)' }}>{t.name}</div>
+                          <div style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: 2 }}>{t.category}</div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Carousel dots */}
+          <div style={{ display: 'flex', justifyContent: 'center', gap: 10, marginTop: 32 }}>
+            {Array.from({ length: Math.ceil(TEMPLATES.length / 3) }).map((_, i) => (
+              <button
+                key={i}
+                type="button"
+                onClick={() => setCarouselPage(i)}
+                style={{
+                  width: 12, height: 12, borderRadius: '50%', border: 'none', cursor: 'pointer',
+                  background: carouselPage === i ? 'var(--text-primary)' : 'rgba(0,0,0,0.15)',
+                  transition: 'all 0.2s ease',
+                }}
+                aria-label={`Page ${i + 1}`}
+              />
             ))}
           </div>
 
-          {/* Template grid */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: 20 }}>
-            {TEMPLATES.filter(t => {
-              if (galleryFilter === 'All') return true;
-              return t.category === galleryFilter;
-            }).map((t, idx) => (
-              <div key={t.id} className="template-card" style={{ animationDelay: `${idx * 40}ms` }}>
-                {/* A4 thumbnail */}
-                <div style={{ height: 311, overflow: 'hidden', position: 'relative', background: 'var(--bg-canvas)' }}>
-                  <div style={{ width: 794, height: 1122, transform: 'scale(0.277)', transformOrigin: 'top left', pointerEvents: 'none' }}>
-                    {renderResumeHTML(SAMPLE_RESUME, t.id)}
-                  </div>
-                  {/* Hover overlay */}
-                  <div className="template-card-overlay">
-                    <button
-                      type="button"
-                      onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                      className="saas-btn saas-btn-primary"
-                      style={{ padding: '10px 24px', fontSize: 14, borderRadius: 'var(--radius-pill)' }}
-                    >
-                      Use This Template
-                    </button>
-                    <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.8)', fontWeight: 500 }}>{t.name}</span>
-                  </div>
-                </div>
-                {/* Card footer */}
-                <div style={{ padding: '10px 14px', borderTop: '1px solid var(--border-default)' }}>
-                  <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--text-primary)', marginBottom: 6 }}>{t.name}</div>
-                  <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-                    {t.ats === 'high' && <span className="pill-badge pill-badge-success">ATS High</span>}
-                    {t.ats === 'medium' && <span className="pill-badge pill-badge-warning">ATS Medium</span>}
-                    {idx < 3 && <span className="pill-badge pill-badge-accent">Popular</span>}
-                    {t.category === 'India' && <span className="pill-badge pill-badge-neutral">India</span>}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div style={{ textAlign: 'center', marginTop: 36 }}>
+          <div style={{ textAlign: 'center', marginTop: 32 }}>
             <button type="button" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="pr-nav__cta" style={{ padding: '14px 36px', fontSize: 15 }}>
               Try It Free &mdash; Upload Your Resume
             </button>
-            <p style={{ fontSize: 13, color: 'var(--text-muted)', marginTop: 10 }}>All templates included with every plan. No extra cost.</p>
+            <p style={{ fontSize: 13, color: 'var(--text-secondary)', marginTop: 10 }}>All {TEMPLATES.length} templates included with every plan. No extra cost.</p>
           </div>
         </div>
       </section>
