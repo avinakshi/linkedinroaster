@@ -497,20 +497,32 @@ function pdfToResumeData(parsed: any): any {
 }
 
 
-// ─── Sample resume data for template gallery ───
+// ─── Sample resume data for template gallery (rich data to fill the full page) ───
 const SAMPLE_RESUME = {
-  contact: { name: 'Priya Mehta', email: 'priya.mehta@gmail.com', phone: '9876543210', location: 'Bangalore, India', linkedin: 'linkedin.com/in/priyamehta' },
-  summary: 'Results-driven Full-Stack Engineer with 5+ years of experience building scalable web applications serving 50K+ daily active users. Expert in React, Node.js, and cloud infrastructure. Proven track record of reducing deployment time by 60% and improving API performance across enterprise products.',
+  contact: { name: 'Tina Miller', email: 'tinamillernyc20@gmail.com', phone: '123-5456-7890', location: 'Florida', linkedin: 'linkedin.com/in/tina-miller-nyc' },
+  summary: '7+ years of social marketing experience, driving customer growth and engagement in digital, B2B, and content marketing campaigns. Increased brand awareness by 25%, website traffic by 40%, customer acquisition by 25%, customer lifetime value by 40%, and sales revenue by $2M in 6 months. Led strategies, resulting in a 45% increase in lead conversion.',
   experience: [
-    { role: 'Senior Software Engineer', company: 'TechCorp India', location: 'Bangalore', dates: 'Jan 2022 - Present', bullets: ['Led a cross-functional team of 8 engineers delivering 3 high-impact products generating $2M ARR', 'Reduced API response latency by 40% through query optimization and Redis caching layer implementation', 'Architected microservices migration serving 50K+ daily users with 99.9% uptime SLA', 'Mentored 4 junior developers through structured code reviews and pair programming sessions'] },
-    { role: 'Software Engineer', company: 'StartupXYZ', location: 'Mumbai', dates: 'Jun 2019 - Dec 2021', bullets: ['Built real-time analytics dashboard processing 1M+ events daily using React and D3.js', 'Implemented CI/CD pipeline reducing deployment time from 2 hours to 15 minutes', 'Designed RESTful APIs consumed by 3 client applications with comprehensive test coverage'] },
-    { role: 'Junior Developer', company: 'WebSolutions', location: 'Pune', dates: 'Jul 2018 - May 2019', bullets: ['Developed responsive frontend components using React and TypeScript', 'Collaborated with UX team to improve user engagement metrics by 25%'] },
+    { role: 'Senior Marketing Manager', company: 'WeWork', location: 'New York, United States', dates: 'Jan 2021 - Present', bullets: [
+      'Increased lead generation by 30% in 3 months through the development and execution of cross-channel campaigns targeting key customer segments.',
+      'Increased company\'s online presence by 25%, driving a 40% increase in website traffic and generating $2M in revenue through successful digital campaigns.',
+      'Led the analysis of over 75 marketing campaigns, uncovering actionable insights that led to a 25% increase in customer acquisition and a 40% growth in customer lifetime value year-over-year.',
+    ] },
+    { role: 'Marketing Manager', company: 'NVIDIA', location: 'Full-time', dates: 'Jun 2019 - Dec 2020', bullets: [
+      'Managed a comprehensive cross functional marketing campaign for a new product launch, overseeing a team of 10 professionals, coordinating promotional activities, and executing digital marketing strategies across multiple channels. The campaign resulted in a 30% increase in brand awareness, generating $500,000 in sales revenue within Q1.',
+      'Improved long and short form YouTube strategy resulting in 15% increase in channel views month over month through a better, SEO targeting, media strategy.',
+    ] },
+    { role: 'Marketing Manager', company: 'White Lotus Resort', location: 'Hawaii', dates: 'Mar 2017 - May 2019', bullets: [
+      'Increased digital advertising revenue by 25% in 9 months through effective B2B and B2C relations management.',
+      'Developed a successful B2B/B2C digital advertising strategy resulting in a 300% increase in revenue in 6 months.',
+      'Increased web traffic by 20% in 6 months through strategic planning and goal setting.',
+    ] },
   ],
   education: [
-    { degree: 'B.Tech Computer Science', institution: 'IIT Delhi', year: '2018', gpa: '8.7' },
+    { degree: 'MBA Marketing', institution: 'Columbia Business School', year: '2017', gpa: '3.8' },
+    { degree: 'BA Communications', institution: 'University of Florida', year: '2014', gpa: '3.6' },
   ],
-  skills: ['React', 'Node.js', 'TypeScript', 'Python', 'AWS', 'Docker', 'PostgreSQL', 'Redis', 'GraphQL', 'CI/CD'],
-  achievements: ['Best Innovation Award at TechCorp 2023', 'Open source contributor — 500+ GitHub stars'],
+  skills: ['Digital Marketing', 'SEO/SEM', 'Content Strategy', 'Google Analytics', 'Social Media Marketing', 'Email Campaigns', 'B2B Marketing', 'Brand Management', 'CRM (Salesforce)', 'Marketing Automation', 'A/B Testing', 'Lead Generation'],
+  achievements: ['Google Ads Certified Professional', 'HubSpot Inbound Marketing Certification', 'Top 5% performer at WeWork 2022', 'Speaker at Digital Marketing Summit NYC 2023'],
 };
 
 // ════════════════════════════════════════
@@ -1761,17 +1773,17 @@ export default function Home() {
             }}>
               {/* Render pages of 3 templates */}
               {Array.from({ length: Math.ceil(TEMPLATES.length / 3) }).map((_, pageIdx) => (
-                <div key={pageIdx} style={{ display: 'flex', gap: 24, minWidth: '100%', justifyContent: 'center', padding: '0 12px', boxSizing: 'border-box' }}>
+                <div key={pageIdx} style={{ display: 'flex', gap: 28, minWidth: '100%', justifyContent: 'center', padding: '0 8px', boxSizing: 'border-box' }}>
                   {TEMPLATES.slice(pageIdx * 3, pageIdx * 3 + 3).map((t, i) => {
                     const bgColors = ['#F5E6C8', '#FFFFFF', '#F0F0F0', '#E8F0FE', '#FFF3E0', '#E8F5E9', '#F3E5F5', '#FFF8E1', '#E0F2F1', '#FCE4EC', '#ECEFF1'];
                     const globalIdx = pageIdx * 3 + i;
                     return (
                       <div key={t.id} style={{
                         flex: '1 1 0',
-                        maxWidth: 380,
+                        maxWidth: 400,
                         background: bgColors[globalIdx % bgColors.length],
                         borderRadius: 16,
-                        padding: '28px 20px 24px',
+                        padding: '24px 16px 20px',
                         boxShadow: '0 2px 16px rgba(0,0,0,0.06)',
                         transition: 'transform 0.3s ease, box-shadow 0.3s ease',
                         cursor: 'pointer',
@@ -1780,29 +1792,28 @@ export default function Home() {
                         onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 2px 16px rgba(0,0,0,0.06)'; }}
                         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                       >
-                        {/* Full-page resume preview — readable */}
+                        {/* Full-page resume preview — large and readable */}
                         <div style={{
                           background: '#FFFFFF',
-                          borderRadius: 8,
+                          borderRadius: 6,
                           overflow: 'hidden',
-                          boxShadow: '0 1px 8px rgba(0,0,0,0.08)',
+                          boxShadow: '0 1px 6px rgba(0,0,0,0.06)',
                           position: 'relative',
-                          aspectRatio: '8.5 / 11',
+                          width: '100%',
+                          height: 0,
+                          paddingBottom: '129.4%', /* A4 ratio: 11/8.5 = 1.294 */
                         }}>
                           <div style={{
+                            position: 'absolute',
+                            top: 0,
+                            left: 0,
                             width: 794,
-                            height: 1122,
-                            transform: `scale(${340 / 794})`,
                             transformOrigin: 'top left',
                             pointerEvents: 'none',
+                            transform: 'scale(0.463)',
                           }}>
                             {renderResumeHTML(SAMPLE_RESUME, t.id)}
                           </div>
-                        </div>
-                        {/* Template name */}
-                        <div style={{ textAlign: 'center', marginTop: 14 }}>
-                          <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--text-primary)' }}>{t.name}</div>
-                          <div style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: 2 }}>{t.category}</div>
                         </div>
                       </div>
                     );
