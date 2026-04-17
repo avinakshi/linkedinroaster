@@ -1212,7 +1212,7 @@ export default function Home() {
           </a>
           <div className="hidden sm:flex pr-nav__links">
             <a href="#how-it-works" className="pr-nav__link">How it works</a>
-            <a href="#templates" className="pr-nav__link">Templates</a>
+            <a href="/templates" className="pr-nav__link">Templates</a>
             <a href="#pricing" className="pr-nav__link">Pricing</a>
             <a href="#faq" className="pr-nav__link">FAQ</a>
             <a href="/dashboard" className="pr-nav__link">Dashboard</a>
@@ -1231,7 +1231,7 @@ export default function Home() {
         {mobileMenuOpen && (
           <div className="sm:hidden pr-mobile-panel">
             <a href="#how-it-works" onClick={() => setMobileMenuOpen(false)}>How it works</a>
-            <a href="#templates" onClick={() => setMobileMenuOpen(false)}>Templates</a>
+            <a href="/templates" onClick={() => setMobileMenuOpen(false)}>Templates</a>
             <a href="#pricing" onClick={() => setMobileMenuOpen(false)}>Pricing</a>
             <a href="#faq" onClick={() => setMobileMenuOpen(false)}>FAQ</a>
             <a href="/dashboard" onClick={() => setMobileMenuOpen(false)}>Dashboard</a>
@@ -1249,7 +1249,7 @@ export default function Home() {
             {/* LEFT — Value Proposition */}
             <div style={{ flex: '1 1 420px', minWidth: 0, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
               {/* Badge */}
-              <div style={{ display: 'inline-flex', alignItems: 'center', height: 36, padding: '0 16px', background: '#EFF6FF', borderRadius: 999, fontSize: 13, fontWeight: 600, color: '#3B82F6', marginBottom: 24, alignSelf: 'flex-start' }}>
+              <div style={{ display: 'inline-flex', alignItems: 'center', height: 36, padding: '0 16px', background: '#F0FDFA', borderRadius: 999, fontSize: 13, fontWeight: 600, color: '#0D9488', marginBottom: 24, alignSelf: 'flex-start' }}>
                 AI-Powered LinkedIn Optimization
               </div>
 
@@ -1263,7 +1263,7 @@ export default function Home() {
 
               {/* CTA Row */}
               <div style={{ display: 'flex', gap: 12, marginTop: 'clamp(24px, 5vw, 40px)', flexWrap: 'wrap' }}>
-                <button type="button" onClick={() => { const el = document.querySelector('.pr-upload-shell'); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' }); }} style={{ height: 56, padding: '0 28px', background: '#3B82F6', borderRadius: 16, color: 'white', fontSize: 16, fontWeight: 600, border: 'none', cursor: 'pointer', boxShadow: '0 8px 20px rgba(59, 130, 246, 0.3)', transition: 'all 0.2s' }}>
+                <button type="button" onClick={() => { const el = document.querySelector('.pr-upload-shell'); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' }); }} style={{ height: 56, padding: '0 28px', background: '#0D9488', borderRadius: 16, color: 'white', fontSize: 16, fontWeight: 600, border: 'none', cursor: 'pointer', boxShadow: '0 8px 20px rgba(13, 148, 136, 0.3)', transition: 'all 0.2s' }}>
                   Analyze My Profile
                 </button>
                 <a href="#templates" style={{ height: 56, padding: '0 28px', border: '1px solid #D1D5DB', background: 'white', borderRadius: 16, fontSize: 16, fontWeight: 600, color: '#0F172A', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', transition: 'all 0.2s' }}>
@@ -1278,7 +1278,7 @@ export default function Home() {
                   <div style={{ fontSize: 13, color: '#64748B' }}>Resumes analyzed</div>
                 </div>
                 <div>
-                  <div style={{ fontSize: 'clamp(20px, 4vw, 28px)', fontWeight: 800, color: '#3B82F6' }}>+45 pts</div>
+                  <div style={{ fontSize: 'clamp(20px, 4vw, 28px)', fontWeight: 800, color: '#0D9488' }}>+45 pts</div>
                   <div style={{ fontSize: 13, color: '#64748B' }}>Avg score improvement</div>
                 </div>
                 <div>
@@ -1359,7 +1359,7 @@ export default function Home() {
                           <input value={confirmSkills} onChange={e => setConfirmSkills(e.target.value)} placeholder="Python, React, Project Management..."
                             style={{ width: '100%', padding: '8px 12px', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-default)', fontSize: 13, boxSizing: 'border-box' }} />
                         </div>
-                        <div style={{ background: 'var(--accent-subtle)', border: '1px solid #BFDBFE', borderRadius: 'var(--radius-sm)', padding: '10px 12px' }}>
+                        <div style={{ background: 'var(--accent-subtle)', border: '1px solid #99F6E4', borderRadius: 'var(--radius-sm)', padding: '10px 12px' }}>
                           <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--accent)', marginBottom: 4, display: 'block' }}>What role are you targeting?</label>
                           <input value={targetRole} onChange={e => setTargetRole(e.target.value)} placeholder="e.g. Product Manager at a Series B startup"
                             style={{ width: '100%', padding: '8px 12px', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-default)', fontSize: 13, boxSizing: 'border-box', background: 'white' }} />
@@ -1651,7 +1651,7 @@ export default function Home() {
                                   // Default
                                   : ['Software Developer', 'Data Analyst', 'Business Analyst', 'Marketing Executive', 'HR Executive']
                                 ).map(r => (
-                                  <button key={r} onClick={() => setStudentTargetRole(r)} style={{ padding: '4px 12px', borderRadius: 16, border: studentTargetRole === r ? '2px solid var(--accent)' : '1px solid #D1D5DB', background: studentTargetRole === r ? '#EFF6FF' : 'white', fontSize: 12, cursor: 'pointer', color: '#191919' }}>{r}</button>
+                                  <button key={r} onClick={() => setStudentTargetRole(r)} style={{ padding: '4px 12px', borderRadius: 16, border: studentTargetRole === r ? '2px solid var(--accent)' : '1px solid #D1D5DB', background: studentTargetRole === r ? '#F0FDFA' : 'white', fontSize: 12, cursor: 'pointer', color: '#191919' }}>{r}</button>
                                 ))}
                               </div>
                               <div style={{ display: 'flex', gap: 8, marginTop: 8 }}>
@@ -1802,7 +1802,7 @@ export default function Home() {
               {/* Sidebar */}
               <div style={{ width: 190, background: '#FAFBFC', borderRight: '1px solid #E5E7EB', padding: '16px 0', flexShrink: 0, display: 'flex', flexDirection: 'column' }}>
                 <div style={{ padding: '4px 16px 16px', fontSize: 14, fontWeight: 800, color: '#0F172A', display: 'flex', alignItems: 'center', gap: 4, borderBottom: '1px solid #E5E7EB', marginBottom: 8 }}>
-                  <span style={{ color: '#3B82F6' }}>Profile</span>Roaster
+                  <span style={{ color: '#0D9488' }}>Profile</span>Roaster
                 </div>
                 {[
                   { label: 'Dashboard', icon: '▦', active: false },
@@ -1812,7 +1812,7 @@ export default function Home() {
                   { label: 'Interview Prep', icon: '◇', active: false },
                   { label: 'Export', icon: '↗', active: false },
                 ].map((item, i) => (
-                  <div key={i} style={{ padding: '7px 14px', fontSize: 11, fontWeight: item.active ? 600 : 400, color: item.active ? '#3B82F6' : '#64748B', background: item.active ? '#EFF6FF' : 'transparent', borderLeft: item.active ? '3px solid #3B82F6' : '3px solid transparent', display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <div key={i} style={{ padding: '7px 14px', fontSize: 11, fontWeight: item.active ? 600 : 400, color: item.active ? '#0D9488' : '#64748B', background: item.active ? '#F0FDFA' : 'transparent', borderLeft: item.active ? '3px solid #0D9488' : '3px solid transparent', display: 'flex', alignItems: 'center', gap: 8 }}>
                     <span style={{ fontSize: 10, opacity: 0.6 }}>{item.icon}</span>{item.label}
                   </div>
                 ))}
@@ -1820,7 +1820,7 @@ export default function Home() {
                 <div style={{ marginTop: 'auto', padding: '12px 14px', borderTop: '1px solid #E5E7EB' }}>
                   <div style={{ fontSize: 9, fontWeight: 600, color: '#94A3B8', letterSpacing: 1, marginBottom: 6 }}>QUICK STATS</div>
                   <div style={{ fontSize: 10, color: '#64748B', marginBottom: 4 }}>Profile Score: <span style={{ color: '#15803D', fontWeight: 700 }}>87/100</span></div>
-                  <div style={{ fontSize: 10, color: '#64748B', marginBottom: 4 }}>Keywords: <span style={{ color: '#3B82F6', fontWeight: 700 }}>14/16</span></div>
+                  <div style={{ fontSize: 10, color: '#64748B', marginBottom: 4 }}>Keywords: <span style={{ color: '#0D9488', fontWeight: 700 }}>14/16</span></div>
                   <div style={{ fontSize: 10, color: '#64748B' }}>ATS Ready: <span style={{ color: '#15803D', fontWeight: 700 }}>Yes</span></div>
                 </div>
               </div>
@@ -1831,14 +1831,14 @@ export default function Home() {
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
                   <div style={{ display: 'flex', gap: 0, background: 'white', borderRadius: 8, border: '1px solid #E2E8F0', overflow: 'hidden' }}>
                     {['Overview', 'Headline', 'Summary', 'Experience', 'Skills'].map((tab, i) => (
-                      <div key={tab} style={{ padding: '6px 12px', fontSize: 10, fontWeight: i === 0 ? 700 : 500, color: i === 0 ? '#3B82F6' : '#94A3B8', background: i === 0 ? '#EFF6FF' : 'white', borderRight: i < 4 ? '1px solid #E2E8F0' : 'none', cursor: 'default' }}>
+                      <div key={tab} style={{ padding: '6px 12px', fontSize: 10, fontWeight: i === 0 ? 700 : 500, color: i === 0 ? '#0D9488' : '#94A3B8', background: i === 0 ? '#F0FDFA' : 'white', borderRight: i < 4 ? '1px solid #E2E8F0' : 'none', cursor: 'default' }}>
                         {tab}
                       </div>
                     ))}
                   </div>
                   <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
                     <span style={{ fontSize: 9, color: '#94A3B8' }}>Last scan: 2 min ago</span>
-                    <div style={{ padding: '4px 8px', background: '#3B82F6', color: 'white', borderRadius: 6, fontSize: 9, fontWeight: 600 }}>Re-analyze</div>
+                    <div style={{ padding: '4px 8px', background: '#0D9488', color: 'white', borderRadius: 6, fontSize: 9, fontWeight: 600 }}>Re-analyze</div>
                   </div>
                 </div>
 
@@ -1846,7 +1846,7 @@ export default function Home() {
                 <div style={{ display: 'flex', gap: 10, marginBottom: 14 }}>
                   {[
                     { label: 'Profile Score', value: '87', sub: '/100', color: '#15803D', bg: '#F0FDF4', border: '#BBF7D0' },
-                    { label: 'ATS Match', value: '92', sub: '%', color: '#3B82F6', bg: '#EFF6FF', border: '#BFDBFE' },
+                    { label: 'ATS Match', value: '92', sub: '%', color: '#0D9488', bg: '#F0FDFA', border: '#99F6E4' },
                     { label: 'Recruiter Score', value: 'A+', sub: '', color: '#7C3AED', bg: '#F5F3FF', border: '#DDD6FE' },
                     { label: 'Keywords', value: '14', sub: '/16', color: '#F59E0B', bg: '#FFFBEB', border: '#FDE68A' },
                   ].map((m, i) => (
@@ -1888,8 +1888,8 @@ export default function Home() {
 
                   {/* Arrow */}
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, flexDirection: 'column', gap: 4 }}>
-                    <div style={{ width: 32, height: 32, borderRadius: '50%', background: '#3B82F6', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: 12, boxShadow: '0 4px 12px rgba(59,130,246,0.35)' }}>→</div>
-                    <div style={{ fontSize: 8, fontWeight: 700, color: '#3B82F6' }}>AI Fix</div>
+                    <div style={{ width: 32, height: 32, borderRadius: '50%', background: '#0D9488', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: 12, boxShadow: '0 4px 12px rgba(13,148,136,0.35)' }}>→</div>
+                    <div style={{ fontSize: 8, fontWeight: 700, color: '#0D9488' }}>AI Fix</div>
                   </div>
 
                   {/* Optimized Profile — dominant */}
@@ -1905,7 +1905,7 @@ export default function Home() {
                     </div>
                     <div style={{ height: 3, background: '#E5E7EB', borderRadius: 2, marginBottom: 10 }}><div style={{ height: '100%', width: '87%', background: '#34D399', borderRadius: 2 }} /></div>
                     <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginBottom: 8 }}>
-                      <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'linear-gradient(135deg, #3B82F6, #1D4ED8)' }} />
+                      <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'linear-gradient(135deg, #0D9488, #115E59)' }} />
                       <div>
                         <div style={{ fontSize: 11, fontWeight: 700, color: '#0F172A' }}>Rajesh Kumar</div>
                         <div style={{ fontSize: 8, color: '#15803D', display: 'flex', alignItems: 'center', gap: 3 }}><span style={{ width: 5, height: 5, borderRadius: '50%', background: '#34D399', display: 'inline-block' }} />Updated just now</div>
@@ -1914,8 +1914,8 @@ export default function Home() {
                     <div style={{ fontSize: 10, color: '#15803D', lineHeight: 1.4, padding: '6px 8px', background: '#F0FDF4', borderRadius: 6, marginBottom: 6, fontWeight: 600, borderLeft: '2px solid #34D399' }}>
                       &ldquo;Full-Stack Engineer | Built apps serving 50K+ users | React + AWS + Node.js&rdquo;
                     </div>
-                    <div style={{ fontSize: 8, fontWeight: 600, color: '#3B82F6', marginBottom: 4, display: 'flex', alignItems: 'center', gap: 4 }}>
-                      <span style={{ padding: '1px 4px', background: '#EFF6FF', borderRadius: 3, fontSize: 7 }}>AI Suggestion</span> Summary rewritten
+                    <div style={{ fontSize: 8, fontWeight: 600, color: '#0D9488', marginBottom: 4, display: 'flex', alignItems: 'center', gap: 4 }}>
+                      <span style={{ padding: '1px 4px', background: '#F0FDFA', borderRadius: 3, fontSize: 7 }}>AI Suggestion</span> Summary rewritten
                     </div>
                     <div style={{ fontSize: 9, color: '#374151', lineHeight: 1.5, marginBottom: 8 }}>
                       Full-stack engineer with 5 years shipping production apps at scale. Led microservices migration for <span style={{ background: '#D1FAE5', padding: '0 2px', borderRadius: 2 }}>50K+ DAU</span>. Reduced API latency by <span style={{ background: '#D1FAE5', padding: '0 2px', borderRadius: 2 }}>40%</span>. Mentored 4 junior devs.
@@ -1938,7 +1938,7 @@ export default function Home() {
                 <div style={{ display: 'flex', gap: 10, marginTop: 12 }}>
                   <div style={{ flex: 1, display: 'flex', gap: 6 }}>
                     {[
-                      { label: 'Recruiter Match', value: '+38%', color: '#3B82F6' },
+                      { label: 'Recruiter Match', value: '+38%', color: '#0D9488' },
                       { label: 'Score Jump', value: '42→87', color: '#15803D' },
                       { label: 'Strength', value: 'Strong', color: '#F59E0B' },
                     ].map((m, i) => (
@@ -1954,7 +1954,7 @@ export default function Home() {
                     <div style={{ height: 3, background: '#E2E8F0', borderRadius: 1, marginBottom: 2 }} />
                     <div style={{ height: 3, background: '#E2E8F0', borderRadius: 1, marginBottom: 2, width: '80%' }} />
                     <div style={{ height: 3, background: '#E2E8F0', borderRadius: 1, width: '60%' }} />
-                    <div style={{ fontSize: 5, color: '#3B82F6', fontWeight: 600, marginTop: 3 }}>View →</div>
+                    <div style={{ fontSize: 5, color: '#0D9488', fontWeight: 600, marginTop: 3 }}>View →</div>
                   </div>
                 </div>
               </div>
@@ -1982,7 +1982,7 @@ export default function Home() {
               </div>
               <div style={{ height: 4, background: '#E5E7EB', borderRadius: 2, marginBottom: 14 }}><div style={{ height: '100%', width: '87%', background: '#34D399', borderRadius: 2 }} /></div>
               <div style={{ display: 'flex', gap: 10, alignItems: 'center', marginBottom: 12 }}>
-                <div style={{ width: 40, height: 40, borderRadius: '50%', background: 'linear-gradient(135deg, #3B82F6, #1D4ED8)' }} />
+                <div style={{ width: 40, height: 40, borderRadius: '50%', background: 'linear-gradient(135deg, #0D9488, #115E59)' }} />
                 <div>
                   <div style={{ fontSize: 14, fontWeight: 700, color: '#0F172A' }}>Rajesh Kumar</div>
                   <div style={{ fontSize: 11, color: '#15803D' }}>Updated just now</div>
@@ -2003,7 +2003,7 @@ export default function Home() {
             {/* Bottom metric */}
             <div style={{ padding: '12px 16px', borderTop: '1px solid #E5E7EB', display: 'flex', gap: 8 }}>
               {[
-                { label: 'Recruiter Match', value: '+38%', color: '#3B82F6' },
+                { label: 'Recruiter Match', value: '+38%', color: '#0D9488' },
                 { label: 'Keywords Added', value: '12', color: '#15803D' },
                 { label: 'Score Jump', value: '42→87', color: '#F59E0B' },
               ].map((m, i) => (
@@ -2035,7 +2035,7 @@ export default function Home() {
       <section className="hidden md:block" style={{ padding: 'clamp(60px, 10vw, 120px) 0', background: '#F8FBFF' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px' }}>
           <div style={{ textAlign: 'center', marginBottom: 64 }}>
-            <div style={{ fontSize: 13, fontWeight: 700, color: '#3B82F6', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 12 }}>Real results</div>
+            <div style={{ fontSize: 13, fontWeight: 700, color: '#0D9488', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 12 }}>Real results</div>
             <h2 style={{ fontSize: 40, fontWeight: 700, color: '#0F172A', letterSpacing: '-0.02em' }}>See the Transformation</h2>
             <p style={{ fontSize: 18, color: '#64748B', marginTop: 12, maxWidth: 560, margin: '12px auto 0' }}>Same person. Same experience. Completely different impression.</p>
           </div>
@@ -2073,7 +2073,7 @@ export default function Home() {
 
             {/* Arrow */}
             <div className="hidden md:flex" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', paddingTop: 200 }}>
-              <div style={{ width: 48, height: 48, borderRadius: '50%', background: '#3B82F6', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 8px 20px rgba(59,130,246,0.3)', fontSize: 18, color: 'white' }}>&rarr;</div>
+              <div style={{ width: 48, height: 48, borderRadius: '50%', background: '#0D9488', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 8px 20px rgba(13,148,136,0.3)', fontSize: 18, color: 'white' }}>&rarr;</div>
               <div style={{ textAlign: 'center', marginTop: 8, fontSize: 11, fontWeight: 700 }}>
                 <span style={{ color: '#DC2626' }}>42</span>
                 <span style={{ color: '#94A3B8' }}> &rarr; </span>
@@ -2118,7 +2118,7 @@ export default function Home() {
       <section className="md:hidden" style={{ padding: 'clamp(40px, 8vw, 80px) 0', background: '#F8FBFF' }}>
         <div style={{ maxWidth: 500, margin: '0 auto', padding: '0 16px' }}>
           <div style={{ textAlign: 'center', marginBottom: 24 }}>
-            <div style={{ fontSize: 12, fontWeight: 700, color: '#3B82F6', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 8 }}>Real results</div>
+            <div style={{ fontSize: 12, fontWeight: 700, color: '#0D9488', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 8 }}>Real results</div>
             <h2 style={{ fontSize: 24, fontWeight: 700, color: '#0F172A' }}>See the Transformation</h2>
           </div>
           {/* Toggle tabs */}
@@ -2157,7 +2157,7 @@ export default function Home() {
           {beforeAfterTab === 'after' && (
             <div style={{ background: 'white', borderRadius: 16, padding: 20, border: '2px solid #BBF7D0', boxShadow: '0 8px 24px rgba(0,0,0,0.08)' }}>
               <div style={{ display: 'flex', gap: 10, alignItems: 'center', marginBottom: 12 }}>
-                <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'linear-gradient(135deg, #3B82F6, #1D4ED8)' }} />
+                <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'linear-gradient(135deg, #0D9488, #115E59)' }} />
                 <div>
                   <div style={{ fontSize: 14, fontWeight: 700, color: '#0F172A' }}>Rajesh Kumar</div>
                   <div style={{ fontSize: 10, color: '#15803D', fontWeight: 600 }}>Score: 87/100</div>
@@ -2230,7 +2230,7 @@ export default function Home() {
                                 <div style={{ fontSize: 14, fontWeight: 700, color: '#0F172A' }}>{t.name}</div>
                                 <div style={{ fontSize: 11, color: '#64748B', marginTop: 2 }}>{t.category} &bull; ATS {t.ats === 'high' ? 'Friendly' : 'Compatible'}</div>
                               </div>
-                              <div style={{ fontSize: 12, fontWeight: 600, color: '#3B82F6', marginTop: 8 }}>Use template &rarr;</div>
+                              <div style={{ fontSize: 12, fontWeight: 600, color: '#0D9488', marginTop: 8 }}>Use template &rarr;</div>
                             </div>
                           </div>
                         );
@@ -2265,7 +2265,7 @@ export default function Home() {
                     </div>
                     <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', paddingTop: 10 }}>
                       <div style={{ fontSize: 13, fontWeight: 700, color: '#0F172A' }}>{t.name}</div>
-                      <div style={{ fontSize: 11, color: '#3B82F6', fontWeight: 600 }}>Use template &rarr;</div>
+                      <div style={{ fontSize: 11, color: '#0D9488', fontWeight: 600 }}>Use template &rarr;</div>
                     </div>
                   </div>
                 );
@@ -2756,7 +2756,7 @@ export default function Home() {
                       {/* Good */}
                       <div style={{ flex: 1, background: '#0F172A', borderRadius: 10, padding: '12px', border: '1px solid #10B98140' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 8 }}>
-                          <div style={{ width: 20, height: 20, borderRadius: '50%', background: 'linear-gradient(135deg, #3B82F6, #1D4ED8)' }} />
+                          <div style={{ width: 20, height: 20, borderRadius: '50%', background: 'linear-gradient(135deg, #0D9488, #115E59)' }} />
                           <div style={{ height: 6, background: '#34D399', borderRadius: 3, flex: 1 }} />
                         </div>
                         <div style={{ fontSize: 10, color: '#A7F3D0', fontWeight: 600, lineHeight: 1.5 }}><span style={{ background: '#10B98130', padding: '1px 3px', borderRadius: 2 }}>{card.good}</span></div>
@@ -2770,7 +2770,7 @@ export default function Home() {
                 ))}
               </div>
               <div style={{ textAlign: 'center', marginTop: 36 }}>
-                <button type="button" onClick={() => (document.querySelector('.pr-hero') as HTMLElement)?.scrollIntoView({ behavior: 'smooth' })} style={{ background: '#3B82F6', color: 'white', fontSize: 15, fontWeight: 600, padding: '14px 32px', borderRadius: 14, border: 'none', cursor: 'pointer', boxShadow: '0 6px 20px rgba(59,130,246,0.3)' }}>
+                <button type="button" onClick={() => (document.querySelector('.pr-hero') as HTMLElement)?.scrollIntoView({ behavior: 'smooth' })} style={{ background: '#0D9488', color: 'white', fontSize: 15, fontWeight: 600, padding: '14px 32px', borderRadius: 14, border: 'none', cursor: 'pointer', boxShadow: '0 6px 20px rgba(13,148,136,0.3)' }}>
                   Find Out What&rsquo;s Wrong With Yours &rarr;
                 </button>
               </div>
@@ -2781,7 +2781,7 @@ export default function Home() {
           <section style={{ padding: 'clamp(60px, 10vw, 120px) 0', background: 'white', borderBottom: '1px solid #E5E7EB' }}>
             <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px' }}>
               <div style={{ textAlign: 'center', marginBottom: 64 }}>
-                <div style={{ fontSize: 13, fontWeight: 700, color: '#3B82F6', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 12 }}>Features</div>
+                <div style={{ fontSize: 13, fontWeight: 700, color: '#0D9488', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 12 }}>Features</div>
                 <h2 style={{ fontSize: 40, fontWeight: 700, color: '#0F172A', letterSpacing: '-0.02em' }}>Everything You Need to Land Interviews</h2>
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 24 }}>
@@ -2842,7 +2842,7 @@ export default function Home() {
           <section id="how-it-works" style={{ padding: 'clamp(60px, 10vw, 120px) 0', background: '#F8FBFF', borderBottom: '1px solid #E5E7EB' }}>
             <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px' }}>
               <div style={{ textAlign: 'center', marginBottom: 64 }}>
-                <div style={{ fontSize: 13, fontWeight: 700, color: '#3B82F6', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 12 }}>Simple process</div>
+                <div style={{ fontSize: 13, fontWeight: 700, color: '#0D9488', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 12 }}>Simple process</div>
                 <h2 style={{ fontSize: 40, fontWeight: 700, color: '#0F172A', letterSpacing: '-0.02em' }}>How It Works</h2>
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 32, maxWidth: 1080, margin: '0 auto' }}>
@@ -2852,7 +2852,7 @@ export default function Home() {
                   { num: '03', icon: '🚀', title: 'Download & Apply', desc: 'LinkedIn rewrite, ATS resume, cover letter, and interview prep.', preview: 'Resume ready for download' },
                 ].map((s, i) => (
                   <div key={i} style={{ background: 'white', borderRadius: 24, padding: 32, border: '1px solid #E5E7EB', boxShadow: '0 10px 30px rgba(15,23,42,0.08)', display: 'flex', flexDirection: 'column' }}>
-                    <div style={{ width: 64, height: 64, background: '#EFF6FF', borderRadius: 20, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 28, marginBottom: 20 }}>{s.icon}</div>
+                    <div style={{ width: 64, height: 64, background: '#F0FDFA', borderRadius: 20, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 28, marginBottom: 20 }}>{s.icon}</div>
                     <div style={{ fontSize: 48, fontWeight: 800, color: '#E2E8F0', marginBottom: 12 }}>{s.num}</div>
                     <div style={{ fontSize: 20, fontWeight: 700, color: '#0F172A', marginBottom: 8 }}>{s.title}</div>
                     <div style={{ fontSize: 15, color: '#64748B', lineHeight: 1.7, flex: 1, marginBottom: 20 }}>{s.desc}</div>
@@ -2969,7 +2969,7 @@ export default function Home() {
           <section id="faq" style={{ padding: 'clamp(60px, 10vw, 120px) 0', background: 'var(--bg-surface)', borderBottom: '1px solid var(--border-default)' }}>
             <div className="landing-section" style={{ maxWidth: 720 }}>
               <div style={{ textAlign: 'center', marginBottom: 48 }}>
-                <div style={{ fontSize: 13, fontWeight: 700, color: '#3B82F6', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 12 }}>FAQ</div>
+                <div style={{ fontSize: 13, fontWeight: 700, color: '#0D9488', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 12 }}>FAQ</div>
                 <h2 style={{ fontSize: 40, fontWeight: 700, color: '#0F172A', letterSpacing: '-0.02em' }}>Frequently Asked Questions</h2>
               </div>
               {[
@@ -3007,7 +3007,7 @@ export default function Home() {
           <section style={{ padding: 'clamp(60px, 10vw, 120px) 0', background: 'white', borderBottom: '1px solid #E5E7EB' }}>
             <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px' }}>
               <div style={{ textAlign: 'center', marginBottom: 64 }}>
-                <div style={{ fontSize: 13, fontWeight: 700, color: '#3B82F6', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 12 }}>Testimonials</div>
+                <div style={{ fontSize: 13, fontWeight: 700, color: '#0D9488', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 12 }}>Testimonials</div>
                 <h2 style={{ fontSize: 40, fontWeight: 700, color: '#0F172A', letterSpacing: '-0.02em' }}>What Our Users Say</h2>
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: 24 }}>
@@ -3048,7 +3048,7 @@ export default function Home() {
                   <thead>
                     <tr style={{ background: '#F8FAFC' }}>
                       <th style={{ padding: '14px 20px', textAlign: 'left', fontWeight: 600, color: '#6B7280', borderBottom: '1px solid #E5E7EB' }}>Feature</th>
-                      <th style={{ padding: '14px 20px', textAlign: 'center', fontWeight: 700, color: 'var(--accent)', borderBottom: '1px solid #E5E7EB', background: '#EFF6FF' }}>ProfileRoaster</th>
+                      <th style={{ padding: '14px 20px', textAlign: 'center', fontWeight: 700, color: 'var(--accent)', borderBottom: '1px solid #E5E7EB', background: '#F0FDFA' }}>ProfileRoaster</th>
                       <th style={{ padding: '14px 20px', textAlign: 'center', fontWeight: 600, color: '#6B7280', borderBottom: '1px solid #E5E7EB' }}>ChatGPT</th>
                       <th style={{ padding: '14px 20px', textAlign: 'center', fontWeight: 600, color: '#6B7280', borderBottom: '1px solid #E5E7EB' }}>Resume Writer</th>
                     </tr>
@@ -3079,10 +3079,10 @@ export default function Home() {
           {/* ── Final CTA ── */}
           <section style={{ padding: 'clamp(60px, 10vw, 120px) 0', background: '#F8FBFF' }}>
             <div style={{ maxWidth: 1000, margin: '0 auto', padding: '0 24px' }}>
-              <div style={{ background: 'linear-gradient(135deg, #3B82F6, #1D4ED8)', borderRadius: 32, padding: '80px 48px', textAlign: 'center', boxShadow: '0 20px 50px rgba(15,23,42,0.15)' }}>
+              <div style={{ background: 'linear-gradient(135deg, #0D9488, #115E59)', borderRadius: 32, padding: '80px 48px', textAlign: 'center', boxShadow: '0 20px 50px rgba(15,23,42,0.15)' }}>
                 <h2 style={{ fontSize: 36, fontWeight: 700, color: 'white', marginBottom: 16, letterSpacing: '-0.02em' }}>Ready to Transform Your LinkedIn Profile?</h2>
                 <p style={{ fontSize: 18, color: 'rgba(255,255,255,0.85)', maxWidth: 500, margin: '0 auto 40px', lineHeight: 1.7 }}>Join thousands of professionals who improved their profiles and started getting more interviews.</p>
-                <button type="button" onClick={() => { const h = document.querySelector('.pr-hero'); if (h) h.scrollIntoView({ behavior: 'smooth' }); }} style={{ height: 56, padding: '0 32px', background: 'white', color: '#3B82F6', fontSize: 16, fontWeight: 700, borderRadius: 16, border: 'none', cursor: 'pointer', boxShadow: '0 8px 20px rgba(0,0,0,0.12)' }}>
+                <button type="button" onClick={() => { const h = document.querySelector('.pr-hero'); if (h) h.scrollIntoView({ behavior: 'smooth' }); }} style={{ height: 56, padding: '0 32px', background: 'white', color: '#0D9488', fontSize: 16, fontWeight: 700, borderRadius: 16, border: 'none', cursor: 'pointer', boxShadow: '0 8px 20px rgba(0,0,0,0.12)' }}>
                   Analyze My Profile — Free Score &rarr;
                 </button>
               </div>
