@@ -2225,33 +2225,36 @@ export default function Home() {
 
           {/* ── COVER LETTERS TAB ── */}
           {showcaseTab === 'coverletters' && (
-            <div style={{ display: 'flex', gap: 24, justifyContent: 'center', flexWrap: 'wrap' }}>
-              {['Professional', 'Modern', 'Minimal'].map((style, i) => {
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 20, maxWidth: 1100, margin: '0 auto' }}>
+              {['Professional', 'Modern', 'Minimal'].map((styleName, i) => {
                 const bgColors = ['#F5E6C8', '#FFFFFF', '#F0F0F0'];
+                const accents = ['#0F172A', '#3B82F6', '#64748B'];
                 return (
-                  <div key={style} style={{
-                    flex: '1 1 0',
-                    maxWidth: 380,
+                  <div key={styleName} className="showcase-card" style={{
                     background: bgColors[i],
                     borderRadius: 16,
-                    padding: '20px 14px 16px',
+                    padding: '16px 12px 12px',
                     boxShadow: '0 2px 16px rgba(0,0,0,0.06)',
                     cursor: 'pointer',
                   }}
                     onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                   >
                     <div style={{
-                      background: '#FFFFFF', borderRadius: 6, overflow: 'hidden', boxShadow: '0 1px 4px rgba(0,0,0,0.08)',
-                      padding: i === 1 ? '40px 48px' : '36px 44px',
+                      background: '#FFFFFF', borderRadius: 8, overflow: 'hidden', boxShadow: '0 1px 4px rgba(0,0,0,0.06)',
+                      padding: 'clamp(20px, 4vw, 36px) clamp(16px, 3vw, 32px)',
                       fontFamily: i === 2 ? 'Georgia, serif' : "'Inter', sans-serif",
-                      fontSize: 11, lineHeight: 1.7, color: '#1a1a1a',
-                      minHeight: 500,
+                      fontSize: 'clamp(9px, 1.5vw, 11px)', lineHeight: 1.65, color: '#1a1a1a',
                     }}>
-                      {i === 1 && <div style={{ width: 40, height: 3, background: '#0A66C2', marginBottom: 24 }} />}
-                      <div style={{ whiteSpace: 'pre-line', fontSize: 11, lineHeight: 1.65 }}>
-                        {SAMPLE_COVER_LETTER}
-                      </div>
+                      {i === 1 && <div style={{ width: 32, height: 3, background: accents[i], marginBottom: 16 }} />}
+                      <div style={{ fontSize: 'clamp(12px, 2vw, 15px)', fontWeight: 700, color: accents[i], marginBottom: 12 }}>Ananya Sharma</div>
+                      <div style={{ marginBottom: 12, color: '#374151' }}>Dear Hiring Manager,</div>
+                      <div style={{ color: '#4B5563', marginBottom: 10 }}>I am writing to express my strong interest in the Senior Product Manager position. With over 7 years of experience across Razorpay, Flipkart, and Freshworks, I bring a proven track record of building products that drive measurable business impact.</div>
+                      <div style={{ color: '#4B5563', marginBottom: 10 }}>In my current role at Razorpay, I lead the merchant onboarding platform strategy, where I increased conversion rates by 32% and drove &#8377;1.8 Cr in incremental monthly revenue.</div>
+                      <div style={{ color: '#4B5563', marginBottom: 10 }}>At Flipkart, I spearheaded the launch of Flipkart Quick across 8 cities, contributing &#8377;12 Cr in additional quarterly revenue through checkout flow redesign.</div>
+                      <div style={{ color: '#64748B', marginTop: 16 }}>Warm regards,</div>
+                      <div style={{ fontWeight: 600, color: '#0F172A' }}>Ananya Sharma</div>
                     </div>
+                    <div style={{ textAlign: 'center', padding: '10px 0 4px', fontSize: 13, fontWeight: 600, color: '#374151' }}>{styleName}</div>
                   </div>
                 );
               })}
@@ -2649,8 +2652,8 @@ export default function Home() {
             <div className="landing-section" style={{ maxWidth: 1000 }}>
               <div style={{ textAlign: 'center', marginBottom: 48 }}>
                 <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: 2, textTransform: 'uppercase', color: '#FF5A5F', marginBottom: 10 }}>The harsh truth</div>
-                <h2 style={{ fontSize: 32, fontWeight: 800, letterSpacing: '-0.02em', lineHeight: 1.2 }}>Why recruiters skip your profile in 3 seconds</h2>
-                <p style={{ fontSize: 16, color: '#94A3B8', marginTop: 12, maxWidth: 560, margin: '12px auto 0' }}>These are the exact patterns that make hiring managers move on. Sound familiar?</p>
+                <h2 style={{ fontSize: 32, fontWeight: 800, letterSpacing: '-0.02em', lineHeight: 1.2 }}>Why Recruiters Skip Your Profile</h2>
+                <p style={{ fontSize: 16, color: '#94A3B8', marginTop: 12, maxWidth: 560, margin: '12px auto 0' }}>Sound familiar? Here&apos;s what&apos;s killing your chances.</p>
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 24 }}>
                 {[
@@ -2719,7 +2722,7 @@ export default function Home() {
                     </div>
                   </div>
                   <div style={{ fontSize: 18, fontWeight: 700, color: '#0F172A', marginBottom: 8 }}>Profile Rewrite</div>
-                  <div style={{ fontSize: 14, color: '#64748B', lineHeight: 1.7 }}>AI rewrites your headline, about section, and experience bullets with quantified achievements.</div>
+                  <div style={{ fontSize: 14, color: '#64748B', lineHeight: 1.7 }}>AI rewrites your headline, about, and experience with real metrics.</div>
                 </div>
 
                 {/* Card 2: Summary Rewrite */}
@@ -2735,7 +2738,7 @@ export default function Home() {
                     </div>
                   </div>
                   <div style={{ fontSize: 18, fontWeight: 700, color: '#0F172A', marginBottom: 8 }}>ATS Resume Builder</div>
-                  <div style={{ fontSize: 14, color: '#64748B', lineHeight: 1.7 }}>11 ATS-optimized templates filled with your rewritten content. Download as PDF instantly.</div>
+                  <div style={{ fontSize: 14, color: '#64748B', lineHeight: 1.7 }}>11 ATS templates. Your rewritten content. Instant PDF download.</div>
                 </div>
 
                 {/* Card 3: Keywords */}
@@ -2755,7 +2758,7 @@ export default function Home() {
                     <div style={{ fontSize: 10, color: '#15803D', fontWeight: 600, marginTop: 8 }}>+5 missing keywords added</div>
                   </div>
                   <div style={{ fontSize: 18, fontWeight: 700, color: '#0F172A', marginBottom: 8 }}>Interview Prep Kit</div>
-                  <div style={{ fontSize: 14, color: '#64748B', lineHeight: 1.7 }}>15 personalized questions with STAR-format answers, cheat sheet, and MCQ quiz.</div>
+                  <div style={{ fontSize: 14, color: '#64748B', lineHeight: 1.7 }}>15 STAR-format questions, cheat sheet, and practice quiz.</div>
                 </div>
               </div>
             </div>
@@ -2770,9 +2773,9 @@ export default function Home() {
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 32, maxWidth: 1080, margin: '0 auto' }}>
                 {[
-                  { num: '01', icon: '📄', title: 'Upload Your Resume', desc: 'Drop your resume PDF/DOCX or LinkedIn PDF. Or fill a quick questionnaire — takes 2 minutes.', preview: 'Drag & drop your file here' },
-                  { num: '02', icon: '🤖', title: 'AI Analyzes & Rewrites', desc: 'Our AI scores your profile, identifies weak spots, rewrites your headline, about, and experience bullets.', preview: 'Analyzing 14 keywords...' },
-                  { num: '03', icon: '🚀', title: 'Download & Apply', desc: 'Get your rewritten LinkedIn content, ATS resume in 11 templates, cover letter, and interview prep kit.', preview: 'Resume ready for download' },
+                  { num: '01', icon: '📄', title: 'Upload Your Resume', desc: 'Resume PDF, LinkedIn PDF, or quick questionnaire.', preview: 'Drag & drop your file here' },
+                  { num: '02', icon: '🤖', title: 'AI Analyzes & Rewrites', desc: 'AI scores, identifies gaps, and rewrites everything.', preview: 'Analyzing 14 keywords...' },
+                  { num: '03', icon: '🚀', title: 'Download & Apply', desc: 'LinkedIn rewrite, ATS resume, cover letter, and interview prep.', preview: 'Resume ready for download' },
                 ].map((s, i) => (
                   <div key={i} style={{ background: 'white', borderRadius: 24, padding: 32, border: '1px solid #E5E7EB', boxShadow: '0 10px 30px rgba(15,23,42,0.08)', display: 'flex', flexDirection: 'column' }}>
                     <div style={{ width: 64, height: 64, background: '#EFF6FF', borderRadius: 20, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 28, marginBottom: 20 }}>{s.icon}</div>
