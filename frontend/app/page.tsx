@@ -40,10 +40,10 @@ function LiveCounter() {
   return null;
 }
 
-// ─── ScaledResume — measures container, scales resume to fit exactly ───
+// ─── ScaledResume — zoom-based, tight fit ───
 function ScaledResume({ templateId, data }: { templateId: string; data: any }) {
   const outerRef = useRef<HTMLDivElement>(null);
-  const [zoom, setZoom] = useState(0.45);
+  const [zoom, setZoom] = useState(0.39);
 
   useEffect(() => {
     const el = outerRef.current;
@@ -60,7 +60,8 @@ function ScaledResume({ templateId, data }: { templateId: string; data: any }) {
 
   return (
     <div ref={outerRef} style={{ background: '#FFFFFF', borderRadius: 4, overflow: 'hidden' }}>
-      <div style={{ width: 794, zoom, pointerEvents: 'none' }}>
+      {/* Negative margin pulls up to remove template's internal bottom padding+margin */}
+      <div style={{ width: 794, zoom, pointerEvents: 'none', marginBottom: -50 }}>
         {renderResumeHTML(data, templateId)}
       </div>
     </div>
