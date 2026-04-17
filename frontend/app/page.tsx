@@ -1793,134 +1793,170 @@ export default function Home() {
       {/* ── Product Dashboard Preview — Desktop */}
       <section className="hidden md:block" style={{ padding: '40px 0 80px', background: 'var(--bg-canvas)' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 20px' }}>
-          <div style={{ background: 'white', borderRadius: 28, border: '1px solid #E5E7EB', boxShadow: '0 20px 60px rgba(15,23,42,0.12)', overflow: 'hidden' }}>
+          <div style={{ background: 'white', borderRadius: 20, border: '1px solid #D1D5DB', boxShadow: '0 25px 80px rgba(15,23,42,0.14)', overflow: 'hidden' }}>
             {/* Browser bar */}
-            <div style={{ height: 44, background: '#F8FAFC', borderBottom: '1px solid #E5E7EB', display: 'flex', alignItems: 'center', padding: '0 16px', gap: 8 }}>
-              <div style={{ width: 12, height: 12, borderRadius: '50%', background: '#F87171' }} />
-              <div style={{ width: 12, height: 12, borderRadius: '50%', background: '#FBBF24' }} />
-              <div style={{ width: 12, height: 12, borderRadius: '50%', background: '#34D399' }} />
-              <div style={{ flex: 1, marginLeft: 12, height: 28, background: '#F1F5F9', borderRadius: 8, display: 'flex', alignItems: 'center', padding: '0 12px', fontSize: 11, color: '#94A3B8' }}>
-                app.profileroaster.in/dashboard
+            <div style={{ height: 40, background: '#F1F5F9', borderBottom: '1px solid #E2E8F0', display: 'flex', alignItems: 'center', padding: '0 14px', gap: 6 }}>
+              <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#F87171' }} />
+              <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#FBBF24' }} />
+              <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#34D399' }} />
+              <div style={{ flex: 1, marginLeft: 16, height: 24, background: 'white', borderRadius: 6, border: '1px solid #E2E8F0', display: 'flex', alignItems: 'center', padding: '0 10px', fontSize: 10, color: '#94A3B8' }}>
+                <span style={{ color: '#34D399', marginRight: 4 }}>&#128274;</span> app.profileroaster.in/linkedin-review
               </div>
             </div>
 
-            <div style={{ display: 'flex', minHeight: 480 }}>
+            <div style={{ display: 'flex', minHeight: 520 }}>
               {/* Sidebar */}
-              <div className="hidden md:flex" style={{ width: 180, background: '#F8FAFC', borderRight: '1px solid #E5E7EB', padding: '20px 0', flexShrink: 0, flexDirection: 'column', gap: 2 }}>
-                <div style={{ padding: '6px 16px', fontSize: 15, fontWeight: 800, color: '#0F172A', marginBottom: 12, display: 'flex', alignItems: 'center', gap: 6 }}>
+              <div style={{ width: 190, background: '#FAFBFC', borderRight: '1px solid #E5E7EB', padding: '16px 0', flexShrink: 0, display: 'flex', flexDirection: 'column' }}>
+                <div style={{ padding: '4px 16px 16px', fontSize: 14, fontWeight: 800, color: '#0F172A', display: 'flex', alignItems: 'center', gap: 4, borderBottom: '1px solid #E5E7EB', marginBottom: 8 }}>
                   <span style={{ color: '#3B82F6' }}>Profile</span>Roaster
                 </div>
                 {[
-                  { label: 'Dashboard', active: false },
-                  { label: 'LinkedIn Review', active: true },
-                  { label: 'Resume Builder', active: false },
-                  { label: 'Keyword Match', active: false },
-                  { label: 'Interview Prep', active: false },
-                  { label: 'Export', active: false },
+                  { label: 'Dashboard', icon: '▦', active: false },
+                  { label: 'LinkedIn Review', icon: '◉', active: true },
+                  { label: 'Resume Builder', icon: '◧', active: false },
+                  { label: 'ATS Match', icon: '◈', active: false },
+                  { label: 'Interview Prep', icon: '◇', active: false },
+                  { label: 'Export', icon: '↗', active: false },
                 ].map((item, i) => (
-                  <div key={i} style={{ padding: '8px 16px', fontSize: 12, fontWeight: item.active ? 600 : 500, color: item.active ? '#3B82F6' : '#64748B', background: item.active ? '#EFF6FF' : 'transparent', borderLeft: item.active ? '3px solid #3B82F6' : '3px solid transparent', cursor: 'default' }}>
-                    {item.label}
+                  <div key={i} style={{ padding: '7px 14px', fontSize: 11, fontWeight: item.active ? 600 : 400, color: item.active ? '#3B82F6' : '#64748B', background: item.active ? '#EFF6FF' : 'transparent', borderLeft: item.active ? '3px solid #3B82F6' : '3px solid transparent', display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <span style={{ fontSize: 10, opacity: 0.6 }}>{item.icon}</span>{item.label}
                   </div>
                 ))}
+                {/* Sidebar bottom stats */}
+                <div style={{ marginTop: 'auto', padding: '12px 14px', borderTop: '1px solid #E5E7EB' }}>
+                  <div style={{ fontSize: 9, fontWeight: 600, color: '#94A3B8', letterSpacing: 1, marginBottom: 6 }}>QUICK STATS</div>
+                  <div style={{ fontSize: 10, color: '#64748B', marginBottom: 4 }}>Profile Score: <span style={{ color: '#15803D', fontWeight: 700 }}>87/100</span></div>
+                  <div style={{ fontSize: 10, color: '#64748B', marginBottom: 4 }}>Keywords: <span style={{ color: '#3B82F6', fontWeight: 700 }}>14/16</span></div>
+                  <div style={{ fontSize: 10, color: '#64748B' }}>ATS Ready: <span style={{ color: '#15803D', fontWeight: 700 }}>Yes</span></div>
+                </div>
               </div>
 
               {/* Main content */}
-              <div style={{ flex: 1, padding: '20px 24px', overflow: 'hidden' }}>
-                {/* Tabs */}
-                <div style={{ display: 'flex', gap: 4, marginBottom: 20, borderBottom: '1px solid #E5E7EB', paddingBottom: 0 }}>
-                  {['Overview', 'Headline', 'Summary', 'Skills'].map((tab, i) => (
-                    <div key={tab} style={{ padding: '8px 16px', fontSize: 12, fontWeight: i === 0 ? 700 : 500, color: i === 0 ? '#3B82F6' : '#94A3B8', borderBottom: i === 0 ? '2px solid #3B82F6' : '2px solid transparent', cursor: 'default' }}>
-                      {tab}
+              <div style={{ flex: 1, padding: '16px 20px', overflow: 'hidden', background: '#F8FAFC' }}>
+                {/* Toolbar row */}
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+                  <div style={{ display: 'flex', gap: 0, background: 'white', borderRadius: 8, border: '1px solid #E2E8F0', overflow: 'hidden' }}>
+                    {['Overview', 'Headline', 'Summary', 'Experience', 'Skills'].map((tab, i) => (
+                      <div key={tab} style={{ padding: '6px 12px', fontSize: 10, fontWeight: i === 0 ? 700 : 500, color: i === 0 ? '#3B82F6' : '#94A3B8', background: i === 0 ? '#EFF6FF' : 'white', borderRight: i < 4 ? '1px solid #E2E8F0' : 'none', cursor: 'default' }}>
+                        {tab}
+                      </div>
+                    ))}
+                  </div>
+                  <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+                    <span style={{ fontSize: 9, color: '#94A3B8' }}>Last scan: 2 min ago</span>
+                    <div style={{ padding: '4px 8px', background: '#3B82F6', color: 'white', borderRadius: 6, fontSize: 9, fontWeight: 600 }}>Re-analyze</div>
+                  </div>
+                </div>
+
+                {/* Score summary row */}
+                <div style={{ display: 'flex', gap: 10, marginBottom: 14 }}>
+                  {[
+                    { label: 'Profile Score', value: '87', sub: '/100', color: '#15803D', bg: '#F0FDF4', border: '#BBF7D0' },
+                    { label: 'ATS Match', value: '92', sub: '%', color: '#3B82F6', bg: '#EFF6FF', border: '#BFDBFE' },
+                    { label: 'Recruiter Score', value: 'A+', sub: '', color: '#7C3AED', bg: '#F5F3FF', border: '#DDD6FE' },
+                    { label: 'Keywords', value: '14', sub: '/16', color: '#F59E0B', bg: '#FFFBEB', border: '#FDE68A' },
+                  ].map((m, i) => (
+                    <div key={i} style={{ flex: 1, background: m.bg, borderRadius: 10, padding: '10px', border: `1px solid ${m.border}`, textAlign: 'center' }}>
+                      <div style={{ fontSize: 18, fontWeight: 800, color: m.color, lineHeight: 1 }}>{m.value}<span style={{ fontSize: 10, fontWeight: 600 }}>{m.sub}</span></div>
+                      <div style={{ fontSize: 8, color: '#64748B', marginTop: 3, fontWeight: 600 }}>{m.label}</div>
                     </div>
                   ))}
                 </div>
 
                 {/* Two profile cards */}
-                <div style={{ display: 'flex', gap: 12, alignItems: 'start', flexWrap: 'wrap' }}>
-                  {/* Original Profile */}
-                  <div style={{ background: '#FAFAFA', borderRadius: 16, padding: '16px 18px', border: '1px solid #E5E7EB', flex: '1 1 280px', minWidth: 0 }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
-                      <span style={{ fontSize: 11, fontWeight: 700, color: '#94A3B8', letterSpacing: 1 }}>ORIGINAL PROFILE</span>
-                      <span style={{ padding: '3px 8px', background: '#FEE2E2', color: '#DC2626', borderRadius: 6, fontSize: 10, fontWeight: 700 }}>42/100</span>
-                    </div>
-                    {/* Progress bar */}
-                    <div style={{ height: 4, background: '#E5E7EB', borderRadius: 2, marginBottom: 14 }}><div style={{ height: '100%', width: '42%', background: '#F87171', borderRadius: 2 }} /></div>
-                    {/* Avatar + name */}
-                    <div style={{ display: 'flex', gap: 10, alignItems: 'center', marginBottom: 12 }}>
-                      <div style={{ width: 36, height: 36, borderRadius: '50%', background: '#E2E8F0' }} />
+                <div style={{ display: 'flex', gap: 12, alignItems: 'stretch' }}>
+                  {/* Original Profile — faded */}
+                  <div style={{ flex: '0 0 42%', background: '#F3F4F6', borderRadius: 12, padding: '14px 16px', border: '1px solid #D1D5DB', opacity: 0.75, position: 'relative' }}>
+                    <div style={{ position: 'absolute', top: 8, right: 8, padding: '2px 6px', background: '#FEE2E2', color: '#DC2626', borderRadius: 4, fontSize: 8, fontWeight: 700 }}>NEEDS WORK</div>
+                    <div style={{ fontSize: 9, fontWeight: 700, color: '#94A3B8', letterSpacing: 1, marginBottom: 8 }}>ORIGINAL PROFILE</div>
+                    <div style={{ height: 3, background: '#E2E8F0', borderRadius: 2, marginBottom: 10 }}><div style={{ height: '100%', width: '42%', background: '#F87171', borderRadius: 2 }} /></div>
+                    <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginBottom: 8 }}>
+                      <div style={{ width: 28, height: 28, borderRadius: '50%', background: '#D1D5DB' }} />
                       <div>
-                        <div style={{ fontSize: 13, fontWeight: 700, color: '#0F172A' }}>Rajesh Kumar</div>
-                        <div style={{ fontSize: 10, color: '#94A3B8' }}>Updated 2 days ago</div>
+                        <div style={{ fontSize: 11, fontWeight: 700, color: '#6B7280' }}>Rajesh Kumar</div>
+                        <div style={{ fontSize: 8, color: '#9CA3AF' }}>Updated 2 days ago</div>
                       </div>
                     </div>
-                    {/* Headline */}
-                    <div style={{ fontSize: 11, color: '#DC2626', lineHeight: 1.5, padding: '8px 10px', background: '#FEF2F2', borderRadius: 8, marginBottom: 10, borderLeft: '3px solid #F87171' }}>
+                    <div style={{ fontSize: 10, color: '#9CA3AF', lineHeight: 1.4, padding: '6px 8px', background: '#E5E7EB', borderRadius: 6, marginBottom: 8, textDecoration: 'line-through', fontStyle: 'italic' }}>
                       &ldquo;Results-driven professional seeking opportunities&rdquo;
                     </div>
-                    {/* Summary skeleton */}
-                    <div style={{ marginBottom: 12 }}>
-                      <div style={{ height: 6, background: '#E2E8F0', borderRadius: 3, marginBottom: 4 }} />
-                      <div style={{ height: 6, background: '#E2E8F0', borderRadius: 3, marginBottom: 4, width: '85%' }} />
-                      <div style={{ height: 6, background: '#E2E8F0', borderRadius: 3, width: '60%' }} />
+                    <div style={{ marginBottom: 8 }}>
+                      <div style={{ height: 5, background: '#D1D5DB', borderRadius: 2, marginBottom: 3 }} />
+                      <div style={{ height: 5, background: '#D1D5DB', borderRadius: 2, marginBottom: 3, width: '80%' }} />
+                      <div style={{ height: 5, background: '#D1D5DB', borderRadius: 2, width: '55%' }} />
                     </div>
-                    {/* Warning tags */}
-                    <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>
-                      {['Weak headline', 'Missing keywords', 'Generic summary'].map(w => (
-                        <span key={w} style={{ padding: '2px 6px', background: '#FEE2E2', color: '#DC2626', borderRadius: 4, fontSize: 9, fontWeight: 600 }}>{w}</span>
+                    <div style={{ display: 'flex', gap: 3, flexWrap: 'wrap' }}>
+                      {['⚠ Weak headline', '⚠ No metrics', '⚠ 12 keywords missing'].map(w => (
+                        <span key={w} style={{ padding: '1px 5px', background: '#FEE2E2', color: '#DC2626', borderRadius: 3, fontSize: 7, fontWeight: 600 }}>{w}</span>
                       ))}
                     </div>
                   </div>
 
                   {/* Arrow */}
-                  <div className="hidden sm:flex" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', paddingTop: 80 }}>
-                    <div style={{ width: 36, height: 36, borderRadius: '50%', background: '#3B82F6', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: 14, boxShadow: '0 4px 12px rgba(59,130,246,0.3)' }}>→</div>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, flexDirection: 'column', gap: 4 }}>
+                    <div style={{ width: 32, height: 32, borderRadius: '50%', background: '#3B82F6', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: 12, boxShadow: '0 4px 12px rgba(59,130,246,0.35)' }}>→</div>
+                    <div style={{ fontSize: 8, fontWeight: 700, color: '#3B82F6' }}>AI Fix</div>
                   </div>
 
-                  {/* Optimized Profile */}
-                  <div style={{ background: '#FFFFFF', borderRadius: 16, padding: '16px 18px', border: '1px solid #D1FAE5', boxShadow: '0 4px 16px rgba(16,185,129,0.08)', flex: '1 1 280px', minWidth: 0 }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
-                      <span style={{ fontSize: 11, fontWeight: 700, color: '#15803D', letterSpacing: 1 }}>OPTIMIZED PROFILE</span>
-                      <span style={{ padding: '3px 8px', background: '#DCFCE7', color: '#15803D', borderRadius: 6, fontSize: 10, fontWeight: 700 }}>87/100</span>
+                  {/* Optimized Profile — dominant */}
+                  <div style={{ flex: '0 0 50%', background: 'white', borderRadius: 12, padding: '14px 16px', border: '1.5px solid #86EFAC', boxShadow: '0 8px 28px rgba(16,185,129,0.12)', position: 'relative' }}>
+                    <div style={{ position: 'absolute', top: 8, right: 8, padding: '2px 6px', background: '#DCFCE7', color: '#15803D', borderRadius: 4, fontSize: 8, fontWeight: 700 }}>✓ OPTIMIZED</div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
+                      <span style={{ fontSize: 9, fontWeight: 700, color: '#15803D', letterSpacing: 1 }}>OPTIMIZED PROFILE</span>
                     </div>
-                    {/* Progress bar */}
-                    <div style={{ height: 4, background: '#E5E7EB', borderRadius: 2, marginBottom: 14 }}><div style={{ height: '100%', width: '87%', background: '#34D399', borderRadius: 2 }} /></div>
-                    {/* Avatar + name */}
-                    <div style={{ display: 'flex', gap: 10, alignItems: 'center', marginBottom: 12 }}>
-                      <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'linear-gradient(135deg, #3B82F6, #1D4ED8)' }} />
+                    <div style={{ height: 3, background: '#E5E7EB', borderRadius: 2, marginBottom: 10 }}><div style={{ height: '100%', width: '87%', background: '#34D399', borderRadius: 2 }} /></div>
+                    <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginBottom: 8 }}>
+                      <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'linear-gradient(135deg, #3B82F6, #1D4ED8)' }} />
                       <div>
-                        <div style={{ fontSize: 13, fontWeight: 700, color: '#0F172A' }}>Rajesh Kumar</div>
-                        <div style={{ fontSize: 10, color: '#15803D' }}>Updated just now</div>
+                        <div style={{ fontSize: 11, fontWeight: 700, color: '#0F172A' }}>Rajesh Kumar</div>
+                        <div style={{ fontSize: 8, color: '#15803D', display: 'flex', alignItems: 'center', gap: 3 }}><span style={{ width: 5, height: 5, borderRadius: '50%', background: '#34D399', display: 'inline-block' }} />Updated just now</div>
                       </div>
                     </div>
-                    {/* Headline */}
-                    <div style={{ fontSize: 11, color: '#15803D', lineHeight: 1.5, padding: '8px 10px', background: '#F0FDF4', borderRadius: 8, marginBottom: 10, fontWeight: 600, borderLeft: '3px solid #34D399' }}>
-                      &ldquo;Full-Stack Engineer | Built apps serving 50K+ users | React + AWS&rdquo;
+                    <div style={{ fontSize: 10, color: '#15803D', lineHeight: 1.4, padding: '6px 8px', background: '#F0FDF4', borderRadius: 6, marginBottom: 6, fontWeight: 600, borderLeft: '2px solid #34D399' }}>
+                      &ldquo;Full-Stack Engineer | Built apps serving 50K+ users | React + AWS + Node.js&rdquo;
                     </div>
-                    {/* Summary */}
-                    <div style={{ fontSize: 10, color: '#374151', lineHeight: 1.6, marginBottom: 12 }}>
-                      Full-stack engineer with 5 years shipping production applications. Led microservices migration for 50K+ DAU. Reduced API latency by 40%.
+                    <div style={{ fontSize: 8, fontWeight: 600, color: '#3B82F6', marginBottom: 4, display: 'flex', alignItems: 'center', gap: 4 }}>
+                      <span style={{ padding: '1px 4px', background: '#EFF6FF', borderRadius: 3, fontSize: 7 }}>AI Suggestion</span> Summary rewritten
                     </div>
-                    {/* Success tags */}
-                    <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>
-                      {['ATS Optimized', '12 Keywords', 'Recruiter Ready'].map(w => (
-                        <span key={w} style={{ padding: '2px 6px', background: '#DCFCE7', color: '#15803D', borderRadius: 4, fontSize: 9, fontWeight: 600 }}>{w}</span>
+                    <div style={{ fontSize: 9, color: '#374151', lineHeight: 1.5, marginBottom: 8 }}>
+                      Full-stack engineer with 5 years shipping production apps at scale. Led microservices migration for <span style={{ background: '#D1FAE5', padding: '0 2px', borderRadius: 2 }}>50K+ DAU</span>. Reduced API latency by <span style={{ background: '#D1FAE5', padding: '0 2px', borderRadius: 2 }}>40%</span>. Mentored 4 junior devs.
+                    </div>
+                    <div style={{ fontSize: 8, fontWeight: 600, color: '#64748B', marginBottom: 4 }}>KEYWORDS ADDED</div>
+                    <div style={{ display: 'flex', gap: 3, flexWrap: 'wrap', marginBottom: 8 }}>
+                      {['React', 'Node.js', 'AWS', 'Docker', 'CI/CD', 'Microservices', 'PostgreSQL', 'TypeScript'].map(w => (
+                        <span key={w} style={{ padding: '1px 5px', background: '#DCFCE7', color: '#15803D', borderRadius: 3, fontSize: 7, fontWeight: 600 }}>+ {w}</span>
+                      ))}
+                    </div>
+                    <div style={{ display: 'flex', gap: 4 }}>
+                      {['✓ ATS Ready', '✓ Recruiter Friendly', '✓ Quantified'].map(w => (
+                        <span key={w} style={{ padding: '2px 5px', background: '#F0FDF4', color: '#15803D', borderRadius: 4, fontSize: 7, fontWeight: 700, border: '1px solid #BBF7D0' }}>{w}</span>
                       ))}
                     </div>
                   </div>
                 </div>
 
-                {/* Bottom metrics row */}
-                <div style={{ display: 'flex', gap: 8, marginTop: 16, flexWrap: 'wrap' }}>
-                  {[
-                    { label: 'Recruiter Match', value: '+38%', color: '#3B82F6', bg: '#EFF6FF' },
-                    { label: 'Keywords Added', value: '12', color: '#15803D', bg: '#F0FDF4' },
-                    { label: 'Profile Strength', value: 'Strong', color: '#F59E0B', bg: '#FFFBEB' },
-                  ].map((m, i) => (
-                    <div key={i} style={{ flex: '1 1 100px', minWidth: 0, background: m.bg, borderRadius: 10, padding: '10px 12px', border: `1px solid ${m.color}20` }}>
-                      <div style={{ fontSize: 16, fontWeight: 800, color: m.color }}>{m.value}</div>
-                      <div style={{ fontSize: 10, color: '#64748B', marginTop: 2 }}>{m.label}</div>
-                    </div>
-                  ))}
+                {/* Bottom row: metrics + mini resume preview */}
+                <div style={{ display: 'flex', gap: 10, marginTop: 12 }}>
+                  <div style={{ flex: 1, display: 'flex', gap: 6 }}>
+                    {[
+                      { label: 'Recruiter Match', value: '+38%', color: '#3B82F6' },
+                      { label: 'Score Jump', value: '42→87', color: '#15803D' },
+                      { label: 'Strength', value: 'Strong', color: '#F59E0B' },
+                    ].map((m, i) => (
+                      <div key={i} style={{ flex: 1, background: 'white', borderRadius: 8, padding: '8px', border: '1px solid #E2E8F0', textAlign: 'center' }}>
+                        <div style={{ fontSize: 13, fontWeight: 800, color: m.color }}>{m.value}</div>
+                        <div style={{ fontSize: 7, color: '#94A3B8', fontWeight: 600, marginTop: 2 }}>{m.label}</div>
+                      </div>
+                    ))}
+                  </div>
+                  {/* Mini resume thumbnail */}
+                  <div style={{ width: 80, background: 'white', borderRadius: 8, border: '1px solid #E2E8F0', padding: '6px', flexShrink: 0 }}>
+                    <div style={{ fontSize: 6, fontWeight: 700, color: '#0F172A', marginBottom: 2 }}>Resume</div>
+                    <div style={{ height: 3, background: '#E2E8F0', borderRadius: 1, marginBottom: 2 }} />
+                    <div style={{ height: 3, background: '#E2E8F0', borderRadius: 1, marginBottom: 2, width: '80%' }} />
+                    <div style={{ height: 3, background: '#E2E8F0', borderRadius: 1, width: '60%' }} />
+                    <div style={{ fontSize: 5, color: '#3B82F6', fontWeight: 600, marginTop: 3 }}>View →</div>
+                  </div>
                 </div>
               </div>
             </div>
