@@ -1789,6 +1789,144 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── Product Dashboard Preview ── */}
+      <section style={{ padding: '40px 0 80px', background: 'var(--bg-canvas)' }}>
+        <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 20px' }}>
+          <div style={{ background: 'white', borderRadius: 28, border: '1px solid #E5E7EB', boxShadow: '0 20px 60px rgba(15,23,42,0.12)', overflow: 'hidden' }}>
+            {/* Browser bar */}
+            <div style={{ height: 44, background: '#F8FAFC', borderBottom: '1px solid #E5E7EB', display: 'flex', alignItems: 'center', padding: '0 16px', gap: 8 }}>
+              <div style={{ width: 12, height: 12, borderRadius: '50%', background: '#F87171' }} />
+              <div style={{ width: 12, height: 12, borderRadius: '50%', background: '#FBBF24' }} />
+              <div style={{ width: 12, height: 12, borderRadius: '50%', background: '#34D399' }} />
+              <div style={{ flex: 1, marginLeft: 12, height: 28, background: '#F1F5F9', borderRadius: 8, display: 'flex', alignItems: 'center', padding: '0 12px', fontSize: 11, color: '#94A3B8' }}>
+                app.profileroaster.in/dashboard
+              </div>
+            </div>
+
+            <div style={{ display: 'flex', minHeight: 480 }}>
+              {/* Sidebar */}
+              <div className="hidden md:flex" style={{ width: 180, background: '#F8FAFC', borderRight: '1px solid #E5E7EB', padding: '20px 0', flexShrink: 0, flexDirection: 'column', gap: 2 }}>
+                <div style={{ padding: '6px 16px', fontSize: 15, fontWeight: 800, color: '#0F172A', marginBottom: 12, display: 'flex', alignItems: 'center', gap: 6 }}>
+                  <span style={{ color: '#3B82F6' }}>Profile</span>Roaster
+                </div>
+                {[
+                  { label: 'Dashboard', active: false },
+                  { label: 'LinkedIn Review', active: true },
+                  { label: 'Resume Builder', active: false },
+                  { label: 'Keyword Match', active: false },
+                  { label: 'Interview Prep', active: false },
+                  { label: 'Export', active: false },
+                ].map((item, i) => (
+                  <div key={i} style={{ padding: '8px 16px', fontSize: 12, fontWeight: item.active ? 600 : 500, color: item.active ? '#3B82F6' : '#64748B', background: item.active ? '#EFF6FF' : 'transparent', borderLeft: item.active ? '3px solid #3B82F6' : '3px solid transparent', cursor: 'default' }}>
+                    {item.label}
+                  </div>
+                ))}
+              </div>
+
+              {/* Main content */}
+              <div style={{ flex: 1, padding: '20px 24px', overflow: 'hidden' }}>
+                {/* Tabs */}
+                <div style={{ display: 'flex', gap: 4, marginBottom: 20, borderBottom: '1px solid #E5E7EB', paddingBottom: 0 }}>
+                  {['Overview', 'Headline', 'Summary', 'Skills'].map((tab, i) => (
+                    <div key={tab} style={{ padding: '8px 16px', fontSize: 12, fontWeight: i === 0 ? 700 : 500, color: i === 0 ? '#3B82F6' : '#94A3B8', borderBottom: i === 0 ? '2px solid #3B82F6' : '2px solid transparent', cursor: 'default' }}>
+                      {tab}
+                    </div>
+                  ))}
+                </div>
+
+                {/* Two profile cards */}
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 40px 1fr', gap: 0, alignItems: 'start' }}>
+                  {/* Original Profile */}
+                  <div style={{ background: '#FAFAFA', borderRadius: 16, padding: '16px 18px', border: '1px solid #E5E7EB' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+                      <span style={{ fontSize: 11, fontWeight: 700, color: '#94A3B8', letterSpacing: 1 }}>ORIGINAL PROFILE</span>
+                      <span style={{ padding: '3px 8px', background: '#FEE2E2', color: '#DC2626', borderRadius: 6, fontSize: 10, fontWeight: 700 }}>42/100</span>
+                    </div>
+                    {/* Progress bar */}
+                    <div style={{ height: 4, background: '#E5E7EB', borderRadius: 2, marginBottom: 14 }}><div style={{ height: '100%', width: '42%', background: '#F87171', borderRadius: 2 }} /></div>
+                    {/* Avatar + name */}
+                    <div style={{ display: 'flex', gap: 10, alignItems: 'center', marginBottom: 12 }}>
+                      <div style={{ width: 36, height: 36, borderRadius: '50%', background: '#E2E8F0' }} />
+                      <div>
+                        <div style={{ fontSize: 13, fontWeight: 700, color: '#0F172A' }}>Rajesh Kumar</div>
+                        <div style={{ fontSize: 10, color: '#94A3B8' }}>Updated 2 days ago</div>
+                      </div>
+                    </div>
+                    {/* Headline */}
+                    <div style={{ fontSize: 11, color: '#DC2626', lineHeight: 1.5, padding: '8px 10px', background: '#FEF2F2', borderRadius: 8, marginBottom: 10, borderLeft: '3px solid #F87171' }}>
+                      &ldquo;Results-driven professional seeking opportunities&rdquo;
+                    </div>
+                    {/* Summary skeleton */}
+                    <div style={{ marginBottom: 12 }}>
+                      <div style={{ height: 6, background: '#E2E8F0', borderRadius: 3, marginBottom: 4 }} />
+                      <div style={{ height: 6, background: '#E2E8F0', borderRadius: 3, marginBottom: 4, width: '85%' }} />
+                      <div style={{ height: 6, background: '#E2E8F0', borderRadius: 3, width: '60%' }} />
+                    </div>
+                    {/* Warning tags */}
+                    <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>
+                      {['Weak headline', 'Missing keywords', 'Generic summary'].map(w => (
+                        <span key={w} style={{ padding: '2px 6px', background: '#FEE2E2', color: '#DC2626', borderRadius: 4, fontSize: 9, fontWeight: 600 }}>{w}</span>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Arrow */}
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', paddingTop: 80 }}>
+                    <div style={{ width: 36, height: 36, borderRadius: '50%', background: '#3B82F6', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: 14, boxShadow: '0 4px 12px rgba(59,130,246,0.3)' }}>→</div>
+                  </div>
+
+                  {/* Optimized Profile */}
+                  <div style={{ background: '#FFFFFF', borderRadius: 16, padding: '16px 18px', border: '1px solid #D1FAE5', boxShadow: '0 4px 16px rgba(16,185,129,0.08)' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+                      <span style={{ fontSize: 11, fontWeight: 700, color: '#15803D', letterSpacing: 1 }}>OPTIMIZED PROFILE</span>
+                      <span style={{ padding: '3px 8px', background: '#DCFCE7', color: '#15803D', borderRadius: 6, fontSize: 10, fontWeight: 700 }}>87/100</span>
+                    </div>
+                    {/* Progress bar */}
+                    <div style={{ height: 4, background: '#E5E7EB', borderRadius: 2, marginBottom: 14 }}><div style={{ height: '100%', width: '87%', background: '#34D399', borderRadius: 2 }} /></div>
+                    {/* Avatar + name */}
+                    <div style={{ display: 'flex', gap: 10, alignItems: 'center', marginBottom: 12 }}>
+                      <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'linear-gradient(135deg, #3B82F6, #1D4ED8)' }} />
+                      <div>
+                        <div style={{ fontSize: 13, fontWeight: 700, color: '#0F172A' }}>Rajesh Kumar</div>
+                        <div style={{ fontSize: 10, color: '#15803D' }}>Updated just now</div>
+                      </div>
+                    </div>
+                    {/* Headline */}
+                    <div style={{ fontSize: 11, color: '#15803D', lineHeight: 1.5, padding: '8px 10px', background: '#F0FDF4', borderRadius: 8, marginBottom: 10, fontWeight: 600, borderLeft: '3px solid #34D399' }}>
+                      &ldquo;Full-Stack Engineer | Built apps serving 50K+ users | React + AWS&rdquo;
+                    </div>
+                    {/* Summary */}
+                    <div style={{ fontSize: 10, color: '#374151', lineHeight: 1.6, marginBottom: 12 }}>
+                      Full-stack engineer with 5 years shipping production applications. Led microservices migration for 50K+ DAU. Reduced API latency by 40%.
+                    </div>
+                    {/* Success tags */}
+                    <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>
+                      {['ATS Optimized', '12 Keywords', 'Recruiter Ready'].map(w => (
+                        <span key={w} style={{ padding: '2px 6px', background: '#DCFCE7', color: '#15803D', borderRadius: 4, fontSize: 9, fontWeight: 600 }}>{w}</span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Bottom metrics row */}
+                <div style={{ display: 'flex', gap: 12, marginTop: 16 }}>
+                  {[
+                    { label: 'Recruiter Match', value: '+38%', color: '#3B82F6', bg: '#EFF6FF' },
+                    { label: 'Keywords Added', value: '12', color: '#15803D', bg: '#F0FDF4' },
+                    { label: 'Profile Strength', value: 'Strong', color: '#F59E0B', bg: '#FFFBEB' },
+                  ].map((m, i) => (
+                    <div key={i} style={{ flex: 1, background: m.bg, borderRadius: 10, padding: '10px 12px', border: `1px solid ${m.color}20` }}>
+                      <div style={{ fontSize: 16, fontWeight: 800, color: m.color }}>{m.value}</div>
+                      <div style={{ fontSize: 10, color: '#64748B', marginTop: 2 }}>{m.label}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── Trusted by professionals logo bar ── */}
       <section style={{ padding: '60px 0', background: 'white' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px', textAlign: 'center' }}>
@@ -1814,7 +1952,7 @@ export default function Home() {
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr auto 1fr', gap: 24, maxWidth: 1000, margin: '0 auto', alignItems: 'start' }}>
             {/* Before */}
-            <div>
+            <div style={{ opacity: 0.85 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16, padding: '0 4px' }}>
                 <span style={{ fontSize: 16, fontWeight: 700, color: '#DC2626' }}>Before</span>
                 <span style={{ padding: '4px 12px', background: '#FEE2E2', color: '#DC2626', borderRadius: 999, fontSize: 12, fontWeight: 700 }}>Score: 38/100</span>
@@ -1830,9 +1968,9 @@ export default function Home() {
                     <div style={{ fontSize: 12, color: '#94A3B8', lineHeight: 1.6, marginBottom: 16 }}>Passionate results-driven professional with excellent communication skills and a can-do attitude. Looking for exciting opportunities to leverage my skills and grow in a dynamic environment.</div>
                     <div style={{ fontSize: 10, fontWeight: 700, color: '#94A3B8', letterSpacing: 1, marginBottom: 8 }}>EXPERIENCE</div>
                     <div style={{ fontSize: 12, color: '#94A3B8', lineHeight: 1.6, marginBottom: 6 }}>Software Engineer at TechCorp</div>
-                    <div style={{ fontSize: 11, color: '#CBD5E1', marginBottom: 4 }}>&bull; Worked on various projects</div>
-                    <div style={{ fontSize: 11, color: '#CBD5E1', marginBottom: 4 }}>&bull; Handled backend development</div>
-                    <div style={{ fontSize: 11, color: '#CBD5E1', marginBottom: 12 }}>&bull; Participated in team meetings</div>
+                    <div style={{ fontSize: 11, color: '#CBD5E1', marginBottom: 4, textDecoration: 'line-through' }}>&bull; Worked on various projects</div>
+                    <div style={{ fontSize: 11, color: '#CBD5E1', marginBottom: 4, textDecoration: 'line-through' }}>&bull; Handled backend development</div>
+                    <div style={{ fontSize: 11, color: '#CBD5E1', marginBottom: 12, textDecoration: 'line-through' }}>&bull; Participated in team meetings</div>
                     <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginTop: 8 }}>
                       {['Missing keywords', 'Weak headline', 'No metrics'].map(w => (
                         <span key={w} style={{ padding: '3px 8px', background: '#FEE2E2', color: '#DC2626', borderRadius: 6, fontSize: 10, fontWeight: 600 }}>{w}</span>
@@ -1844,8 +1982,13 @@ export default function Home() {
             </div>
 
             {/* Arrow */}
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', paddingTop: 200 }}>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', paddingTop: 200 }}>
               <div style={{ width: 48, height: 48, borderRadius: '50%', background: '#3B82F6', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 8px 20px rgba(59,130,246,0.3)', fontSize: 18, color: 'white' }}>&rarr;</div>
+              <div style={{ textAlign: 'center', marginTop: 8, fontSize: 11, fontWeight: 700 }}>
+                <span style={{ color: '#DC2626' }}>42</span>
+                <span style={{ color: '#94A3B8' }}> &rarr; </span>
+                <span style={{ color: '#15803D' }}>87</span>
+              </div>
             </div>
 
             {/* After */}
@@ -1854,7 +1997,7 @@ export default function Home() {
                 <span style={{ fontSize: 16, fontWeight: 700, color: '#15803D' }}>After</span>
                 <span style={{ padding: '4px 12px', background: '#DCFCE7', color: '#15803D', borderRadius: 999, fontSize: 12, fontWeight: 700 }}>Score: 87/100</span>
               </div>
-              <div style={{ background: '#F0FDF4', borderRadius: 20, padding: 16, border: '2px solid #BBF7D0', boxShadow: '0 10px 30px rgba(15,23,42,0.06)' }}>
+              <div style={{ background: '#F0FDF4', borderRadius: 20, padding: 16, border: '2px solid #BBF7D0', boxShadow: '0 16px 48px rgba(15,23,42,0.12)' }}>
                 <div style={{ background: 'white', borderRadius: 12, overflow: 'hidden', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}>
                   <div style={{ padding: '20px 24px', borderBottom: '1px solid #F3F4F6' }}>
                     <div style={{ fontSize: 18, fontWeight: 700, color: '#0F172A', marginBottom: 4 }}>Rajesh Kumar</div>
@@ -1865,9 +2008,9 @@ export default function Home() {
                     <div style={{ fontSize: 12, color: '#374151', lineHeight: 1.6, marginBottom: 16 }}>Full-stack engineer with 5 years shipping production applications at scale. Led microservices migration serving 50K+ DAU with 99.9% uptime. Reduced API latency by 40% and mentored 4 junior developers. B.Tech CS from IIT Delhi.</div>
                     <div style={{ fontSize: 10, fontWeight: 700, color: '#15803D', letterSpacing: 1, marginBottom: 8 }}>EXPERIENCE</div>
                     <div style={{ fontSize: 12, color: '#374151', lineHeight: 1.6, fontWeight: 600, marginBottom: 6 }}>Senior Software Engineer at TechCorp</div>
-                    <div style={{ fontSize: 11, color: '#374151', marginBottom: 4 }}>&bull; Led team of 8 engineers delivering 3 products generating $2M ARR</div>
-                    <div style={{ fontSize: 11, color: '#374151', marginBottom: 4 }}>&bull; Reduced API response latency by 40% via query optimization</div>
-                    <div style={{ fontSize: 11, color: '#374151', marginBottom: 12 }}>&bull; Architected microservices serving 50K+ daily users, 99.9% uptime</div>
+                    <div style={{ fontSize: 11, color: '#374151', marginBottom: 4 }}>&bull; <span style={{ background: '#D1FAE5', padding: '1px 4px', borderRadius: 3 }}>Led team of 8 engineers delivering 3 products generating $2M ARR</span></div>
+                    <div style={{ fontSize: 11, color: '#374151', marginBottom: 4 }}>&bull; <span style={{ background: '#D1FAE5', padding: '1px 4px', borderRadius: 3 }}>Reduced API response latency by 40% via query optimization</span></div>
+                    <div style={{ fontSize: 11, color: '#374151', marginBottom: 12 }}>&bull; <span style={{ background: '#D1FAE5', padding: '1px 4px', borderRadius: 3 }}>Architected microservices serving 50K+ daily users, 99.9% uptime</span></div>
                     <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginTop: 8 }}>
                       {['ATS Optimized', '12 Keywords Added', 'Quantified Impact'].map(w => (
                         <span key={w} style={{ padding: '3px 8px', background: '#DCFCE7', color: '#15803D', borderRadius: 6, fontSize: 10, fontWeight: 600 }}>{w}</span>
@@ -2422,26 +2565,62 @@ export default function Home() {
           </section>
 
           {/* ── Everything You Need ── */}
-          <section style={{ padding: '88px 0', background: 'var(--bg-surface)', borderBottom: '1px solid var(--border-default)' }}>
-            <div className="landing-section">
-              <div className="pr-section-head">
-                <div className="pr-section-kicker">Complete career toolkit</div>
-                <h2 className="pr-section-title">Everything you need to land interviews</h2>
-                <p className="pr-section-desc">One-time payment. Complete career toolkit. No subscriptions.</p>
+          <section style={{ padding: '120px 0', background: 'white', borderBottom: '1px solid #E5E7EB' }}>
+            <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px' }}>
+              <div style={{ textAlign: 'center', marginBottom: 64 }}>
+                <div style={{ fontSize: 13, fontWeight: 700, color: '#3B82F6', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 12 }}>Features</div>
+                <h2 style={{ fontSize: 40, fontWeight: 700, color: '#0F172A', letterSpacing: '-0.02em' }}>Everything You Need to Land Interviews</h2>
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 24 }}>
-                {[
-                  { bg: 'var(--accent-subtle)', color: 'var(--accent)', icon: '\u270D\uFE0F', title: 'Profile Rewrite', desc: 'AI scores your resume & profile, identifies issues, and rewrites everything.' },
-                  { bg: '#F5F3FF', color: '#7C3AED', icon: '\uD83C\uDFAF', title: 'Interview Prep', desc: '15 personalized questions + STAR answers + cheat sheet + MCQ quiz.' },
-                  { bg: '#FFF7ED', color: '#EA580C', icon: '\uD83D\uDCC4', title: 'ATS Resume', desc: 'Professional resume matched to your JD. 11 ATS-optimized templates.' },
-                  { bg: 'var(--success-subtle)', color: 'var(--success)', icon: '\uD83D\uDCCB', title: 'Cover Letter', desc: 'Personalized cover letter for every application. Ready to use.' },
-                ].map((f, i) => (
-                  <div key={i} className="pr-bento-card">
-                    <div className="icon-tile" style={{ background: f.bg, color: f.color, marginBottom: 16 }}>{f.icon}</div>
-                    <div style={{ fontSize: 17, fontWeight: 700, color: 'var(--text-primary)', marginBottom: 8 }}>{f.title}</div>
-                    <div style={{ fontSize: 15, color: 'var(--text-secondary)', lineHeight: 1.65 }}>{f.desc}</div>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 24 }}>
+                {/* Card 1: Headline Rewrite */}
+                <div style={{ background: 'white', borderRadius: 24, padding: 28, border: '1px solid #E5E7EB', boxShadow: '0 10px 30px rgba(15,23,42,0.08)' }}>
+                  <div style={{ background: '#F8FAFC', borderRadius: 16, padding: '20px', marginBottom: 20, border: '1px solid #E5E7EB' }}>
+                    <div style={{ fontSize: 10, fontWeight: 700, color: '#94A3B8', letterSpacing: 1, marginBottom: 10 }}>HEADLINE REWRITE</div>
+                    <div style={{ fontSize: 12, color: '#DC2626', textDecoration: 'line-through', marginBottom: 8, lineHeight: 1.5 }}>&ldquo;Results-driven professional seeking new opportunities&rdquo;</div>
+                    <div style={{ width: '100%', height: 1, background: '#E5E7EB', margin: '8px 0' }} />
+                    <div style={{ fontSize: 12, color: '#15803D', fontWeight: 600, lineHeight: 1.5 }}>
+                      <span style={{ background: '#D1FAE5', padding: '2px 4px', borderRadius: 3 }}>&ldquo;Product Manager | Increased retention by 42% across 500K-user SaaS&rdquo;</span>
+                    </div>
                   </div>
-                ))}
+                  <div style={{ fontSize: 18, fontWeight: 700, color: '#0F172A', marginBottom: 8 }}>Profile Rewrite</div>
+                  <div style={{ fontSize: 14, color: '#64748B', lineHeight: 1.7 }}>AI rewrites your headline, about section, and experience bullets with quantified achievements.</div>
+                </div>
+
+                {/* Card 2: Summary Rewrite */}
+                <div style={{ background: 'white', borderRadius: 24, padding: 28, border: '1px solid #E5E7EB', boxShadow: '0 10px 30px rgba(15,23,42,0.08)' }}>
+                  <div style={{ background: '#F8FAFC', borderRadius: 16, padding: '20px', marginBottom: 20, border: '1px solid #E5E7EB' }}>
+                    <div style={{ fontSize: 10, fontWeight: 700, color: '#94A3B8', letterSpacing: 1, marginBottom: 10 }}>SUMMARY COMPARISON</div>
+                    <div style={{ fontSize: 11, color: '#94A3B8', lineHeight: 1.6, marginBottom: 8 }}>
+                      <span style={{ textDecoration: 'line-through' }}>Passionate professional with excellent communication skills and team spirit...</span>
+                    </div>
+                    <div style={{ width: '100%', height: 1, background: '#E5E7EB', margin: '8px 0' }} />
+                    <div style={{ fontSize: 11, color: '#374151', lineHeight: 1.6, fontWeight: 500 }}>
+                      <span style={{ background: '#D1FAE5', padding: '1px 3px', borderRadius: 2 }}>Led 8-person engineering team shipping &#8377;4.2Cr revenue features. Reduced API latency 40%.</span>
+                    </div>
+                  </div>
+                  <div style={{ fontSize: 18, fontWeight: 700, color: '#0F172A', marginBottom: 8 }}>ATS Resume Builder</div>
+                  <div style={{ fontSize: 14, color: '#64748B', lineHeight: 1.7 }}>11 ATS-optimized templates filled with your rewritten content. Download as PDF instantly.</div>
+                </div>
+
+                {/* Card 3: Keywords */}
+                <div style={{ background: 'white', borderRadius: 24, padding: 28, border: '1px solid #E5E7EB', boxShadow: '0 10px 30px rgba(15,23,42,0.08)' }}>
+                  <div style={{ background: '#F8FAFC', borderRadius: 16, padding: '20px', marginBottom: 20, border: '1px solid #E5E7EB' }}>
+                    <div style={{ fontSize: 10, fontWeight: 700, color: '#94A3B8', letterSpacing: 1, marginBottom: 10 }}>KEYWORD OPTIMIZATION</div>
+                    <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 8 }}>
+                      {['React', 'Node.js', 'AWS'].map(k => (
+                        <span key={k} style={{ padding: '3px 8px', background: '#E2E8F0', color: '#64748B', borderRadius: 6, fontSize: 10, fontWeight: 600 }}>{k}</span>
+                      ))}
+                    </div>
+                    <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+                      {['Microservices', 'CI/CD', 'Docker', 'Agile', 'PostgreSQL'].map(k => (
+                        <span key={k} style={{ padding: '3px 8px', background: '#DCFCE7', color: '#15803D', borderRadius: 6, fontSize: 10, fontWeight: 600, border: '1px solid #BBF7D0' }}>+ {k}</span>
+                      ))}
+                    </div>
+                    <div style={{ fontSize: 10, color: '#15803D', fontWeight: 600, marginTop: 8 }}>+5 missing keywords added</div>
+                  </div>
+                  <div style={{ fontSize: 18, fontWeight: 700, color: '#0F172A', marginBottom: 8 }}>Interview Prep Kit</div>
+                  <div style={{ fontSize: 14, color: '#64748B', lineHeight: 1.7 }}>15 personalized questions with STAR-format answers, cheat sheet, and MCQ quiz.</div>
+                </div>
               </div>
             </div>
           </section>
