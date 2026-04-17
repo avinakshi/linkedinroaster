@@ -703,6 +703,7 @@ export default function Home() {
   const [galleryFilter, setGalleryFilter] = useState('All');
   const [carouselPage, setCarouselPage] = useState(0);
   const [showcaseTab, setShowcaseTab] = useState<'resumes' | 'coverletters'>('resumes');
+  const [beforeAfterTab, setBeforeAfterTab] = useState<'before' | 'after'>('after');
 
   // Resume upload state
   const [resumeUploading, setResumeUploading] = useState(false);
@@ -1262,12 +1263,12 @@ export default function Home() {
                 Improve Your LinkedIn Profile in Minutes
               </h1>
 
-              <p style={{ fontSize: 20, lineHeight: 1.7, color: '#64748B', maxWidth: 500, marginTop: 24 }}>
+              <p style={{ fontSize: 'clamp(15px, 3.5vw, 20px)', lineHeight: 1.7, color: '#64748B', maxWidth: 500, marginTop: 24 }}>
                 Upload your resume or LinkedIn PDF. Get an instant AI score, complete profile rewrite, ATS resume, and interview prep — all in under 3 minutes.
               </p>
 
               {/* CTA Row */}
-              <div style={{ display: 'flex', gap: 12, marginTop: 40, flexWrap: 'wrap' }}>
+              <div style={{ display: 'flex', gap: 12, marginTop: 'clamp(24px, 5vw, 40px)', flexWrap: 'wrap' }}>
                 <button type="button" onClick={() => { const el = document.querySelector('.pr-upload-shell'); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' }); }} style={{ height: 56, padding: '0 28px', background: '#3B82F6', borderRadius: 16, color: 'white', fontSize: 16, fontWeight: 600, border: 'none', cursor: 'pointer', boxShadow: '0 8px 20px rgba(59, 130, 246, 0.3)', transition: 'all 0.2s' }}>
                   Analyze My Profile
                 </button>
@@ -1789,8 +1790,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Product Dashboard Preview ── */}
-      <section style={{ padding: '40px 0 80px', background: 'var(--bg-canvas)' }}>
+      {/* ── Product Dashboard Preview — Desktop */}
+      <section className="hidden md:block" style={{ padding: '40px 0 80px', background: 'var(--bg-canvas)' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 20px' }}>
           <div style={{ background: 'white', borderRadius: 28, border: '1px solid #E5E7EB', boxShadow: '0 20px 60px rgba(15,23,42,0.12)', overflow: 'hidden' }}>
             {/* Browser bar */}
@@ -1927,6 +1928,60 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── Product Dashboard Preview — Mobile */}
+      <section className="md:hidden" style={{ padding: '24px 0 48px', background: 'var(--bg-canvas)' }}>
+        <div style={{ maxWidth: 500, margin: '0 auto', padding: '0 16px' }}>
+          <div style={{ background: 'white', borderRadius: 20, border: '1px solid #E5E7EB', boxShadow: '0 10px 30px rgba(15,23,42,0.08)', overflow: 'hidden' }}>
+            {/* Mini browser bar */}
+            <div style={{ height: 36, background: '#F8FAFC', borderBottom: '1px solid #E5E7EB', display: 'flex', alignItems: 'center', padding: '0 12px', gap: 6 }}>
+              <div style={{ width: 8, height: 8, borderRadius: '50%', background: '#F87171' }} />
+              <div style={{ width: 8, height: 8, borderRadius: '50%', background: '#FBBF24' }} />
+              <div style={{ width: 8, height: 8, borderRadius: '50%', background: '#34D399' }} />
+              <div style={{ flex: 1, marginLeft: 8, height: 22, background: '#F1F5F9', borderRadius: 6, display: 'flex', alignItems: 'center', padding: '0 8px', fontSize: 9, color: '#94A3B8' }}>profileroaster.in</div>
+            </div>
+            {/* Optimized profile card only */}
+            <div style={{ padding: '16px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+                <span style={{ fontSize: 11, fontWeight: 700, color: '#15803D', letterSpacing: 1 }}>OPTIMIZED PROFILE</span>
+                <span style={{ padding: '3px 10px', background: '#DCFCE7', color: '#15803D', borderRadius: 6, fontSize: 11, fontWeight: 700 }}>87/100</span>
+              </div>
+              <div style={{ height: 4, background: '#E5E7EB', borderRadius: 2, marginBottom: 14 }}><div style={{ height: '100%', width: '87%', background: '#34D399', borderRadius: 2 }} /></div>
+              <div style={{ display: 'flex', gap: 10, alignItems: 'center', marginBottom: 12 }}>
+                <div style={{ width: 40, height: 40, borderRadius: '50%', background: 'linear-gradient(135deg, #3B82F6, #1D4ED8)' }} />
+                <div>
+                  <div style={{ fontSize: 14, fontWeight: 700, color: '#0F172A' }}>Rajesh Kumar</div>
+                  <div style={{ fontSize: 11, color: '#15803D' }}>Updated just now</div>
+                </div>
+              </div>
+              <div style={{ fontSize: 13, color: '#15803D', lineHeight: 1.5, padding: '10px 12px', background: '#F0FDF4', borderRadius: 10, marginBottom: 12, fontWeight: 600, borderLeft: '3px solid #34D399' }}>
+                &ldquo;Full-Stack Engineer | Built apps serving 50K+ users | React + AWS&rdquo;
+              </div>
+              <div style={{ fontSize: 12, color: '#374151', lineHeight: 1.6, marginBottom: 12 }}>
+                Full-stack engineer with 5 years shipping production applications. Led microservices migration for 50K+ DAU. Reduced API latency by 40%.
+              </div>
+              <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+                {['ATS Optimized', '12 Keywords', 'Recruiter Ready'].map(w => (
+                  <span key={w} style={{ padding: '3px 8px', background: '#DCFCE7', color: '#15803D', borderRadius: 6, fontSize: 10, fontWeight: 600 }}>{w}</span>
+                ))}
+              </div>
+            </div>
+            {/* Bottom metric */}
+            <div style={{ padding: '12px 16px', borderTop: '1px solid #E5E7EB', display: 'flex', gap: 8 }}>
+              {[
+                { label: 'Recruiter Match', value: '+38%', color: '#3B82F6' },
+                { label: 'Keywords Added', value: '12', color: '#15803D' },
+                { label: 'Score Jump', value: '42→87', color: '#F59E0B' },
+              ].map((m, i) => (
+                <div key={i} style={{ flex: 1, textAlign: 'center' }}>
+                  <div style={{ fontSize: 14, fontWeight: 800, color: m.color }}>{m.value}</div>
+                  <div style={{ fontSize: 9, color: '#94A3B8' }}>{m.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── Trusted by professionals logo bar ── */}
       <section style={{ padding: '60px 0', background: 'white' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px', textAlign: 'center' }}>
@@ -1941,8 +1996,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Before / After Comparison ── */}
-      <section style={{ padding: 'clamp(60px, 10vw, 120px) 0', background: '#F8FBFF' }}>
+      {/* ── Before / After Comparison — Desktop */}
+      <section className="hidden md:block" style={{ padding: 'clamp(60px, 10vw, 120px) 0', background: '#F8FBFF' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px' }}>
           <div style={{ textAlign: 'center', marginBottom: 64 }}>
             <div style={{ fontSize: 13, fontWeight: 700, color: '#3B82F6', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 12 }}>Real results</div>
@@ -2024,6 +2079,71 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── Before / After — Mobile */}
+      <section className="md:hidden" style={{ padding: 'clamp(40px, 8vw, 80px) 0', background: '#F8FBFF' }}>
+        <div style={{ maxWidth: 500, margin: '0 auto', padding: '0 16px' }}>
+          <div style={{ textAlign: 'center', marginBottom: 24 }}>
+            <div style={{ fontSize: 12, fontWeight: 700, color: '#3B82F6', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 8 }}>Real results</div>
+            <h2 style={{ fontSize: 24, fontWeight: 700, color: '#0F172A' }}>See the Transformation</h2>
+          </div>
+          {/* Toggle tabs */}
+          <div style={{ display: 'flex', gap: 0, marginBottom: 20, background: '#F1F5F9', borderRadius: 12, padding: 4 }}>
+            <button type="button" onClick={() => setBeforeAfterTab('before')} style={{ flex: 1, padding: '10px', borderRadius: 10, border: 'none', fontSize: 13, fontWeight: 600, cursor: 'pointer', background: beforeAfterTab === 'before' ? 'white' : 'transparent', color: beforeAfterTab === 'before' ? '#DC2626' : '#64748B', boxShadow: beforeAfterTab === 'before' ? '0 1px 3px rgba(0,0,0,0.1)' : 'none', transition: 'all 0.2s', fontFamily: 'inherit' }}>
+              Before — 38/100
+            </button>
+            <button type="button" onClick={() => setBeforeAfterTab('after')} style={{ flex: 1, padding: '10px', borderRadius: 10, border: 'none', fontSize: 13, fontWeight: 600, cursor: 'pointer', background: beforeAfterTab === 'after' ? 'white' : 'transparent', color: beforeAfterTab === 'after' ? '#15803D' : '#64748B', boxShadow: beforeAfterTab === 'after' ? '0 1px 3px rgba(0,0,0,0.1)' : 'none', transition: 'all 0.2s', fontFamily: 'inherit' }}>
+              After — 87/100
+            </button>
+          </div>
+          {/* Before card */}
+          {beforeAfterTab === 'before' && (
+            <div style={{ background: 'white', borderRadius: 16, padding: 20, border: '2px solid #FECACA', boxShadow: '0 4px 16px rgba(0,0,0,0.04)' }}>
+              <div style={{ display: 'flex', gap: 10, alignItems: 'center', marginBottom: 12 }}>
+                <div style={{ width: 36, height: 36, borderRadius: '50%', background: '#E2E8F0' }} />
+                <div>
+                  <div style={{ fontSize: 14, fontWeight: 700, color: '#0F172A' }}>Rajesh Kumar</div>
+                  <div style={{ fontSize: 10, color: '#DC2626', fontWeight: 600 }}>Score: 38/100</div>
+                </div>
+              </div>
+              <div style={{ fontSize: 13, color: '#DC2626', lineHeight: 1.5, padding: '10px 12px', background: '#FEF2F2', borderRadius: 8, marginBottom: 12, borderLeft: '3px solid #F87171', fontStyle: 'italic' }}>
+                &ldquo;Software Engineer | Python | Java | AWS | Seeking opportunities&rdquo;
+              </div>
+              <div style={{ fontSize: 12, color: '#94A3B8', lineHeight: 1.6, marginBottom: 12 }}>Passionate results-driven professional with excellent communication skills...</div>
+              <div style={{ fontSize: 12, color: '#CBD5E1', marginBottom: 4, textDecoration: 'line-through' }}>&bull; Worked on various projects</div>
+              <div style={{ fontSize: 12, color: '#CBD5E1', marginBottom: 4, textDecoration: 'line-through' }}>&bull; Handled backend development</div>
+              <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginTop: 12 }}>
+                {['Weak headline', 'Missing keywords', 'No metrics'].map(w => (
+                  <span key={w} style={{ padding: '3px 8px', background: '#FEE2E2', color: '#DC2626', borderRadius: 6, fontSize: 10, fontWeight: 600 }}>{w}</span>
+                ))}
+              </div>
+            </div>
+          )}
+          {/* After card */}
+          {beforeAfterTab === 'after' && (
+            <div style={{ background: 'white', borderRadius: 16, padding: 20, border: '2px solid #BBF7D0', boxShadow: '0 8px 24px rgba(0,0,0,0.08)' }}>
+              <div style={{ display: 'flex', gap: 10, alignItems: 'center', marginBottom: 12 }}>
+                <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'linear-gradient(135deg, #3B82F6, #1D4ED8)' }} />
+                <div>
+                  <div style={{ fontSize: 14, fontWeight: 700, color: '#0F172A' }}>Rajesh Kumar</div>
+                  <div style={{ fontSize: 10, color: '#15803D', fontWeight: 600 }}>Score: 87/100</div>
+                </div>
+              </div>
+              <div style={{ fontSize: 13, color: '#15803D', lineHeight: 1.5, padding: '10px 12px', background: '#F0FDF4', borderRadius: 8, marginBottom: 12, fontWeight: 600, borderLeft: '3px solid #34D399' }}>
+                &ldquo;Full-Stack Engineer | Built apps serving 50K+ users | React + AWS&rdquo;
+              </div>
+              <div style={{ fontSize: 12, color: '#374151', lineHeight: 1.6, marginBottom: 12 }}>Full-stack engineer with 5 years shipping production applications. Led microservices migration for 50K+ DAU.</div>
+              <div style={{ fontSize: 12, color: '#374151', marginBottom: 4 }}>&bull; <span style={{ background: '#D1FAE5', padding: '1px 4px', borderRadius: 3 }}>Led team of 8 engineers delivering $2M ARR</span></div>
+              <div style={{ fontSize: 12, color: '#374151', marginBottom: 4 }}>&bull; <span style={{ background: '#D1FAE5', padding: '1px 4px', borderRadius: 3 }}>Reduced API latency by 40%</span></div>
+              <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginTop: 12 }}>
+                {['ATS Optimized', '12 Keywords', 'Quantified Impact'].map(w => (
+                  <span key={w} style={{ padding: '3px 8px', background: '#DCFCE7', color: '#15803D', borderRadius: 6, fontSize: 10, fontWeight: 600 }}>{w}</span>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </section>
+
       {/* ═══════════════════════════════════ */}
       {/* RESUME TEMPLATE SHOWCASE            */}
       {/* ═══════════════════════════════════ */}
@@ -2044,6 +2164,7 @@ export default function Home() {
           {showcaseTab === 'resumes' && (
             <>
               {/* Large resume carousel — 3 at a time, using zoom for no clipping */}
+              <div className="hidden md:block">
               <div style={{ position: 'relative', overflow: 'hidden' }}>
                 <div style={{
                   display: 'flex',
@@ -2084,6 +2205,20 @@ export default function Home() {
                     style={{ width: 12, height: 12, borderRadius: '50%', border: 'none', cursor: 'pointer', background: carouselPage === i ? 'var(--text-primary)' : 'rgba(0,0,0,0.15)', transition: 'all 0.2s ease' }}
                     aria-label={`Page ${i + 1}`} />
                 ))}
+              </div>
+              </div>
+
+              {/* Mobile: horizontal scroll */}
+              <div className="md:hidden" style={{ display: 'flex', gap: 16, overflowX: 'auto', paddingBottom: 12, scrollSnapType: 'x mandatory', WebkitOverflowScrolling: 'touch' }}>
+                {TEMPLATES.slice(0, 6).map((t, i) => {
+                  const bgColors = ['#F5E6C8', '#FFFFFF', '#F0F0F0', '#E8F0FE', '#FFF3E0', '#E8F5E9'];
+                  return (
+                    <div key={t.id} style={{ flex: '0 0 280px', scrollSnapAlign: 'start', background: bgColors[i % bgColors.length], borderRadius: 16, padding: '16px 12px 12px', boxShadow: '0 2px 12px rgba(0,0,0,0.06)' }}
+                      onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+                      <ScaledResume templateId={t.id} data={SAMPLE_RESUME} />
+                    </div>
+                  );
+                })}
               </div>
             </>
           )}
