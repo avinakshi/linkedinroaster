@@ -40,45 +40,29 @@ function LiveCounter() {
   return null;
 }
 
-// ─── ScaledResume — renders a resume template scaled to fit container width, A4 ratio ───
+// ─── ScaledResume — measures container, scales resume to fit exactly ───
 function ScaledResume({ templateId, data }: { templateId: string; data: any }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [scale, setScale] = useState(0);
+  const outerRef = useRef<HTMLDivElement>(null);
+  const [zoom, setZoom] = useState(0.45);
 
   useEffect(() => {
-    const el = ref.current;
+    const el = outerRef.current;
     if (!el) return;
-    const measure = () => setScale(el.clientWidth / 794);
-    measure();
-    const ro = new ResizeObserver(measure);
+    const calc = () => {
+      const w = el.clientWidth;
+      if (w > 0) setZoom(w / 794);
+    };
+    calc();
+    const ro = new ResizeObserver(calc);
     ro.observe(el);
     return () => ro.disconnect();
   }, []);
 
-  // Show ~80% of the A4 page height (clips bottom), matching Teal's card style.
-  // This keeps cards a manageable height while showing the most important content.
   return (
-    <div ref={ref} style={{
-      background: '#FFFFFF',
-      borderRadius: 4,
-      overflow: 'hidden',
-      position: 'relative',
-      width: '100%',
-      aspectRatio: '3 / 4',
-    }}>
-      {scale > 0 && (
-        <div style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: 794,
-          transform: `scale(${scale})`,
-          transformOrigin: 'top left',
-          pointerEvents: 'none',
-        }}>
-          {renderResumeHTML(data, templateId)}
-        </div>
-      )}
+    <div ref={outerRef} style={{ background: '#FFFFFF', borderRadius: 4, overflow: 'hidden' }}>
+      <div style={{ width: 794, zoom, pointerEvents: 'none' }}>
+        {renderResumeHTML(data, templateId)}
+      </div>
     </div>
   );
 }
