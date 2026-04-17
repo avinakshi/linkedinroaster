@@ -2194,18 +2194,19 @@ export default function Home() {
           <>
             {/* Desktop: full-width 3-card carousel */}
             <div className="hidden md:block">
-              <div style={{ position: 'relative', overflow: 'hidden', maxWidth: 1400, margin: '0 auto', padding: '0 24px' }}>
+              <div style={{ position: 'relative', overflow: 'hidden', maxWidth: 1100, margin: '0 auto', padding: '0 24px' }}>
                 <div style={{ display: 'flex', transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)', transform: `translateX(-${carouselPage * 100}%)` }}>
                   {Array.from({ length: Math.ceil(TEMPLATES.length / 3) }).map((_, pageIdx) => (
-                    <div key={pageIdx} style={{ display: 'flex', gap: 24, minWidth: '100%', justifyContent: 'center', boxSizing: 'border-box' }}>
+                    <div key={pageIdx} style={{ display: 'flex', gap: 20, minWidth: '100%', justifyContent: 'center', boxSizing: 'border-box' }}>
                       {TEMPLATES.slice(pageIdx * 3, pageIdx * 3 + 3).map((t, i) => {
                         const bgs = ['#E8D5A8', '#FFFFFF', '#E8E8E8', '#CADCF0', '#E8D5A8', '#C4DEC6', '#DDD0E8', '#E8DCA8', '#C0E0E0', '#E8C4D0', '#D4D8DC'];
                         return (
                           <div key={t.id} className="showcase-card" style={{
                             flex: '1 1 0',
+                            maxWidth: 340,
                             background: bgs[(pageIdx * 3 + i) % bgs.length],
-                            borderRadius: 24,
-                            padding: '28px 22px 24px',
+                            borderRadius: 20,
+                            padding: '20px 16px 16px',
                             cursor: 'pointer',
                           }} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
                             <ScaledResume templateId={t.id} data={SAMPLE_RESUME} />
@@ -2231,7 +2232,7 @@ export default function Home() {
               {TEMPLATES.slice(0, 6).map((t, i) => {
                 const bgs = ['#E8D5A8', '#FFFFFF', '#E8E8E8', '#CADCF0', '#E8D5A8', '#C4DEC6'];
                 return (
-                  <div key={t.id} style={{ flex: '0 0 85vw', maxWidth: 340, scrollSnapAlign: 'center', background: bgs[i], borderRadius: 24, padding: '20px 16px 16px' }}
+                  <div key={t.id} style={{ flex: '0 0 280px', scrollSnapAlign: 'center', background: bgs[i], borderRadius: 24, padding: '20px 16px 16px' }}
                     onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
                     <ScaledResume templateId={t.id} data={SAMPLE_RESUME} />
                   </div>
@@ -2244,13 +2245,13 @@ export default function Home() {
         {/* ── COVER LETTERS ── */}
         {showcaseTab === 'coverletters' && (
           <>
-            <div className="hidden md:block" style={{ maxWidth: 1400, margin: '0 auto', padding: '0 24px' }}>
-              <div style={{ display: 'flex', gap: 24, justifyContent: 'center' }}>
+            <div className="hidden md:block" style={{ maxWidth: 1100, margin: '0 auto', padding: '0 24px' }}>
+              <div style={{ display: 'flex', gap: 20, justifyContent: 'center' }}>
                 {['Professional', 'Modern', 'Minimal'].map((styleName, i) => {
                   const bgs = ['#E8D5A8', '#FFFFFF', '#E8E8E8'];
                   const fonts = ["'Inter', sans-serif", "'Inter', sans-serif", 'Georgia, serif'];
                   return (
-                    <div key={styleName} className="showcase-card" style={{ flex: '1 1 0', background: bgs[i], borderRadius: 24, padding: '28px 22px 24px', cursor: 'pointer' }}>
+                    <div key={styleName} className="showcase-card" style={{ flex: '1 1 0', maxWidth: 340, background: bgs[i], borderRadius: 20, padding: '20px 16px 16px', cursor: 'pointer' }}>
                       <div style={{ background: 'white', borderRadius: 12, padding: '36px 32px', fontFamily: fonts[i], fontSize: 12.5, lineHeight: 1.75, color: '#374151', boxShadow: '0 1px 4px rgba(0,0,0,0.04)' }}>
                         {i === 1 && <div style={{ height: 3, width: 40, background: '#DC2626', marginBottom: 24, borderRadius: 2 }} />}
                         <div style={{ fontSize: i === 0 ? 22 : 18, fontWeight: 700, color: i === 0 ? '#B8860B' : '#0F172A', marginBottom: 20 }}>Ananya Sharma</div>
@@ -2272,7 +2273,7 @@ export default function Home() {
               {['Professional', 'Modern', 'Minimal'].map((styleName, i) => {
                 const bgs = ['#E8D5A8', '#FFFFFF', '#E8E8E8'];
                 return (
-                  <div key={styleName} style={{ flex: '0 0 85vw', maxWidth: 340, scrollSnapAlign: 'center', background: bgs[i], borderRadius: 24, padding: '20px 16px 16px' }}>
+                  <div key={styleName} style={{ flex: '0 0 280px', scrollSnapAlign: 'center', background: bgs[i], borderRadius: 24, padding: '20px 16px 16px' }}>
                     <div style={{ background: 'white', borderRadius: 12, padding: '24px 20px', fontFamily: i === 2 ? 'Georgia, serif' : "'Inter', sans-serif", fontSize: 11, lineHeight: 1.7, color: '#374151' }}>
                       {i === 1 && <div style={{ height: 3, width: 32, background: '#DC2626', marginBottom: 16, borderRadius: 2 }} />}
                       <div style={{ fontSize: 16, fontWeight: 700, color: i === 0 ? '#B8860B' : '#0F172A', marginBottom: 12 }}>Ananya Sharma</div>
