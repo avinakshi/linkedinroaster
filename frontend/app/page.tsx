@@ -1252,57 +1252,44 @@ export default function Home() {
         <div className="pr-hero__grid">
 
             {/* LEFT — Value Proposition */}
-            <div style={{ flex: '1.2 1 420px', minWidth: 0 }}>
-              <div className="pr-eyebrow">AI Resume &amp; LinkedIn Optimizer</div>
-              <h1 className="pr-hero__title">
-                Your LinkedIn Profile Is <span className="pr-hero__title-em">Costing You</span> Interviews.<br />
-                <span className="pr-hero__title-accent">Let&rsquo;s fix it in 90 seconds.</span>
+            <div style={{ flex: '1 1 420px', minWidth: 0, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+              {/* Badge */}
+              <div style={{ display: 'inline-flex', alignItems: 'center', height: 36, padding: '0 16px', background: '#ECFDF5', borderRadius: 999, fontSize: 13, fontWeight: 600, color: '#14B8A6', marginBottom: 24, alignSelf: 'flex-start' }}>
+                AI-Powered LinkedIn Optimization
+              </div>
+
+              <h1 style={{ fontSize: 'clamp(36px, 5vw, 64px)', fontWeight: 700, lineHeight: 1.05, color: '#0F172A', maxWidth: 520, margin: 0, letterSpacing: '-0.02em' }}>
+                Improve Your LinkedIn Profile in Minutes
               </h1>
-              <p className="pr-hero__lead">
-                Get a brutally honest AI analysis of your resume, discover what recruiters actually see, and get a complete rewrite — profile, ATS resume, and interview prep. All for the price of one coffee.
-              </p>
-              <p className="pr-hero__meta">
-                &#8377;499 one-time &bull; No subscription &bull; Results in 90 seconds
+
+              <p style={{ fontSize: 20, lineHeight: 1.7, color: '#64748B', maxWidth: 500, marginTop: 24 }}>
+                Upload your resume or LinkedIn PDF. Get an instant AI score, complete profile rewrite, ATS resume, and interview prep — all in under 3 minutes.
               </p>
 
-              {/* Value bullets with icon tiles */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 16, marginBottom: 32 }}>
-                {[
-                  { bg: '#FFF7ED', color: '#EA580C', icon: '📋', title: 'Instant ATS analysis', desc: 'Upload resume or LinkedIn PDF' },
-                  { bg: '#EFF6FF', color: 'var(--accent)', icon: '✍️', title: 'AI-powered rewrite', desc: 'Headline, about, experience bullets' },
-                  { bg: '#F5F3FF', color: '#7C3AED', icon: '🎯', title: 'Interview prep kit', desc: '15 STAR-format questions + cheat sheet' },
-                  { bg: '#F0FDF4', color: '#16A34A', icon: '📄', title: 'ATS resume builder', desc: '11 templates, instant PDF download' },
-                ].map((item, i) => (
-                  <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-                    <div className="icon-tile" style={{ background: item.bg, color: item.color, fontSize: 18 }}>{item.icon}</div>
-                    <div>
-                      <div style={{ fontSize: 14, fontWeight: 600, color: '#334155' }}>{item.title}</div>
-                      <div style={{ fontSize: 13, color: '#64748B' }}>{item.desc}</div>
-                    </div>
-                  </div>
-                ))}
+              {/* CTA Row */}
+              <div style={{ display: 'flex', gap: 16, marginTop: 40, flexWrap: 'wrap' }}>
+                <button type="button" onClick={() => { const el = document.querySelector('.pr-upload-shell'); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' }); }} style={{ height: 56, padding: '0 28px', background: '#14B8A6', borderRadius: 16, color: 'white', fontSize: 16, fontWeight: 600, border: 'none', cursor: 'pointer', boxShadow: '0 8px 20px rgba(20, 184, 166, 0.3)', transition: 'all 0.2s' }}>
+                  Analyze My Profile
+                </button>
+                <a href="#templates" style={{ height: 56, padding: '0 28px', border: '1px solid #D1D5DB', background: 'white', borderRadius: 16, fontSize: 16, fontWeight: 600, color: '#0F172A', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', transition: 'all 0.2s' }}>
+                  See Templates
+                </a>
               </div>
 
-              {/* Before / After comparison strip */}
-              <div className="pr-stat-pill">
-                <div style={{ textAlign: 'center' }}>
-                  <div style={{ fontSize: 18, fontWeight: 800, color: '#DC2626' }}>42</div>
-                  <div style={{ fontSize: 10, color: '#94A3B8' }}>Before</div>
+              {/* Trust metrics */}
+              <div style={{ display: 'flex', gap: 32, marginTop: 48, flexWrap: 'wrap' }}>
+                <div>
+                  <div style={{ fontSize: 28, fontWeight: 800, color: '#0F172A' }}>2,400+</div>
+                  <div style={{ fontSize: 13, color: '#64748B' }}>Resumes analyzed</div>
                 </div>
-                <div style={{ fontSize: 18, color: '#CBD5E1' }}>&rarr;</div>
-                <div style={{ textAlign: 'center' }}>
-                  <div style={{ fontSize: 18, fontWeight: 800, color: '#16A34A' }}>87</div>
-                  <div style={{ fontSize: 10, color: '#94A3B8' }}>After</div>
+                <div>
+                  <div style={{ fontSize: 28, fontWeight: 800, color: '#14B8A6' }}>+45 pts</div>
+                  <div style={{ fontSize: 13, color: '#64748B' }}>Avg score improvement</div>
                 </div>
-                <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--accent)' }}>+45 pts avg improvement</div>
-              </div>
-
-              <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginTop: 16, flexWrap: 'wrap' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <div className="pr-live-dot" />
-                  <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--text-primary)' }}>2,400+ resumes analyzed this month</span>
+                <div>
+                  <div style={{ fontSize: 28, fontWeight: 800, color: '#0F172A' }}>90 sec</div>
+                  <div style={{ fontSize: 13, color: '#64748B' }}>Average delivery time</div>
                 </div>
-                <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--text-secondary)' }}>&#9733; 4.8 avg rating</span>
               </div>
             </div>
 
@@ -1803,12 +1790,92 @@ export default function Home() {
       </section>
 
       {/* ── Trusted by professionals logo bar ── */}
-      <section className="pr-trust-strip">
-        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12, flexWrap: 'wrap' }}>
-          <span style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-muted)', marginRight: 8 }}>Trusted by professionals at</span>
-          {['TCS', 'Infosys', 'Wipro', 'Amazon', 'Google', 'Deloitte', 'Accenture', 'HDFC'].map(name => (
-            <span key={name} style={{ background: 'var(--bg-subtle)', border: '1px solid var(--border-default)', padding: '6px 14px', borderRadius: 'var(--radius-sm)', fontSize: 12, fontWeight: 700, color: 'var(--text-secondary)', letterSpacing: '0.02em', transition: 'all var(--transition)' }}>{name}</span>
-          ))}
+      <section style={{ padding: '60px 0', background: 'white' }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px', textAlign: 'center' }}>
+          <p style={{ fontSize: 14, fontWeight: 500, color: '#94A3B8', marginBottom: 32 }}>Trusted by professionals improving their careers</p>
+          <div style={{ display: 'flex', justifyContent: 'center', gap: 16, flexWrap: 'wrap' }}>
+            {['Google', 'Amazon', 'TCS', 'Infosys', 'Deloitte', 'Wipro'].map(name => (
+              <div key={name} style={{ width: 140, height: 48, background: '#F8FAFC', borderRadius: 12, border: '1px solid #E5E7EB', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, fontWeight: 700, color: '#94A3B8', letterSpacing: '0.02em' }}>
+                {name}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Before / After Comparison ── */}
+      <section style={{ padding: '120px 0', background: '#F8FBFF' }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px' }}>
+          <div style={{ textAlign: 'center', marginBottom: 64 }}>
+            <div style={{ fontSize: 13, fontWeight: 700, color: '#14B8A6', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 12 }}>Real results</div>
+            <h2 style={{ fontSize: 40, fontWeight: 700, color: '#0F172A', letterSpacing: '-0.02em' }}>See the Transformation</h2>
+            <p style={{ fontSize: 18, color: '#64748B', marginTop: 12, maxWidth: 500, margin: '12px auto 0' }}>Your profile before and after ProfileRoaster&rsquo;s AI optimization</p>
+          </div>
+
+          <div style={{ display: 'flex', gap: 32, justifyContent: 'center', flexWrap: 'wrap', alignItems: 'stretch', position: 'relative' }}>
+            {/* Before Card */}
+            <div style={{ flex: '1 1 480px', maxWidth: 560, background: '#FAFAFA', borderRadius: 24, padding: 32, border: '1px solid #E5E7EB', boxShadow: '0 10px 30px rgba(15,23,42,0.08)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
+                <span style={{ fontSize: 18, fontWeight: 700, color: '#0F172A' }}>Before</span>
+                <span style={{ padding: '6px 14px', background: '#FEE2E2', color: '#DC2626', borderRadius: 999, fontSize: 13, fontWeight: 700 }}>42/100</span>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 20 }}>
+                <div style={{ width: 56, height: 56, borderRadius: '50%', background: '#E2E8F0', flexShrink: 0 }} />
+                <div style={{ flex: 1 }}>
+                  <div style={{ height: 12, background: '#E2E8F0', borderRadius: 6, marginBottom: 6, width: '70%' }} />
+                  <div style={{ height: 10, background: '#E2E8F0', borderRadius: 6, width: '50%' }} />
+                </div>
+              </div>
+              <div style={{ background: '#FEF2F2', border: '1px solid #FECACA', borderRadius: 12, padding: 16, marginBottom: 16 }}>
+                <div style={{ fontSize: 11, fontWeight: 700, color: '#DC2626', letterSpacing: 1, marginBottom: 6 }}>HEADLINE</div>
+                <div style={{ fontSize: 14, color: '#991B1B', lineHeight: 1.5 }}>&ldquo;Results-driven professional seeking opportunities&rdquo;</div>
+              </div>
+              <div style={{ marginBottom: 16 }}>
+                <div style={{ height: 8, background: '#E2E8F0', borderRadius: 4, marginBottom: 6 }} />
+                <div style={{ height: 8, background: '#E2E8F0', borderRadius: 4, marginBottom: 6, width: '90%' }} />
+                <div style={{ height: 8, background: '#E2E8F0', borderRadius: 4, width: '75%' }} />
+              </div>
+              <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                {['Missing keywords', 'Weak headline', 'Generic summary'].map(w => (
+                  <span key={w} style={{ padding: '4px 10px', background: '#FEE2E2', color: '#DC2626', borderRadius: 8, fontSize: 11, fontWeight: 600 }}>{w}</span>
+                ))}
+              </div>
+            </div>
+
+            {/* Arrow between */}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+              <div style={{ width: 56, height: 56, borderRadius: '50%', background: '#14B8A6', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 8px 20px rgba(20,184,166,0.3)', fontSize: 20, color: 'white' }}>
+                &rarr;
+              </div>
+            </div>
+
+            {/* After Card */}
+            <div style={{ flex: '1 1 480px', maxWidth: 560, background: 'white', borderRadius: 24, padding: 32, border: '1px solid #D1FAE5', boxShadow: '0 10px 30px rgba(15,23,42,0.08)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
+                <span style={{ fontSize: 18, fontWeight: 700, color: '#0F172A' }}>After</span>
+                <span style={{ padding: '6px 14px', background: '#DCFCE7', color: '#15803D', borderRadius: 999, fontSize: 13, fontWeight: 700 }}>87/100</span>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 20 }}>
+                <div style={{ width: 56, height: 56, borderRadius: '50%', background: 'linear-gradient(135deg, #14B8A6, #2563EB)', flexShrink: 0 }} />
+                <div style={{ flex: 1 }}>
+                  <div style={{ height: 12, background: '#D1FAE5', borderRadius: 6, marginBottom: 6, width: '80%' }} />
+                  <div style={{ height: 10, background: '#D1FAE5', borderRadius: 6, width: '60%' }} />
+                </div>
+              </div>
+              <div style={{ background: '#F0FDF4', border: '1px solid #BBF7D0', borderRadius: 12, padding: 16, marginBottom: 16 }}>
+                <div style={{ fontSize: 11, fontWeight: 700, color: '#15803D', letterSpacing: 1, marginBottom: 6 }}>HEADLINE</div>
+                <div style={{ fontSize: 14, color: '#15803D', lineHeight: 1.5, fontWeight: 600 }}>&ldquo;Product Manager | Increased retention by 42% across a 500K-user SaaS platform&rdquo;</div>
+              </div>
+              <div style={{ marginBottom: 16 }}>
+                <div style={{ fontSize: 13, color: '#374151', lineHeight: 1.7 }}>Led cross-functional team of 12 to deliver payment features processing &#8377;500Cr+ monthly. Reduced merchant churn by 18% through data-driven UX improvements.</div>
+              </div>
+              <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                {['ATS Optimized', '12 Keywords Added', 'Recruiter Friendly'].map(w => (
+                  <span key={w} style={{ padding: '4px 10px', background: '#DCFCE7', color: '#15803D', borderRadius: 8, fontSize: 11, fontWeight: 600 }}>{w}</span>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -2378,25 +2445,24 @@ export default function Home() {
           </section>
 
           {/* ── How It Works ── */}
-          <section id="how-it-works" style={{ padding: '88px 0', background: 'var(--bg-canvas)', borderBottom: '1px solid var(--border-default)' }}>
-            <div className="landing-section">
-              <div className="pr-section-head">
-                <div className="pr-section-kicker">Simple process</div>
-                <h2 className="pr-section-title">Three steps. That{"'"}s it.</h2>
+          <section id="how-it-works" style={{ padding: '120px 0', background: '#F8FBFF', borderBottom: '1px solid #E5E7EB' }}>
+            <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px' }}>
+              <div style={{ textAlign: 'center', marginBottom: 64 }}>
+                <div style={{ fontSize: 13, fontWeight: 700, color: '#14B8A6', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 12 }}>Simple process</div>
+                <h2 style={{ fontSize: 40, fontWeight: 700, color: '#0F172A', letterSpacing: '-0.02em' }}>How It Works</h2>
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 32, maxWidth: 900, margin: '0 auto' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 32, maxWidth: 1080, margin: '0 auto' }}>
                 {[
-                  { num: '1', title: 'Upload your file', desc: 'Resume (PDF/DOCX), LinkedIn PDF, or fill a quick form.' },
-                  { num: '2', title: 'AI analyzes & builds', desc: 'Scores your profile, rewrites it, generates resume + interview prep.' },
-                  { num: '3', title: 'Download & apply', desc: 'Everything ready. Start applying with confidence today.' },
+                  { num: '01', icon: '📄', title: 'Upload Your Resume', desc: 'Drop your resume PDF/DOCX or LinkedIn PDF. Or fill a quick questionnaire — takes 2 minutes.', preview: 'Drag & drop your file here' },
+                  { num: '02', icon: '🤖', title: 'AI Analyzes & Rewrites', desc: 'Our AI scores your profile, identifies weak spots, rewrites your headline, about, and experience bullets.', preview: 'Analyzing 14 keywords...' },
+                  { num: '03', icon: '🚀', title: 'Download & Apply', desc: 'Get your rewritten LinkedIn content, ATS resume in 11 templates, cover letter, and interview prep kit.', preview: 'Resume ready for download' },
                 ].map((s, i) => (
-                  <div key={i} style={{ textAlign: 'center', position: 'relative' }}>
-                    {i < 2 && (
-                      <div style={{ position: 'absolute', top: 24, left: 'calc(50% + 24px)', right: 'calc(-50% + 24px)', height: 2, borderTop: '2px dashed #E2E8F0' }} />
-                    )}
-                    <div style={{ width: 52, height: 52, borderRadius: '50%', border: '2px solid var(--accent)', color: 'var(--accent)', fontSize: 18, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px', background: 'var(--bg-surface)', boxShadow: '0 4px 20px rgba(13,148,136,0.15)', position: 'relative', zIndex: 1 }}>{s.num}</div>
-                    <div style={{ fontSize: 16, fontWeight: 700, color: '#0F172A', marginBottom: 6 }}>{s.title}</div>
-                    <div style={{ fontSize: 14, color: '#64748B', lineHeight: 1.6 }}>{s.desc}</div>
+                  <div key={i} style={{ background: 'white', borderRadius: 24, padding: 32, border: '1px solid #E5E7EB', boxShadow: '0 10px 30px rgba(15,23,42,0.08)', display: 'flex', flexDirection: 'column' }}>
+                    <div style={{ width: 64, height: 64, background: '#ECFDF5', borderRadius: 20, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 28, marginBottom: 20 }}>{s.icon}</div>
+                    <div style={{ fontSize: 48, fontWeight: 800, color: '#E2E8F0', marginBottom: 12 }}>{s.num}</div>
+                    <div style={{ fontSize: 20, fontWeight: 700, color: '#0F172A', marginBottom: 8 }}>{s.title}</div>
+                    <div style={{ fontSize: 15, color: '#64748B', lineHeight: 1.7, flex: 1, marginBottom: 20 }}>{s.desc}</div>
+                    <div style={{ height: 100, background: '#F8FAFC', borderRadius: 16, border: '1px solid #E5E7EB', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, color: '#94A3B8', fontWeight: 500 }}>{s.preview}</div>
                   </div>
                 ))}
               </div>
@@ -2506,11 +2572,11 @@ export default function Home() {
           </section>
 
           {/* ── FAQ ── */}
-          <section id="faq" style={{ padding: '88px 0', background: 'var(--bg-surface)', borderBottom: '1px solid var(--border-default)' }}>
+          <section id="faq" style={{ padding: '120px 0', background: 'var(--bg-surface)', borderBottom: '1px solid var(--border-default)' }}>
             <div className="landing-section" style={{ maxWidth: 720 }}>
-              <div className="pr-section-head" style={{ marginBottom: 36 }}>
-                <div className="pr-section-kicker">FAQ</div>
-                <h2 className="pr-section-title">Frequently asked questions</h2>
+              <div style={{ textAlign: 'center', marginBottom: 48 }}>
+                <div style={{ fontSize: 13, fontWeight: 700, color: '#14B8A6', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 12 }}>FAQ</div>
+                <h2 style={{ fontSize: 40, fontWeight: 700, color: '#0F172A', letterSpacing: '-0.02em' }}>Frequently Asked Questions</h2>
               </div>
               {[
                 { q: 'Is the profile score really free?', a: 'Yes! Upload your resume or LinkedIn PDF and get an instant AI score with a suggested headline — completely free, no signup required.' },
@@ -2522,19 +2588,19 @@ export default function Home() {
                 { q: 'What payment methods do you accept?', a: "We accept UPI, credit/debit cards, net banking, and wallets via Razorpay — India's most trusted payment gateway." },
                 { q: 'Can I get a refund?', a: 'We offer refunds within 7 days for quality issues. See our refund policy.' },
               ].map((item, i) => (
-                <div key={i} style={{ borderBottom: '1px solid rgba(15,23,42,0.06)' }}>
+                <div key={i} style={{ borderRadius: 18, border: '1px solid #E5E7EB', background: 'white', marginBottom: 12, overflow: 'hidden' }}>
                   <button
                     onClick={() => setFaqOpen(faqOpen === i ? null : i)}
                     style={{
                       width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-                      padding: '18px 0', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left',
+                      padding: '18px 20px', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left',
                     }}
                   >
                     <span style={{ fontSize: 16, fontWeight: 600, color: '#0F172A', paddingRight: 16 }}>{item.q}</span>
                     <span style={{ fontSize: 20, color: '#94A3B8', flexShrink: 0, transition: 'transform 0.2s', transform: faqOpen === i ? 'rotate(45deg)' : 'none', fontWeight: 300, lineHeight: 1 }}>+</span>
                   </button>
                   <div style={{ overflow: 'hidden', maxHeight: faqOpen === i ? 200 : 0, transition: 'max-height 0.3s ease' }}>
-                    <div style={{ padding: '0 0 18px', fontSize: 15, color: '#475569', lineHeight: 1.7 }}>
+                    <div style={{ padding: '0 20px 18px', fontSize: 15, color: '#475569', lineHeight: 1.7 }}>
                       {item.a}
                     </div>
                   </div>
@@ -2544,31 +2610,32 @@ export default function Home() {
           </section>
 
           {/* ── Testimonials ── */}
-          <section style={{ padding: '80px 0', background: 'var(--bg-canvas)', borderBottom: '1px solid var(--border-default)' }}>
-            <div className="landing-section" style={{ maxWidth: 1000 }}>
-              <div style={{ textAlign: 'center', marginBottom: 40 }}>
-                <div className="pr-section-kicker">Real results</div>
-                <h2 className="pr-section-title">What users say after using ProfileRoaster</h2>
+          <section style={{ padding: '120px 0', background: 'white', borderBottom: '1px solid #E5E7EB' }}>
+            <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px' }}>
+              <div style={{ textAlign: 'center', marginBottom: 64 }}>
+                <div style={{ fontSize: 13, fontWeight: 700, color: '#14B8A6', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 12 }}>Testimonials</div>
+                <h2 style={{ fontSize: 40, fontWeight: 700, color: '#0F172A', letterSpacing: '-0.02em' }}>What Our Users Say</h2>
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 20 }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: 24 }}>
                 {[
-                  { name: 'Rahul Verma', role: 'Software Engineer, Bangalore', quote: 'I rewrote my headline using the suggestions and got 3 recruiter messages in the same week. My profile score went from 34 to 82.', metric: '34 → 82' },
-                  { name: 'Sneha Iyer', role: 'MBA Graduate, Mumbai', quote: 'The interview prep was incredibly specific to my target company. I used the STAR answers in my Amazon interview and cleared it.', metric: 'Got the job' },
-                  { name: 'Arjun Patel', role: 'Product Manager, Pune', quote: 'Spent ₹499 instead of ₹8000 on a resume writer. Got a better result in 90 seconds. The ATS resume template alone was worth it.', metric: '₹499 vs ₹8000' },
-                  { name: 'Priya Nair', role: 'Data Analyst, Hyderabad', quote: 'I had no idea my resume was missing 14 critical keywords. After the rewrite, I started getting calls from companies I had been rejected from before.', metric: '14 keywords added' },
-                  { name: 'Vikram Singh', role: 'Fresher, Delhi', quote: 'As a fresher with zero experience, I didn\'t know what to write. The AI turned my college projects into achievement-focused bullets. Got placed in TCS.', metric: 'Campus placed' },
-                  { name: 'Meera Krishnan', role: 'Marketing Lead, Chennai', quote: 'The before/after comparison was eye-opening. I was using every buzzword in the book. Now my profile actually shows what I achieved.', metric: 'Score: 41 → 87' },
+                  { name: 'Rahul Verma', role: 'Software Engineer, Bangalore', quote: 'I rewrote my headline and got 3 recruiter messages in the same week. Score went from 34 to 82.', stars: 5 },
+                  { name: 'Sneha Iyer', role: 'MBA Graduate, Mumbai', quote: 'The interview prep was incredibly specific. I used the STAR answers in my Amazon interview and cleared it.', stars: 5 },
+                  { name: 'Arjun Patel', role: 'Product Manager, Pune', quote: 'Spent ₹499 instead of ₹8000 on a resume writer. Got a better result in 90 seconds.', stars: 5 },
                 ].map((t, i) => (
-                  <div key={i} className="saas-card" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: 12 }}>
+                  <div key={i} style={{ background: 'white', borderRadius: 24, padding: 28, border: '1px solid #E5E7EB', boxShadow: '0 10px 30px rgba(15,23,42,0.08)' }}>
+                    <div style={{ display: 'flex', gap: 4, marginBottom: 16 }}>
+                      {Array.from({ length: t.stars }).map((_, si) => (
+                        <span key={si} style={{ color: '#FBBF24', fontSize: 18 }}>&#9733;</span>
+                      ))}
+                    </div>
+                    <p style={{ fontSize: 15, color: '#374151', lineHeight: 1.7, marginBottom: 20 }}>&ldquo;{t.quote}&rdquo;</p>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                      <div style={{ width: 40, height: 40, borderRadius: '50%', background: 'linear-gradient(135deg, var(--accent), var(--accent-hover))', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: 16, fontWeight: 700, flexShrink: 0 }}>{t.name[0]}</div>
+                      <div style={{ width: 48, height: 48, borderRadius: '50%', background: 'linear-gradient(135deg, #14B8A6, #2563EB)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: 18, fontWeight: 700, flexShrink: 0 }}>{t.name[0]}</div>
                       <div>
-                        <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--text-primary)' }}>{t.name}</div>
-                        <div style={{ fontSize: 12, color: 'var(--text-muted)' }}>{t.role}</div>
+                        <div style={{ fontSize: 15, fontWeight: 700, color: '#0F172A' }}>{t.name}</div>
+                        <div style={{ fontSize: 13, color: '#64748B' }}>{t.role}</div>
                       </div>
                     </div>
-                    <div style={{ fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.65, flex: 1 }}>&ldquo;{t.quote}&rdquo;</div>
-                    <div className="pill-badge pill-badge-success" style={{ alignSelf: 'flex-start' }}>{t.metric}</div>
                   </div>
                 ))}
               </div>
@@ -2616,20 +2683,15 @@ export default function Home() {
           </section>
 
           {/* ── Final CTA ── */}
-          <section className="pr-cta-final">
-            <div className="landing-section" style={{ maxWidth: 600, position: 'relative', zIndex: 1 }}>
-              <div style={{ fontSize: 'clamp(1.65rem, 4vw, 2rem)', fontWeight: 800, color: 'white', marginBottom: 12, letterSpacing: '-0.02em' }}>Every day with a weak profile is another recruiter who scrolled past you.</div>
-              <div style={{ fontSize: 16, color: 'rgba(255,255,255,0.9)', marginBottom: 12, lineHeight: 1.7 }}>Discover exactly what&rsquo;s wrong, get it rewritten by AI, and start getting callbacks — in under 3 minutes.</div>
-              <div style={{ fontSize: 14, color: 'rgba(255,255,255,0.75)', marginBottom: 28, lineHeight: 1.6 }}>
-                Resume writers charge &#8377;3,000&ndash;15,000 and take days. We do everything in under 3 minutes for &#8377;499. One time. No subscription.
+          <section style={{ padding: '120px 0', background: '#F8FBFF' }}>
+            <div style={{ maxWidth: 1000, margin: '0 auto', padding: '0 24px' }}>
+              <div style={{ background: 'linear-gradient(135deg, #14B8A6, #2563EB)', borderRadius: 32, padding: '80px 48px', textAlign: 'center', boxShadow: '0 20px 50px rgba(15,23,42,0.15)' }}>
+                <h2 style={{ fontSize: 36, fontWeight: 700, color: 'white', marginBottom: 16, letterSpacing: '-0.02em' }}>Ready to Transform Your LinkedIn Profile?</h2>
+                <p style={{ fontSize: 18, color: 'rgba(255,255,255,0.85)', maxWidth: 500, margin: '0 auto 40px', lineHeight: 1.7 }}>Join thousands of professionals who improved their profiles and started getting more interviews.</p>
+                <button type="button" onClick={() => { const h = document.querySelector('.pr-hero'); if (h) h.scrollIntoView({ behavior: 'smooth' }); }} style={{ height: 56, padding: '0 32px', background: 'white', color: '#14B8A6', fontSize: 16, fontWeight: 700, borderRadius: 16, border: 'none', cursor: 'pointer', boxShadow: '0 8px 20px rgba(0,0,0,0.12)' }}>
+                  Analyze My Profile — Free Score &rarr;
+                </button>
               </div>
-              <button
-                type="button"
-                onClick={() => { heroRef.current?.scrollIntoView({ behavior: 'smooth' }); }}
-                style={{ background: 'white', color: 'var(--accent)', fontSize: 16, fontWeight: 700, padding: '16px 40px', borderRadius: 999, border: 'none', cursor: 'pointer', boxShadow: '0 8px 32px rgba(0,0,0,0.12)' }}
-              >
-                Roast My Profile &mdash; Free Score &rarr;
-              </button>
             </div>
           </section>
         </>
