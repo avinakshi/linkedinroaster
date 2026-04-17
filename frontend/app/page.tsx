@@ -1254,7 +1254,7 @@ export default function Home() {
             {/* LEFT — Value Proposition */}
             <div style={{ flex: '1 1 420px', minWidth: 0, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
               {/* Badge */}
-              <div style={{ display: 'inline-flex', alignItems: 'center', height: 36, padding: '0 16px', background: '#ECFDF5', borderRadius: 999, fontSize: 13, fontWeight: 600, color: '#14B8A6', marginBottom: 24, alignSelf: 'flex-start' }}>
+              <div style={{ display: 'inline-flex', alignItems: 'center', height: 36, padding: '0 16px', background: '#EFF6FF', borderRadius: 999, fontSize: 13, fontWeight: 600, color: '#3B82F6', marginBottom: 24, alignSelf: 'flex-start' }}>
                 AI-Powered LinkedIn Optimization
               </div>
 
@@ -1268,7 +1268,7 @@ export default function Home() {
 
               {/* CTA Row */}
               <div style={{ display: 'flex', gap: 16, marginTop: 40, flexWrap: 'wrap' }}>
-                <button type="button" onClick={() => { const el = document.querySelector('.pr-upload-shell'); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' }); }} style={{ height: 56, padding: '0 28px', background: '#14B8A6', borderRadius: 16, color: 'white', fontSize: 16, fontWeight: 600, border: 'none', cursor: 'pointer', boxShadow: '0 8px 20px rgba(20, 184, 166, 0.3)', transition: 'all 0.2s' }}>
+                <button type="button" onClick={() => { const el = document.querySelector('.pr-upload-shell'); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' }); }} style={{ height: 56, padding: '0 28px', background: '#3B82F6', borderRadius: 16, color: 'white', fontSize: 16, fontWeight: 600, border: 'none', cursor: 'pointer', boxShadow: '0 8px 20px rgba(59, 130, 246, 0.3)', transition: 'all 0.2s' }}>
                   Analyze My Profile
                 </button>
                 <a href="#templates" style={{ height: 56, padding: '0 28px', border: '1px solid #D1D5DB', background: 'white', borderRadius: 16, fontSize: 16, fontWeight: 600, color: '#0F172A', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', transition: 'all 0.2s' }}>
@@ -1283,7 +1283,7 @@ export default function Home() {
                   <div style={{ fontSize: 13, color: '#64748B' }}>Resumes analyzed</div>
                 </div>
                 <div>
-                  <div style={{ fontSize: 28, fontWeight: 800, color: '#14B8A6' }}>+45 pts</div>
+                  <div style={{ fontSize: 28, fontWeight: 800, color: '#3B82F6' }}>+45 pts</div>
                   <div style={{ fontSize: 13, color: '#64748B' }}>Avg score improvement</div>
                 </div>
                 <div>
@@ -1807,72 +1807,74 @@ export default function Home() {
       <section style={{ padding: '120px 0', background: '#F8FBFF' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px' }}>
           <div style={{ textAlign: 'center', marginBottom: 64 }}>
-            <div style={{ fontSize: 13, fontWeight: 700, color: '#14B8A6', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 12 }}>Real results</div>
+            <div style={{ fontSize: 13, fontWeight: 700, color: '#3B82F6', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 12 }}>Real results</div>
             <h2 style={{ fontSize: 40, fontWeight: 700, color: '#0F172A', letterSpacing: '-0.02em' }}>See the Transformation</h2>
-            <p style={{ fontSize: 18, color: '#64748B', marginTop: 12, maxWidth: 500, margin: '12px auto 0' }}>Your profile before and after ProfileRoaster&rsquo;s AI optimization</p>
+            <p style={{ fontSize: 18, color: '#64748B', marginTop: 12, maxWidth: 560, margin: '12px auto 0' }}>Same person. Same experience. Completely different impression.</p>
           </div>
 
-          <div style={{ display: 'flex', gap: 32, justifyContent: 'center', flexWrap: 'wrap', alignItems: 'stretch', position: 'relative' }}>
-            {/* Before Card */}
-            <div style={{ flex: '1 1 480px', maxWidth: 560, background: '#FAFAFA', borderRadius: 24, padding: 32, border: '1px solid #E5E7EB', boxShadow: '0 10px 30px rgba(15,23,42,0.08)' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
-                <span style={{ fontSize: 18, fontWeight: 700, color: '#0F172A' }}>Before</span>
-                <span style={{ padding: '6px 14px', background: '#FEE2E2', color: '#DC2626', borderRadius: 999, fontSize: 13, fontWeight: 700 }}>42/100</span>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr auto 1fr', gap: 24, maxWidth: 1000, margin: '0 auto', alignItems: 'start' }}>
+            {/* Before */}
+            <div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16, padding: '0 4px' }}>
+                <span style={{ fontSize: 16, fontWeight: 700, color: '#DC2626' }}>Before</span>
+                <span style={{ padding: '4px 12px', background: '#FEE2E2', color: '#DC2626', borderRadius: 999, fontSize: 12, fontWeight: 700 }}>Score: 38/100</span>
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 20 }}>
-                <div style={{ width: 56, height: 56, borderRadius: '50%', background: '#E2E8F0', flexShrink: 0 }} />
-                <div style={{ flex: 1 }}>
-                  <div style={{ height: 12, background: '#E2E8F0', borderRadius: 6, marginBottom: 6, width: '70%' }} />
-                  <div style={{ height: 10, background: '#E2E8F0', borderRadius: 6, width: '50%' }} />
+              <div style={{ background: '#FEF2F2', borderRadius: 20, padding: 16, border: '2px solid #FECACA', boxShadow: '0 10px 30px rgba(15,23,42,0.06)' }}>
+                <div style={{ background: 'white', borderRadius: 12, overflow: 'hidden', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}>
+                  <div style={{ padding: '20px 24px', borderBottom: '1px solid #F3F4F6' }}>
+                    <div style={{ fontSize: 18, fontWeight: 700, color: '#0F172A', marginBottom: 4 }}>Rajesh Kumar</div>
+                    <div style={{ fontSize: 12, color: '#DC2626', fontStyle: 'italic' }}>&ldquo;Software Engineer | Python | Java | AWS | Docker | Seeking opportunities&rdquo;</div>
+                  </div>
+                  <div style={{ padding: '16px 24px' }}>
+                    <div style={{ fontSize: 10, fontWeight: 700, color: '#94A3B8', letterSpacing: 1, marginBottom: 8 }}>ABOUT</div>
+                    <div style={{ fontSize: 12, color: '#94A3B8', lineHeight: 1.6, marginBottom: 16 }}>Passionate results-driven professional with excellent communication skills and a can-do attitude. Looking for exciting opportunities to leverage my skills and grow in a dynamic environment.</div>
+                    <div style={{ fontSize: 10, fontWeight: 700, color: '#94A3B8', letterSpacing: 1, marginBottom: 8 }}>EXPERIENCE</div>
+                    <div style={{ fontSize: 12, color: '#94A3B8', lineHeight: 1.6, marginBottom: 6 }}>Software Engineer at TechCorp</div>
+                    <div style={{ fontSize: 11, color: '#CBD5E1', marginBottom: 4 }}>&bull; Worked on various projects</div>
+                    <div style={{ fontSize: 11, color: '#CBD5E1', marginBottom: 4 }}>&bull; Handled backend development</div>
+                    <div style={{ fontSize: 11, color: '#CBD5E1', marginBottom: 12 }}>&bull; Participated in team meetings</div>
+                    <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginTop: 8 }}>
+                      {['Missing keywords', 'Weak headline', 'No metrics'].map(w => (
+                        <span key={w} style={{ padding: '3px 8px', background: '#FEE2E2', color: '#DC2626', borderRadius: 6, fontSize: 10, fontWeight: 600 }}>{w}</span>
+                      ))}
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div style={{ background: '#FEF2F2', border: '1px solid #FECACA', borderRadius: 12, padding: 16, marginBottom: 16 }}>
-                <div style={{ fontSize: 11, fontWeight: 700, color: '#DC2626', letterSpacing: 1, marginBottom: 6 }}>HEADLINE</div>
-                <div style={{ fontSize: 14, color: '#991B1B', lineHeight: 1.5 }}>&ldquo;Results-driven professional seeking opportunities&rdquo;</div>
-              </div>
-              <div style={{ marginBottom: 16 }}>
-                <div style={{ height: 8, background: '#E2E8F0', borderRadius: 4, marginBottom: 6 }} />
-                <div style={{ height: 8, background: '#E2E8F0', borderRadius: 4, marginBottom: 6, width: '90%' }} />
-                <div style={{ height: 8, background: '#E2E8F0', borderRadius: 4, width: '75%' }} />
-              </div>
-              <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-                {['Missing keywords', 'Weak headline', 'Generic summary'].map(w => (
-                  <span key={w} style={{ padding: '4px 10px', background: '#FEE2E2', color: '#DC2626', borderRadius: 8, fontSize: 11, fontWeight: 600 }}>{w}</span>
-                ))}
               </div>
             </div>
 
-            {/* Arrow between */}
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-              <div style={{ width: 56, height: 56, borderRadius: '50%', background: '#14B8A6', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 8px 20px rgba(20,184,166,0.3)', fontSize: 20, color: 'white' }}>
-                &rarr;
-              </div>
+            {/* Arrow */}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', paddingTop: 200 }}>
+              <div style={{ width: 48, height: 48, borderRadius: '50%', background: '#3B82F6', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 8px 20px rgba(59,130,246,0.3)', fontSize: 18, color: 'white' }}>&rarr;</div>
             </div>
 
-            {/* After Card */}
-            <div style={{ flex: '1 1 480px', maxWidth: 560, background: 'white', borderRadius: 24, padding: 32, border: '1px solid #D1FAE5', boxShadow: '0 10px 30px rgba(15,23,42,0.08)' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
-                <span style={{ fontSize: 18, fontWeight: 700, color: '#0F172A' }}>After</span>
-                <span style={{ padding: '6px 14px', background: '#DCFCE7', color: '#15803D', borderRadius: 999, fontSize: 13, fontWeight: 700 }}>87/100</span>
+            {/* After */}
+            <div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16, padding: '0 4px' }}>
+                <span style={{ fontSize: 16, fontWeight: 700, color: '#15803D' }}>After</span>
+                <span style={{ padding: '4px 12px', background: '#DCFCE7', color: '#15803D', borderRadius: 999, fontSize: 12, fontWeight: 700 }}>Score: 87/100</span>
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 20 }}>
-                <div style={{ width: 56, height: 56, borderRadius: '50%', background: 'linear-gradient(135deg, #14B8A6, #2563EB)', flexShrink: 0 }} />
-                <div style={{ flex: 1 }}>
-                  <div style={{ height: 12, background: '#D1FAE5', borderRadius: 6, marginBottom: 6, width: '80%' }} />
-                  <div style={{ height: 10, background: '#D1FAE5', borderRadius: 6, width: '60%' }} />
+              <div style={{ background: '#F0FDF4', borderRadius: 20, padding: 16, border: '2px solid #BBF7D0', boxShadow: '0 10px 30px rgba(15,23,42,0.06)' }}>
+                <div style={{ background: 'white', borderRadius: 12, overflow: 'hidden', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}>
+                  <div style={{ padding: '20px 24px', borderBottom: '1px solid #F3F4F6' }}>
+                    <div style={{ fontSize: 18, fontWeight: 700, color: '#0F172A', marginBottom: 4 }}>Rajesh Kumar</div>
+                    <div style={{ fontSize: 12, color: '#15803D', fontWeight: 600 }}>&ldquo;Full-Stack Engineer | Built apps serving 50K+ users | React + AWS + Node.js | 5 yrs&rdquo;</div>
+                  </div>
+                  <div style={{ padding: '16px 24px' }}>
+                    <div style={{ fontSize: 10, fontWeight: 700, color: '#15803D', letterSpacing: 1, marginBottom: 8 }}>ABOUT</div>
+                    <div style={{ fontSize: 12, color: '#374151', lineHeight: 1.6, marginBottom: 16 }}>Full-stack engineer with 5 years shipping production applications at scale. Led microservices migration serving 50K+ DAU with 99.9% uptime. Reduced API latency by 40% and mentored 4 junior developers. B.Tech CS from IIT Delhi.</div>
+                    <div style={{ fontSize: 10, fontWeight: 700, color: '#15803D', letterSpacing: 1, marginBottom: 8 }}>EXPERIENCE</div>
+                    <div style={{ fontSize: 12, color: '#374151', lineHeight: 1.6, fontWeight: 600, marginBottom: 6 }}>Senior Software Engineer at TechCorp</div>
+                    <div style={{ fontSize: 11, color: '#374151', marginBottom: 4 }}>&bull; Led team of 8 engineers delivering 3 products generating $2M ARR</div>
+                    <div style={{ fontSize: 11, color: '#374151', marginBottom: 4 }}>&bull; Reduced API response latency by 40% via query optimization</div>
+                    <div style={{ fontSize: 11, color: '#374151', marginBottom: 12 }}>&bull; Architected microservices serving 50K+ daily users, 99.9% uptime</div>
+                    <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginTop: 8 }}>
+                      {['ATS Optimized', '12 Keywords Added', 'Quantified Impact'].map(w => (
+                        <span key={w} style={{ padding: '3px 8px', background: '#DCFCE7', color: '#15803D', borderRadius: 6, fontSize: 10, fontWeight: 600 }}>{w}</span>
+                      ))}
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div style={{ background: '#F0FDF4', border: '1px solid #BBF7D0', borderRadius: 12, padding: 16, marginBottom: 16 }}>
-                <div style={{ fontSize: 11, fontWeight: 700, color: '#15803D', letterSpacing: 1, marginBottom: 6 }}>HEADLINE</div>
-                <div style={{ fontSize: 14, color: '#15803D', lineHeight: 1.5, fontWeight: 600 }}>&ldquo;Product Manager | Increased retention by 42% across a 500K-user SaaS platform&rdquo;</div>
-              </div>
-              <div style={{ marginBottom: 16 }}>
-                <div style={{ fontSize: 13, color: '#374151', lineHeight: 1.7 }}>Led cross-functional team of 12 to deliver payment features processing &#8377;500Cr+ monthly. Reduced merchant churn by 18% through data-driven UX improvements.</div>
-              </div>
-              <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-                {['ATS Optimized', '12 Keywords Added', 'Recruiter Friendly'].map(w => (
-                  <span key={w} style={{ padding: '4px 10px', background: '#DCFCE7', color: '#15803D', borderRadius: 8, fontSize: 11, fontWeight: 600 }}>{w}</span>
-                ))}
               </div>
             </div>
           </div>
@@ -2448,7 +2450,7 @@ export default function Home() {
           <section id="how-it-works" style={{ padding: '120px 0', background: '#F8FBFF', borderBottom: '1px solid #E5E7EB' }}>
             <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px' }}>
               <div style={{ textAlign: 'center', marginBottom: 64 }}>
-                <div style={{ fontSize: 13, fontWeight: 700, color: '#14B8A6', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 12 }}>Simple process</div>
+                <div style={{ fontSize: 13, fontWeight: 700, color: '#3B82F6', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 12 }}>Simple process</div>
                 <h2 style={{ fontSize: 40, fontWeight: 700, color: '#0F172A', letterSpacing: '-0.02em' }}>How It Works</h2>
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 32, maxWidth: 1080, margin: '0 auto' }}>
@@ -2458,7 +2460,7 @@ export default function Home() {
                   { num: '03', icon: '🚀', title: 'Download & Apply', desc: 'Get your rewritten LinkedIn content, ATS resume in 11 templates, cover letter, and interview prep kit.', preview: 'Resume ready for download' },
                 ].map((s, i) => (
                   <div key={i} style={{ background: 'white', borderRadius: 24, padding: 32, border: '1px solid #E5E7EB', boxShadow: '0 10px 30px rgba(15,23,42,0.08)', display: 'flex', flexDirection: 'column' }}>
-                    <div style={{ width: 64, height: 64, background: '#ECFDF5', borderRadius: 20, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 28, marginBottom: 20 }}>{s.icon}</div>
+                    <div style={{ width: 64, height: 64, background: '#EFF6FF', borderRadius: 20, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 28, marginBottom: 20 }}>{s.icon}</div>
                     <div style={{ fontSize: 48, fontWeight: 800, color: '#E2E8F0', marginBottom: 12 }}>{s.num}</div>
                     <div style={{ fontSize: 20, fontWeight: 700, color: '#0F172A', marginBottom: 8 }}>{s.title}</div>
                     <div style={{ fontSize: 15, color: '#64748B', lineHeight: 1.7, flex: 1, marginBottom: 20 }}>{s.desc}</div>
@@ -2575,7 +2577,7 @@ export default function Home() {
           <section id="faq" style={{ padding: '120px 0', background: 'var(--bg-surface)', borderBottom: '1px solid var(--border-default)' }}>
             <div className="landing-section" style={{ maxWidth: 720 }}>
               <div style={{ textAlign: 'center', marginBottom: 48 }}>
-                <div style={{ fontSize: 13, fontWeight: 700, color: '#14B8A6', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 12 }}>FAQ</div>
+                <div style={{ fontSize: 13, fontWeight: 700, color: '#3B82F6', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 12 }}>FAQ</div>
                 <h2 style={{ fontSize: 40, fontWeight: 700, color: '#0F172A', letterSpacing: '-0.02em' }}>Frequently Asked Questions</h2>
               </div>
               {[
@@ -2613,7 +2615,7 @@ export default function Home() {
           <section style={{ padding: '120px 0', background: 'white', borderBottom: '1px solid #E5E7EB' }}>
             <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px' }}>
               <div style={{ textAlign: 'center', marginBottom: 64 }}>
-                <div style={{ fontSize: 13, fontWeight: 700, color: '#14B8A6', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 12 }}>Testimonials</div>
+                <div style={{ fontSize: 13, fontWeight: 700, color: '#3B82F6', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 12 }}>Testimonials</div>
                 <h2 style={{ fontSize: 40, fontWeight: 700, color: '#0F172A', letterSpacing: '-0.02em' }}>What Our Users Say</h2>
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: 24 }}>
@@ -2630,7 +2632,7 @@ export default function Home() {
                     </div>
                     <p style={{ fontSize: 15, color: '#374151', lineHeight: 1.7, marginBottom: 20 }}>&ldquo;{t.quote}&rdquo;</p>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                      <div style={{ width: 48, height: 48, borderRadius: '50%', background: 'linear-gradient(135deg, #14B8A6, #2563EB)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: 18, fontWeight: 700, flexShrink: 0 }}>{t.name[0]}</div>
+                      <img src={`https://api.dicebear.com/9.x/notionists/svg?seed=${encodeURIComponent(t.name)}&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf`} alt={t.name} style={{ width: 48, height: 48, borderRadius: '50%', flexShrink: 0, background: '#F1F5F9' }} />
                       <div>
                         <div style={{ fontSize: 15, fontWeight: 700, color: '#0F172A' }}>{t.name}</div>
                         <div style={{ fontSize: 13, color: '#64748B' }}>{t.role}</div>
@@ -2685,10 +2687,10 @@ export default function Home() {
           {/* ── Final CTA ── */}
           <section style={{ padding: '120px 0', background: '#F8FBFF' }}>
             <div style={{ maxWidth: 1000, margin: '0 auto', padding: '0 24px' }}>
-              <div style={{ background: 'linear-gradient(135deg, #14B8A6, #2563EB)', borderRadius: 32, padding: '80px 48px', textAlign: 'center', boxShadow: '0 20px 50px rgba(15,23,42,0.15)' }}>
+              <div style={{ background: 'linear-gradient(135deg, #3B82F6, #1D4ED8)', borderRadius: 32, padding: '80px 48px', textAlign: 'center', boxShadow: '0 20px 50px rgba(15,23,42,0.15)' }}>
                 <h2 style={{ fontSize: 36, fontWeight: 700, color: 'white', marginBottom: 16, letterSpacing: '-0.02em' }}>Ready to Transform Your LinkedIn Profile?</h2>
                 <p style={{ fontSize: 18, color: 'rgba(255,255,255,0.85)', maxWidth: 500, margin: '0 auto 40px', lineHeight: 1.7 }}>Join thousands of professionals who improved their profiles and started getting more interviews.</p>
-                <button type="button" onClick={() => { const h = document.querySelector('.pr-hero'); if (h) h.scrollIntoView({ behavior: 'smooth' }); }} style={{ height: 56, padding: '0 32px', background: 'white', color: '#14B8A6', fontSize: 16, fontWeight: 700, borderRadius: 16, border: 'none', cursor: 'pointer', boxShadow: '0 8px 20px rgba(0,0,0,0.12)' }}>
+                <button type="button" onClick={() => { const h = document.querySelector('.pr-hero'); if (h) h.scrollIntoView({ behavior: 'smooth' }); }} style={{ height: 56, padding: '0 32px', background: 'white', color: '#3B82F6', fontSize: 16, fontWeight: 700, borderRadius: 16, border: 'none', cursor: 'pointer', boxShadow: '0 8px 20px rgba(0,0,0,0.12)' }}>
                   Analyze My Profile — Free Score &rarr;
                 </button>
               </div>
