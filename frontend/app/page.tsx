@@ -497,33 +497,51 @@ function pdfToResumeData(parsed: any): any {
 }
 
 
-// ─── Sample resume data for template gallery (rich data to fill the full page) ───
+// ─── Sample resume data for template gallery (rich Indian professional data to fill the full page) ───
 const SAMPLE_RESUME = {
-  contact: { name: 'Tina Miller', email: 'tinamillernyc20@gmail.com', phone: '123-5456-7890', location: 'Florida', linkedin: 'linkedin.com/in/tina-miller-nyc' },
-  summary: '7+ years of social marketing experience, driving customer growth and engagement in digital, B2B, and content marketing campaigns. Increased brand awareness by 25%, website traffic by 40%, customer acquisition by 25%, customer lifetime value by 40%, and sales revenue by $2M in 6 months. Led strategies, resulting in a 45% increase in lead conversion.',
+  contact: { name: 'Ananya Sharma', email: 'ananya.sharma@gmail.com', phone: '98765-43210', location: 'Mumbai, India', linkedin: 'linkedin.com/in/ananya-sharma' },
+  summary: '7+ years of product management experience driving customer growth and engagement across fintech, e-commerce, and SaaS platforms. Increased monthly active users by 35%, revenue by ₹4.2 Cr, and customer retention by 28%. Led cross-functional teams of 15+ members to deliver products serving 2M+ users. Proven track record in data-driven decision making, agile methodologies, and stakeholder management.',
   experience: [
-    { role: 'Senior Marketing Manager', company: 'WeWork', location: 'New York, United States', dates: 'Jan 2021 - Present', bullets: [
-      'Increased lead generation by 30% in 3 months through the development and execution of cross-channel campaigns targeting key customer segments.',
-      'Increased company\'s online presence by 25%, driving a 40% increase in website traffic and generating $2M in revenue through successful digital campaigns.',
-      'Led the analysis of over 75 marketing campaigns, uncovering actionable insights that led to a 25% increase in customer acquisition and a 40% growth in customer lifetime value year-over-year.',
+    { role: 'Senior Product Manager', company: 'Razorpay', location: 'Bangalore, India', dates: 'Jan 2022 - Present', bullets: [
+      'Led product strategy for merchant onboarding platform, increasing conversion rate by 32% and reducing drop-off by 45% through data-driven UX improvements across web and mobile touchpoints.',
+      'Managed a cross-functional team of 12 engineers, 3 designers, and 2 analysts to deliver payment gateway features processing ₹500 Cr+ monthly transactions with 99.98% uptime SLA.',
+      'Spearheaded the launch of instant settlement feature for 50K+ merchants, driving ₹1.8 Cr incremental monthly revenue and reducing merchant churn by 18% within the first quarter.',
+      'Conducted 200+ customer interviews and analyzed behavioral data of 2M+ users to identify key pain points, resulting in a product roadmap that improved NPS score from 42 to 67.',
     ] },
-    { role: 'Marketing Manager', company: 'NVIDIA', location: 'Full-time', dates: 'Jun 2019 - Dec 2020', bullets: [
-      'Managed a comprehensive cross functional marketing campaign for a new product launch, overseeing a team of 10 professionals, coordinating promotional activities, and executing digital marketing strategies across multiple channels. The campaign resulted in a 30% increase in brand awareness, generating $500,000 in sales revenue within Q1.',
-      'Improved long and short form YouTube strategy resulting in 15% increase in channel views month over month through a better, SEO targeting, media strategy.',
+    { role: 'Product Manager', company: 'Flipkart', location: 'Bangalore, India', dates: 'Mar 2019 - Dec 2021', bullets: [
+      'Owned the seller analytics dashboard serving 150K+ sellers, implementing real-time insights that improved seller GMV by 22% and reduced support tickets by 35% through proactive alerts and recommendations.',
+      'Drove the launch of Flipkart Quick (90-minute delivery) in 8 cities, coordinating with logistics, warehouse, and engineering teams. Achieved 4.5-star rating and 40% repeat order rate within 6 months of launch.',
+      'Redesigned the checkout flow using A/B testing framework, reducing cart abandonment by 19% and increasing average order value by ₹240, translating to ₹12 Cr additional quarterly revenue.',
     ] },
-    { role: 'Marketing Manager', company: 'White Lotus Resort', location: 'Hawaii', dates: 'Mar 2017 - May 2019', bullets: [
-      'Increased digital advertising revenue by 25% in 9 months through effective B2B and B2C relations management.',
-      'Developed a successful B2B/B2C digital advertising strategy resulting in a 300% increase in revenue in 6 months.',
-      'Increased web traffic by 20% in 6 months through strategic planning and goal setting.',
+    { role: 'Associate Product Manager', company: 'Freshworks', location: 'Chennai, India', dates: 'Jul 2017 - Feb 2019', bullets: [
+      'Built and launched the Freshdesk AI chatbot module from 0 to 1, achieving 60% ticket deflection rate for enterprise clients and winning the internal innovation award for best product launch of 2018.',
+      'Collaborated with sales and customer success teams to define pricing tiers for the new product line, contributing to ₹3.5 Cr ARR within the first year of launch across 200+ enterprise accounts.',
+      'Implemented product analytics tracking using Mixpanel and Amplitude, establishing a data-driven culture that reduced feature development cycle time by 25% through evidence-based prioritization.',
     ] },
   ],
   education: [
-    { degree: 'MBA Marketing', institution: 'Columbia Business School', year: '2017', gpa: '3.8' },
-    { degree: 'BA Communications', institution: 'University of Florida', year: '2014', gpa: '3.6' },
+    { degree: 'MBA Product Management', institution: 'IIM Bangalore', year: '2017', gpa: '8.4/10' },
+    { degree: 'B.Tech Computer Science', institution: 'NIT Trichy', year: '2015', gpa: '8.9/10' },
   ],
-  skills: ['Digital Marketing', 'SEO/SEM', 'Content Strategy', 'Google Analytics', 'Social Media Marketing', 'Email Campaigns', 'B2B Marketing', 'Brand Management', 'CRM (Salesforce)', 'Marketing Automation', 'A/B Testing', 'Lead Generation'],
-  achievements: ['Google Ads Certified Professional', 'HubSpot Inbound Marketing Certification', 'Top 5% performer at WeWork 2022', 'Speaker at Digital Marketing Summit NYC 2023'],
+  skills: ['Product Strategy', 'Agile/Scrum', 'SQL & Data Analytics', 'A/B Testing', 'User Research', 'PRDs & Roadmaps', 'Jira & Confluence', 'Figma', 'Google Analytics', 'Mixpanel', 'Stakeholder Management', 'Go-to-Market Strategy', 'API Design', 'Python'],
+  achievements: ['Razorpay Star Performer Award 2023', 'Published in YourStory — "Building for Bharat"', 'ISB Product Leadership Fellowship 2022', 'Mentor at ProductFolks Community (500+ mentees)'],
 };
+
+// ─── Sample cover letter for Cover Letters tab ───
+const SAMPLE_COVER_LETTER = `Dear Hiring Manager,
+
+I am writing to express my strong interest in the Senior Product Manager position at your organization. With over 7 years of hands-on experience in product management across leading technology companies including Razorpay, Flipkart, and Freshworks, I bring a proven track record of building products that drive measurable business impact.
+
+In my current role at Razorpay, I lead the merchant onboarding platform strategy, where I increased conversion rates by 32% and drove ₹1.8 Cr in incremental monthly revenue through the launch of our instant settlement feature. I manage a cross-functional team of 17 members and have consistently delivered products that serve 2M+ users with enterprise-grade reliability.
+
+At Flipkart, I spearheaded the launch of Flipkart Quick across 8 cities and redesigned the checkout flow, contributing ₹12 Cr in additional quarterly revenue. My approach combines deep customer empathy — informed by 200+ user interviews — with rigorous data analysis to identify high-impact opportunities.
+
+I am particularly excited about the opportunity to bring my expertise in fintech product development, data-driven decision making, and cross-functional leadership to your team. I am confident that my experience building products for the Indian market at scale makes me a strong fit for this role.
+
+I would welcome the opportunity to discuss how my background aligns with your product vision. Thank you for considering my application.
+
+Warm regards,
+Ananya Sharma`;
 
 // ════════════════════════════════════════
 // MAIN PAGE
@@ -639,6 +657,7 @@ export default function Home() {
   // Template gallery
   const [galleryFilter, setGalleryFilter] = useState('All');
   const [carouselPage, setCarouselPage] = useState(0);
+  const [showcaseTab, setShowcaseTab] = useState<'resumes' | 'coverletters'>('resumes');
 
   // Resume upload state
   const [resumeUploading, setResumeUploading] = useState(false);
@@ -1756,89 +1775,100 @@ export default function Home() {
 
           {/* Tabs: Resumes / Cover Letters */}
           <div style={{ display: 'flex', justifyContent: 'center', gap: 40, marginBottom: 48 }}>
-            <button type="button" style={{ fontSize: 20, fontWeight: 700, color: 'var(--text-primary)', background: 'none', border: 'none', cursor: 'pointer', paddingBottom: 10, borderBottom: '3px solid var(--text-primary)', fontFamily: 'inherit' }}>
+            <button type="button" onClick={() => setShowcaseTab('resumes')} style={{ fontSize: 20, fontWeight: showcaseTab === 'resumes' ? 700 : 500, color: showcaseTab === 'resumes' ? 'var(--text-primary)' : 'var(--text-muted)', background: 'none', border: 'none', cursor: 'pointer', paddingBottom: 10, borderBottom: showcaseTab === 'resumes' ? '3px solid var(--text-primary)' : '3px solid transparent', fontFamily: 'inherit', transition: 'all 0.2s' }}>
               Resumes
             </button>
-            <button type="button" style={{ fontSize: 20, fontWeight: 500, color: 'var(--text-muted)', background: 'none', border: 'none', cursor: 'pointer', paddingBottom: 10, borderBottom: '3px solid transparent', fontFamily: 'inherit' }}>
+            <button type="button" onClick={() => setShowcaseTab('coverletters')} style={{ fontSize: 20, fontWeight: showcaseTab === 'coverletters' ? 700 : 500, color: showcaseTab === 'coverletters' ? 'var(--text-primary)' : 'var(--text-muted)', background: 'none', border: 'none', cursor: 'pointer', paddingBottom: 10, borderBottom: showcaseTab === 'coverletters' ? '3px solid var(--text-primary)' : '3px solid transparent', fontFamily: 'inherit', transition: 'all 0.2s' }}>
               Cover Letters
             </button>
           </div>
 
-          {/* Large resume carousel — 3 at a time */}
-          <div style={{ position: 'relative', overflow: 'hidden' }}>
-            <div style={{
-              display: 'flex',
-              transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
-              transform: `translateX(-${carouselPage * 100}%)`,
-            }}>
-              {/* Render pages of 3 templates */}
-              {Array.from({ length: Math.ceil(TEMPLATES.length / 3) }).map((_, pageIdx) => (
-                <div key={pageIdx} style={{ display: 'flex', gap: 28, minWidth: '100%', justifyContent: 'center', padding: '0 8px', boxSizing: 'border-box' }}>
-                  {TEMPLATES.slice(pageIdx * 3, pageIdx * 3 + 3).map((t, i) => {
-                    const bgColors = ['#F5E6C8', '#FFFFFF', '#F0F0F0', '#E8F0FE', '#FFF3E0', '#E8F5E9', '#F3E5F5', '#FFF8E1', '#E0F2F1', '#FCE4EC', '#ECEFF1'];
-                    const globalIdx = pageIdx * 3 + i;
-                    return (
-                      <div key={t.id} style={{
-                        flex: '1 1 0',
-                        maxWidth: 400,
-                        background: bgColors[globalIdx % bgColors.length],
-                        borderRadius: 16,
-                        padding: '24px 16px 20px',
-                        boxShadow: '0 2px 16px rgba(0,0,0,0.06)',
-                        transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-                        cursor: 'pointer',
-                      }}
-                        onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-6px)'; e.currentTarget.style.boxShadow = '0 12px 32px rgba(0,0,0,0.12)'; }}
-                        onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 2px 16px rgba(0,0,0,0.06)'; }}
-                        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                      >
-                        {/* Full-page resume preview — large and readable */}
-                        <div style={{
-                          background: '#FFFFFF',
-                          borderRadius: 6,
-                          overflow: 'hidden',
-                          boxShadow: '0 1px 6px rgba(0,0,0,0.06)',
-                          position: 'relative',
-                          width: '100%',
-                          height: 0,
-                          paddingBottom: '129.4%', /* A4 ratio: 11/8.5 = 1.294 */
-                        }}>
-                          <div style={{
-                            position: 'absolute',
-                            top: 0,
-                            left: 0,
-                            width: 794,
-                            transformOrigin: 'top left',
-                            pointerEvents: 'none',
-                            transform: 'scale(0.463)',
-                          }}>
-                            {renderResumeHTML(SAMPLE_RESUME, t.id)}
+          {/* ── RESUMES TAB ── */}
+          {showcaseTab === 'resumes' && (
+            <>
+              {/* Large resume carousel — 3 at a time, using zoom for no clipping */}
+              <div style={{ position: 'relative', overflow: 'hidden' }}>
+                <div style={{
+                  display: 'flex',
+                  transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
+                  transform: `translateX(-${carouselPage * 100}%)`,
+                }}>
+                  {Array.from({ length: Math.ceil(TEMPLATES.length / 3) }).map((_, pageIdx) => (
+                    <div key={pageIdx} style={{ display: 'flex', gap: 24, minWidth: '100%', justifyContent: 'center', padding: '0 4px', boxSizing: 'border-box' }}>
+                      {TEMPLATES.slice(pageIdx * 3, pageIdx * 3 + 3).map((t, i) => {
+                        const bgColors = ['#F5E6C8', '#FFFFFF', '#F0F0F0', '#E8F0FE', '#FFF3E0', '#E8F5E9', '#F3E5F5', '#FFF8E1', '#E0F2F1', '#FCE4EC', '#ECEFF1'];
+                        const globalIdx = pageIdx * 3 + i;
+                        return (
+                          <div key={t.id} className="showcase-card" style={{
+                            flex: '1 1 0',
+                            maxWidth: 380,
+                            background: bgColors[globalIdx % bgColors.length],
+                            borderRadius: 16,
+                            padding: '20px 14px 16px',
+                            boxShadow: '0 2px 16px rgba(0,0,0,0.06)',
+                            cursor: 'pointer',
+                          }}
+                            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                          >
+                            {/* Resume preview — zoom-based (no right-side clipping) */}
+                            <div style={{ background: '#FFFFFF', borderRadius: 6, overflow: 'hidden', boxShadow: '0 1px 4px rgba(0,0,0,0.08)' }}>
+                              <div style={{ width: 794, zoom: 0.44, pointerEvents: 'none' }}>
+                                {renderResumeHTML(SAMPLE_RESUME, t.id)}
+                              </div>
+                            </div>
                           </div>
-                        </div>
-                      </div>
-                    );
-                  })}
+                        );
+                      })}
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-          </div>
+              </div>
 
-          {/* Carousel dots */}
-          <div style={{ display: 'flex', justifyContent: 'center', gap: 10, marginTop: 32 }}>
-            {Array.from({ length: Math.ceil(TEMPLATES.length / 3) }).map((_, i) => (
-              <button
-                key={i}
-                type="button"
-                onClick={() => setCarouselPage(i)}
-                style={{
-                  width: 12, height: 12, borderRadius: '50%', border: 'none', cursor: 'pointer',
-                  background: carouselPage === i ? 'var(--text-primary)' : 'rgba(0,0,0,0.15)',
-                  transition: 'all 0.2s ease',
-                }}
-                aria-label={`Page ${i + 1}`}
-              />
-            ))}
-          </div>
+              {/* Carousel dots */}
+              <div style={{ display: 'flex', justifyContent: 'center', gap: 10, marginTop: 32 }}>
+                {Array.from({ length: Math.ceil(TEMPLATES.length / 3) }).map((_, i) => (
+                  <button key={i} type="button" onClick={() => setCarouselPage(i)}
+                    style={{ width: 12, height: 12, borderRadius: '50%', border: 'none', cursor: 'pointer', background: carouselPage === i ? 'var(--text-primary)' : 'rgba(0,0,0,0.15)', transition: 'all 0.2s ease' }}
+                    aria-label={`Page ${i + 1}`} />
+                ))}
+              </div>
+            </>
+          )}
+
+          {/* ── COVER LETTERS TAB ── */}
+          {showcaseTab === 'coverletters' && (
+            <div style={{ display: 'flex', gap: 24, justifyContent: 'center', flexWrap: 'wrap' }}>
+              {['Professional', 'Modern', 'Minimal'].map((style, i) => {
+                const bgColors = ['#F5E6C8', '#FFFFFF', '#F0F0F0'];
+                return (
+                  <div key={style} style={{
+                    flex: '1 1 0',
+                    maxWidth: 380,
+                    background: bgColors[i],
+                    borderRadius: 16,
+                    padding: '20px 14px 16px',
+                    boxShadow: '0 2px 16px rgba(0,0,0,0.06)',
+                    cursor: 'pointer',
+                  }}
+                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                  >
+                    <div style={{
+                      background: '#FFFFFF', borderRadius: 6, overflow: 'hidden', boxShadow: '0 1px 4px rgba(0,0,0,0.08)',
+                      padding: i === 1 ? '40px 48px' : '36px 44px',
+                      fontFamily: i === 2 ? 'Georgia, serif' : "'Inter', sans-serif",
+                      fontSize: 11, lineHeight: 1.7, color: '#1a1a1a',
+                      minHeight: 500,
+                    }}>
+                      {i === 1 && <div style={{ width: 40, height: 3, background: '#0A66C2', marginBottom: 24 }} />}
+                      <div style={{ whiteSpace: 'pre-line', fontSize: 11, lineHeight: 1.65 }}>
+                        {SAMPLE_COVER_LETTER}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
 
           <div style={{ textAlign: 'center', marginTop: 32 }}>
             <button type="button" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="pr-nav__cta" style={{ padding: '14px 36px', fontSize: 15 }}>
