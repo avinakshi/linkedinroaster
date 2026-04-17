@@ -40,8 +40,8 @@ function LiveCounter() {
   return null;
 }
 
-// ─── ScaledResume — zoom-based, tight fit ───
-function ScaledResume({ templateId, data }: { templateId: string; data: any }) {
+// ─── ScaledResume — fixed height preview, clips from top ───
+function ScaledResume({ templateId, data, previewHeight = 400 }: { templateId: string; data: any; previewHeight?: number }) {
   const outerRef = useRef<HTMLDivElement>(null);
   const [zoom, setZoom] = useState(0.39);
 
@@ -59,9 +59,13 @@ function ScaledResume({ templateId, data }: { templateId: string; data: any }) {
   }, []);
 
   return (
-    <div ref={outerRef} style={{ background: '#FFFFFF', borderRadius: 4, overflow: 'hidden' }}>
-      {/* Negative margin pulls up to remove template's internal bottom padding+margin */}
-      <div style={{ width: 794, zoom, pointerEvents: 'none', marginBottom: -50 }}>
+    <div ref={outerRef} style={{
+      background: '#FFFFFF',
+      borderRadius: 4,
+      overflow: 'hidden',
+      height: previewHeight,
+    }}>
+      <div style={{ width: 794, zoom, pointerEvents: 'none' }}>
         {renderResumeHTML(data, templateId)}
       </div>
     </div>
@@ -2205,12 +2209,24 @@ export default function Home() {
                           <div key={t.id} className="showcase-card" style={{
                             flex: '1 1 0',
                             maxWidth: 340,
+                            height: 460,
+                            display: 'flex',
+                            flexDirection: 'column',
                             background: bgs[(pageIdx * 3 + i) % bgs.length],
                             borderRadius: 20,
-                            padding: '20px 16px 16px',
+                            padding: '16px 14px 14px',
                             cursor: 'pointer',
                           }} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-                            <ScaledResume templateId={t.id} data={SAMPLE_RESUME} />
+                            <div style={{ flex: '0 0 340px', overflow: 'hidden', borderRadius: 8 }}>
+                              <ScaledResume templateId={t.id} data={SAMPLE_RESUME} previewHeight={340} />
+                            </div>
+                            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', paddingTop: 12 }}>
+                              <div>
+                                <div style={{ fontSize: 14, fontWeight: 700, color: '#0F172A' }}>{t.name}</div>
+                                <div style={{ fontSize: 11, color: '#64748B', marginTop: 2 }}>{t.category} &bull; ATS {t.ats === 'high' ? 'Friendly' : 'Compatible'}</div>
+                              </div>
+                              <div style={{ fontSize: 12, fontWeight: 600, color: '#3B82F6', marginTop: 8 }}>Use template &rarr;</div>
+                            </div>
                           </div>
                         );
                       })}
@@ -2229,13 +2245,23 @@ export default function Home() {
             </div>
 
             {/* Mobile: horizontal swipe */}
-            <div className="md:hidden" style={{ display: 'flex', gap: 16, overflowX: 'auto', padding: '0 16px 20px', scrollSnapType: 'x mandatory', WebkitOverflowScrolling: 'touch' }}>
+            <div className="md:hidden" style={{ display: 'flex', gap: 14, overflowX: 'auto', padding: '0 16px 20px', scrollSnapType: 'x mandatory', WebkitOverflowScrolling: 'touch' }}>
               {TEMPLATES.slice(0, 6).map((t, i) => {
                 const bgs = ['#E8D5A8', '#FFFFFF', '#E8E8E8', '#CADCF0', '#E8D5A8', '#C4DEC6'];
                 return (
-                  <div key={t.id} style={{ flex: '0 0 280px', scrollSnapAlign: 'center', background: bgs[i], borderRadius: 24, padding: '20px 16px 16px' }}
+                  <div key={t.id} style={{
+                    flex: '0 0 260px', scrollSnapAlign: 'center', background: bgs[i],
+                    borderRadius: 20, padding: '14px 12px 12px',
+                    height: 400, display: 'flex', flexDirection: 'column', cursor: 'pointer',
+                  }}
                     onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-                    <ScaledResume templateId={t.id} data={SAMPLE_RESUME} />
+                    <div style={{ flex: '0 0 300px', overflow: 'hidden', borderRadius: 6 }}>
+                      <ScaledResume templateId={t.id} data={SAMPLE_RESUME} previewHeight={300} />
+                    </div>
+                    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', paddingTop: 10 }}>
+                      <div style={{ fontSize: 13, fontWeight: 700, color: '#0F172A' }}>{t.name}</div>
+                      <div style={{ fontSize: 11, color: '#3B82F6', fontWeight: 600 }}>Use template &rarr;</div>
+                    </div>
                   </div>
                 );
               })}
