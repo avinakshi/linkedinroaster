@@ -2202,36 +2202,23 @@ export default function Home() {
         {/* ── RESUMES ── */}
         {showcaseTab === 'resumes' && (
           <>
-            {/* Desktop: full-width 3-card carousel */}
+            {/* Desktop: 3 large resume cards — full bleed, no labels */}
             <div className="hidden md:block">
-              <div style={{ position: 'relative', overflow: 'hidden', maxWidth: 1100, margin: '0 auto', padding: '0 24px' }}>
+              <div style={{ position: 'relative', overflow: 'hidden', maxWidth: 1300, margin: '0 auto', padding: '0 32px' }}>
                 <div style={{ display: 'flex', transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)', transform: `translateX(-${carouselPage * 100}%)` }}>
                   {Array.from({ length: Math.ceil(TEMPLATES.length / 3) }).map((_, pageIdx) => (
-                    <div key={pageIdx} style={{ display: 'flex', gap: 20, minWidth: '100%', justifyContent: 'center', boxSizing: 'border-box' }}>
+                    <div key={pageIdx} style={{ display: 'flex', gap: 28, minWidth: '100%', justifyContent: 'center', boxSizing: 'border-box' }}>
                       {TEMPLATES.slice(pageIdx * 3, pageIdx * 3 + 3).map((t, i) => {
-                        const bgs = ['#E8D5A8', '#FFFFFF', '#E8E8E8', '#CADCF0', '#E8D5A8', '#C4DEC6', '#DDD0E8', '#E8DCA8', '#C0E0E0', '#E8C4D0', '#D4D8DC'];
+                        const bgs = ['#E8D5A8', '#FFFFFF', '#EAEAEA', '#CADCF0', '#E8D5A8', '#C4DEC6', '#DDD0E8', '#E8DCA8', '#C0E0E0', '#E8C4D0', '#D4D8DC'];
                         return (
                           <div key={t.id} className="showcase-card" style={{
                             flex: '1 1 0',
-                            maxWidth: 340,
-                            height: 460,
-                            display: 'flex',
-                            flexDirection: 'column',
                             background: bgs[(pageIdx * 3 + i) % bgs.length],
-                            borderRadius: 20,
-                            padding: '16px 14px 14px',
+                            borderRadius: 24,
+                            padding: '28px 20px 24px',
                             cursor: 'pointer',
                           }} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-                            <div style={{ flex: '0 0 340px', overflow: 'hidden', borderRadius: 8 }}>
-                              <ScaledResume templateId={t.id} data={SAMPLE_RESUME} previewHeight={340} />
-                            </div>
-                            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', paddingTop: 12 }}>
-                              <div>
-                                <div style={{ fontSize: 14, fontWeight: 700, color: '#0F172A' }}>{t.name}</div>
-                                <div style={{ fontSize: 11, color: '#64748B', marginTop: 2 }}>{t.category} &bull; ATS {t.ats === 'high' ? 'Friendly' : 'Compatible'}</div>
-                              </div>
-                              <div style={{ fontSize: 12, fontWeight: 600, color: '#0D9488', marginTop: 8 }}>Use template &rarr;</div>
-                            </div>
+                            <ScaledResume templateId={t.id} data={SAMPLE_RESUME} previewHeight={560} />
                           </div>
                         );
                       })}
@@ -2243,30 +2230,23 @@ export default function Home() {
               <div style={{ display: 'flex', justifyContent: 'center', gap: 10, marginTop: 40 }}>
                 {Array.from({ length: Math.ceil(TEMPLATES.length / 3) }).map((_, i) => (
                   <button key={i} type="button" onClick={() => setCarouselPage(i)}
-                    style={{ width: 12, height: 12, borderRadius: '50%', border: 'none', cursor: 'pointer', background: carouselPage === i ? '#6B7280' : 'rgba(0,0,0,0.12)', transition: 'all 0.25s' }}
+                    style={{ width: 10, height: 10, borderRadius: '50%', border: 'none', cursor: 'pointer', background: carouselPage === i ? '#6B7280' : 'rgba(0,0,0,0.15)', transition: 'all 0.2s' }}
                     aria-label={`Page ${i + 1}`} />
                 ))}
               </div>
             </div>
 
-            {/* Mobile: horizontal swipe */}
-            <div className="md:hidden" style={{ display: 'flex', gap: 14, overflowX: 'auto', padding: '0 16px 20px', scrollSnapType: 'x mandatory', WebkitOverflowScrolling: 'touch' }}>
+            {/* Mobile: horizontal swipe — just resumes, no labels */}
+            <div className="md:hidden" style={{ display: 'flex', gap: 16, overflowX: 'auto', padding: '0 16px 20px', scrollSnapType: 'x mandatory', WebkitOverflowScrolling: 'touch' }}>
               {TEMPLATES.slice(0, 6).map((t, i) => {
-                const bgs = ['#E8D5A8', '#FFFFFF', '#E8E8E8', '#CADCF0', '#E8D5A8', '#C4DEC6'];
+                const bgs = ['#E8D5A8', '#FFFFFF', '#EAEAEA', '#CADCF0', '#E8D5A8', '#C4DEC6'];
                 return (
                   <div key={t.id} style={{
-                    flex: '0 0 260px', scrollSnapAlign: 'center', background: bgs[i],
-                    borderRadius: 20, padding: '14px 12px 12px',
-                    height: 400, display: 'flex', flexDirection: 'column', cursor: 'pointer',
+                    flex: '0 0 280px', scrollSnapAlign: 'center', background: bgs[i],
+                    borderRadius: 20, padding: '20px 14px 16px', cursor: 'pointer',
                   }}
                     onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-                    <div style={{ flex: '0 0 300px', overflow: 'hidden', borderRadius: 6 }}>
-                      <ScaledResume templateId={t.id} data={SAMPLE_RESUME} previewHeight={300} />
-                    </div>
-                    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', paddingTop: 10 }}>
-                      <div style={{ fontSize: 13, fontWeight: 700, color: '#0F172A' }}>{t.name}</div>
-                      <div style={{ fontSize: 11, color: '#0D9488', fontWeight: 600 }}>Use template &rarr;</div>
-                    </div>
+                    <ScaledResume templateId={t.id} data={SAMPLE_RESUME} previewHeight={420} />
                   </div>
                 );
               })}
