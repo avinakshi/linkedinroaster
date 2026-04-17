@@ -43,17 +43,28 @@ function LiveCounter() {
 // ─── ScaledResume — renders a resume template scaled to fit its container width ───
 function ScaledResume({ templateId, data }: { templateId: string; data: any }) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const innerRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(0);
+  const [contentHeight, setContentHeight] = useState(0);
 
   useEffect(() => {
     const el = containerRef.current;
+    const inner = innerRef.current;
     if (!el) return;
-    const measure = () => setScale(el.clientWidth / 794);
-    measure();
-    const ro = new ResizeObserver(() => measure());
+    const measure = () => {
+      const s = el.clientWidth / 794;
+      setScale(s);
+      if (inner) {
+        // Measure actual content height at full 794px width, then scale
+        setContentHeight(inner.scrollHeight * s);
+      }
+    };
+    // Delay to let content render
+    requestAnimationFrame(() => requestAnimationFrame(measure));
+    const ro = new ResizeObserver(() => requestAnimationFrame(measure));
     ro.observe(el);
     return () => ro.disconnect();
-  }, []);
+  }, [templateId]);
 
   return (
     <div
@@ -64,22 +75,23 @@ function ScaledResume({ templateId, data }: { templateId: string; data: any }) {
         overflow: 'hidden',
         boxShadow: '0 2px 12px rgba(0,0,0,0.06)',
         position: 'relative',
-        paddingBottom: '129.4%',
+        // Use measured content height if available, else fallback to A4 ratio
+        height: contentHeight > 0 ? contentHeight : undefined,
+        paddingBottom: contentHeight > 0 ? 0 : '129.4%',
       }}
     >
-      {scale > 0 && (
-        <div style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: 794,
-          transform: `scale(${scale})`,
-          transformOrigin: 'top left',
-          pointerEvents: 'none',
-        }}>
-          {renderResumeHTML(data, templateId)}
-        </div>
-      )}
+      <div ref={innerRef} style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: 794,
+        transform: scale > 0 ? `scale(${scale})` : 'scale(0.001)',
+        transformOrigin: 'top left',
+        pointerEvents: 'none',
+        opacity: scale > 0 ? 1 : 0,
+      }}>
+        {renderResumeHTML(data, templateId)}
+      </div>
     </div>
   );
 }
@@ -541,34 +553,41 @@ function pdfToResumeData(parsed: any): any {
 }
 
 
-// ─── Sample resume data for template gallery (rich Indian professional data to fill the full page) ───
+// ─── Sample resume data for template gallery ───
 const SAMPLE_RESUME = {
-  contact: { name: 'Ananya Sharma', email: 'ananya.sharma@gmail.com', phone: '98765-43210', location: 'Mumbai, India', linkedin: 'linkedin.com/in/ananya-sharma' },
-  summary: '7+ years of product management experience driving customer growth and engagement across fintech, e-commerce, and SaaS platforms. Increased monthly active users by 35%, revenue by ₹4.2 Cr, and customer retention by 28%. Led cross-functional teams of 15+ members to deliver products serving 2M+ users. Proven track record in data-driven decision making, agile methodologies, and stakeholder management.',
+  contact: { name: 'Ananya Sharma', email: 'ananya.sharma@gmail.com', phone: '98765-43210', location: 'Mumbai, India', linkedin: 'linkedin.com/in/ananya-sharma', website: 'ananyasharma.com' },
+  summary: '7+ years of product management experience driving customer growth and engagement across fintech, e-commerce, and SaaS platforms. Increased monthly active users by 35%, revenue by ₹4.2 Cr, and customer retention by 28%. Led cross-functional teams of 15+ members to deliver products serving 2M+ users. Proven track record in data-driven decision making, agile methodologies, and stakeholder management across B2B and B2C products.',
   experience: [
     { role: 'Senior Product Manager', company: 'Razorpay', location: 'Bangalore, India', dates: 'Jan 2022 - Present', bullets: [
       'Led product strategy for merchant onboarding platform, increasing conversion rate by 32% and reducing drop-off by 45% through data-driven UX improvements across web and mobile touchpoints.',
-      'Managed a cross-functional team of 12 engineers, 3 designers, and 2 analysts to deliver payment gateway features processing ₹500 Cr+ monthly transactions with 99.98% uptime SLA.',
-      'Spearheaded the launch of instant settlement feature for 50K+ merchants, driving ₹1.8 Cr incremental monthly revenue and reducing merchant churn by 18% within the first quarter.',
-      'Conducted 200+ customer interviews and analyzed behavioral data of 2M+ users to identify key pain points, resulting in a product roadmap that improved NPS score from 42 to 67.',
+      'Managed cross-functional team of 12 engineers, 3 designers, and 2 analysts to deliver payment gateway features processing ₹500 Cr+ monthly transactions with 99.98% uptime SLA.',
+      'Spearheaded launch of instant settlement feature for 50K+ merchants, driving ₹1.8 Cr incremental monthly revenue and reducing merchant churn by 18% within the first quarter.',
+      'Conducted 200+ customer interviews and analyzed behavioral data of 2M+ users to identify key pain points, resulting in a product roadmap that improved NPS from 42 to 67.',
     ] },
     { role: 'Product Manager', company: 'Flipkart', location: 'Bangalore, India', dates: 'Mar 2019 - Dec 2021', bullets: [
-      'Owned the seller analytics dashboard serving 150K+ sellers, implementing real-time insights that improved seller GMV by 22% and reduced support tickets by 35% through proactive alerts and recommendations.',
-      'Drove the launch of Flipkart Quick (90-minute delivery) in 8 cities, coordinating with logistics, warehouse, and engineering teams. Achieved 4.5-star rating and 40% repeat order rate within 6 months of launch.',
-      'Redesigned the checkout flow using A/B testing framework, reducing cart abandonment by 19% and increasing average order value by ₹240, translating to ₹12 Cr additional quarterly revenue.',
+      'Owned the seller analytics dashboard serving 150K+ sellers, implementing real-time insights that improved seller GMV by 22% and reduced support tickets by 35% through proactive alerts.',
+      'Drove the launch of Flipkart Quick (90-minute delivery) in 8 cities, coordinating logistics, warehouse, and engineering teams. Achieved 4.5-star rating and 40% repeat order rate within 6 months.',
+      'Redesigned checkout flow using A/B testing framework, reducing cart abandonment by 19% and increasing average order value by ₹240, translating to ₹12 Cr additional quarterly revenue.',
     ] },
     { role: 'Associate Product Manager', company: 'Freshworks', location: 'Chennai, India', dates: 'Jul 2017 - Feb 2019', bullets: [
-      'Built and launched the Freshdesk AI chatbot module from 0 to 1, achieving 60% ticket deflection rate for enterprise clients and winning the internal innovation award for best product launch of 2018.',
-      'Collaborated with sales and customer success teams to define pricing tiers for the new product line, contributing to ₹3.5 Cr ARR within the first year of launch across 200+ enterprise accounts.',
-      'Implemented product analytics tracking using Mixpanel and Amplitude, establishing a data-driven culture that reduced feature development cycle time by 25% through evidence-based prioritization.',
+      'Built and launched the Freshdesk AI chatbot module from 0 to 1, achieving 60% ticket deflection rate for enterprise clients and winning internal innovation award for best product launch of 2018.',
+      'Defined pricing tiers for new product line with sales and CS teams, contributing to ₹3.5 Cr ARR within the first year across 200+ enterprise accounts.',
+      'Implemented product analytics tracking using Mixpanel and Amplitude, reducing feature development cycle time by 25% through evidence-based prioritization.',
+    ] },
+    { role: 'Product Analyst Intern', company: 'Paytm', location: 'Noida, India', dates: 'Jan 2017 - Jun 2017', bullets: [
+      'Analyzed user behavior patterns across 5M+ monthly transactions to identify conversion bottlenecks in the merchant payment flow, presenting findings to VP Product.',
+      'Created weekly product dashboards using SQL and Tableau, tracking 15 KPIs that informed feature prioritization decisions for the payments team.',
     ] },
   ],
   education: [
     { degree: 'MBA Product Management', institution: 'IIM Bangalore', year: '2017', gpa: '8.4/10' },
     { degree: 'B.Tech Computer Science', institution: 'NIT Trichy', year: '2015', gpa: '8.9/10' },
   ],
-  skills: ['Product Strategy', 'Agile/Scrum', 'SQL & Data Analytics', 'A/B Testing', 'User Research', 'PRDs & Roadmaps', 'Jira & Confluence', 'Figma', 'Google Analytics', 'Mixpanel', 'Stakeholder Management', 'Go-to-Market Strategy', 'API Design', 'Python'],
-  achievements: ['Razorpay Star Performer Award 2023', 'Published in YourStory — "Building for Bharat"', 'ISB Product Leadership Fellowship 2022', 'Mentor at ProductFolks Community (500+ mentees)'],
+  skills: {
+    technical: ['SQL', 'Python', 'Jira', 'Confluence', 'Figma', 'Google Analytics', 'Mixpanel', 'Amplitude', 'Tableau', 'API Design'],
+    soft: ['Product Strategy', 'Agile/Scrum', 'A/B Testing', 'User Research', 'Stakeholder Management', 'Go-to-Market Strategy', 'PRDs & Roadmaps', 'Cross-functional Leadership'],
+  },
+  achievements: ['Razorpay Star Performer Award 2023', 'Published in YourStory — "Building for Bharat"', 'ISB Product Leadership Fellowship 2022', 'Mentor at ProductFolks Community (500+ mentees)', 'Google Analytics Certified Professional'],
 };
 
 // ─── Sample cover letter for Cover Letters tab ───
