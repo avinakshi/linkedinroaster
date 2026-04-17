@@ -1267,7 +1267,7 @@ export default function Home() {
               </p>
 
               {/* CTA Row */}
-              <div style={{ display: 'flex', gap: 16, marginTop: 40, flexWrap: 'wrap' }}>
+              <div style={{ display: 'flex', gap: 12, marginTop: 40, flexWrap: 'wrap' }}>
                 <button type="button" onClick={() => { const el = document.querySelector('.pr-upload-shell'); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' }); }} style={{ height: 56, padding: '0 28px', background: '#3B82F6', borderRadius: 16, color: 'white', fontSize: 16, fontWeight: 600, border: 'none', cursor: 'pointer', boxShadow: '0 8px 20px rgba(59, 130, 246, 0.3)', transition: 'all 0.2s' }}>
                   Analyze My Profile
                 </button>
@@ -1277,17 +1277,17 @@ export default function Home() {
               </div>
 
               {/* Trust metrics */}
-              <div style={{ display: 'flex', gap: 32, marginTop: 48, flexWrap: 'wrap' }}>
+              <div style={{ display: 'flex', gap: 24, marginTop: 36, flexWrap: 'wrap' }}>
                 <div>
-                  <div style={{ fontSize: 28, fontWeight: 800, color: '#0F172A' }}>2,400+</div>
+                  <div style={{ fontSize: 'clamp(20px, 4vw, 28px)', fontWeight: 800, color: '#0F172A' }}>2,400+</div>
                   <div style={{ fontSize: 13, color: '#64748B' }}>Resumes analyzed</div>
                 </div>
                 <div>
-                  <div style={{ fontSize: 28, fontWeight: 800, color: '#3B82F6' }}>+45 pts</div>
+                  <div style={{ fontSize: 'clamp(20px, 4vw, 28px)', fontWeight: 800, color: '#3B82F6' }}>+45 pts</div>
                   <div style={{ fontSize: 13, color: '#64748B' }}>Avg score improvement</div>
                 </div>
                 <div>
-                  <div style={{ fontSize: 28, fontWeight: 800, color: '#0F172A' }}>90 sec</div>
+                  <div style={{ fontSize: 'clamp(20px, 4vw, 28px)', fontWeight: 800, color: '#0F172A' }}>90 sec</div>
                   <div style={{ fontSize: 13, color: '#64748B' }}>Average delivery time</div>
                 </div>
               </div>
@@ -1835,9 +1835,9 @@ export default function Home() {
                 </div>
 
                 {/* Two profile cards */}
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 40px 1fr', gap: 0, alignItems: 'start' }}>
+                <div style={{ display: 'flex', gap: 12, alignItems: 'start', flexWrap: 'wrap' }}>
                   {/* Original Profile */}
-                  <div style={{ background: '#FAFAFA', borderRadius: 16, padding: '16px 18px', border: '1px solid #E5E7EB' }}>
+                  <div style={{ background: '#FAFAFA', borderRadius: 16, padding: '16px 18px', border: '1px solid #E5E7EB', flex: '1 1 280px', minWidth: 0 }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
                       <span style={{ fontSize: 11, fontWeight: 700, color: '#94A3B8', letterSpacing: 1 }}>ORIGINAL PROFILE</span>
                       <span style={{ padding: '3px 8px', background: '#FEE2E2', color: '#DC2626', borderRadius: 6, fontSize: 10, fontWeight: 700 }}>42/100</span>
@@ -1871,12 +1871,12 @@ export default function Home() {
                   </div>
 
                   {/* Arrow */}
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', paddingTop: 80 }}>
+                  <div className="hidden sm:flex" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', paddingTop: 80 }}>
                     <div style={{ width: 36, height: 36, borderRadius: '50%', background: '#3B82F6', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: 14, boxShadow: '0 4px 12px rgba(59,130,246,0.3)' }}>→</div>
                   </div>
 
                   {/* Optimized Profile */}
-                  <div style={{ background: '#FFFFFF', borderRadius: 16, padding: '16px 18px', border: '1px solid #D1FAE5', boxShadow: '0 4px 16px rgba(16,185,129,0.08)' }}>
+                  <div style={{ background: '#FFFFFF', borderRadius: 16, padding: '16px 18px', border: '1px solid #D1FAE5', boxShadow: '0 4px 16px rgba(16,185,129,0.08)', flex: '1 1 280px', minWidth: 0 }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
                       <span style={{ fontSize: 11, fontWeight: 700, color: '#15803D', letterSpacing: 1 }}>OPTIMIZED PROFILE</span>
                       <span style={{ padding: '3px 8px', background: '#DCFCE7', color: '#15803D', borderRadius: 6, fontSize: 10, fontWeight: 700 }}>87/100</span>
@@ -1909,13 +1909,13 @@ export default function Home() {
                 </div>
 
                 {/* Bottom metrics row */}
-                <div style={{ display: 'flex', gap: 12, marginTop: 16 }}>
+                <div style={{ display: 'flex', gap: 8, marginTop: 16, flexWrap: 'wrap' }}>
                   {[
                     { label: 'Recruiter Match', value: '+38%', color: '#3B82F6', bg: '#EFF6FF' },
                     { label: 'Keywords Added', value: '12', color: '#15803D', bg: '#F0FDF4' },
                     { label: 'Profile Strength', value: 'Strong', color: '#F59E0B', bg: '#FFFBEB' },
                   ].map((m, i) => (
-                    <div key={i} style={{ flex: 1, background: m.bg, borderRadius: 10, padding: '10px 12px', border: `1px solid ${m.color}20` }}>
+                    <div key={i} style={{ flex: '1 1 100px', minWidth: 0, background: m.bg, borderRadius: 10, padding: '10px 12px', border: `1px solid ${m.color}20` }}>
                       <div style={{ fontSize: 16, fontWeight: 800, color: m.color }}>{m.value}</div>
                       <div style={{ fontSize: 10, color: '#64748B', marginTop: 2 }}>{m.label}</div>
                     </div>
@@ -1942,7 +1942,7 @@ export default function Home() {
       </section>
 
       {/* ── Before / After Comparison ── */}
-      <section style={{ padding: '120px 0', background: '#F8FBFF' }}>
+      <section style={{ padding: 'clamp(60px, 10vw, 120px) 0', background: '#F8FBFF' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px' }}>
           <div style={{ textAlign: 'center', marginBottom: 64 }}>
             <div style={{ fontSize: 13, fontWeight: 700, color: '#3B82F6', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 12 }}>Real results</div>
@@ -1950,9 +1950,9 @@ export default function Home() {
             <p style={{ fontSize: 18, color: '#64748B', marginTop: 12, maxWidth: 560, margin: '12px auto 0' }}>Same person. Same experience. Completely different impression.</p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr auto 1fr', gap: 24, maxWidth: 1000, margin: '0 auto', alignItems: 'start' }}>
+          <div style={{ display: 'flex', gap: 20, maxWidth: 1000, margin: '0 auto', alignItems: 'start', flexWrap: 'wrap', justifyContent: 'center' }}>
             {/* Before */}
-            <div style={{ opacity: 0.85 }}>
+            <div style={{ opacity: 0.85, flex: '1 1 400px', minWidth: 280 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16, padding: '0 4px' }}>
                 <span style={{ fontSize: 16, fontWeight: 700, color: '#DC2626' }}>Before</span>
                 <span style={{ padding: '4px 12px', background: '#FEE2E2', color: '#DC2626', borderRadius: 999, fontSize: 12, fontWeight: 700 }}>Score: 38/100</span>
@@ -1982,7 +1982,7 @@ export default function Home() {
             </div>
 
             {/* Arrow */}
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', paddingTop: 200 }}>
+            <div className="hidden md:flex" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', paddingTop: 200 }}>
               <div style={{ width: 48, height: 48, borderRadius: '50%', background: '#3B82F6', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 8px 20px rgba(59,130,246,0.3)', fontSize: 18, color: 'white' }}>&rarr;</div>
               <div style={{ textAlign: 'center', marginTop: 8, fontSize: 11, fontWeight: 700 }}>
                 <span style={{ color: '#DC2626' }}>42</span>
@@ -1992,7 +1992,7 @@ export default function Home() {
             </div>
 
             {/* After */}
-            <div>
+            <div style={{ flex: '1 1 400px', minWidth: 280 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16, padding: '0 4px' }}>
                 <span style={{ fontSize: 16, fontWeight: 700, color: '#15803D' }}>After</span>
                 <span style={{ padding: '4px 12px', background: '#DCFCE7', color: '#15803D', borderRadius: 999, fontSize: 12, fontWeight: 700 }}>Score: 87/100</span>
@@ -2059,6 +2059,7 @@ export default function Home() {
                           <div key={t.id} className="showcase-card" style={{
                             flex: '1 1 0',
                             maxWidth: 380,
+                            minWidth: 280,
                             background: bgColors[globalIdx % bgColors.length],
                             borderRadius: 16,
                             padding: '20px 14px 16px',
@@ -2565,13 +2566,13 @@ export default function Home() {
           </section>
 
           {/* ── Everything You Need ── */}
-          <section style={{ padding: '120px 0', background: 'white', borderBottom: '1px solid #E5E7EB' }}>
+          <section style={{ padding: 'clamp(60px, 10vw, 120px) 0', background: 'white', borderBottom: '1px solid #E5E7EB' }}>
             <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px' }}>
               <div style={{ textAlign: 'center', marginBottom: 64 }}>
                 <div style={{ fontSize: 13, fontWeight: 700, color: '#3B82F6', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 12 }}>Features</div>
                 <h2 style={{ fontSize: 40, fontWeight: 700, color: '#0F172A', letterSpacing: '-0.02em' }}>Everything You Need to Land Interviews</h2>
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 24 }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 24 }}>
                 {/* Card 1: Headline Rewrite */}
                 <div style={{ background: 'white', borderRadius: 24, padding: 28, border: '1px solid #E5E7EB', boxShadow: '0 10px 30px rgba(15,23,42,0.08)' }}>
                   <div style={{ background: '#F8FAFC', borderRadius: 16, padding: '20px', marginBottom: 20, border: '1px solid #E5E7EB' }}>
@@ -2626,13 +2627,13 @@ export default function Home() {
           </section>
 
           {/* ── How It Works ── */}
-          <section id="how-it-works" style={{ padding: '120px 0', background: '#F8FBFF', borderBottom: '1px solid #E5E7EB' }}>
+          <section id="how-it-works" style={{ padding: 'clamp(60px, 10vw, 120px) 0', background: '#F8FBFF', borderBottom: '1px solid #E5E7EB' }}>
             <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px' }}>
               <div style={{ textAlign: 'center', marginBottom: 64 }}>
                 <div style={{ fontSize: 13, fontWeight: 700, color: '#3B82F6', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 12 }}>Simple process</div>
                 <h2 style={{ fontSize: 40, fontWeight: 700, color: '#0F172A', letterSpacing: '-0.02em' }}>How It Works</h2>
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 32, maxWidth: 1080, margin: '0 auto' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 32, maxWidth: 1080, margin: '0 auto' }}>
                 {[
                   { num: '01', icon: '📄', title: 'Upload Your Resume', desc: 'Drop your resume PDF/DOCX or LinkedIn PDF. Or fill a quick questionnaire — takes 2 minutes.', preview: 'Drag & drop your file here' },
                   { num: '02', icon: '🤖', title: 'AI Analyzes & Rewrites', desc: 'Our AI scores your profile, identifies weak spots, rewrites your headline, about, and experience bullets.', preview: 'Analyzing 14 keywords...' },
@@ -2753,7 +2754,7 @@ export default function Home() {
           </section>
 
           {/* ── FAQ ── */}
-          <section id="faq" style={{ padding: '120px 0', background: 'var(--bg-surface)', borderBottom: '1px solid var(--border-default)' }}>
+          <section id="faq" style={{ padding: 'clamp(60px, 10vw, 120px) 0', background: 'var(--bg-surface)', borderBottom: '1px solid var(--border-default)' }}>
             <div className="landing-section" style={{ maxWidth: 720 }}>
               <div style={{ textAlign: 'center', marginBottom: 48 }}>
                 <div style={{ fontSize: 13, fontWeight: 700, color: '#3B82F6', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 12 }}>FAQ</div>
@@ -2791,7 +2792,7 @@ export default function Home() {
           </section>
 
           {/* ── Testimonials ── */}
-          <section style={{ padding: '120px 0', background: 'white', borderBottom: '1px solid #E5E7EB' }}>
+          <section style={{ padding: 'clamp(60px, 10vw, 120px) 0', background: 'white', borderBottom: '1px solid #E5E7EB' }}>
             <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px' }}>
               <div style={{ textAlign: 'center', marginBottom: 64 }}>
                 <div style={{ fontSize: 13, fontWeight: 700, color: '#3B82F6', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 12 }}>Testimonials</div>
@@ -2864,7 +2865,7 @@ export default function Home() {
           </section>
 
           {/* ── Final CTA ── */}
-          <section style={{ padding: '120px 0', background: '#F8FBFF' }}>
+          <section style={{ padding: 'clamp(60px, 10vw, 120px) 0', background: '#F8FBFF' }}>
             <div style={{ maxWidth: 1000, margin: '0 auto', padding: '0 24px' }}>
               <div style={{ background: 'linear-gradient(135deg, #3B82F6, #1D4ED8)', borderRadius: 32, padding: '80px 48px', textAlign: 'center', boxShadow: '0 20px 50px rgba(15,23,42,0.15)' }}>
                 <h2 style={{ fontSize: 36, fontWeight: 700, color: 'white', marginBottom: 16, letterSpacing: '-0.02em' }}>Ready to Transform Your LinkedIn Profile?</h2>
