@@ -1860,7 +1860,7 @@ export default function Home() {
                 {/* Two profile cards */}
                 <div style={{ display: 'flex', gap: 12, alignItems: 'stretch' }}>
                   {/* Original Profile — faded */}
-                  <div style={{ flex: '0 0 42%', background: '#F3F4F6', borderRadius: 12, padding: '14px 16px', border: '1px solid #D1D5DB', opacity: 0.75, position: 'relative' }}>
+                  <div style={{ flex: '0 0 38%', background: '#F0F0F0', borderRadius: 12, padding: '12px 14px', border: '1px solid #D1D5DB', opacity: 0.6, position: 'relative', filter: 'grayscale(0.3)' }}>
                     <div style={{ position: 'absolute', top: 8, right: 8, padding: '2px 6px', background: '#FEE2E2', color: '#DC2626', borderRadius: 4, fontSize: 8, fontWeight: 700 }}>NEEDS WORK</div>
                     <div style={{ fontSize: 9, fontWeight: 700, color: '#94A3B8', letterSpacing: 1, marginBottom: 8 }}>ORIGINAL PROFILE</div>
                     <div style={{ height: 3, background: '#E2E8F0', borderRadius: 2, marginBottom: 10 }}><div style={{ height: '100%', width: '42%', background: '#F87171', borderRadius: 2 }} /></div>
@@ -1893,10 +1893,15 @@ export default function Home() {
                   </div>
 
                   {/* Optimized Profile — dominant */}
-                  <div style={{ flex: '0 0 50%', background: 'white', borderRadius: 12, padding: '14px 16px', border: '1.5px solid #86EFAC', boxShadow: '0 8px 28px rgba(16,185,129,0.12)', position: 'relative' }}>
+                  <div style={{ flex: '0 0 54%', background: 'white', borderRadius: 14, padding: '16px 18px', border: '2px solid #86EFAC', boxShadow: '0 12px 36px rgba(16,185,129,0.16), 0 0 0 4px rgba(134,239,172,0.1)', position: 'relative' }}>
                     <div style={{ position: 'absolute', top: 8, right: 8, padding: '2px 6px', background: '#DCFCE7', color: '#15803D', borderRadius: 4, fontSize: 8, fontWeight: 700 }}>✓ OPTIMIZED</div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
                       <span style={{ fontSize: 9, fontWeight: 700, color: '#15803D', letterSpacing: 1 }}>OPTIMIZED PROFILE</span>
+                      <svg width="36" height="36" style={{ flexShrink: 0 }}>
+                        <circle cx="18" cy="18" r="14" fill="none" stroke="#E5E7EB" strokeWidth="3" />
+                        <circle cx="18" cy="18" r="14" fill="none" stroke="#34D399" strokeWidth="3" strokeDasharray={`${0.87 * 2 * Math.PI * 14} ${2 * Math.PI * 14}`} strokeLinecap="round" transform="rotate(-90 18 18)" />
+                        <text x="18" y="19" textAnchor="middle" fontSize="8" fontWeight="800" fill="#15803D" dominantBaseline="middle" fontFamily="Inter">87</text>
+                      </svg>
                     </div>
                     <div style={{ height: 3, background: '#E5E7EB', borderRadius: 2, marginBottom: 10 }}><div style={{ height: '100%', width: '87%', background: '#34D399', borderRadius: 2 }} /></div>
                     <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginBottom: 8 }}>
@@ -2705,55 +2710,67 @@ export default function Home() {
       {!teaser && (
         <>
           {/* ── Why Your Profile Isn't Working ── */}
-          <section style={{ padding: '88px 0', background: '#0F172A', color: 'white' }}>
-            <div className="landing-section" style={{ maxWidth: 1000 }}>
+          <section style={{ padding: 'clamp(60px, 10vw, 120px) 0', background: '#0F172A', color: 'white' }}>
+            <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 24px' }}>
               <div style={{ textAlign: 'center', marginBottom: 48 }}>
                 <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: 2, textTransform: 'uppercase', color: '#FF5A5F', marginBottom: 10 }}>The harsh truth</div>
-                <h2 style={{ fontSize: 32, fontWeight: 800, letterSpacing: '-0.02em', lineHeight: 1.2 }}>Why Recruiters Skip Your Profile</h2>
-                <p style={{ fontSize: 16, color: '#94A3B8', marginTop: 12, maxWidth: 560, margin: '12px auto 0' }}>Sound familiar? Here&apos;s what&apos;s killing your chances.</p>
+                <h2 style={{ fontSize: 'clamp(24px, 4vw, 36px)', fontWeight: 800, letterSpacing: '-0.02em', lineHeight: 1.2 }}>Why Recruiters Skip Your Profile</h2>
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 24 }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 20 }}>
                 {[
                   {
-                    title: 'The Buzzword Resume',
-                    bad: '"Passionate results-driven professional seeking to leverage synergies..."',
-                    roast: 'You sound like every rejected MBA application from 2019.',
-                    fix: '"Product Manager who grew DAU from 12K to 180K at a Series B fintech."',
+                    title: 'The Buzzword Headline',
+                    bad: 'Passionate results-driven professional seeking to leverage synergies',
+                    good: 'Product Manager who grew DAU from 12K to 180K at a Series B fintech',
                     color: '#FF5A5F',
                   },
                   {
                     title: 'The Keyword Dump',
-                    bad: '"Python | Java | AWS | Docker | SQL | Agile | Seeking opportunities"',
-                    roast: 'A list of tools is not a headline. Recruiters want outcomes, not a tech stack.',
-                    fix: '"Backend Engineer | Reduced API latency 62% across a 3M-user SaaS platform"',
+                    bad: 'Python | Java | AWS | Docker | SQL | Agile | Seeking opportunities',
+                    good: 'Backend Engineer | Reduced API latency 62% across a 3M-user SaaS platform',
                     color: '#F59E0B',
                   },
                   {
-                    title: 'The Invisible About',
-                    bad: '"I am a hard-working individual with excellent communication skills and a can-do attitude."',
-                    roast: 'So is literally everyone. This tells a recruiter nothing about what you actually did.',
-                    fix: '"Led 8-person engineering team shipping ₹4.2Cr revenue features. IIT Delhi \'18. 3 promotions in 4 years."',
+                    title: 'The Generic About',
+                    bad: 'Hard-working individual with excellent communication skills and a can-do attitude',
+                    good: 'Led 8-person engineering team shipping ₹4.2Cr revenue features. 3 promotions in 4 years.',
                     color: '#7C3AED',
                   },
                 ].map((card, i) => (
-                  <div key={i} style={{ background: '#1E293B', borderRadius: 16, padding: '28px 24px', border: '1px solid #334155' }}>
-                    <div style={{ fontSize: 14, fontWeight: 700, color: card.color, marginBottom: 16 }}>{card.title}</div>
-                    <div style={{ background: '#0F172A', borderRadius: 8, padding: '14px 16px', marginBottom: 12, borderLeft: '3px solid #DC2626' }}>
-                      <div style={{ fontSize: 10, fontWeight: 700, color: '#DC2626', letterSpacing: 1, marginBottom: 6 }}>THE PROBLEM</div>
-                      <div style={{ fontSize: 13, color: '#CBD5E1', fontStyle: 'italic', lineHeight: 1.5 }}>{card.bad}</div>
-                    </div>
-                    <div style={{ fontSize: 13, color: '#94A3B8', marginBottom: 12, lineHeight: 1.5 }}>
-                      <span style={{ color: card.color, fontWeight: 600 }}>Why it fails:</span> {card.roast}
-                    </div>
-                    <div style={{ background: '#0F172A', borderRadius: 8, padding: '14px 16px', borderLeft: '3px solid #10B981' }}>
-                      <div style={{ fontSize: 10, fontWeight: 700, color: '#10B981', letterSpacing: 1, marginBottom: 6 }}>THE FIX</div>
-                      <div style={{ fontSize: 13, color: '#D1FAE5', fontWeight: 500, lineHeight: 1.5 }}>{card.fix}</div>
+                  <div key={i} style={{ background: '#1E293B', borderRadius: 16, padding: '24px 20px', border: '1px solid #334155' }}>
+                    <div style={{ fontSize: 13, fontWeight: 700, color: card.color, marginBottom: 16 }}>{card.title}</div>
+                    {/* Side-by-side mini UI */}
+                    <div style={{ display: 'flex', gap: 8, marginBottom: 8 }}>
+                      {/* Bad */}
+                      <div style={{ flex: 1, background: '#0F172A', borderRadius: 10, padding: '12px', border: '1px solid #DC262640' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 8 }}>
+                          <div style={{ width: 20, height: 20, borderRadius: '50%', background: '#374151' }} />
+                          <div style={{ height: 6, background: '#374151', borderRadius: 3, flex: 1 }} />
+                        </div>
+                        <div style={{ fontSize: 10, color: '#EF4444', textDecoration: 'line-through', lineHeight: 1.5, opacity: 0.8 }}>{card.bad}</div>
+                        <div style={{ marginTop: 8, display: 'flex', gap: 4 }}>
+                          <span style={{ padding: '1px 4px', background: '#DC262620', color: '#F87171', borderRadius: 3, fontSize: 7, fontWeight: 600 }}>⚠ Generic</span>
+                          <span style={{ padding: '1px 4px', background: '#DC262620', color: '#F87171', borderRadius: 3, fontSize: 7, fontWeight: 600 }}>⚠ No metrics</span>
+                        </div>
+                      </div>
+                      {/* Good */}
+                      <div style={{ flex: 1, background: '#0F172A', borderRadius: 10, padding: '12px', border: '1px solid #10B98140' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 8 }}>
+                          <div style={{ width: 20, height: 20, borderRadius: '50%', background: 'linear-gradient(135deg, #3B82F6, #1D4ED8)' }} />
+                          <div style={{ height: 6, background: '#34D399', borderRadius: 3, flex: 1 }} />
+                        </div>
+                        <div style={{ fontSize: 10, color: '#A7F3D0', fontWeight: 600, lineHeight: 1.5 }}><span style={{ background: '#10B98130', padding: '1px 3px', borderRadius: 2 }}>{card.good}</span></div>
+                        <div style={{ marginTop: 8, display: 'flex', gap: 4 }}>
+                          <span style={{ padding: '1px 4px', background: '#10B98120', color: '#34D399', borderRadius: 3, fontSize: 7, fontWeight: 600 }}>✓ Quantified</span>
+                          <span style={{ padding: '1px 4px', background: '#10B98120', color: '#34D399', borderRadius: 3, fontSize: 7, fontWeight: 600 }}>✓ ATS Ready</span>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 ))}
               </div>
-              <div style={{ textAlign: 'center', marginTop: 40 }}>
-                <button type="button" onClick={() => (document.querySelector('.pr-hero') as HTMLElement)?.scrollIntoView({ behavior: 'smooth' })} style={{ background: '#FF5A5F', color: 'white', fontSize: 16, fontWeight: 700, padding: '16px 36px', borderRadius: 999, border: 'none', cursor: 'pointer', boxShadow: '0 4px 20px rgba(255,90,95,0.3)' }}>
+              <div style={{ textAlign: 'center', marginTop: 36 }}>
+                <button type="button" onClick={() => (document.querySelector('.pr-hero') as HTMLElement)?.scrollIntoView({ behavior: 'smooth' })} style={{ background: '#3B82F6', color: 'white', fontSize: 15, fontWeight: 600, padding: '14px 32px', borderRadius: 14, border: 'none', cursor: 'pointer', boxShadow: '0 6px 20px rgba(59,130,246,0.3)' }}>
                   Find Out What&rsquo;s Wrong With Yours &rarr;
                 </button>
               </div>
