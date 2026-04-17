@@ -55,9 +55,11 @@ export default function TemplatePickerModal({ isOpen, onClose, selectedId, resum
                 onClick={() => { onSelect(t.id); onClose(); }}
               >
                 {/* A4 scaled preview */}
-                <div style={{ height: 226, overflow: 'hidden', position: 'relative', background: 'var(--bg-canvas)' }}>
-                  <div style={{ width: 794, height: 1122, transform: 'scale(0.2013)', transformOrigin: 'top left', pointerEvents: 'none' }}>
-                    {renderResumeHTML(resumeData, t.id)}
+                <div style={{ overflow: 'hidden', position: 'relative', background: 'var(--bg-canvas)', paddingBottom: '129.4%' }}>
+                  <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}>
+                    <div style={{ width: 794, transform: 'scale(0.2013)', transformOrigin: 'top left', pointerEvents: 'none' }}>
+                      {renderResumeHTML(resumeData, t.id)}
+                    </div>
                   </div>
                   {selectedId === t.id && (
                     <div style={{ position: 'absolute', top: 8, right: 8, width: 22, height: 22, borderRadius: '50%', background: 'var(--accent)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 2 }}>

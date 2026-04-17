@@ -37,7 +37,52 @@ function ScoreBadge({ score }: { score: number }) {
 
 // ─── LiveCounter ───
 function LiveCounter() {
-  return null; // Removed — will enable when we have real user data
+  return null;
+}
+
+// ─── ScaledResume — renders a resume template scaled to fit its container width ───
+function ScaledResume({ templateId, data }: { templateId: string; data: any }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState(0);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const measure = () => setScale(el.clientWidth / 794);
+    measure();
+    const ro = new ResizeObserver(() => measure());
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={containerRef}
+      style={{
+        background: '#FFFFFF',
+        borderRadius: 6,
+        overflow: 'hidden',
+        boxShadow: '0 1px 4px rgba(0,0,0,0.08)',
+        position: 'relative',
+        /* A4 aspect ratio: height = width * (11/8.5) = width * 1.294 */
+        paddingBottom: '129.4%',
+      }}
+    >
+      {scale > 0 && (
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: 794,
+          transform: `scale(${scale})`,
+          transformOrigin: 'top left',
+          pointerEvents: 'none',
+        }}>
+          {renderResumeHTML(data, templateId)}
+        </div>
+      )}
+    </div>
+  );
 }
 
 // ─── Referral Code Redeemer ───
@@ -1810,12 +1855,7 @@ export default function Home() {
                           }}
                             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                           >
-                            {/* Resume preview — zoom-based (no right-side clipping) */}
-                            <div style={{ background: '#FFFFFF', borderRadius: 6, overflow: 'hidden', boxShadow: '0 1px 4px rgba(0,0,0,0.08)' }}>
-                              <div style={{ width: 794, zoom: 0.44, pointerEvents: 'none' }}>
-                                {renderResumeHTML(SAMPLE_RESUME, t.id)}
-                              </div>
-                            </div>
+                            <ScaledResume templateId={t.id} data={SAMPLE_RESUME} />
                           </div>
                         );
                       })}
