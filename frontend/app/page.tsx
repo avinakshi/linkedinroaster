@@ -1251,21 +1251,22 @@ export default function Home() {
 
             {/* LEFT — Value Proposition */}
             <div style={{ flex: '1 1 420px', minWidth: 0, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-              {/* Badge */}
-              <div style={{ display: 'inline-flex', alignItems: 'center', height: 36, padding: '0 16px', background: '#F0FDFA', borderRadius: 999, fontSize: 13, fontWeight: 600, color: '#0D9488', marginBottom: 24, alignSelf: 'flex-start' }}>
-                AI-Powered LinkedIn Optimization
+              {/* Live status pill */}
+              <div className="pr-eyebrow" style={{ alignSelf: 'flex-start' }}>
+                <span style={{ color: 'var(--accent-deep)' }}>1,247 profiles roasted today</span>
               </div>
 
-              <h1 style={{ fontSize: 'clamp(36px, 5vw, 64px)', fontWeight: 700, lineHeight: 1.05, color: '#0F172A', maxWidth: 520, margin: 0, letterSpacing: '-0.02em' }}>
-                Improve Your LinkedIn Profile in Minutes
+              <h1 className="pr-hero__title" style={{ maxWidth: 620 }}>
+                Stop getting ghosted.<br />
+                <span className="pr-hero__title-accent">Upgrade your profile</span> in 90 seconds.
               </h1>
 
-              <p style={{ fontSize: 'clamp(15px, 3.5vw, 20px)', lineHeight: 1.7, color: '#64748B', maxWidth: 500, marginTop: 24 }}>
-                Upload your resume or LinkedIn PDF. Get an instant AI score, complete profile rewrite, ATS resume, and interview prep — all in under 3 minutes.
+              <p style={{ fontSize: 'clamp(16px, 2.4vw, 19px)', lineHeight: 1.6, color: 'var(--text-secondary)', maxWidth: 540, margin: '0 0 8px' }}>
+                Upload your resume or LinkedIn PDF. AI scores it, rewrites every line, builds your ATS resume, and preps you for interviews — for less than a coffee at Starbucks.
               </p>
 
-              {/* CTA Row — single primary: opens file picker on click */}
-              <div style={{ display: 'flex', gap: 12, marginTop: 'clamp(24px, 5vw, 40px)', flexWrap: 'wrap', alignItems: 'center' }}>
+              {/* CTA row */}
+              <div style={{ display: 'flex', gap: 14, marginTop: 'clamp(28px, 5vw, 40px)', flexWrap: 'wrap', alignItems: 'center' }}>
                 <button
                   type="button"
                   onClick={() => {
@@ -1274,10 +1275,20 @@ export default function Home() {
                     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     requestAnimationFrame(() => resumeInputRef.current?.click());
                   }}
-                  style={{ height: 56, padding: '0 32px', background: 'var(--accent)', borderRadius: 16, color: 'white', fontSize: 16, fontWeight: 700, border: 'none', cursor: 'pointer', boxShadow: '0 8px 20px rgba(13, 148, 136, 0.32)', transition: 'transform 0.15s, box-shadow 0.15s', letterSpacing: '-0.01em' }}
-                  onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-1px)'; e.currentTarget.style.boxShadow = '0 12px 28px rgba(13, 148, 136, 0.38)'; }}
-                  onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 8px 20px rgba(13, 148, 136, 0.32)'; }}
+                  style={{
+                    height: 60, padding: '0 32px',
+                    background: 'linear-gradient(135deg, #0F766E 0%, #0D9488 50%, #14B8A6 100%)',
+                    borderRadius: 14, color: 'white', fontSize: 16, fontWeight: 600,
+                    border: 'none', cursor: 'pointer',
+                    boxShadow: '0 1px 0 rgba(255,255,255,0.4) inset, 0 10px 24px -6px rgba(13, 148, 136, 0.45), 0 4px 8px rgba(13, 148, 136, 0.18)',
+                    transition: 'transform 0.18s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.18s',
+                    letterSpacing: '-0.01em',
+                    display: 'inline-flex', alignItems: 'center', gap: 10,
+                  }}
+                  onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 1px 0 rgba(255,255,255,0.4) inset, 0 16px 36px -8px rgba(13, 148, 136, 0.55), 0 6px 12px rgba(13, 148, 136, 0.22)'; }}
+                  onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 1px 0 rgba(255,255,255,0.4) inset, 0 10px 24px -6px rgba(13, 148, 136, 0.45), 0 4px 8px rgba(13, 148, 136, 0.18)'; }}
                 >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="17 8 12 3 7 8" /><line x1="12" y1="3" x2="12" y2="15" /></svg>
                   Upload Resume — Free Score
                 </button>
                 <button
@@ -1288,30 +1299,68 @@ export default function Home() {
                     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     requestAnimationFrame(() => pdfInputRef.current?.click());
                   }}
-                  style={{ height: 56, padding: '0 4px', background: 'transparent', border: 'none', color: 'var(--text-secondary)', fontSize: 14, fontWeight: 600, cursor: 'pointer', textDecoration: 'underline', textUnderlineOffset: 4 }}
+                  style={{
+                    height: 60, padding: '0 22px',
+                    background: 'rgba(255, 255, 255, 0.6)',
+                    backdropFilter: 'blur(8px)',
+                    WebkitBackdropFilter: 'blur(8px)',
+                    border: '1px solid rgba(15, 23, 42, 0.08)',
+                    borderRadius: 14, color: 'var(--text-primary)', fontSize: 15, fontWeight: 600,
+                    cursor: 'pointer',
+                    transition: 'all 0.15s',
+                    display: 'inline-flex', alignItems: 'center', gap: 8,
+                  }}
+                  onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255, 255, 255, 0.95)'; e.currentTarget.style.borderColor = 'rgba(13, 148, 136, 0.4)'; }}
+                  onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255, 255, 255, 0.6)'; e.currentTarget.style.borderColor = 'rgba(15, 23, 42, 0.08)'; }}
                 >
-                  or upload LinkedIn PDF
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>
+                  LinkedIn PDF
                 </button>
               </div>
-              <div style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: 12, display: 'flex', alignItems: 'center', gap: 6 }}>
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg>
-                No signup. Encrypted upload. Free score in 90 seconds.
+
+              {/* Micro trust line */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginTop: 18, flexWrap: 'wrap' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, color: 'var(--text-secondary)' }}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg>
+                  Encrypted
+                </div>
+                <div style={{ width: 4, height: 4, borderRadius: '50%', background: 'var(--text-muted)' }} />
+                <div style={{ fontSize: 13, color: 'var(--text-secondary)' }}>No signup</div>
+                <div style={{ width: 4, height: 4, borderRadius: '50%', background: 'var(--text-muted)' }} />
+                <div style={{ fontSize: 13, color: 'var(--text-secondary)' }}>Free score in 90s</div>
               </div>
 
-              {/* Trust metrics */}
-              <div style={{ display: 'flex', gap: 24, marginTop: 36, flexWrap: 'wrap' }}>
-                <div>
-                  <div style={{ fontSize: 'clamp(20px, 4vw, 28px)', fontWeight: 800, color: '#0F172A' }}>2,400+</div>
-                  <div style={{ fontSize: 13, color: '#64748B' }}>Resumes analyzed</div>
-                </div>
-                <div>
-                  <div style={{ fontSize: 'clamp(20px, 4vw, 28px)', fontWeight: 800, color: '#0D9488' }}>+45 pts</div>
-                  <div style={{ fontSize: 13, color: '#64748B' }}>Avg score improvement</div>
-                </div>
-                <div>
-                  <div style={{ fontSize: 'clamp(20px, 4vw, 28px)', fontWeight: 800, color: '#0F172A' }}>90 sec</div>
-                  <div style={{ fontSize: 13, color: '#64748B' }}>Average delivery time</div>
-                </div>
+              {/* Modern stat cards */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))', gap: 12, marginTop: 40, maxWidth: 520 }}>
+                {[
+                  { value: '2,400+', label: 'Resumes analyzed', accent: false },
+                  { value: '+45', label: 'Avg score lift', suffix: 'pts', accent: true },
+                  { value: '90s', label: 'Median delivery', accent: false },
+                ].map(s => (
+                  <div key={s.label} style={{
+                    background: 'rgba(255, 255, 255, 0.55)',
+                    backdropFilter: 'blur(10px)',
+                    WebkitBackdropFilter: 'blur(10px)',
+                    border: '1px solid rgba(15, 23, 42, 0.06)',
+                    borderRadius: 14,
+                    padding: '14px 16px',
+                  }}>
+                    <div style={{
+                      fontSize: 'clamp(22px, 3vw, 28px)',
+                      fontWeight: 800,
+                      letterSpacing: '-0.025em',
+                      color: s.accent ? 'transparent' : 'var(--text-primary)',
+                      backgroundImage: s.accent ? 'var(--gradient-text)' : 'none',
+                      WebkitBackgroundClip: s.accent ? 'text' : 'unset',
+                      backgroundClip: s.accent ? 'text' : 'unset',
+                      lineHeight: 1.1,
+                    }}>
+                      {s.value}
+                      {s.suffix && <span style={{ fontSize: '0.55em', fontWeight: 600, marginLeft: 3, color: 'var(--text-muted)', background: 'none', WebkitTextFillColor: 'var(--text-muted)' }}>{s.suffix}</span>}
+                    </div>
+                    <div style={{ fontSize: 12, color: 'var(--text-secondary)', marginTop: 4, fontWeight: 500 }}>{s.label}</div>
+                  </div>
+                ))}
               </div>
             </div>
 
@@ -1426,25 +1475,46 @@ export default function Home() {
                             onDragOver={(e) => { e.preventDefault(); setResumeDragOver(true); }}
                             onDragLeave={(e) => { e.preventDefault(); setResumeDragOver(false); }}
                             style={{
-                              border: `1.5px dashed ${resumeDragOver ? 'var(--accent)' : resumeParsed ? 'var(--success)' : '#CBD5E1'}`,
-                              borderRadius: 12, padding: 28, textAlign: 'center', marginBottom: 12,
-                              background: resumeDragOver ? '#F0F7FF' : resumeParsed ? '#F0FDF4' : '#FAFBFC',
-                              cursor: resumeUploading ? 'wait' : 'pointer', transition: 'all 0.2s',
+                              position: 'relative',
+                              border: `2px dashed ${resumeDragOver ? 'var(--accent)' : resumeParsed ? 'var(--success)' : 'rgba(15, 23, 42, 0.12)'}`,
+                              borderRadius: 16, padding: '36px 24px', textAlign: 'center', marginBottom: 14,
+                              background: resumeDragOver
+                                ? 'linear-gradient(135deg, rgba(13, 148, 136, 0.08) 0%, rgba(20, 184, 166, 0.04) 100%)'
+                                : resumeParsed
+                                  ? 'linear-gradient(135deg, rgba(5, 150, 105, 0.06) 0%, rgba(16, 185, 129, 0.03) 100%)'
+                                  : 'linear-gradient(180deg, rgba(248, 250, 252, 0.5) 0%, rgba(255, 255, 255, 0.8) 100%)',
+                              cursor: resumeUploading ? 'wait' : 'pointer',
+                              transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+                              transform: resumeDragOver ? 'scale(1.01)' : 'scale(1)',
                             }}
                           >
                             <input ref={resumeInputRef} type="file" accept=".pdf,.docx" onChange={e => { const f = e.target.files?.[0]; if (f) uploadAndParseResume(f); }} style={{ display: 'none' }} />
                             {resumeUploading ? (
                               <>
-                                <div style={{ fontSize: 28, marginBottom: 6, animation: 'spin 1s linear infinite' }}>&#9881;</div>
+                                <div style={{ width: 48, height: 48, margin: '0 auto 12px', border: '3px solid rgba(13, 148, 136, 0.15)', borderTopColor: 'var(--accent)', borderRadius: '50%', animation: 'spin 0.7s linear infinite' }} />
                                 <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--accent)' }}>Parsing your resume...</div>
                                 <div style={{ fontSize: 11, color: 'var(--text-secondary)', marginTop: 4 }}>Extracting your data &bull; 5-10 seconds</div>
                                 <style>{`@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }`}</style>
                               </>
                             ) : (
                               <>
-                                <div style={{ width: 44, height: 44, borderRadius: 12, background: 'var(--accent-subtle)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 12px', fontSize: 20 }}>&#128196;</div>
-                                <div style={{ fontSize: 15, fontWeight: 700, color: 'var(--text-primary)' }}>{resumeDragOver ? 'Drop here' : 'Upload your resume'}</div>
-                                <div style={{ fontSize: 13, color: 'var(--text-secondary)', marginTop: 4 }}>PDF or DOCX &bull; click or drag</div>
+                                <div style={{
+                                  width: 56, height: 56, borderRadius: 16,
+                                  background: 'linear-gradient(135deg, rgba(13, 148, 136, 0.12), rgba(20, 184, 166, 0.06))',
+                                  border: '1px solid rgba(13, 148, 136, 0.16)',
+                                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                  margin: '0 auto 16px',
+                                  color: 'var(--accent)',
+                                }}>
+                                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                    <polyline points="14 2 14 8 20 8" />
+                                    <line x1="12" y1="18" x2="12" y2="12" />
+                                    <polyline points="9 15 12 12 15 15" />
+                                  </svg>
+                                </div>
+                                <div style={{ fontSize: 16, fontWeight: 700, color: 'var(--text-primary)', letterSpacing: '-0.01em' }}>{resumeDragOver ? 'Drop to upload' : 'Drop resume or click to browse'}</div>
+                                <div style={{ fontSize: 13, color: 'var(--text-secondary)', marginTop: 6 }}>PDF or DOCX &bull; up to 10MB</div>
                               </>
                             )}
                           </div>
