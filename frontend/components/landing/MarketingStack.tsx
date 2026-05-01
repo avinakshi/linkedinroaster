@@ -20,6 +20,12 @@ export default function MarketingStack() {
         color: 'white',
         overflow: 'hidden',
       }}>
+        {/* Top gradient accent strip — section transition */}
+        <div aria-hidden="true" style={{
+          position: 'absolute', top: 0, left: 0, right: 0, height: 1,
+          background: 'linear-gradient(90deg, transparent, rgba(219, 39, 119, 0.5), rgba(124, 58, 237, 0.5), transparent)',
+          pointerEvents: 'none',
+        }} />
         <div aria-hidden="true" style={{
           position: 'absolute', top: '-20%', right: '-10%',
           width: 'min(60vw, 600px)', height: 600,

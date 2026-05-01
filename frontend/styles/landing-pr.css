@@ -49,13 +49,26 @@
 }
 
 .pr-nav__inner {
-  max-width: 1200px;
+  max-width: 1240px;
   margin: 0 auto;
   padding: 0 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 24px;
   height: 64px;
+}
+
+@media (min-width: 1024px) {
+  .pr-nav__inner {
+    height: 68px;
+  }
+}
+
+/* Center nav grows to fill space between logo and right cluster */
+.pr-nav__inner > .pr-nav__links {
+  flex: 1;
+  justify-content: center;
 }
 
 .pr-nav__logo {

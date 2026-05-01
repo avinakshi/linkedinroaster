@@ -1209,18 +1209,58 @@ export default function Home() {
       {/* ═══ NAV ═══ */}
       <nav className="pr-nav" style={{ position: 'sticky', top: 0, zIndex: 100 }}>
         <div className="pr-nav__inner">
-          <a href="/" className="pr-nav__logo">
-            <span className="pr-nav__logo-mark">Profile</span>
-            <span className="pr-nav__logo-text">Roaster</span>
+          {/* Wordmark with gradient icon mark */}
+          <a href="/" className="pr-nav__logo" style={{ display: 'inline-flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
+            <span aria-hidden="true" style={{
+              width: 30, height: 30, borderRadius: 8,
+              background: 'linear-gradient(135deg, #4F46E5 0%, #7C3AED 50%, #DB2777 100%)',
+              display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+              boxShadow: '0 4px 12px rgba(79, 70, 229, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.4)',
+              flexShrink: 0,
+            }}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+              </svg>
+            </span>
+            <span style={{ fontSize: 17, fontWeight: 700, letterSpacing: '-0.025em', color: 'var(--text-primary)' }}>
+              ProfileRoaster
+            </span>
           </a>
-          <div className="hidden sm:flex pr-nav__links">
-            <a href="#how-it-works" className="pr-nav__link">How it works</a>
+
+          {/* Center nav — desktop */}
+          <div className="hidden sm:flex pr-nav__links" style={{ gap: 28 }}>
             <a href="/templates" className="pr-nav__link">Templates</a>
             <a href="#pricing" className="pr-nav__link">Pricing</a>
+            <a href="#how-it-works" className="pr-nav__link">How it works</a>
             <a href="#faq" className="pr-nav__link">FAQ</a>
-            <a href="/dashboard" className="pr-nav__link">Dashboard</a>
-            <button type="button" className="pr-nav__cta" onClick={() => heroRef.current?.scrollIntoView({ behavior: 'smooth' })}>Get started</button>
           </div>
+
+          {/* Right side — Sign in + CTA */}
+          <div className="hidden sm:flex" style={{ alignItems: 'center', gap: 16 }}>
+            <a href="/dashboard" style={{
+              fontSize: 14, fontWeight: 500, color: 'var(--text-secondary)',
+              textDecoration: 'none', transition: 'color 0.15s',
+            }}>Sign in</a>
+            <button
+              type="button"
+              onClick={() => heroRef.current?.scrollIntoView({ behavior: 'smooth' })}
+              style={{
+                fontSize: 14, fontWeight: 600, color: 'white',
+                background: 'linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%)',
+                padding: '8px 18px', borderRadius: 10, border: 'none', cursor: 'pointer',
+                boxShadow: '0 4px 12px rgba(79, 70, 229, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
+                transition: 'transform 0.15s, box-shadow 0.15s',
+                letterSpacing: '-0.005em',
+                whiteSpace: 'nowrap',
+              }}
+              onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-1px)'; e.currentTarget.style.boxShadow = '0 6px 16px rgba(79, 70, 229, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2)'; }}
+              onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 12px rgba(79, 70, 229, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.2)'; }}
+            >
+              Get free score
+            </button>
+          </div>
+
+          {/* Mobile menu toggle */}
           <button
             type="button"
             className="sm:hidden pr-nav__menu-toggle"
@@ -1233,12 +1273,12 @@ export default function Home() {
         </div>
         {mobileMenuOpen && (
           <div className="sm:hidden pr-mobile-panel">
-            <a href="#how-it-works" onClick={() => setMobileMenuOpen(false)}>How it works</a>
             <a href="/templates" onClick={() => setMobileMenuOpen(false)}>Templates</a>
             <a href="#pricing" onClick={() => setMobileMenuOpen(false)}>Pricing</a>
+            <a href="#how-it-works" onClick={() => setMobileMenuOpen(false)}>How it works</a>
             <a href="#faq" onClick={() => setMobileMenuOpen(false)}>FAQ</a>
-            <a href="/dashboard" onClick={() => setMobileMenuOpen(false)}>Dashboard</a>
-            <button type="button" onClick={() => { setMobileMenuOpen(false); heroRef.current?.scrollIntoView({ behavior: 'smooth' }); }}>Get started free</button>
+            <a href="/dashboard" onClick={() => setMobileMenuOpen(false)}>Sign in</a>
+            <button type="button" onClick={() => { setMobileMenuOpen(false); heroRef.current?.scrollIntoView({ behavior: 'smooth' }); }}>Get free score</button>
           </div>
         )}
       </nav>
@@ -2443,84 +2483,226 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════════════════════ */}
-      {/* TEASER RESULT                       */}
+      {/* TEASER RESULT — premium glass card  */}
       {/* ═══════════════════════════════════ */}
       {teaser && (
-        <section ref={resultRef} style={{ background: 'var(--bg-surface)', borderBottom: '1px solid var(--border-default)', padding: '48px 0', animation: 'fadeInUp 0.5s ease forwards' }}>
-          <div className="landing-section">
-            <div style={{ marginBottom: 24 }}>
-              <div className="saas-eyebrow" style={{ marginBottom: 8 }}>Your free preview</div>
-              <h2 style={{ fontSize: 'var(--fs-xl)', fontWeight: 700, color: 'var(--text-primary)', margin: 0 }}>Here{"'"}s what we found</h2>
+        <section ref={resultRef} style={{
+          position: 'relative',
+          background: 'linear-gradient(180deg, #FAFAFA 0%, #FFFFFF 100%)',
+          borderBottom: '1px solid rgba(10, 10, 10, 0.06)',
+          padding: 'clamp(56px, 8vw, 88px) 0',
+          animation: 'fadeInUp 0.5s ease forwards',
+          overflow: 'hidden',
+        }}>
+          <div aria-hidden="true" style={{
+            position: 'absolute', top: '10%', left: '50%', transform: 'translateX(-50%)',
+            width: 'min(80vw, 800px)', height: 400,
+            background: 'radial-gradient(ellipse, rgba(124, 58, 237, 0.12) 0%, rgba(79, 70, 229, 0.06) 35%, transparent 65%)',
+            filter: 'blur(50px)', pointerEvents: 'none',
+          }} />
+          <div className="landing-section" style={{ position: 'relative' }}>
+            <div style={{ textAlign: 'center', marginBottom: 32 }}>
+              <div style={{
+                display: 'inline-block', fontSize: 12, fontWeight: 600, letterSpacing: '0.08em',
+                color: '#3730A3', textTransform: 'uppercase',
+                padding: '6px 14px', borderRadius: 999,
+                background: 'rgba(238, 242, 255, 0.8)', border: '1px solid rgba(79, 70, 229, 0.18)',
+              }}>
+                Your free preview
+              </div>
+              <h2 style={{
+                fontSize: 'clamp(28px, 4vw, 40px)', fontWeight: 800,
+                color: '#0A0A0A', letterSpacing: '-0.035em',
+                marginTop: 16, marginBottom: 8, lineHeight: 1.1,
+              }}>
+                Here&rsquo;s what <span style={{
+                  background: 'linear-gradient(135deg, #4F46E5 0%, #7C3AED 50%, #DB2777 100%)',
+                  WebkitBackgroundClip: 'text', backgroundClip: 'text',
+                  color: 'transparent', WebkitTextFillColor: 'transparent',
+                }}>AI found</span> in your profile
+              </h2>
             </div>
 
-            <div style={{ maxWidth: 700, margin: '24px auto 0' }}>
-              {/* Score + Subscores Card */}
-              <div style={{ background: 'white', borderRadius: 16, border: '1px solid #E5E7EB', boxShadow: '0 4px 24px rgba(0,0,0,0.06)', overflow: 'hidden', marginBottom: 16 }}>
-                {/* Score header */}
-                <div style={{ background: teaser.score < 50 ? 'linear-gradient(135deg, #DC2626, #991B1B)' : teaser.score < 70 ? 'linear-gradient(135deg, #F59E0B, #D97706)' : 'linear-gradient(135deg, #057642, #16A34A)', padding: '28px 32px', color: 'white', textAlign: 'center' }}>
-                  <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: 2, opacity: 0.8, marginBottom: 8, textTransform: 'uppercase' as const }}>Your Profile Score</div>
-                  <div style={{ fontSize: 64, fontWeight: 900, lineHeight: 1 }}>{teaser.score}</div>
-                  <div style={{ fontSize: 14, fontWeight: 600, marginTop: 6, opacity: 0.9 }}>{teaser.verdict === 'needs work' ? 'Needs Significant Work' : teaser.verdict === 'decent' ? 'Decent \u2014 Could Be Stronger' : teaser.score < 50 ? 'Needs Significant Work' : teaser.score < 70 ? 'Decent \u2014 Could Be Stronger' : 'Strong Profile'}</div>
-                  {teaser.ranking_percentile && (
-                    <div style={{ marginTop: 10, fontSize: 13, background: 'rgba(0,0,0,0.2)', display: 'inline-block', padding: '4px 14px', borderRadius: 20, fontWeight: 600 }}>
-                      Your profile ranks in the bottom {100 - (teaser.ranking_percentile || 50)}% of applicants
+            <div style={{ maxWidth: 720, margin: '0 auto' }}>
+              <div style={{
+                position: 'relative',
+                background: 'linear-gradient(180deg, #FFFFFF 0%, #FAFAFA 100%)',
+                borderRadius: 24,
+                border: '1px solid rgba(79, 70, 229, 0.10)',
+                boxShadow: '0 1px 3px rgba(10, 10, 10, 0.04), 0 24px 60px -16px rgba(79, 70, 229, 0.18)',
+                overflow: 'hidden',
+                marginBottom: 16,
+              }}>
+                <div style={{
+                  position: 'relative',
+                  background: 'linear-gradient(135deg, #18181B 0%, #0A0A0A 100%)',
+                  padding: 'clamp(32px, 5vw, 48px) 32px',
+                  color: 'white', textAlign: 'center',
+                  overflow: 'hidden',
+                }}>
+                  <div aria-hidden="true" style={{
+                    position: 'absolute', inset: 0,
+                    background: 'radial-gradient(at 30% 0%, rgba(124, 58, 237, 0.30) 0%, transparent 55%), radial-gradient(at 70% 100%, rgba(219, 39, 119, 0.22) 0%, transparent 55%)',
+                    pointerEvents: 'none',
+                  }} />
+                  <div aria-hidden="true" style={{
+                    position: 'absolute', inset: 0,
+                    backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.04) 1px, transparent 0)',
+                    backgroundSize: '20px 20px',
+                    pointerEvents: 'none',
+                  }} />
+                  <div style={{ position: 'relative' }}>
+                    <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.12em', opacity: 0.7, marginBottom: 14, textTransform: 'uppercase' as const, color: '#D4D4D8' }}>
+                      Your Profile Score
                     </div>
-                  )}
+                    <div style={{
+                      fontSize: 'clamp(72px, 14vw, 120px)', fontWeight: 800,
+                      lineHeight: 1, letterSpacing: '-0.05em',
+                      background: teaser.score < 50
+                        ? 'linear-gradient(135deg, #F87171 0%, #DB2777 100%)'
+                        : teaser.score < 70
+                          ? 'linear-gradient(135deg, #FBBF24 0%, #F59E0B 100%)'
+                          : 'linear-gradient(135deg, #A5B4FC 0%, #C4B5FD 50%, #F9A8D4 100%)',
+                      WebkitBackgroundClip: 'text', backgroundClip: 'text',
+                      color: 'transparent', WebkitTextFillColor: 'transparent',
+                      display: 'inline-block',
+                    }}>
+                      {teaser.score}
+                    </div>
+                    <span style={{ fontSize: 'clamp(20px, 3vw, 28px)', fontWeight: 600, color: 'rgba(255, 255, 255, 0.4)', marginLeft: 8 }}>/ 100</span>
+                    <div style={{
+                      fontSize: 16, fontWeight: 600, marginTop: 12,
+                      color: teaser.score < 50 ? '#F9A8D4' : teaser.score < 70 ? '#FBBF24' : '#C4B5FD',
+                      letterSpacing: '-0.01em',
+                    }}>
+                      {teaser.verdict === 'needs work' ? 'Needs significant work' : teaser.verdict === 'decent' ? 'Decent — could be stronger' : teaser.score < 50 ? 'Needs significant work' : teaser.score < 70 ? 'Decent — could be stronger' : 'Strong profile'}
+                    </div>
+                    {teaser.ranking_percentile && (
+                      <div style={{
+                        marginTop: 16,
+                        display: 'inline-flex', alignItems: 'center', gap: 8,
+                        fontSize: 13, fontWeight: 500,
+                        background: 'rgba(255, 255, 255, 0.06)',
+                        border: '1px solid rgba(255, 255, 255, 0.12)',
+                        padding: '7px 16px', borderRadius: 999,
+                        color: 'rgba(255, 255, 255, 0.85)',
+                      }}>
+                        <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#F87171', boxShadow: '0 0 0 3px rgba(248, 113, 113, 0.2)' }} />
+                        Bottom {100 - (teaser.ranking_percentile || 50)}% of applicants
+                      </div>
+                    )}
+                  </div>
                 </div>
 
-                {/* Subscores */}
                 {teaser.subscores && (
-                  <div style={{ padding: '20px 32px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+                  <div style={{ position: 'relative', padding: '32px clamp(24px, 4vw, 40px)', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 24 }}>
                     {[
-                      { label: 'ATS Keywords', score: teaser.subscores.ats_keywords, color: 'var(--accent)' },
-                      { label: 'Experience Impact', score: teaser.subscores.experience_impact, color: '#7C3AED' },
-                      { label: 'Headline Strength', score: teaser.subscores.headline_strength, color: '#E16B00' },
-                      { label: 'Job Readiness', score: teaser.subscores.overall_readiness, color: '#057642' },
+                      { label: 'ATS Keywords', score: teaser.subscores.ats_keywords, gradient: 'linear-gradient(135deg, #4F46E5, #6366F1)' },
+                      { label: 'Experience Impact', score: teaser.subscores.experience_impact, gradient: 'linear-gradient(135deg, #7C3AED, #A78BFA)' },
+                      { label: 'Headline Strength', score: teaser.subscores.headline_strength, gradient: 'linear-gradient(135deg, #DB2777, #EC4899)' },
+                      { label: 'Job Readiness', score: teaser.subscores.overall_readiness, gradient: 'linear-gradient(135deg, #4F46E5, #DB2777)' },
                     ].map((s, i) => (
                       <div key={i}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, fontWeight: 600, color: '#374151', marginBottom: 4 }}>
-                          <span>{s.label}</span>
-                          <span style={{ color: s.score < 50 ? '#DC2626' : s.score < 70 ? '#D97706' : '#057642' }}>{s.score}/100</span>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 8 }}>
+                          <span style={{ fontSize: 13, fontWeight: 600, color: '#0A0A0A', letterSpacing: '-0.01em' }}>{s.label}</span>
+                          <span style={{ fontSize: 14, fontWeight: 700, color: '#0A0A0A' }}>
+                            {s.score}<span style={{ color: '#A3A3A3', fontWeight: 500, fontSize: 11 }}>/100</span>
+                          </span>
                         </div>
-                        <div style={{ height: 6, borderRadius: 3, background: '#E5E7EB' }}>
-                          <div style={{ height: '100%', borderRadius: 3, background: s.color, width: `${s.score}%`, transition: 'width 1s ease' }} />
+                        <div style={{ height: 8, borderRadius: 999, background: 'rgba(10, 10, 10, 0.05)', overflow: 'hidden' }}>
+                          <div style={{
+                            height: '100%', borderRadius: 999,
+                            background: s.gradient,
+                            width: `${s.score}%`,
+                            transition: 'width 1.2s cubic-bezier(0.4, 0, 0.2, 1)',
+                          }} />
                         </div>
                       </div>
                     ))}
                   </div>
                 )}
 
-                {/* Missing Keywords */}
+                <div style={{ height: 1, background: 'rgba(10, 10, 10, 0.06)', margin: '0 clamp(24px, 4vw, 40px)' }} />
+
                 {teaser.missing_keywords && teaser.missing_keywords.length > 0 && (
-                  <div style={{ padding: '0 32px 20px' }}>
-                    <div style={{ fontSize: 13, fontWeight: 700, color: '#DC2626', marginBottom: 8 }}>Missing ATS Keywords — recruiters search for these:</div>
+                  <div style={{ padding: '24px clamp(24px, 4vw, 40px) 0' }}>
+                    <div style={{ fontSize: 13, fontWeight: 600, color: '#525252', marginBottom: 12 }}>
+                      Missing ATS keywords <span style={{ color: '#A3A3A3', fontWeight: 500 }}>— recruiters search for these</span>
+                    </div>
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
                       {teaser.missing_keywords.map((kw: string, i: number) => (
-                        <span key={i} style={{ background: '#FEF2F2', color: '#DC2626', padding: '4px 12px', borderRadius: 16, fontSize: 12, fontWeight: 600, border: '1px solid #FECACA' }}>+ {kw}</span>
+                        <span key={i} style={{
+                          background: 'rgba(219, 39, 119, 0.06)',
+                          color: '#BE185D',
+                          padding: '5px 12px', borderRadius: 999,
+                          fontSize: 12, fontWeight: 600,
+                          border: '1px solid rgba(219, 39, 119, 0.18)',
+                          letterSpacing: '-0.005em',
+                        }}>+ {kw}</span>
                       ))}
                     </div>
                   </div>
                 )}
 
-                {/* Sample Improvement */}
                 {teaser.sample_improvement && (
-                  <div style={{ padding: '0 32px 20px' }}>
-                    <div style={{ fontSize: 13, fontWeight: 700, color: '#374151', marginBottom: 8 }}>AI improved this from your profile:</div>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-                      <div style={{ background: '#FEF2F2', border: '1px solid #FECACA', borderRadius: 8, padding: '10px 14px', fontSize: 13, color: '#DC2626', textDecoration: 'line-through' }}>{teaser.sample_improvement.before}</div>
-                      <div style={{ textAlign: 'center', fontSize: 12, color: '#9CA3AF' }}>{'\u2193'} AI rewrote this to {'\u2193'}</div>
-                      <div style={{ background: '#F0FDF4', border: '1px solid #BBF7D0', borderRadius: 8, padding: '10px 14px', fontSize: 13, color: '#057642', fontWeight: 600 }}>{teaser.sample_improvement.after}</div>
+                  <div style={{ padding: '24px clamp(24px, 4vw, 40px) 0' }}>
+                    <div style={{ fontSize: 13, fontWeight: 600, color: '#525252', marginBottom: 12 }}>AI rewrote this from your profile</div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                      <div style={{
+                        background: '#FAFAFA',
+                        border: '1px solid rgba(10, 10, 10, 0.06)',
+                        borderRadius: 10, padding: '12px 16px',
+                        fontSize: 13, color: '#525252', textDecoration: 'line-through',
+                        lineHeight: 1.5,
+                      }}>{teaser.sample_improvement.before}</div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 8, justifyContent: 'center', fontSize: 11, color: '#A3A3A3', fontWeight: 600, letterSpacing: '0.04em', textTransform: 'uppercase' as const }}>
+                        <span style={{ height: 1, width: 24, background: 'rgba(10, 10, 10, 0.1)' }} />
+                        AI Rewrite
+                        <span style={{ height: 1, width: 24, background: 'rgba(10, 10, 10, 0.1)' }} />
+                      </div>
+                      <div style={{
+                        background: 'linear-gradient(135deg, rgba(79, 70, 229, 0.04), rgba(124, 58, 237, 0.04), rgba(219, 39, 119, 0.04))',
+                        border: '1px solid rgba(79, 70, 229, 0.18)',
+                        borderRadius: 10, padding: '12px 16px',
+                        fontSize: 13, color: '#0A0A0A', fontWeight: 600,
+                        lineHeight: 1.5,
+                      }}>{teaser.sample_improvement.after}</div>
                     </div>
                   </div>
                 )}
 
-                {/* Blurred headline */}
-                <div style={{ padding: '0 32px 24px' }}>
-                  <div style={{ fontSize: 13, fontWeight: 700, color: '#374151', marginBottom: 8 }}>Your AI-optimized headline:</div>
-                  <div style={{ position: 'relative', background: '#F0F7FF', borderRadius: 10, padding: '14px 18px', overflow: 'hidden' }}>
-                    <div style={{ fontSize: 15, fontWeight: 600, color: '#191919', filter: 'blur(5px)', userSelect: 'none' as const }}>{teaser.suggested_headline || 'Your optimized headline will appear here...'}</div>
-                    <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(240,247,255,0.7)' }}>
-                      <span style={{ background: 'var(--accent)', color: 'white', padding: '6px 16px', borderRadius: 20, fontSize: 12, fontWeight: 700, cursor: 'pointer' }} onClick={scrollToPricing}>Unlock Full Rewrite {'\u2192'}</span>
+                <div style={{ padding: '24px clamp(24px, 4vw, 40px) 32px' }}>
+                  <div style={{ fontSize: 13, fontWeight: 600, color: '#525252', marginBottom: 12 }}>Your AI-optimized headline</div>
+                  <div style={{
+                    position: 'relative',
+                    background: 'linear-gradient(135deg, rgba(79, 70, 229, 0.06), rgba(124, 58, 237, 0.04), rgba(219, 39, 119, 0.06))',
+                    border: '1px solid rgba(79, 70, 229, 0.18)',
+                    borderRadius: 12, padding: '16px 20px',
+                    overflow: 'hidden',
+                  }}>
+                    <div style={{ fontSize: 15, fontWeight: 600, color: '#0A0A0A', filter: 'blur(6px)', userSelect: 'none' as const, letterSpacing: '-0.01em' }}>
+                      {teaser.suggested_headline || 'Your optimized headline will appear here...'}
+                    </div>
+                    <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <button
+                        type="button"
+                        onClick={scrollToPricing}
+                        style={{
+                          background: 'linear-gradient(135deg, #4F46E5 0%, #7C3AED 50%, #DB2777 100%)',
+                          color: 'white', padding: '10px 22px', borderRadius: 999,
+                          fontSize: 13, fontWeight: 700, cursor: 'pointer', border: 'none',
+                          boxShadow: '0 8px 20px rgba(79, 70, 229, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.25)',
+                          transition: 'transform 0.15s, box-shadow 0.15s',
+                          display: 'inline-flex', alignItems: 'center', gap: 8,
+                          letterSpacing: '-0.005em',
+                        }}
+                      >
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                          <rect x="3" y="11" width="18" height="11" rx="2" />
+                          <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                        </svg>
+                        Unlock full rewrite — ₹499
+                      </button>
                     </div>
                   </div>
                 </div>
