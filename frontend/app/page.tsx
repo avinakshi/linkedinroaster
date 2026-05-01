@@ -708,16 +708,12 @@ export default function Home() {
       setTimeout(() => heroRef.current?.scrollIntoView({ behavior: 'smooth' }), 200);
     }
     const tabParam = params.get('tab');
-    if (tabParam === 'student') {
-      setActiveInputTab('student');
-      setInputSource('student');
-    } else if (tabParam === 'questionnaire') {
-      setActiveInputTab('questionnaire');
-      setInputSource('questionnaire');
-    } else if (tabParam === 'linkedin') {
+    if (tabParam === 'linkedin') {
       setActiveInputTab('linkedin');
       setInputSource('linkedin');
     }
+    // Legacy ?tab=student and ?tab=questionnaire deep-links default to resume
+    // (the only flows we expose in the UI now).
   }, []);
 
   // ── Core teaser runner ──
@@ -1336,7 +1332,6 @@ export default function Home() {
                 {/* Tab navigation — clean pills */}
                 <div className="pr-tab-rail">
                   <div style={{ display: 'inline-flex', gap: 4, padding: 4, background: 'var(--bg-canvas)', borderRadius: 10, width: '100%' }}>
-                    {/* Student tab hidden — accessible via /?tab=student */}
                     <button onClick={() => { setActiveInputTab('resume'); setInputSource('resume'); }}
                       style={{ flex: 1, padding: '9px 12px', fontSize: 13, fontWeight: activeInputTab === 'resume' ? 700 : 500, borderRadius: 8, border: 'none', cursor: 'pointer', background: activeInputTab === 'resume' ? 'var(--bg-surface)' : 'transparent', color: activeInputTab === 'resume' ? 'var(--accent)' : 'var(--text-secondary)', boxShadow: activeInputTab === 'resume' ? '0 1px 3px rgba(0,0,0,0.08)' : 'none', transition: 'all 0.15s' }}>
                       Resume
@@ -1344,10 +1339,6 @@ export default function Home() {
                     <button onClick={() => { setActiveInputTab('linkedin'); setInputSource('linkedin'); }}
                       style={{ flex: 1, padding: '9px 12px', fontSize: 13, fontWeight: activeInputTab === 'linkedin' ? 700 : 500, borderRadius: 8, border: 'none', cursor: 'pointer', background: activeInputTab === 'linkedin' ? 'var(--bg-surface)' : 'transparent', color: activeInputTab === 'linkedin' ? 'var(--accent)' : 'var(--text-secondary)', boxShadow: activeInputTab === 'linkedin' ? '0 1px 3px rgba(0,0,0,0.08)' : 'none', transition: 'all 0.15s' }}>
                       LinkedIn
-                    </button>
-                    <button onClick={() => { setActiveInputTab('questionnaire'); setInputSource('questionnaire'); }}
-                      style={{ flex: 1, padding: '9px 12px', fontSize: 13, fontWeight: activeInputTab === 'questionnaire' ? 700 : 500, borderRadius: 8, border: 'none', cursor: 'pointer', background: activeInputTab === 'questionnaire' ? 'var(--bg-surface)' : 'transparent', color: activeInputTab === 'questionnaire' ? 'var(--accent)' : 'var(--text-secondary)', boxShadow: activeInputTab === 'questionnaire' ? '0 1px 3px rgba(0,0,0,0.08)' : 'none', transition: 'all 0.15s' }}>
-                      No File
                     </button>
                   </div>
                 </div>
