@@ -30,6 +30,11 @@ export const upgradeQueue = {
 export async function startQueueWorkers() {
   await boss.start();
 
+  // pg-boss v10+ requires explicit queue registration before send() will accept jobs.
+  // createQueue is idempotent — safe to call on every boot.
+  await boss.createQueue(PROFILE_QUEUE);
+  await boss.createQueue(UPGRADE_QUEUE);
+
   // WORKER 1: Process new orders
   await boss.work(PROFILE_QUEUE, async (jobs: PgBoss.Job[]) => {
     for (const job of jobs) {

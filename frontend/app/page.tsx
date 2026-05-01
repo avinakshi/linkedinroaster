@@ -1066,7 +1066,7 @@ export default function Home() {
             </ul>
             <button
               className="saas-btn saas-btn-primary"
-              onClick={() => { if (teaser) { handlePlanSelect('standard'); } else { heroRef.current?.scrollIntoView({ behavior: 'smooth' }); } }}
+              onClick={() => { if (teaser || rateLimited || currentRawPaste) { handlePlanSelect('standard'); } else { heroRef.current?.scrollIntoView({ behavior: 'smooth' }); } }}
               style={{ width: '100%', padding: '16px 32px', borderRadius: 'var(--radius-pill)', fontSize: 16, fontWeight: 700, boxShadow: 'var(--shadow-md)' }}
             >
               {teaser ? 'Get Everything for \u20b9499 \u2192' : 'Get Started \u2014 \u20b9499 \u2192'}
@@ -1103,7 +1103,7 @@ export default function Home() {
             </ul>
             <button
               className="saas-btn saas-btn-ghost"
-              onClick={() => { if (teaser) { handlePlanSelect('pro'); } else { heroRef.current?.scrollIntoView({ behavior: 'smooth' }); } }}
+              onClick={() => { if (teaser || rateLimited || currentRawPaste) { handlePlanSelect('pro'); } else { heroRef.current?.scrollIntoView({ behavior: 'smooth' }); } }}
               style={{ width: '100%', padding: '16px 32px', borderRadius: 'var(--radius-pill)', fontSize: 16, fontWeight: 700, border: '2px solid var(--accent)', color: 'var(--accent)' }}
             >
               Get Pro &#8594;

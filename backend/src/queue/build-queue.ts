@@ -15,6 +15,9 @@ export const buildQueue = {
 
 // Register build worker (called after boss.start() in queue/index.ts)
 export async function startBuildWorker() {
+  // pg-boss v10+ requires explicit queue registration before send() will accept jobs.
+  await boss.createQueue(BUILD_QUEUE);
+
   await boss.work(BUILD_QUEUE, async (jobs: PgBoss.Job[]) => {
     for (const job of jobs) {
       const { razorpay_order_id, order_id } = job.data as any;
