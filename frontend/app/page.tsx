@@ -1218,7 +1218,7 @@ export default function Home() {
             <div style={{ flex: '1 1 420px', minWidth: 0, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
               {/* Live status pill */}
               <div className="pr-eyebrow" style={{ alignSelf: 'flex-start' }}>
-                <span style={{ color: 'var(--accent-deep)' }}>1,247 profiles roasted today</span>
+                <span style={{ color: 'var(--accent-deep)' }}>1,247 profiles rewritten today</span>
               </div>
 
               <h1 className="pr-hero__title" style={{ maxWidth: 620 }}>
