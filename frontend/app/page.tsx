@@ -2331,35 +2331,123 @@ export default function Home() {
           </div>
         </div>
 
-        {/* ── RESUMES ── */}
+        {/* ── Resumes tab content ── */}
         {showcaseTab === 'resumes' && (
           <>
-            {/* Desktop: 3 large resume cards — full bleed, no labels */}
+            {/* Desktop: 3-up cards with labels + hover preview overlay */}
             <div className="hidden md:block">
               <div style={{ position: 'relative', overflow: 'hidden', maxWidth: 1300, margin: '0 auto', padding: '0 32px' }}>
                 <div style={{ display: 'flex', transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)', transform: `translateX(-${carouselPage * 100}%)` }}>
                   {Array.from({ length: Math.ceil(TEMPLATES.length / 3) }).map((_, pageIdx) => (
                     <div key={pageIdx} style={{ display: 'flex', gap: 24, minWidth: '100%', justifyContent: 'center', boxSizing: 'border-box' }}>
                       {TEMPLATES.slice(pageIdx * 3, pageIdx * 3 + 3).map((t, i) => {
-                        const bgs = ['#F4E9D2', '#FFFFFF', '#EAEAEA', '#D5E2F0', '#F4E9D2', '#D4EAD6', '#E5DAEC', '#F4E5D2', '#D2E8E8', '#F0D2DC', '#DEE2E6'];
+                        const paperBgs = ['#F4E9D2', '#FFFFFF', '#EAEAEA', '#D5E2F0', '#F4E9D2', '#D4EAD6', '#E5DAEC', '#F4E5D2', '#D2E8E8', '#F0D2DC', '#DEE2E6'];
+                        const globalIdx = pageIdx * 3 + i;
+                        const isPopular = t.id === 'modern';
                         return (
-                          <div key={t.id} className="showcase-card" style={{
-                            flex: '1 1 0',
-                            background: bgs[(pageIdx * 3 + i) % bgs.length],
-                            borderRadius: 20,
-                            padding: '18px 14px 16px',
-                            cursor: 'pointer',
-                            boxShadow: '0 12px 32px -12px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(0, 0, 0, 0.2)',
-                          }} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-                            <ScaledResume templateId={t.id} data={SAMPLE_RESUME} previewHeight={440} />
-                          </div>
+                          <a
+                            key={t.id}
+                            href="/templates"
+                            className="pr-tpl-card"
+                            style={{
+                              position: 'relative',
+                              flex: '1 1 0',
+                              maxWidth: 380,
+                              background: '#161618',
+                              borderRadius: 18,
+                              padding: 12,
+                              cursor: 'pointer',
+                              border: '1px solid rgba(255, 255, 255, 0.08)',
+                              boxShadow: '0 12px 36px -16px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.2)',
+                              overflow: 'hidden',
+                              transition: 'transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s, border-color 0.25s',
+                              textDecoration: 'none',
+                              color: 'inherit',
+                              display: 'block',
+                            }}
+                          >
+                            {/* Popular badge */}
+                            {isPopular && (
+                              <div style={{
+                                position: 'absolute', top: 18, right: 18, zIndex: 3,
+                                fontSize: 10, fontWeight: 700, letterSpacing: '0.06em',
+                                color: 'white', textTransform: 'uppercase',
+                                padding: '5px 10px', borderRadius: 999,
+                                background: 'linear-gradient(135deg, #4F46E5 0%, #7C3AED 50%, #DB2777 100%)',
+                                boxShadow: '0 4px 12px rgba(79, 70, 229, 0.45)',
+                              }}>Most popular</div>
+                            )}
+
+                            {/* Resume preview */}
+                            <div style={{
+                              background: paperBgs[globalIdx % paperBgs.length],
+                              borderRadius: 12,
+                              padding: '14px 12px 12px',
+                              position: 'relative',
+                              overflow: 'hidden',
+                            }}>
+                              <ScaledResume templateId={t.id} data={SAMPLE_RESUME} previewHeight={400} />
+
+                              {/* Hover overlay */}
+                              <div className="pr-tpl-overlay" style={{
+                                position: 'absolute', inset: 0,
+                                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                background: 'rgba(10, 10, 10, 0.55)',
+                                backdropFilter: 'blur(2px)', WebkitBackdropFilter: 'blur(2px)',
+                                opacity: 0,
+                                transition: 'opacity 0.25s',
+                                pointerEvents: 'none',
+                              }}>
+                                <span style={{
+                                  display: 'inline-flex', alignItems: 'center', gap: 8,
+                                  padding: '11px 22px', borderRadius: 999,
+                                  background: 'linear-gradient(135deg, #4F46E5 0%, #7C3AED 50%, #DB2777 100%)',
+                                  color: 'white', fontSize: 13, fontWeight: 700,
+                                  boxShadow: '0 8px 20px rgba(79, 70, 229, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.25)',
+                                  letterSpacing: '-0.005em',
+                                }}>
+                                  Use this template
+                                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                                    <line x1="5" y1="12" x2="19" y2="12" />
+                                    <polyline points="12 5 19 12 12 19" />
+                                  </svg>
+                                </span>
+                              </div>
+                            </div>
+
+                            {/* Label strip */}
+                            <div style={{ padding: '14px 6px 4px', display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12 }}>
+                              <div style={{ minWidth: 0 }}>
+                                <div style={{ fontSize: 15, fontWeight: 700, color: 'white', letterSpacing: '-0.015em', marginBottom: 4 }}>
+                                  {t.name}
+                                </div>
+                                <div style={{ fontSize: 12, color: '#A1A1AA', lineHeight: 1.4 }}>
+                                  Best for {(t.bestFor || []).slice(0, 2).join(', ')}
+                                </div>
+                              </div>
+                              <div style={{
+                                flexShrink: 0,
+                                display: 'inline-flex', alignItems: 'center', gap: 4,
+                                fontSize: 10, fontWeight: 700, letterSpacing: '0.04em',
+                                color: '#A5B4FC', textTransform: 'uppercase',
+                                padding: '4px 8px', borderRadius: 6,
+                                background: 'rgba(99, 102, 241, 0.12)',
+                                border: '1px solid rgba(99, 102, 241, 0.25)',
+                              }}>
+                                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                                  <polyline points="20 6 9 17 4 12" />
+                                </svg>
+                                ATS
+                              </div>
+                            </div>
+                          </a>
                         );
                       })}
                     </div>
                   ))}
                 </div>
               </div>
-              {/* Dots — visible on dark bg */}
+              {/* Pagination dots */}
               <div style={{ display: 'flex', justifyContent: 'center', gap: 10, marginTop: 36 }}>
                 {Array.from({ length: Math.ceil(TEMPLATES.length / 3) }).map((_, i) => (
                   <button
@@ -2382,100 +2470,207 @@ export default function Home() {
                   />
                 ))}
               </div>
+              {/* View all link */}
+              <div style={{ textAlign: 'center', marginTop: 28 }}>
+                <a href="/templates" style={{
+                  display: 'inline-flex', alignItems: 'center', gap: 8,
+                  fontSize: 14, fontWeight: 600,
+                  color: '#D4D4D8', textDecoration: 'none',
+                  padding: '10px 20px', borderRadius: 999,
+                  background: 'rgba(255, 255, 255, 0.04)',
+                  border: '1px solid rgba(255, 255, 255, 0.10)',
+                  transition: 'all 0.18s',
+                }}>
+                  Browse all 11 templates
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                    <polyline points="12 5 19 12 12 19" />
+                  </svg>
+                </a>
+              </div>
             </div>
 
-            {/* Mobile: horizontal swipe — just resumes, no labels */}
-            <div className="md:hidden" style={{ display: 'flex', gap: 14, overflowX: 'auto', padding: '0 16px 20px', scrollSnapType: 'x mandatory', WebkitOverflowScrolling: 'touch' }}>
+            {/* Mobile: horizontal swipe with labels below */}
+            <div className="md:hidden" style={{ display: 'flex', gap: 14, overflowX: 'auto', padding: '0 16px 24px', scrollSnapType: 'x mandatory', WebkitOverflowScrolling: 'touch' }}>
               {TEMPLATES.slice(0, 6).map((t, i) => {
-                const bgs = ['#F4E9D2', '#FFFFFF', '#EAEAEA', '#D5E2F0', '#F4E9D2', '#D4EAD6'];
+                const paperBgs = ['#F4E9D2', '#FFFFFF', '#EAEAEA', '#D5E2F0', '#F4E9D2', '#D4EAD6'];
+                const isPopular = t.id === 'modern';
                 return (
-                  <div key={t.id} style={{
-                    flex: '0 0 240px', scrollSnapAlign: 'center', background: bgs[i],
-                    borderRadius: 16, padding: '14px 10px 12px', cursor: 'pointer',
-                    boxShadow: '0 8px 24px -8px rgba(0, 0, 0, 0.5), 0 2px 6px rgba(0, 0, 0, 0.2)',
-                  }}
-                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-                    <ScaledResume templateId={t.id} data={SAMPLE_RESUME} previewHeight={340} />
-                  </div>
+                  <a
+                    key={t.id}
+                    href="/templates"
+                    style={{
+                      position: 'relative',
+                      flex: '0 0 240px', scrollSnapAlign: 'center',
+                      background: '#161618',
+                      borderRadius: 14, padding: 10,
+                      border: '1px solid rgba(255, 255, 255, 0.08)',
+                      boxShadow: '0 8px 24px -10px rgba(0, 0, 0, 0.5), 0 2px 6px rgba(0, 0, 0, 0.18)',
+                      textDecoration: 'none', color: 'inherit', display: 'block',
+                    }}
+                  >
+                    {isPopular && (
+                      <div style={{
+                        position: 'absolute', top: 14, right: 14, zIndex: 3,
+                        fontSize: 9, fontWeight: 700, letterSpacing: '0.06em',
+                        color: 'white', textTransform: 'uppercase',
+                        padding: '4px 8px', borderRadius: 999,
+                        background: 'linear-gradient(135deg, #4F46E5 0%, #7C3AED 50%, #DB2777 100%)',
+                      }}>Popular</div>
+                    )}
+                    <div style={{
+                      background: paperBgs[i],
+                      borderRadius: 10, padding: '10px 8px 8px',
+                    }}>
+                      <ScaledResume templateId={t.id} data={SAMPLE_RESUME} previewHeight={300} />
+                    </div>
+                    <div style={{ padding: '12px 4px 2px' }}>
+                      <div style={{ fontSize: 13, fontWeight: 700, color: 'white', marginBottom: 2 }}>{t.name}</div>
+                      <div style={{ fontSize: 11, color: '#A1A1AA', lineHeight: 1.4 }}>
+                        Best for {(t.bestFor || []).slice(0, 2).join(', ')}
+                      </div>
+                    </div>
+                  </a>
                 );
               })}
             </div>
           </>
         )}
 
-        {/* ── COVER LETTERS ── */}
+        {/* ── Cover Letters tab content ── */}
         {showcaseTab === 'coverletters' && (
           <>
             <div className="hidden md:block" style={{ maxWidth: 1100, margin: '0 auto', padding: '0 24px' }}>
               <div style={{ display: 'flex', gap: 20, justifyContent: 'center' }}>
-                {['Professional', 'Modern', 'Minimal'].map((styleName, i) => {
-                  const bgs = ['#F4E9D2', '#FFFFFF', '#EAEAEA'];
-                  const fonts = ["'Inter', sans-serif", "'Inter', sans-serif", 'Georgia, serif'];
-                  return (
-                    <div key={styleName} className="showcase-card" style={{
-                      flex: '1 1 0', maxWidth: 320, background: bgs[i],
-                      borderRadius: 16, padding: '14px 12px 12px', cursor: 'pointer',
-                      boxShadow: '0 12px 32px -12px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(0, 0, 0, 0.2)',
+                {[
+                  { name: 'Professional', tag: 'Best for corporate, finance, law', font: "'Inter', sans-serif", paperBg: '#F4E9D2', accent: '#B8860B' },
+                  { name: 'Modern', tag: 'Best for tech, startups, product roles', font: "'Inter', sans-serif", paperBg: '#FFFFFF', accent: '#DB2777', popular: true },
+                  { name: 'Minimal', tag: 'Best for consulting, design, premium feel', font: 'Georgia, serif', paperBg: '#EAEAEA', accent: '#0A0A0A' },
+                ].map((s) => (
+                  <a key={s.name} href="/templates" className="pr-tpl-card" style={{
+                    position: 'relative',
+                    flex: '1 1 0', maxWidth: 340,
+                    background: '#161618', borderRadius: 18, padding: 12,
+                    cursor: 'pointer', textDecoration: 'none', color: 'inherit', display: 'block',
+                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                    boxShadow: '0 12px 36px -16px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.2)',
+                    overflow: 'hidden',
+                    transition: 'transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s, border-color 0.25s',
+                  }}>
+                    {s.popular && (
+                      <div style={{
+                        position: 'absolute', top: 18, right: 18, zIndex: 3,
+                        fontSize: 10, fontWeight: 700, letterSpacing: '0.06em',
+                        color: 'white', textTransform: 'uppercase',
+                        padding: '5px 10px', borderRadius: 999,
+                        background: 'linear-gradient(135deg, #4F46E5 0%, #7C3AED 50%, #DB2777 100%)',
+                        boxShadow: '0 4px 12px rgba(79, 70, 229, 0.45)',
+                      }}>Most popular</div>
+                    )}
+                    <div style={{
+                      background: s.paperBg, borderRadius: 12,
+                      padding: '14px 12px 12px',
+                      position: 'relative', overflow: 'hidden',
                     }}>
                       <div style={{
                         background: 'white', borderRadius: 8,
-                        padding: '22px 22px', fontFamily: fonts[i],
+                        padding: '20px 22px', fontFamily: s.font,
                         fontSize: 11, lineHeight: 1.65, color: '#374151',
                         boxShadow: '0 1px 3px rgba(0, 0, 0, 0.04)',
-                        height: 380, overflow: 'hidden',
+                        height: 360, overflow: 'hidden',
                       }}>
-                        {i === 1 && <div style={{ height: 2.5, width: 32, background: '#DB2777', marginBottom: 16, borderRadius: 2 }} />}
-                        <div style={{ fontSize: i === 0 ? 18 : 15, fontWeight: 700, color: i === 0 ? '#B8860B' : '#0A0A0A', marginBottom: 14 }}>Ananya Sharma</div>
+                        {s.name === 'Modern' && <div style={{ height: 2.5, width: 32, background: s.accent, marginBottom: 14, borderRadius: 2 }} />}
+                        <div style={{ fontSize: s.name === 'Professional' ? 18 : 15, fontWeight: 700, color: s.accent, marginBottom: 14 }}>Ananya Sharma</div>
                         <div style={{ fontSize: 9, color: '#6B7280', marginBottom: 12 }}>Mumbai &bull; ananya.sharma@gmail.com</div>
                         <p style={{ margin: '0 0 10px' }}>Dear Hiring Manager,</p>
-                        <p style={{ margin: '0 0 10px' }}>I&rsquo;m writing about the Senior PM role. 7 years across Razorpay, Flipkart, Freshworks — building products that drive measurable impact.</p>
-                        <p style={{ margin: '0 0 10px' }}>At Razorpay I lead merchant onboarding: <strong style={{ color: '#0A0A0A' }}>+32% conversion</strong>, <strong style={{ color: '#0A0A0A' }}>&#8377;1.8 Cr monthly revenue</strong>, 17-person cross-functional team.</p>
-                        <p style={{ margin: '0 0 10px' }}>At Flipkart I shipped Flipkart Quick across 8 cities — <strong style={{ color: '#0A0A0A' }}>&#8377;12 Cr quarterly</strong>.</p>
+                        <p style={{ margin: '0 0 10px' }}>I&rsquo;m writing about the Senior PM role. 7 years across Razorpay, Flipkart, Freshworks &mdash; building products that drive measurable impact.</p>
+                        <p style={{ margin: '0 0 10px' }}>At Razorpay I lead merchant onboarding: <strong style={{ color: '#0A0A0A' }}>+32% conversion</strong>, <strong style={{ color: '#0A0A0A' }}>&#8377;1.8 Cr monthly revenue</strong>, 17-person team.</p>
                         <p style={{ margin: '0 0 4px', color: '#6B7280' }}>Warm regards,</p>
                         <p style={{ margin: 0, fontWeight: 700, color: '#0A0A0A', fontSize: 12 }}>Ananya Sharma</p>
                       </div>
+
+                      {/* Hover overlay */}
+                      <div className="pr-tpl-overlay" style={{
+                        position: 'absolute', inset: 0,
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        background: 'rgba(10, 10, 10, 0.55)',
+                        backdropFilter: 'blur(2px)', WebkitBackdropFilter: 'blur(2px)',
+                        opacity: 0, transition: 'opacity 0.25s', pointerEvents: 'none',
+                      }}>
+                        <span style={{
+                          display: 'inline-flex', alignItems: 'center', gap: 8,
+                          padding: '11px 22px', borderRadius: 999,
+                          background: 'linear-gradient(135deg, #4F46E5 0%, #7C3AED 50%, #DB2777 100%)',
+                          color: 'white', fontSize: 13, fontWeight: 700,
+                          boxShadow: '0 8px 20px rgba(79, 70, 229, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.25)',
+                        }}>
+                          Use this style
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                            <line x1="5" y1="12" x2="19" y2="12" />
+                            <polyline points="12 5 19 12 12 19" />
+                          </svg>
+                        </span>
+                      </div>
                     </div>
-                  );
-                })}
+
+                    <div style={{ padding: '14px 6px 4px' }}>
+                      <div style={{ fontSize: 15, fontWeight: 700, color: 'white', letterSpacing: '-0.015em', marginBottom: 4 }}>
+                        {s.name}
+                      </div>
+                      <div style={{ fontSize: 12, color: '#A1A1AA', lineHeight: 1.4 }}>{s.tag}</div>
+                    </div>
+                  </a>
+                ))}
               </div>
             </div>
-            <div className="md:hidden" style={{ display: 'flex', gap: 14, overflowX: 'auto', padding: '0 16px 20px', scrollSnapType: 'x mandatory', WebkitOverflowScrolling: 'touch' }}>
-              {['Professional', 'Modern', 'Minimal'].map((styleName, i) => {
-                const bgs = ['#F4E9D2', '#FFFFFF', '#EAEAEA'];
-                return (
-                  <div key={styleName} style={{
-                    flex: '0 0 240px', scrollSnapAlign: 'center', background: bgs[i],
-                    borderRadius: 14, padding: '12px 10px 10px',
-                    boxShadow: '0 8px 24px -8px rgba(0, 0, 0, 0.5), 0 2px 6px rgba(0, 0, 0, 0.2)',
+
+            {/* Mobile cover letters */}
+            <div className="md:hidden" style={{ display: 'flex', gap: 14, overflowX: 'auto', padding: '0 16px 24px', scrollSnapType: 'x mandatory', WebkitOverflowScrolling: 'touch' }}>
+              {[
+                { name: 'Professional', tag: 'Corporate roles', font: "'Inter', sans-serif", paperBg: '#F4E9D2', accent: '#B8860B' },
+                { name: 'Modern', tag: 'Tech & startups', font: "'Inter', sans-serif", paperBg: '#FFFFFF', accent: '#DB2777', popular: true },
+                { name: 'Minimal', tag: 'Consulting, design', font: 'Georgia, serif', paperBg: '#EAEAEA', accent: '#0A0A0A' },
+              ].map((s) => (
+                <a key={s.name} href="/templates" style={{
+                  position: 'relative',
+                  flex: '0 0 240px', scrollSnapAlign: 'center',
+                  background: '#161618', borderRadius: 14, padding: 10,
+                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                  boxShadow: '0 8px 24px -10px rgba(0, 0, 0, 0.5), 0 2px 6px rgba(0, 0, 0, 0.18)',
+                  textDecoration: 'none', color: 'inherit', display: 'block',
+                }}>
+                  {s.popular && (
+                    <div style={{
+                      position: 'absolute', top: 14, right: 14, zIndex: 3,
+                      fontSize: 9, fontWeight: 700, letterSpacing: '0.06em',
+                      color: 'white', textTransform: 'uppercase',
+                      padding: '4px 8px', borderRadius: 999,
+                      background: 'linear-gradient(135deg, #4F46E5 0%, #7C3AED 50%, #DB2777 100%)',
+                    }}>Popular</div>
+                  )}
+                  <div style={{
+                    background: s.paperBg, borderRadius: 10, padding: '10px 8px 8px',
                   }}>
                     <div style={{
                       background: 'white', borderRadius: 8,
-                      padding: '16px 14px', fontFamily: i === 2 ? 'Georgia, serif' : "'Inter', sans-serif",
+                      padding: '14px 14px', fontFamily: s.font,
                       fontSize: 10, lineHeight: 1.6, color: '#374151',
-                      height: 280, overflow: 'hidden',
+                      height: 260, overflow: 'hidden',
                     }}>
-                      {i === 1 && <div style={{ height: 2, width: 24, background: '#DB2777', marginBottom: 12, borderRadius: 2 }} />}
-                      <div style={{ fontSize: 13, fontWeight: 700, color: i === 0 ? '#B8860B' : '#0A0A0A', marginBottom: 10 }}>Ananya Sharma</div>
+                      {s.name === 'Modern' && <div style={{ height: 2, width: 24, background: s.accent, marginBottom: 12, borderRadius: 2 }} />}
+                      <div style={{ fontSize: 13, fontWeight: 700, color: s.accent, marginBottom: 10 }}>Ananya Sharma</div>
                       <p style={{ margin: '0 0 8px' }}>Dear Hiring Manager,</p>
                       <p style={{ margin: '0 0 8px' }}>Senior PM role, 7 years across Razorpay, Flipkart, Freshworks.</p>
-                      <p style={{ margin: '0 0 8px' }}>At Razorpay: <strong>+32% conversion</strong>, <strong>&#8377;1.8 Cr monthly</strong>.</p>
+                      <p style={{ margin: '0 0 8px' }}>At Razorpay: <strong>+32% conversion</strong>.</p>
                       <p style={{ margin: '0 0 4px', color: '#6B7280' }}>Warm regards,</p>
                       <p style={{ margin: 0, fontWeight: 600 }}>Ananya Sharma</p>
                     </div>
                   </div>
-                );
-              })}
-            </div>
-            {/* Style labels for cover letters (replaces fake dots) */}
-            <div className="hidden md:flex" style={{ justifyContent: 'center', gap: 8, marginTop: 32 }}>
-              {['Professional', 'Modern', 'Minimal'].map(label => (
-                <span key={label} style={{
-                  fontSize: 12, fontWeight: 600, letterSpacing: '0.04em',
-                  padding: '6px 14px', borderRadius: 999,
-                  background: 'rgba(255, 255, 255, 0.06)',
-                  border: '1px solid rgba(255, 255, 255, 0.12)',
-                  color: '#D4D4D8',
-                }}>{label}</span>
+                  <div style={{ padding: '12px 4px 2px' }}>
+                    <div style={{ fontSize: 13, fontWeight: 700, color: 'white', marginBottom: 2 }}>{s.name}</div>
+                    <div style={{ fontSize: 11, color: '#A1A1AA' }}>{s.tag}</div>
+                  </div>
+                </a>
               ))}
             </div>
           </>
