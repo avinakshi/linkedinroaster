@@ -1,0 +1,410 @@
+'use client';
+
+import { useState } from 'react';
+import Link from 'next/link';
+import { SaasMarketingHeader } from '../../components/saas/SaasMarketingHeader';
+
+// ─── Types ───
+interface PlanFeature {
+  text: string;
+  included: boolean;
+}
+
+interface Plan {
+  name: string;
+  price: string;
+  features: PlanFeature[];
+  highlighted?: boolean;
+  ctaLabel: string;
+  ctaHref: string;
+}
+
+// ─── Plan Data ───
+const plans: Plan[] = [
+  {
+    name: 'Standard',
+    price: '\u20B9499',
+    features: [
+      { text: 'AI Profile Score + Analysis', included: true },
+      { text: 'Complete LinkedIn Rewrite (headline, about, experience)', included: true },
+      { text: 'ATS Resume Builder (11 templates)', included: true },
+      { text: 'Cover Letter Generator', included: true },
+      { text: 'Interview Prep (15 questions + STAR answers + quiz)', included: true },
+      { text: 'AI Enhance Editor', included: true },
+      { text: 'PDF + TXT Export', included: true },
+    ],
+    ctaLabel: 'Get Standard \u2192',
+    ctaHref: '/?plan=standard',
+  },
+  {
+    name: 'Pro',
+    price: '\u20B9999',
+    highlighted: true,
+    features: [
+      { text: 'Everything in Standard', included: true },
+      { text: '5 headline variations', included: true },
+      { text: 'All 11 premium templates', included: true },
+      { text: 'Job-tailored cover letter', included: true },
+      { text: 'ATS keyword optimization', included: true },
+      { text: 'Priority processing', included: true },
+    ],
+    ctaLabel: 'Get Pro \u2192',
+    ctaHref: '/?plan=pro',
+  },
+];
+
+// ─── FAQ Data ───
+const faqs = [
+  {
+    q: 'What do I need to get started?',
+    a: 'Upload your resume (PDF/DOCX) or LinkedIn PDF. Students can just enter their details manually \u2014 no file needed.',
+  },
+  {
+    q: 'How is my data handled?',
+    a: 'Your file is processed for AI analysis and deleted from our servers within 30 days. We never share or sell your data. Encrypted in transit (TLS) and at rest.',
+  },
+  {
+    q: 'Can I upgrade from Standard to Pro later?',
+    a: 'Yes. Pay \u20B9500 difference anytime from your results page.',
+  },
+  {
+    q: 'Is this a subscription?',
+    a: 'No. One-time payment. No recurring charges.',
+  },
+  {
+    q: "What if I'm not satisfied?",
+    a: 'We offer refunds within 7 days. See our refund policy.',
+  },
+  {
+    q: 'How long does it take?',
+    a: 'Results are delivered in 60\u201390 seconds after payment. Resume generation takes another 30\u201360 seconds.',
+  },
+];
+
+// ─── PlanCard Component ───
+function PlanCard({ plan }: { plan: Plan }) {
+  const isHighlighted = plan.highlighted;
+
+  return (
+    <div
+      style={{
+        position: 'relative',
+        display: 'flex',
+        flexDirection: 'column',
+        background: '#FFFFFF',
+        borderRadius: 12,
+        border: isHighlighted ? '2px solid #4F46E5' : '1px solid #E0E0E0',
+        padding: 28,
+        boxShadow: '0 1px 3px rgba(0,0,0,0.08)',
+      }}
+    >
+      {isHighlighted && (
+        <div
+          style={{
+            position: 'absolute',
+            top: -14,
+            left: '50%',
+            transform: 'translateX(-50%)',
+            background: '#4F46E5',
+            color: '#fff',
+            fontSize: 11,
+            fontWeight: 700,
+            letterSpacing: '0.08em',
+            padding: '4px 14px',
+            borderRadius: 20,
+            textTransform: 'uppercase',
+            whiteSpace: 'nowrap',
+          }}
+        >
+          Most Popular
+        </div>
+      )}
+
+      <div
+        style={{
+          fontSize: 13,
+          fontWeight: 600,
+          letterSpacing: '0.06em',
+          textTransform: 'uppercase',
+          color: isHighlighted ? '#4F46E5' : '#666666',
+          marginBottom: 4,
+        }}
+      >
+        {plan.name}
+      </div>
+
+      <div
+        style={{
+          fontSize: 36,
+          fontWeight: 800,
+          color: '#191919',
+          marginBottom: 20,
+        }}
+      >
+        {plan.price}
+      </div>
+
+      <ul
+        style={{
+          listStyle: 'none',
+          padding: 0,
+          margin: 0,
+          flex: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 10,
+          marginBottom: 24,
+        }}
+      >
+        {plan.features.map((f, i) => (
+          <li
+            key={i}
+            style={{
+              display: 'flex',
+              alignItems: 'flex-start',
+              gap: 8,
+              fontSize: 14,
+              color: f.included ? '#191919' : '#999999',
+              lineHeight: '1.45',
+            }}
+          >
+            <span
+              style={{
+                flexShrink: 0,
+                marginTop: 1,
+                color: f.included ? '#057642' : '#999999',
+                fontWeight: 600,
+                fontSize: 15,
+              }}
+            >
+              {f.included ? '\u2713' : '\u2717'}
+            </span>
+            {f.text}
+          </li>
+        ))}
+      </ul>
+
+      <Link
+        href={plan.ctaHref}
+        style={{
+          display: 'block',
+          width: '100%',
+          padding: '14px 0',
+          borderRadius: 24,
+          fontSize: 15,
+          fontWeight: 600,
+          textAlign: 'center',
+          textDecoration: 'none',
+          cursor: 'pointer',
+          color: isHighlighted ? '#FFFFFF' : plan.name === 'Standard' ? '#4F46E5' : '#666666',
+          background: isHighlighted ? '#4F46E5' : '#FFFFFF',
+          boxShadow: isHighlighted ? '0 6px 16px rgba(79, 70, 229, 0.28)' : 'none',
+          border: isHighlighted ? 'none' : plan.name === 'Standard' ? '1.5px solid #4F46E5' : '1px solid #E0E0E0',
+          boxSizing: 'border-box',
+        }}
+      >
+        {plan.ctaLabel}
+      </Link>
+
+      <p
+        style={{
+          fontSize: 12,
+          color: '#666666',
+          textAlign: 'center',
+          marginTop: 12,
+          marginBottom: 0,
+        }}
+      >
+        One-time payment &mdash; results in 60-90 seconds
+      </p>
+    </div>
+  );
+}
+
+// ─── FAQ Item ───
+function FAQItem({ q, a }: { q: string; a: string }) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div
+      style={{
+        borderBottom: '1px solid #E0E0E0',
+        padding: '16px 0',
+      }}
+    >
+      <button
+        onClick={() => setOpen(!open)}
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          width: '100%',
+          background: 'none',
+          border: 'none',
+          cursor: 'pointer',
+          padding: 0,
+          fontSize: 15,
+          fontWeight: 600,
+          color: '#191919',
+          textAlign: 'left',
+          lineHeight: '1.4',
+        }}
+      >
+        {q}
+        <span
+          style={{
+            flexShrink: 0,
+            marginLeft: 12,
+            fontSize: 18,
+            color: '#666666',
+            transform: open ? 'rotate(45deg)' : 'rotate(0deg)',
+            transition: 'transform 0.2s',
+          }}
+        >
+          +
+        </span>
+      </button>
+      {open && (
+        <p
+          style={{
+            margin: '10px 0 0',
+            fontSize: 14,
+            color: '#666666',
+            lineHeight: '1.5',
+          }}
+        >
+          {a}
+        </p>
+      )}
+    </div>
+  );
+}
+
+// ─── Main Page ───
+export default function PricingPage() {
+
+  return (
+    <div className="saas-app-canvas">
+      <SaasMarketingHeader />
+      <div
+        style={{
+          maxWidth: 1100,
+          margin: '0 auto',
+          padding: '48px 20px 64px',
+        }}
+      >
+        {/* Header */}
+        <h1
+          style={{
+            fontSize: 32,
+            fontWeight: 800,
+            color: '#191919',
+            textAlign: 'center',
+            margin: '0 0 8px',
+          }}
+        >
+          Simple, transparent pricing
+        </h1>
+        <p
+          style={{
+            fontSize: 16,
+            color: '#666666',
+            textAlign: 'center',
+            margin: '0 0 32px',
+          }}
+        >
+          Choose the plan that fits your career stage
+        </p>
+
+        {/* What you get */}
+        <p
+          style={{
+            fontSize: 14,
+            color: '#666666',
+            textAlign: 'center',
+            margin: '0 0 40px',
+            lineHeight: '1.6',
+          }}
+        >
+          Upload resume or LinkedIn PDF &rarr; AI scores, rewrites, builds resume &amp; interview prep
+        </p>
+
+        {/* Plan Cards Grid */}
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+            gap: 24,
+            marginBottom: 48,
+          }}
+        >
+          {plans.map((plan) => (
+            <PlanCard key={plan.name} plan={plan} />
+          ))}
+        </div>
+
+        {/* Comparison line */}
+        <p
+          style={{
+            textAlign: 'center',
+            fontSize: 15,
+            color: '#666666',
+            margin: '0 0 16px',
+            fontStyle: 'italic',
+          }}
+        >
+          Resume writers charge &#8377;3,000&ndash;15,000 and take days. We do it in 90 seconds.
+        </p>
+
+        {/* Trust strip */}
+        <p
+          style={{
+            textAlign: 'center',
+            fontSize: 13,
+            color: '#666666',
+            margin: '0 0 56px',
+            lineHeight: '1.6',
+          }}
+        >
+          &#128274; Secure UPI/Card via Razorpay &bull;{' '}
+          <Link href="/refund" style={{ color: '#4F46E5', textDecoration: 'none' }}>
+            Refund policy
+          </Link>{' '}
+          &bull; 100% private &bull; Data deleted in 30 days
+        </p>
+
+        {/* FAQ */}
+        <div
+          style={{
+            maxWidth: 680,
+            margin: '0 auto',
+          }}
+        >
+          <h2
+            style={{
+              fontSize: 22,
+              fontWeight: 700,
+              color: '#191919',
+              textAlign: 'center',
+              margin: '0 0 24px',
+            }}
+          >
+            Frequently Asked Questions
+          </h2>
+          <div
+            style={{
+              background: '#FFFFFF',
+              borderRadius: 12,
+              border: '1px solid #E0E0E0',
+              padding: '4px 24px',
+            }}
+          >
+            {faqs.map((faq, i) => (
+              <FAQItem key={i} q={faq.q} a={faq.a} />
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
