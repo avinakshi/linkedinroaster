@@ -2299,18 +2299,19 @@ export default function Home() {
               <div style={{ position: 'relative', overflow: 'hidden', maxWidth: 1300, margin: '0 auto', padding: '0 32px' }}>
                 <div style={{ display: 'flex', transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)', transform: `translateX(-${carouselPage * 100}%)` }}>
                   {Array.from({ length: Math.ceil(TEMPLATES.length / 3) }).map((_, pageIdx) => (
-                    <div key={pageIdx} style={{ display: 'flex', gap: 28, minWidth: '100%', justifyContent: 'center', boxSizing: 'border-box' }}>
+                    <div key={pageIdx} style={{ display: 'flex', gap: 24, minWidth: '100%', justifyContent: 'center', boxSizing: 'border-box' }}>
                       {TEMPLATES.slice(pageIdx * 3, pageIdx * 3 + 3).map((t, i) => {
-                        const bgs = ['#E8D5A8', '#FFFFFF', '#EAEAEA', '#CADCF0', '#E8D5A8', '#C4DEC6', '#DDD0E8', '#E8DCA8', '#C0E0E0', '#E8C4D0', '#D4D8DC'];
+                        const bgs = ['#F4E9D2', '#FFFFFF', '#EAEAEA', '#D5E2F0', '#F4E9D2', '#D4EAD6', '#E5DAEC', '#F4E5D2', '#D2E8E8', '#F0D2DC', '#DEE2E6'];
                         return (
                           <div key={t.id} className="showcase-card" style={{
                             flex: '1 1 0',
                             background: bgs[(pageIdx * 3 + i) % bgs.length],
-                            borderRadius: 24,
-                            padding: '28px 20px 24px',
+                            borderRadius: 20,
+                            padding: '18px 14px 16px',
                             cursor: 'pointer',
+                            boxShadow: '0 12px 32px -12px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(0, 0, 0, 0.2)',
                           }} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-                            <ScaledResume templateId={t.id} data={SAMPLE_RESUME} previewHeight={560} />
+                            <ScaledResume templateId={t.id} data={SAMPLE_RESUME} previewHeight={440} />
                           </div>
                         );
                       })}
@@ -2318,27 +2319,43 @@ export default function Home() {
                   ))}
                 </div>
               </div>
-              {/* Dots */}
-              <div style={{ display: 'flex', justifyContent: 'center', gap: 10, marginTop: 40 }}>
+              {/* Dots — visible on dark bg */}
+              <div style={{ display: 'flex', justifyContent: 'center', gap: 10, marginTop: 36 }}>
                 {Array.from({ length: Math.ceil(TEMPLATES.length / 3) }).map((_, i) => (
-                  <button key={i} type="button" onClick={() => setCarouselPage(i)}
-                    style={{ width: 10, height: 10, borderRadius: '50%', border: 'none', cursor: 'pointer', background: carouselPage === i ? '#6B7280' : 'rgba(0,0,0,0.15)', transition: 'all 0.2s' }}
-                    aria-label={`Page ${i + 1}`} />
+                  <button
+                    key={i}
+                    type="button"
+                    onClick={() => setCarouselPage(i)}
+                    aria-label={`Page ${i + 1}`}
+                    style={{
+                      width: carouselPage === i ? 28 : 10,
+                      height: 10,
+                      borderRadius: 999,
+                      border: 'none',
+                      cursor: 'pointer',
+                      background: carouselPage === i
+                        ? 'linear-gradient(135deg, #A5B4FC 0%, #C4B5FD 50%, #F9A8D4 100%)'
+                        : 'rgba(255, 255, 255, 0.25)',
+                      boxShadow: carouselPage === i ? '0 0 12px rgba(165, 180, 252, 0.5)' : 'none',
+                      transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
+                    }}
+                  />
                 ))}
               </div>
             </div>
 
             {/* Mobile: horizontal swipe — just resumes, no labels */}
-            <div className="md:hidden" style={{ display: 'flex', gap: 16, overflowX: 'auto', padding: '0 16px 20px', scrollSnapType: 'x mandatory', WebkitOverflowScrolling: 'touch' }}>
+            <div className="md:hidden" style={{ display: 'flex', gap: 14, overflowX: 'auto', padding: '0 16px 20px', scrollSnapType: 'x mandatory', WebkitOverflowScrolling: 'touch' }}>
               {TEMPLATES.slice(0, 6).map((t, i) => {
-                const bgs = ['#E8D5A8', '#FFFFFF', '#EAEAEA', '#CADCF0', '#E8D5A8', '#C4DEC6'];
+                const bgs = ['#F4E9D2', '#FFFFFF', '#EAEAEA', '#D5E2F0', '#F4E9D2', '#D4EAD6'];
                 return (
                   <div key={t.id} style={{
-                    flex: '0 0 280px', scrollSnapAlign: 'center', background: bgs[i],
-                    borderRadius: 20, padding: '20px 14px 16px', cursor: 'pointer',
+                    flex: '0 0 240px', scrollSnapAlign: 'center', background: bgs[i],
+                    borderRadius: 16, padding: '14px 10px 12px', cursor: 'pointer',
+                    boxShadow: '0 8px 24px -8px rgba(0, 0, 0, 0.5), 0 2px 6px rgba(0, 0, 0, 0.2)',
                   }}
                     onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-                    <ScaledResume templateId={t.id} data={SAMPLE_RESUME} previewHeight={420} />
+                    <ScaledResume templateId={t.id} data={SAMPLE_RESUME} previewHeight={340} />
                   </div>
                 );
               })}
@@ -2352,55 +2369,76 @@ export default function Home() {
             <div className="hidden md:block" style={{ maxWidth: 1100, margin: '0 auto', padding: '0 24px' }}>
               <div style={{ display: 'flex', gap: 20, justifyContent: 'center' }}>
                 {['Professional', 'Modern', 'Minimal'].map((styleName, i) => {
-                  const bgs = ['#E8D5A8', '#FFFFFF', '#E8E8E8'];
+                  const bgs = ['#F4E9D2', '#FFFFFF', '#EAEAEA'];
                   const fonts = ["'Inter', sans-serif", "'Inter', sans-serif", 'Georgia, serif'];
                   return (
-                    <div key={styleName} className="showcase-card" style={{ flex: '1 1 0', maxWidth: 340, background: bgs[i], borderRadius: 20, padding: '20px 16px 16px', cursor: 'pointer' }}>
-                      <div style={{ background: 'white', borderRadius: 12, padding: '36px 32px', fontFamily: fonts[i], fontSize: 12.5, lineHeight: 1.75, color: '#374151', boxShadow: '0 1px 4px rgba(0,0,0,0.04)' }}>
-                        {i === 1 && <div style={{ height: 3, width: 40, background: '#DC2626', marginBottom: 24, borderRadius: 2 }} />}
-                        <div style={{ fontSize: i === 0 ? 22 : 18, fontWeight: 700, color: i === 0 ? '#B8860B' : '#0F172A', marginBottom: 20 }}>Ananya Sharma</div>
-                        <div style={{ fontSize: 10, color: '#64748B', marginBottom: 16 }}>Mumbai, India &bull; ananya.sharma@gmail.com &bull; +91 98765-43210</div>
-                        <p style={{ margin: '0 0 14px' }}>Dear Hiring Manager,</p>
-                        <p style={{ margin: '0 0 14px' }}>I am writing to express my strong interest in the Senior Product Manager position at your organization. With over 7 years of hands-on experience in product management across leading technology companies including Razorpay, Flipkart, and Freshworks, I bring a proven track record of building products that drive measurable business impact.</p>
-                        <p style={{ margin: '0 0 14px' }}>In my current role at Razorpay, I lead the merchant onboarding platform strategy, where I increased conversion rates by 32% and drove &#8377;1.8 Cr in incremental monthly revenue through the launch of our instant settlement feature. I manage a cross-functional team of 17 members and have consistently delivered products that serve 2M+ users.</p>
-                        <p style={{ margin: '0 0 14px' }}>At Flipkart, I spearheaded the launch of Flipkart Quick across 8 cities and redesigned the checkout flow, contributing &#8377;12 Cr in additional quarterly revenue. My approach combines deep customer empathy with rigorous data analysis to identify high-impact opportunities.</p>
-                        <p style={{ margin: '0 0 20px' }}>I would welcome the opportunity to discuss how my background aligns with your product vision.</p>
-                        <p style={{ margin: '0 0 4px', color: '#64748B' }}>Warm regards,</p>
-                        <p style={{ margin: 0, fontWeight: 700, color: '#0F172A', fontSize: 14 }}>Ananya Sharma</p>
+                    <div key={styleName} className="showcase-card" style={{
+                      flex: '1 1 0', maxWidth: 320, background: bgs[i],
+                      borderRadius: 16, padding: '14px 12px 12px', cursor: 'pointer',
+                      boxShadow: '0 12px 32px -12px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(0, 0, 0, 0.2)',
+                    }}>
+                      <div style={{
+                        background: 'white', borderRadius: 8,
+                        padding: '22px 22px', fontFamily: fonts[i],
+                        fontSize: 11, lineHeight: 1.65, color: '#374151',
+                        boxShadow: '0 1px 3px rgba(0, 0, 0, 0.04)',
+                        height: 380, overflow: 'hidden',
+                      }}>
+                        {i === 1 && <div style={{ height: 2.5, width: 32, background: '#DB2777', marginBottom: 16, borderRadius: 2 }} />}
+                        <div style={{ fontSize: i === 0 ? 18 : 15, fontWeight: 700, color: i === 0 ? '#B8860B' : '#0A0A0A', marginBottom: 14 }}>Ananya Sharma</div>
+                        <div style={{ fontSize: 9, color: '#6B7280', marginBottom: 12 }}>Mumbai &bull; ananya.sharma@gmail.com</div>
+                        <p style={{ margin: '0 0 10px' }}>Dear Hiring Manager,</p>
+                        <p style={{ margin: '0 0 10px' }}>I&rsquo;m writing about the Senior PM role. 7 years across Razorpay, Flipkart, Freshworks — building products that drive measurable impact.</p>
+                        <p style={{ margin: '0 0 10px' }}>At Razorpay I lead merchant onboarding: <strong style={{ color: '#0A0A0A' }}>+32% conversion</strong>, <strong style={{ color: '#0A0A0A' }}>&#8377;1.8 Cr monthly revenue</strong>, 17-person cross-functional team.</p>
+                        <p style={{ margin: '0 0 10px' }}>At Flipkart I shipped Flipkart Quick across 8 cities — <strong style={{ color: '#0A0A0A' }}>&#8377;12 Cr quarterly</strong>.</p>
+                        <p style={{ margin: '0 0 4px', color: '#6B7280' }}>Warm regards,</p>
+                        <p style={{ margin: 0, fontWeight: 700, color: '#0A0A0A', fontSize: 12 }}>Ananya Sharma</p>
                       </div>
                     </div>
                   );
                 })}
               </div>
             </div>
-            <div className="md:hidden" style={{ display: 'flex', gap: 16, overflowX: 'auto', padding: '0 16px 20px', scrollSnapType: 'x mandatory', WebkitOverflowScrolling: 'touch' }}>
+            <div className="md:hidden" style={{ display: 'flex', gap: 14, overflowX: 'auto', padding: '0 16px 20px', scrollSnapType: 'x mandatory', WebkitOverflowScrolling: 'touch' }}>
               {['Professional', 'Modern', 'Minimal'].map((styleName, i) => {
-                const bgs = ['#E8D5A8', '#FFFFFF', '#E8E8E8'];
+                const bgs = ['#F4E9D2', '#FFFFFF', '#EAEAEA'];
                 return (
-                  <div key={styleName} style={{ flex: '0 0 280px', scrollSnapAlign: 'center', background: bgs[i], borderRadius: 24, padding: '20px 16px 16px' }}>
-                    <div style={{ background: 'white', borderRadius: 12, padding: '24px 20px', fontFamily: i === 2 ? 'Georgia, serif' : "'Inter', sans-serif", fontSize: 11, lineHeight: 1.7, color: '#374151' }}>
-                      {i === 1 && <div style={{ height: 3, width: 32, background: '#DC2626', marginBottom: 16, borderRadius: 2 }} />}
-                      <div style={{ fontSize: 16, fontWeight: 700, color: i === 0 ? '#B8860B' : '#0F172A', marginBottom: 12 }}>Ananya Sharma</div>
-                      <p style={{ margin: '0 0 10px' }}>Dear Hiring Manager,</p>
-                      <p style={{ margin: '0 0 10px' }}>I am writing to express my interest in the Senior PM position. With 7+ years across Razorpay, Flipkart, and Freshworks, I drive measurable product impact.</p>
-                      <p style={{ margin: '0 0 10px' }}>At Razorpay, I increased conversion by 32% and drove &#8377;1.8 Cr monthly revenue through instant settlement.</p>
-                      <p style={{ margin: '0 0 4px', color: '#64748B' }}>Warm regards,</p>
+                  <div key={styleName} style={{
+                    flex: '0 0 240px', scrollSnapAlign: 'center', background: bgs[i],
+                    borderRadius: 14, padding: '12px 10px 10px',
+                    boxShadow: '0 8px 24px -8px rgba(0, 0, 0, 0.5), 0 2px 6px rgba(0, 0, 0, 0.2)',
+                  }}>
+                    <div style={{
+                      background: 'white', borderRadius: 8,
+                      padding: '16px 14px', fontFamily: i === 2 ? 'Georgia, serif' : "'Inter', sans-serif",
+                      fontSize: 10, lineHeight: 1.6, color: '#374151',
+                      height: 280, overflow: 'hidden',
+                    }}>
+                      {i === 1 && <div style={{ height: 2, width: 24, background: '#DB2777', marginBottom: 12, borderRadius: 2 }} />}
+                      <div style={{ fontSize: 13, fontWeight: 700, color: i === 0 ? '#B8860B' : '#0A0A0A', marginBottom: 10 }}>Ananya Sharma</div>
+                      <p style={{ margin: '0 0 8px' }}>Dear Hiring Manager,</p>
+                      <p style={{ margin: '0 0 8px' }}>Senior PM role, 7 years across Razorpay, Flipkart, Freshworks.</p>
+                      <p style={{ margin: '0 0 8px' }}>At Razorpay: <strong>+32% conversion</strong>, <strong>&#8377;1.8 Cr monthly</strong>.</p>
+                      <p style={{ margin: '0 0 4px', color: '#6B7280' }}>Warm regards,</p>
                       <p style={{ margin: 0, fontWeight: 600 }}>Ananya Sharma</p>
                     </div>
                   </div>
                 );
               })}
             </div>
+            {/* Style labels for cover letters (replaces fake dots) */}
+            <div className="hidden md:flex" style={{ justifyContent: 'center', gap: 8, marginTop: 32 }}>
+              {['Professional', 'Modern', 'Minimal'].map(label => (
+                <span key={label} style={{
+                  fontSize: 12, fontWeight: 600, letterSpacing: '0.04em',
+                  padding: '6px 14px', borderRadius: 999,
+                  background: 'rgba(255, 255, 255, 0.06)',
+                  border: '1px solid rgba(255, 255, 255, 0.12)',
+                  color: '#D4D4D8',
+                }}>{label}</span>
+              ))}
+            </div>
           </>
-        )}
-
-        {/* Dots for cover letters */}
-        {showcaseTab === 'coverletters' && (
-          <div className="hidden md:flex" style={{ justifyContent: 'center', gap: 10, marginTop: 40 }}>
-            <div style={{ width: 12, height: 12, borderRadius: '50%', background: '#6B7280' }} />
-            <div style={{ width: 12, height: 12, borderRadius: '50%', background: 'rgba(0,0,0,0.12)' }} />
-            <div style={{ width: 12, height: 12, borderRadius: '50%', background: 'rgba(0,0,0,0.12)' }} />
-          </div>
         )}
       </section>
 
