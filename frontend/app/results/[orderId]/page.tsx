@@ -1420,7 +1420,7 @@ export default function ResultsPage() {
   const [linkedinUploading, setLinkedinUploading] = useState(false);
   const [linkedinUploadDone, setLinkedinUploadDone] = useState(false);
   const linkedinFileRef = useRef<HTMLInputElement>(null);
-  const [activeSection, setActiveSection] = useState<'score' | 'rewrite' | 'resume' | 'prep'>('score');
+  const [activeSection, setActiveSection] = useState<'score' | 'rewrite' | 'resume' | 'prep' | 'share'>('score');
   const [resumes, setResumes] = useState<any[]>([]);
   const [resumesLoading, setResumesLoading] = useState(true);
   const [prepLoading, setPrepLoading] = useState(false);
@@ -1690,10 +1690,11 @@ export default function ResultsPage() {
       <div className="tab-bar" style={{ position: 'sticky', top: 0, zIndex: 50 }}>
         <div style={{ maxWidth: 900, margin: '0 auto', padding: '0 16px', display: 'flex', gap: 0, overflowX: 'auto' }}>
           {[
-            { key: 'score', label: 'Your Score', num: 1 },
-            { key: 'rewrite', label: 'LinkedIn Rewrite', num: 2 },
-            { key: 'resume', label: 'Resume', num: 3 },
-            { key: 'prep', label: 'Interview Prep', num: 4 },
+            { key: 'score', label: 'Score', icon: '\ud83d\udcca', num: 1 },
+            { key: 'rewrite', label: 'LinkedIn Rewrite', icon: '\u270d\ufe0f', num: 2 },
+            { key: 'resume', label: 'Resume', icon: '\ud83d\udcc4', num: 3 },
+            { key: 'prep', label: 'Interview Prep', icon: '\ud83c\udfaf', num: 4 },
+            { key: 'share', label: 'More', icon: '\u2699\ufe0f', num: 5 },
           ].map(tab => (
             <button
               key={tab.key}
@@ -1714,74 +1715,40 @@ export default function ResultsPage() {
           <div style={{ maxWidth: 1100, margin: '0 auto', padding: '20px 16px 0' }}>
             <div style={{ background: '#FFFFFF', borderRadius: 16, border: '1px solid var(--border-default)', overflow: 'hidden', marginBottom: 16, boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
 
-              {/* Banner gradient — friendly indigo→violet→pink mesh */}
-              <div style={{
-                position: 'relative',
-                background: 'linear-gradient(135deg, #18181B 0%, #0A0A0A 100%)',
-                padding: '36px 28px 28px', color: 'white',
-                overflow: 'hidden',
-              }}>
-                <div aria-hidden="true" style={{
-                  position: 'absolute', inset: 0,
-                  background: 'radial-gradient(at 25% 0%, rgba(124, 58, 237, 0.32) 0%, transparent 55%), radial-gradient(at 75% 100%, rgba(219, 39, 119, 0.24) 0%, transparent 55%), radial-gradient(at 50% 50%, rgba(79, 70, 229, 0.18) 0%, transparent 60%)',
-                  pointerEvents: 'none',
-                }} />
-                <div aria-hidden="true" style={{
-                  position: 'absolute', inset: 0,
-                  backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.04) 1px, transparent 0)',
-                  backgroundSize: '20px 20px',
-                  pointerEvents: 'none',
-                }} />
-                <div style={{ position: 'relative' }}>
-                  <div style={{ textAlign: 'center', fontSize: 11, fontWeight: 600, letterSpacing: '0.12em', color: '#C4B5FD', marginBottom: 16, textTransform: 'uppercase' }}>
-                    {isResumeMode ? 'Your new resume score' : isQuestionnaireMode ? 'Your new profile score' : 'Your new LinkedIn score'}
+              {/* Banner gradient */}
+              <div style={{ background: 'linear-gradient(135deg, var(--accent-hover) 0%, var(--accent) 50%, var(--success) 100%)', padding: '24px 28px 20px', color: 'white' }}>
+                <div style={{ textAlign: 'center', fontSize: 10, fontWeight: 700, letterSpacing: 2, opacity: 0.7, marginBottom: 8, textTransform: 'uppercase' }}>
+                  {isResumeMode ? 'ATS Resume Score' : isQuestionnaireMode ? 'Profile Score' : 'LinkedIn Profile Score'}
+                </div>
+                {/* Score row */}
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16, marginBottom: 14, animation: 'countUp 0.8s ease-out' }}>
+                  <div style={{ textAlign: 'center' }}>
+                    <div style={{ fontSize: 36, fontWeight: 800, lineHeight: 1, opacity: 0.7 }}>{scores.before.overall}</div>
+                    <div style={{ fontSize: 9, fontWeight: 600, textTransform: 'uppercase', letterSpacing: 1, opacity: 0.6 }}>Before</div>
                   </div>
-                  {/* Score row */}
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 20, marginBottom: 18, animation: 'countUp 0.8s ease-out' }}>
-                    <div style={{ textAlign: 'center' }}>
-                      <div style={{ fontSize: 38, fontWeight: 700, lineHeight: 1, color: 'rgba(255, 255, 255, 0.45)' }}>{scores.before.overall}</div>
-                      <div style={{ fontSize: 10, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'rgba(255, 255, 255, 0.45)', marginTop: 4 }}>Before</div>
-                    </div>
-                    <div style={{ fontSize: 22, color: 'rgba(255, 255, 255, 0.4)' }}>{'→'}</div>
-                    <div style={{ textAlign: 'center' }}>
-                      <div style={{
-                        fontSize: 64, fontWeight: 800, lineHeight: 1, letterSpacing: '-0.04em',
-                        background: 'linear-gradient(135deg, #A5B4FC 0%, #C4B5FD 50%, #F9A8D4 100%)',
-                        WebkitBackgroundClip: 'text', backgroundClip: 'text',
-                        color: 'transparent', WebkitTextFillColor: 'transparent',
-                      }}>{scores.after.overall}</div>
-                      <div style={{ fontSize: 10, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#C4B5FD', marginTop: 4 }}>Now</div>
-                    </div>
-                    <div style={{
-                      background: 'linear-gradient(135deg, rgba(79, 70, 229, 0.30), rgba(219, 39, 119, 0.25))',
-                      border: '1px solid rgba(255, 255, 255, 0.15)',
-                      fontSize: 14, fontWeight: 700, padding: '6px 14px', borderRadius: 999,
-                      letterSpacing: '-0.005em',
-                    }}>+{improvement} pts</div>
+                  <div style={{ fontSize: 22, opacity: 0.5 }}>&rarr;</div>
+                  <div style={{ textAlign: 'center' }}>
+                    <div style={{ fontSize: 48, fontWeight: 800, lineHeight: 1 }}>{scores.after.overall}</div>
+                    <div style={{ fontSize: 9, fontWeight: 600, textTransform: 'uppercase', letterSpacing: 1, opacity: 0.8 }}>After</div>
                   </div>
-                  {/* Human-readable dimension chips */}
-                  <div style={{ display: 'flex', justifyContent: 'center', gap: 8, flexWrap: 'wrap' }}>
-                    {(isResumeMode ? [
-                      { label: 'ATS Keywords', b: scores.before.ats || 0, a: scores.after.ats || 0 },
-                      { label: 'Action Verbs', b: Math.round((scores.before.experience || 0) * 0.8), a: scores.after.experience || 0 },
-                      { label: 'Quantification', b: Math.round((scores.before.completeness || 0) * 0.7), a: scores.after.completeness || 0 },
-                    ] : [
-                      { label: 'Headline', b: scores.before.headline, a: scores.after.headline },
-                      { label: 'About', b: scores.before.about, a: scores.after.about },
-                      { label: 'Experience', b: scores.before.experience, a: scores.after.experience },
-                      { label: 'ATS', b: scores.before.ats || 0, a: scores.after.ats || 0 },
-                    ]).map(s => (
-                      <span key={s.label} style={{
-                        background: 'rgba(255, 255, 255, 0.06)',
-                        border: '1px solid rgba(255, 255, 255, 0.12)',
-                        borderRadius: 999, padding: '5px 12px',
-                        fontSize: 11, fontWeight: 500, color: 'rgba(255, 255, 255, 0.85)',
-                        display: 'inline-flex', alignItems: 'center', gap: 6,
-                      }}>
-                        {s.label} <span style={{ color: improvementColor(s.b, s.a), fontWeight: 700 }}>{improvementLabel(s.b, s.a)}</span>
-                      </span>
-                    ))}
-                  </div>
+                  <div style={{ background: 'rgba(255,255,255,0.2)', fontSize: 14, fontWeight: 800, padding: '4px 14px', borderRadius: 20 }}>+{improvement}</div>
+                </div>
+                {/* Human-readable dimension chips */}
+                <div style={{ display: 'flex', justifyContent: 'center', gap: 8, flexWrap: 'wrap' }}>
+                  {(isResumeMode ? [
+                    { label: 'ATS Keywords', b: scores.before.ats || 0, a: scores.after.ats || 0 },
+                    { label: 'Action Verbs', b: Math.round((scores.before.experience || 0) * 0.8), a: scores.after.experience || 0 },
+                    { label: 'Quantification', b: Math.round((scores.before.completeness || 0) * 0.7), a: scores.after.completeness || 0 },
+                  ] : [
+                    { label: 'Headline', b: scores.before.headline, a: scores.after.headline },
+                    { label: 'About', b: scores.before.about, a: scores.after.about },
+                    { label: 'Experience', b: scores.before.experience, a: scores.after.experience },
+                    { label: 'ATS', b: scores.before.ats || 0, a: scores.after.ats || 0 },
+                  ]).map(s => (
+                    <span key={s.label} style={{ background: 'rgba(255,255,255,0.15)', borderRadius: 12, padding: '4px 12px', fontSize: 11, fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+                      {s.label}: <span style={{ color: improvementColor(s.b, s.a) }}>{improvementLabel(s.b, s.a)}</span>
+                    </span>
+                  ))}
                 </div>
               </div>
 
@@ -1883,12 +1850,7 @@ export default function ResultsPage() {
           {/* What Was Holding Your Profile Back */}
           {(missingKeywords.length > 0 || weakVerbs.length > 0 || quantBreakdown) && (
             <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 16px 16px' }}>
-              <div style={{ marginBottom: 16 }}>
-                <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.08em', color: 'var(--accent)', textTransform: 'uppercase', marginBottom: 4 }}>What we fixed</div>
-                <div style={{ fontSize: 22, fontWeight: 700, color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
-                  {isResumeMode ? 'Here’s what was holding your resume back' : isQuestionnaireMode ? 'Here’s how we improved your profile' : 'Here’s what was holding your LinkedIn back'}
-                </div>
-              </div>
+              <div style={{ fontSize: 18, fontWeight: 700, color: 'var(--text-primary)', marginBottom: 12 }}>{isResumeMode ? 'Resume Improvements — What AI Fixed' : isQuestionnaireMode ? 'Profile Improvements' : 'What Was Holding Your Profile Back'}</div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 12 }}>
 
                 {/* Card 1: Missing Keywords */}
@@ -2228,62 +2190,41 @@ export default function ResultsPage() {
         </div>
       )}
 
-      {/* ═══ Footer: Feedback + optional Upgrade (always visible) ═══ */}
-      <section style={{ background: 'var(--bg-canvas)', padding: '24px 16px 32px' }}>
-        <div style={{ maxWidth: 800, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 16 }}>
-          {/* Feedback widget — gentle ask after seeing results */}
-          <div style={{
-            background: '#FFFFFF',
-            borderRadius: 16,
-            border: '1px solid rgba(10, 10, 10, 0.06)',
-            padding: '20px 24px',
-            boxShadow: '0 1px 3px rgba(10, 10, 10, 0.03)',
-          }}>
+      {/* ═══ SHARE & MORE TAB ═══ */}
+      {activeSection === 'share' && (
+        <div style={{ maxWidth: 800, margin: '0 auto', padding: '20px 16px', display: 'flex', flexDirection: 'column', gap: 16 }}>
+          {/* Feedback widget */}
+          <div style={{ background: '#FFFFFF', borderRadius: 16, border: '1px solid #E5E7EB', padding: '24px 28px', boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
             <FeedbackWidget orderId={orderId} />
           </div>
 
-          {/* Upgrade to Pro — only if Standard, gentle non-blocking offer */}
+          {/* Share buttons */}
+          <SafeRender name="ShareButtons">
+            <ShareButtons
+              caption={rewrite.linkedin_post_hook}
+              cardUrl={results.card_image_url}
+              orderId={orderId}
+              beforeScore={scores.before.overall}
+              afterScore={scores.after.overall}
+              referralUrl={referral_url}
+            />
+          </SafeRender>
+
+          {/* Referral widget */}
+          <SafeRender name="ReferralWidget">
+            <ReferralWidget code={referral_code} url={referral_url} cardUrl={results.card_image_url} />
+          </SafeRender>
+
+          {/* Upgrade to Pro (Standard only) */}
           {!isPro && (
-            <div style={{
-              position: 'relative',
-              background: 'linear-gradient(135deg, #18181B 0%, #0A0A0A 100%)',
-              borderRadius: 16,
-              padding: '24px 28px',
-              color: 'white',
-              overflow: 'hidden',
-            }}>
-              <div aria-hidden="true" style={{
-                position: 'absolute', inset: 0,
-                background: 'radial-gradient(at 0% 0%, rgba(124, 58, 237, 0.25) 0%, transparent 55%), radial-gradient(at 100% 100%, rgba(219, 39, 119, 0.18) 0%, transparent 55%)',
-                pointerEvents: 'none',
-              }} />
-              <div style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap' }}>
-                <div style={{ flex: '1 1 280px' }}>
-                  <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#C4B5FD', marginBottom: 6 }}>Want more?</div>
-                  <div style={{ fontSize: 18, fontWeight: 700, marginBottom: 6, letterSpacing: '-0.015em' }}>Unlock the Pro upgrades</div>
-                  <div style={{ fontSize: 13, color: 'rgba(255, 255, 255, 0.72)', lineHeight: 1.55 }}>
-                    5 headline variations · all 11 templates · 3 cover letters · advanced ATS keyword matching
-                  </div>
-                </div>
-                <button
-                  onClick={handleUpgrade}
-                  style={{
-                    padding: '12px 22px',
-                    background: 'linear-gradient(135deg, #FFFFFF 0%, #F4F4F5 100%)',
-                    color: '#0A0A0A',
-                    border: 'none', borderRadius: 12,
-                    fontSize: 14, fontWeight: 700, cursor: 'pointer',
-                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.4)',
-                    whiteSpace: 'nowrap',
-                  }}
-                >
-                  Upgrade — ₹500
-                </button>
-              </div>
+            <div style={{ background: 'linear-gradient(135deg, #004182, #0B69C7)', borderRadius: 12, padding: '20px 24px', color: 'white' }}>
+              <div style={{ fontSize: 16, fontWeight: 700, marginBottom: 4 }}>Upgrade to Pro</div>
+              <div style={{ fontSize: 13, opacity: 0.85, marginBottom: 12, lineHeight: 1.5 }}>5 headline variations, all 11 templates, 3 cover letters, ATS keywords</div>
+              <button onClick={handleUpgrade} style={{ padding: '10px 24px', background: 'white', color: '#0B69C7', border: 'none', borderRadius: 50, fontSize: 14, fontWeight: 700, cursor: 'pointer' }}>Upgrade &#8212; &#8377;500</button>
             </div>
           )}
         </div>
-      </section>
+      )}
 
       {/* ═══ Disclaimer ═══ */}
       <section style={{ background: 'var(--bg-canvas)', padding: '20px 16px' }}>
