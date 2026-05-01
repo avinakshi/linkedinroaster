@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import SiteFooter from '../components/saas/SiteFooter';
+import AnalyticsBoot from '../components/AnalyticsBoot';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -26,6 +27,7 @@ export default function RootLayout({
         <script src="https://checkout.razorpay.com/v1/checkout.js" async />
       </head>
       <body>
+        <AnalyticsBoot />
         {children}
         <SiteFooter variant="light" />
       </body>

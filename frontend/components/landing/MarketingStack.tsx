@@ -408,7 +408,7 @@ export default function MarketingStack() {
               { num: '03', icon: '🚀', title: 'Download & Apply', desc: 'LinkedIn rewrite, ATS resume, cover letter, and interview prep.', preview: 'Resume ready for download' },
             ].map((s, i) => (
               <div key={i} style={{ background: 'white', borderRadius: 24, padding: 32, border: '1px solid #E5E7EB', boxShadow: '0 10px 30px rgba(15,23,42,0.08)', display: 'flex', flexDirection: 'column' }}>
-                <div style={{ width: 64, height: 64, background: '#EEF2FF', borderRadius: 20, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 28, marginBottom: 20 }}>{s.icon}</div>
+                <div aria-hidden="true" style={{ width: 64, height: 64, background: '#EEF2FF', borderRadius: 20, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 28, marginBottom: 20 }}>{s.icon}</div>
                 <div style={{ fontSize: 48, fontWeight: 800, color: '#E2E8F0', marginBottom: 12 }}>{s.num}</div>
                 <div style={{ fontSize: 20, fontWeight: 700, color: '#0F172A', marginBottom: 8 }}>{s.title}</div>
                 <div style={{ fontSize: 15, color: '#64748B', lineHeight: 1.7, flex: 1, marginBottom: 20 }}>{s.desc}</div>

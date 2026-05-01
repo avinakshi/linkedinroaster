@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect, useMemo, lazy, Suspense } from 'react';
 import { TEMPLATES, renderResumeHTML, getRecommendedTemplates } from '../components/resume/ResumeTemplates';
 import SiteFooter from '../components/saas/SiteFooter';
+import { track } from '../lib/analytics';
 import '../styles/landing-pr.css';
 
 // Lazy-load below-fold marketing content — cuts initial bundle for faster LCP.
@@ -286,6 +287,7 @@ function ProfileInputForm({
       setSparseWarning(true);
       return; // Show warning, don't block — next click proceeds
     }
+    track('payment_initiated', { plan, input_source: inputSource });
     setSubmitting(true);
     try {
       const res = await fetch(`${API_URL}/api/orders`, {
@@ -331,6 +333,7 @@ function ProfileInputForm({
       prefill: { email: userEmail },
       theme: { color: '#4F46E5' },
       handler: function () {
+        track('payment_completed', { plan, order_id: orderData.order_id });
         window.location.href = `/results/${orderData.order_id}`;
       },
       modal: {
@@ -809,6 +812,8 @@ export default function Home() {
     const count = parseInt(localStorage.getItem(lsKey) || '0', 10);
     if (count >= 5) { setRateLimited(true); return; }
 
+    track('teaser_started', { input_source: inputSource, target_role: targetRole || qTargetRole || undefined });
+
     setLoading(true);
     setLoadingStage('Parsing your profile...');
     setLoadingProgress(20);
@@ -828,13 +833,17 @@ export default function Home() {
       if (res.ok) {
         setTeaser(data);
         localStorage.setItem(lsKey, String(count + 1));
+        track('teaser_completed', { score: data.score, input_source: inputSource });
       } else if (res.status === 429) {
         setRateLimited(true);
+        track('teaser_failed', { reason: 'rate_limited' });
       } else {
         alert(data.errors?.[0] || data.error || 'Something went wrong');
+        track('teaser_failed', { reason: 'api_error', status: res.status });
       }
     } catch {
       alert('Could not reach the server. Please try again.');
+      track('teaser_failed', { reason: 'network' });
     } finally {
       clearTimeout(stageTimer);
       clearTimeout(stageTimer2);
@@ -1068,6 +1077,7 @@ export default function Home() {
   }
 
   function handlePlanSelect(plan: 'standard' | 'pro') {
+    track('plan_selected', { plan, has_teaser: !!teaser });
     setSelectedPlan(plan);
     setShowPricing(true);
     setTimeout(() => inputFormRef.current?.scrollIntoView({ behavior: 'smooth' }), 100);
@@ -1591,14 +1601,14 @@ export default function Home() {
                             <input ref={pdfInputRef} type="file" accept=".pdf" onChange={e => { const f = e.target.files?.[0]; if (f) uploadAndParsePdf(f); }} style={{ display: 'none' }} />
                             {pdfUploading ? (
                               <>
-                                <div style={{ fontSize: 28, marginBottom: 6, animation: 'spin 1s linear infinite' }}>&#9881;</div>
-                                <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--accent)' }}>Parsing your LinkedIn PDF...</div>
+                                <div aria-hidden="true" style={{ fontSize: 28, marginBottom: 6, animation: 'spin 1s linear infinite' }}>&#9881;</div>
+                                <div role="status" aria-live="polite" style={{ fontSize: 14, fontWeight: 700, color: 'var(--accent)' }}>Parsing your LinkedIn PDF...</div>
                                 <div style={{ fontSize: 11, color: 'var(--text-secondary)', marginTop: 4 }}>Extracting profile data &bull; 5-10 seconds</div>
                                 <style>{`@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }`}</style>
                               </>
                             ) : (
                               <>
-                                <div style={{ fontSize: 40, marginBottom: 8 }}>&#128188;</div>
+                                <div aria-hidden="true" style={{ fontSize: 40, marginBottom: 8 }}>&#128188;</div>
                                 <div style={{ fontSize: 16, fontWeight: 700, color: 'var(--accent)' }}>{pdfDragOver ? 'Drop your PDF here!' : 'Drop your LinkedIn PDF here'}</div>
                                 <div style={{ fontSize: 13, color: 'var(--text-secondary)', marginTop: 6 }}>or click to browse &bull; .pdf only</div>
                                 <div style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 8, lineHeight: 1.5 }}>

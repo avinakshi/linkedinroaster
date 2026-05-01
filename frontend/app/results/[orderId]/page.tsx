@@ -1452,6 +1452,15 @@ export default function ResultsPage() {
         setDisplayProgress(100);
         setData(json);
         setPolling(null);
+        try {
+          const { track } = await import('../../../lib/analytics');
+          track('order_completed', {
+            order_id: orderId,
+            plan: json.plan,
+            score_before: json.results?.scores?.before?.overall,
+            score_after: json.results?.scores?.after?.overall,
+          });
+        } catch {}
         return;
       }
 
@@ -2189,9 +2198,50 @@ export default function ResultsPage() {
         </div>
       )}
 
-{/* ═══ Always-visible footer: Feedback + WhatsApp share ═══ */}
+{/* ═══ Always-visible footer: Pro upgrade + Feedback + WhatsApp share ═══ */}
       <section style={{ background: 'var(--bg-canvas)', padding: '24px 16px 32px' }}>
         <div style={{ maxWidth: 800, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 16 }}>
+
+          {/* Upgrade to Pro — only for Standard users, before feedback so it's visible */}
+          {!isPro && (
+            <div style={{
+              position: 'relative',
+              background: 'linear-gradient(135deg, #18181B 0%, #0A0A0A 100%)',
+              borderRadius: 16,
+              padding: '22px 26px',
+              color: 'white',
+              overflow: 'hidden',
+            }}>
+              <div aria-hidden="true" style={{
+                position: 'absolute', inset: 0,
+                background: 'radial-gradient(at 0% 0%, rgba(124, 58, 237, 0.25) 0%, transparent 55%), radial-gradient(at 100% 100%, rgba(219, 39, 119, 0.18) 0%, transparent 55%)',
+                pointerEvents: 'none',
+              }} />
+              <div style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap' }}>
+                <div style={{ flex: '1 1 280px' }}>
+                  <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#C4B5FD', marginBottom: 6 }}>You unlocked Standard</div>
+                  <div style={{ fontSize: 18, fontWeight: 700, marginBottom: 6, letterSpacing: '-0.015em' }}>Want every Pro upgrade?</div>
+                  <div style={{ fontSize: 13, color: 'rgba(255, 255, 255, 0.72)', lineHeight: 1.55 }}>
+                    5 headline variations · all 11 templates · 3 cover letters · advanced ATS keyword matching
+                  </div>
+                </div>
+                <button
+                  onClick={handleUpgrade}
+                  style={{
+                    padding: '12px 22px',
+                    background: 'linear-gradient(135deg, #FFFFFF 0%, #F4F4F5 100%)',
+                    color: '#0A0A0A',
+                    border: 'none', borderRadius: 12,
+                    fontSize: 14, fontWeight: 700, cursor: 'pointer',
+                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.4)',
+                    whiteSpace: 'nowrap',
+                  }}
+                >
+                  Upgrade — ₹500
+                </button>
+              </div>
+            </div>
+          )}
 
           {/* Feedback widget */}
           <div style={{
