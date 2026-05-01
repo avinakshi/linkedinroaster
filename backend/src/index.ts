@@ -8,6 +8,7 @@ import Razorpay from 'razorpay';
 import * as Sentry from '@sentry/node';
 import { checkConnection, query } from './db';
 import { validateProfileInput, validateEmail } from './lib/validation';
+import { teaserBodySchema, orderBodySchema, parseBody } from './validators';
 import { teaserAnalysis } from './ai/teaser';
 import { trackPaymentInitiated, trackPaymentCompleted, trackUpgradeCompleted } from './services/analytics';
 import { startAllCrons } from './cron';
@@ -654,9 +655,10 @@ app.get('/api/cors-test', (_req: Request, res: Response) => {
 // POST /api/orders — with email rate limit + input sanitization
 app.post('/api/orders', async (req: Request, res: Response) => {
   try {
-    const { email, plan, profile_data, job_description, teaser_id, input_source, target_role } = req.body;
-    const validInputSources = ['resume', 'linkedin', 'questionnaire', 'student'];
-    const safeInputSource = validInputSources.includes(input_source) ? input_source : 'linkedin';
+    const parsed = parseBody(orderBodySchema, req.body);
+    if (!parsed.ok) return res.status(400).json({ errors: parsed.errors });
+    const { email, plan, profile_data, job_description, teaser_id, input_source, target_role } = parsed.data;
+    const safeInputSource = input_source ?? 'linkedin';
 
     if (!validateEmail(email))
       return res.status(400).json({ error: 'Invalid email address' });
@@ -678,12 +680,9 @@ app.post('/api/orders', async (req: Request, res: Response) => {
       profile_data.raw_paste = stripHtml(profile_data.raw_paste);
     }
 
-    const validation = validateProfileInput(profile_data);
+    const validation = validateProfileInput(profile_data || {});
     if (!validation.valid)
       return res.status(400).json({ errors: validation.errors });
-
-    if (!['standard', 'pro'].includes(plan))
-      return res.status(400).json({ error: 'Invalid plan' });
 
     const hash = crypto.createHash('sha256')
       .update(JSON.stringify(profile_data)).digest('hex');
@@ -760,16 +759,9 @@ app.post('/api/orders', async (req: Request, res: Response) => {
 // POST /api/teaser — rate limited (5/IP/hour), headline cached, AI-powered
 app.post('/api/teaser', rateLimiter('teaser', 5, 3600), async (req: Request, res: Response) => {
   try {
-    const { headline, input_source, target_role } = req.body;
-
-    if (!headline || headline.trim().length < 10)
-      return res.status(400).json({ errors: ['Please paste your LinkedIn headline (at least 10 characters).'] });
-
-    if (headline.trim().length > 500)
-      return res.status(400).json({ error: 'invalid_input', message: 'Headline is too long. Please paste only your LinkedIn headline, not your full profile.' });
-
-    if (!/[a-zA-Z\u0900-\u097F]/.test(headline))
-      return res.status(400).json({ error: 'invalid_input', message: 'Please paste your actual LinkedIn headline.' });
+    const parsed = parseBody(teaserBodySchema, req.body);
+    if (!parsed.ok) return res.status(400).json({ errors: parsed.errors });
+    const { headline, input_source, target_role } = parsed.data;
 
     // Check headline cache first
     const headlineHash = crypto
