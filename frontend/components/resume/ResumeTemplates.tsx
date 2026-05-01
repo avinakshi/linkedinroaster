@@ -198,7 +198,7 @@ const T = {
     blue: '#0A66C2',
     green: '#057642',
     red: '#991B1B',
-    teal: '#0D9488',
+    teal: '#4F46E5',
     gold: '#B8860B',
     indigo: '#4F46E5',
     orange: '#EA580C',
@@ -1437,7 +1437,7 @@ function renderOcean(data: ResumeData): React.ReactNode {
     font: T.ff.sans, fontSize: T.fs.body, lineHeight: T.lh.normal, textColor: T.c.text, padding: T.sp['2xl'],
     nameSize: T.fs['2xl'], nameColor: T.accent.teal, nameAlign: 'left',
     sectionFontSize: T.fs.body, sectionColor: T.accent.teal, sectionBorder: `1px solid ${T.accent.teal}`, sectionGap: T.sp.lg,
-    skillsMode: 'tags', skillTagBg: '#F0FDFA', skillTagColor: T.accent.teal,
+    skillsMode: 'tags', skillTagBg: '#EEF2FF', skillTagColor: T.accent.teal,
     bulletChar: '●',
   });
 }
@@ -2080,7 +2080,7 @@ function renderClinical(data: ResumeData): React.ReactNode {
   const certifications = skillGroups.find(g => g.label.toLowerCase().includes('certif'));
   const otherGroups = skillGroups.filter(g => g !== certifications);
   const sectionHeader = (title: string) => (
-    <div style={{ fontFamily: 'Georgia, serif', fontSize: '12px', fontWeight: 700, textTransform: 'uppercase' as const, letterSpacing: '1.5px', color: '#1F2937', borderBottom: '2px solid #0F766E', paddingBottom: '3px', marginBottom: '8px' }}>{title}</div>
+    <div style={{ fontFamily: 'Georgia, serif', fontSize: '12px', fontWeight: 700, textTransform: 'uppercase' as const, letterSpacing: '1.5px', color: '#1F2937', borderBottom: '2px solid #4338CA', paddingBottom: '3px', marginBottom: '8px' }}>{title}</div>
   );
   return (
     <div style={{ fontFamily: 'Arial, Helvetica, sans-serif', fontSize: '13px', lineHeight: 1.55, color: '#1F2937', padding: '26px 30px', maxWidth: '800px' }}>
@@ -2099,11 +2099,11 @@ function renderClinical(data: ResumeData): React.ReactNode {
       {data.summary && <div style={{ marginBottom: '14px' }}>{sectionHeader('Professional Summary')}<div>{data.summary}</div></div>}
       {/* Certifications & Registrations box */}
       {certifications && certifications.items.length > 0 && (
-        <div style={{ border: '2px solid #0F766E', background: '#F0FDFA', borderRadius: '6px', padding: '12px 16px', marginBottom: '14px' }}>
+        <div style={{ border: '2px solid #4338CA', background: '#EEF2FF', borderRadius: '6px', padding: '12px 16px', marginBottom: '14px' }}>
           {sectionHeader('Certifications & Registrations')}
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
             {certifications.items.map((cert, i) => (
-              <span key={i} style={{ background: 'white', border: '1px solid #0F766E', borderRadius: '4px', padding: '3px 10px', fontSize: '12px', color: '#0F766E', fontWeight: 600 }}>{cert}</span>
+              <span key={i} style={{ background: 'white', border: '1px solid #4338CA', borderRadius: '4px', padding: '3px 10px', fontSize: '12px', color: '#4338CA', fontWeight: 600 }}>{cert}</span>
             ))}
           </div>
         </div>
@@ -2935,9 +2935,9 @@ function printOcean(data: ResumeData): string {
   const cp = cpArr.map(esc).join(' &nbsp;&bull;&nbsp; ');
   const dateS = 'font-size:10px;color:#666;font-style:italic';
   const titleS = 'font-weight:700;color:#111';
-  const hdr = (t: string) => `<div style="font-size:11px;font-weight:700;color:#0D9488;text-transform:uppercase;border-bottom:1px solid #0D9488;padding-bottom:2px;margin-bottom:6px">${t}</div>`;
+  const hdr = (t: string) => `<div style="font-size:11px;font-weight:700;color:#4F46E5;text-transform:uppercase;border-bottom:1px solid #4F46E5;padding-bottom:2px;margin-bottom:6px">${t}</div>`;
   let h = `<div class="resume-wrapper" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;line-height:1.5;color:#374151;padding:40px;max-width:100%">`;
-  h += `<div style="margin-bottom:14px"><div style="font-size:26px;font-weight:700;color:#0D9488">${esc(c.name) || 'Your Name'}</div>`;
+  h += `<div style="margin-bottom:14px"><div style="font-size:26px;font-weight:700;color:#4F46E5">${esc(c.name) || 'Your Name'}</div>`;
   if (cp) h += `<div style="font-size:10px;color:#555;margin-top:4px">${cp}</div>`;
   h += `</div>`;
   if (data.summary) h += `<div style="margin-bottom:14px">${hdr('Summary')}<div>${esc(data.summary)}</div></div>`;
@@ -2947,7 +2947,7 @@ function printOcean(data: ResumeData): string {
       const title = esc(getExpTitle(exp));
       const dates = esc(getExpDates(exp));
       const company = [exp.company, exp.location].filter(Boolean).map(esc).join(' &mdash; ');
-      const bullets = (exp.bullets || []).map(b => `<div style="padding-left:14px;text-indent:-14px;margin-bottom:2px"><span style="color:#0D9488">&#9679;</span> ${esc(b)}</div>`).join('');
+      const bullets = (exp.bullets || []).map(b => `<div style="padding-left:14px;text-indent:-14px;margin-bottom:2px"><span style="color:#4F46E5">&#9679;</span> ${esc(b)}</div>`).join('');
       h += `<div class="entry" style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;flex-wrap:wrap"><span style="${titleS}">${title}</span><span style="${dateS}">${dates}</span></div><div style="color:#555;font-style:italic">${company}</div>${bullets ? `<div style="margin-top:4px">${bullets}</div>` : ''}</div>`;
     });
     h += `</div>`;
@@ -2955,7 +2955,7 @@ function printOcean(data: ResumeData): string {
   if (data.education?.length) h += `<div style="margin-bottom:14px">${hdr('Education')}${buildEduHTML(data, dateS)}</div>`;
   const skOcean = buildSkillsGroupedHTML(data);
   if (skOcean) h += `<div style="margin-bottom:14px">${hdr('Skills')}${skOcean}</div>`;
-  const ach = buildAchievementsHTML(data, '<span style="color:#0D9488">&#9679;</span>');
+  const ach = buildAchievementsHTML(data, '<span style="color:#4F46E5">&#9679;</span>');
   if (ach) h += `<div style="margin-bottom:14px">${hdr('Achievements')}${ach}</div>`;
   h += `</div>`;
   return printPageWrapper(h);
@@ -3401,7 +3401,7 @@ function printClinical(data: ResumeData): string {
   const skillGroups = normalizeSkills(data.skills);
   const certifications = skillGroups.find(g => g.label.toLowerCase().includes('certif'));
   const otherGroups = skillGroups.filter(g => g !== certifications);
-  const hdr = (t: string) => `<div style="font-family:Georgia,serif;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#1F2937;border-bottom:2px solid #0F766E;padding-bottom:3px;margin-bottom:8px">${t}</div>`;
+  const hdr = (t: string) => `<div style="font-family:Georgia,serif;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#1F2937;border-bottom:2px solid #4338CA;padding-bottom:3px;margin-bottom:8px">${t}</div>`;
   const dateS = 'font-size:11px;color:#666;font-style:italic';
   const titleS = 'font-weight:700;color:#1F2937';
 
@@ -3417,7 +3417,7 @@ function printClinical(data: ResumeData): string {
   if (data.summary) h += `<div style="margin-bottom:14px">${hdr('Professional Summary')}<div>${esc(data.summary)}</div></div>`;
   // Certifications (ATS-friendly comma-separated)
   if (certifications && certifications.items.length) {
-    h += `<div style="margin-bottom:14px">${hdr('Certifications &amp; Registrations')}<div style="font-size:12px;color:#0F766E;font-weight:600">${certifications.items.map(esc).join(', ')}</div></div>`;
+    h += `<div style="margin-bottom:14px">${hdr('Certifications &amp; Registrations')}<div style="font-size:12px;color:#4338CA;font-weight:600">${certifications.items.map(esc).join(', ')}</div></div>`;
   }
   if (data.experience?.length) h += `<div style="margin-bottom:14px">${hdr('Experience')}${buildExpHTML(data, '&bull;', dateS, 'color:#555;font-style:italic;font-size:11px', titleS)}</div>`;
   if (data.education?.length) h += `<div style="margin-bottom:14px">${hdr('Education')}${buildEduHTML(data, dateS)}</div>`;
