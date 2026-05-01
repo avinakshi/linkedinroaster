@@ -57,11 +57,11 @@ const plans: Plan[] = [
 const faqs = [
   {
     q: 'What do I need to get started?',
-    a: 'Upload your resume (PDF/DOCX) or LinkedIn PDF. You can also enter details manually if you don\u2019t have a file.',
+    a: 'Upload your resume (PDF/DOCX) or LinkedIn PDF. Students can just enter their details manually \u2014 no file needed.',
   },
   {
-    q: 'What do I need to get started?',
-    a: 'Upload your resume (PDF/DOCX) or LinkedIn PDF. Students can just enter their details manually \u2014 no file needed.',
+    q: 'How is my data handled?',
+    a: 'Your file is processed for AI analysis and deleted from our servers within 30 days. We never share or sell your data. Encrypted in transit (TLS) and at rest.',
   },
   {
     q: 'Can I upgrade from Standard to Pro later?',
@@ -93,7 +93,7 @@ function PlanCard({ plan }: { plan: Plan }) {
         flexDirection: 'column',
         background: '#FFFFFF',
         borderRadius: 12,
-        border: isHighlighted ? '2px solid #0B69C7' : '1px solid #E0E0E0',
+        border: isHighlighted ? '2px solid #0D9488' : '1px solid #E0E0E0',
         padding: 28,
         boxShadow: '0 1px 3px rgba(0,0,0,0.08)',
       }}
@@ -105,7 +105,7 @@ function PlanCard({ plan }: { plan: Plan }) {
             top: -14,
             left: '50%',
             transform: 'translateX(-50%)',
-            background: '#0B69C7',
+            background: '#0D9488',
             color: '#fff',
             fontSize: 11,
             fontWeight: 700,
@@ -126,7 +126,7 @@ function PlanCard({ plan }: { plan: Plan }) {
           fontWeight: 600,
           letterSpacing: '0.06em',
           textTransform: 'uppercase',
-          color: isHighlighted ? '#0B69C7' : '#666666',
+          color: isHighlighted ? '#0D9488' : '#666666',
           marginBottom: 4,
         }}
       >
@@ -191,18 +191,15 @@ function PlanCard({ plan }: { plan: Plan }) {
           width: '100%',
           padding: '14px 0',
           borderRadius: 24,
-          border: 'none',
           fontSize: 15,
           fontWeight: 600,
           textAlign: 'center',
           textDecoration: 'none',
           cursor: 'pointer',
-          color: isHighlighted ? '#FFFFFF' : '#FFFFFF',
-          background: isHighlighted
-            ? '#0B69C7'
-            : plan.name === 'Standard'
-              ? '#E16B00'
-              : '#666666',
+          color: isHighlighted ? '#FFFFFF' : plan.name === 'Standard' ? '#0D9488' : '#666666',
+          background: isHighlighted ? '#0D9488' : '#FFFFFF',
+          boxShadow: isHighlighted ? '0 6px 16px rgba(13, 148, 136, 0.28)' : 'none',
+          border: isHighlighted ? 'none' : plan.name === 'Standard' ? '1.5px solid #0D9488' : '1px solid #E0E0E0',
           boxSizing: 'border-box',
         }}
       >
@@ -370,7 +367,7 @@ export default function PricingPage() {
           }}
         >
           &#128274; Secure UPI/Card via Razorpay &bull;{' '}
-          <Link href="/refund" style={{ color: '#0B69C7', textDecoration: 'none' }}>
+          <Link href="/refund" style={{ color: '#0D9488', textDecoration: 'none' }}>
             Refund policy
           </Link>{' '}
           &bull; 100% private &bull; Data deleted in 30 days

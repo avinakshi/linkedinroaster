@@ -1,22 +1,22 @@
-/* ProfileRoaster landing — LinkedIn-style blue / white */
+/* ProfileRoaster landing — Teal HQ brand */
 
 .pr-landing {
-  --accent: #0a66c2;
-  --accent-hover: #004182;
-  --accent-subtle: #eff6ff;
+  --accent: #0D9488;
+  --accent-hover: #115E59;
+  --accent-subtle: #F0FDFA;
   --bg-canvas: #f8fafc;
   --bg-surface: #ffffff;
-  --bg-subtle: #eff6ff;
-  --border-default: rgba(10, 102, 194, 0.12);
-  --border-strong: rgba(10, 102, 194, 0.22);
+  --bg-subtle: #F0FDFA;
+  --border-default: rgba(13, 148, 136, 0.12);
+  --border-strong: rgba(13, 148, 136, 0.22);
   --text-primary: #0f172a;
   --text-secondary: #475569;
   --text-muted: #94a3b8;
-  --pr-glow: rgba(10, 102, 194, 0.22);
+  --pr-glow: rgba(13, 148, 136, 0.22);
   --pr-violet: #6366f1;
   --pr-amber: #d97706;
   --shadow-soft: 0 4px 24px rgba(15, 23, 42, 0.06);
-  --shadow-card: 0 1px 3px rgba(15, 23, 42, 0.04), 0 12px 40px rgba(10, 102, 194, 0.08);
+  --shadow-card: 0 1px 3px rgba(15, 23, 42, 0.04), 0 12px 40px rgba(13, 148, 136, 0.08);
   --radius-xl: 20px;
   --radius-2xl: 28px;
 }
@@ -126,14 +126,14 @@
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 4px 14px rgba(10, 102, 194, 0.35);
+  box-shadow: 0 4px 14px rgba(13, 148, 136, 0.35);
   transition: transform 0.15s ease, box-shadow 0.15s ease;
   white-space: nowrap;
 }
 
 .pr-nav__cta:hover {
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(10, 102, 194, 0.4);
+  box-shadow: 0 6px 20px rgba(13, 148, 136, 0.4);
 }
 
 .pr-hero {
@@ -188,7 +188,7 @@
   padding: 6px 12px;
   border-radius: 999px;
   background: rgba(239, 246, 255, 0.95);
-  border: 1px solid rgba(10, 102, 194, 0.18);
+  border: 1px solid rgba(13, 148, 136, 0.18);
 }
 
 .pr-hero__title {
