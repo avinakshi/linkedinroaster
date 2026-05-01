@@ -2002,23 +2002,42 @@ export default function Home() {
                     <div style={{ fontSize: 9, fontWeight: 700, color: '#94A3B8', letterSpacing: 1, marginBottom: 8 }}>ORIGINAL PROFILE</div>
                     <div style={{ height: 3, background: '#E2E8F0', borderRadius: 2, marginBottom: 10 }}><div style={{ height: '100%', width: '42%', background: '#F87171', borderRadius: 2 }} /></div>
                     <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginBottom: 8 }}>
-                      <div style={{ width: 28, height: 28, borderRadius: '50%', background: '#D1D5DB' }} />
+                      <img
+                        src="https://api.dicebear.com/9.x/notionists/svg?seed=rajesh-original&backgroundColor=e2e8f0,d1d5db"
+                        alt="Original profile"
+                        style={{ width: 28, height: 28, borderRadius: '50%', background: '#E5E7EB', filter: 'grayscale(0.6)' }}
+                      />
                       <div>
                         <div style={{ fontSize: 11, fontWeight: 700, color: '#6B7280' }}>Rajesh Kumar</div>
-                        <div style={{ fontSize: 8, color: '#9CA3AF' }}>Updated 2 days ago</div>
+                        <div style={{ fontSize: 8, color: '#9CA3AF', display: 'flex', alignItems: 'center', gap: 3 }}>
+                          <span>Software Engineer</span>
+                          <span>·</span>
+                          <span>Updated 2d ago</span>
+                        </div>
                       </div>
                     </div>
                     <div style={{ fontSize: 10, color: '#9CA3AF', lineHeight: 1.4, padding: '6px 8px', background: '#E5E7EB', borderRadius: 6, marginBottom: 8, textDecoration: 'line-through', fontStyle: 'italic' }}>
                       &ldquo;Results-driven professional seeking opportunities&rdquo;
                     </div>
-                    <div style={{ marginBottom: 8 }}>
-                      <div style={{ height: 5, background: '#D1D5DB', borderRadius: 2, marginBottom: 3 }} />
-                      <div style={{ height: 5, background: '#D1D5DB', borderRadius: 2, marginBottom: 3, width: '80%' }} />
-                      <div style={{ height: 5, background: '#D1D5DB', borderRadius: 2, width: '55%' }} />
+                    <div style={{ fontSize: 8, fontWeight: 700, color: '#94A3B8', letterSpacing: 1, marginBottom: 4 }}>ABOUT</div>
+                    <div style={{ fontSize: 9, color: '#94A3B8', lineHeight: 1.5, marginBottom: 8, fontStyle: 'italic' }}>
+                      <span style={{ textDecoration: 'line-through' }}>Hard-working professional with excellent communication skills and a passion for excellence. Looking for new opportunities to grow.</span>
+                    </div>
+                    <div style={{ fontSize: 8, fontWeight: 700, color: '#94A3B8', letterSpacing: 1, marginBottom: 4 }}>EXPERIENCE</div>
+                    <div style={{ fontSize: 9, color: '#9CA3AF', lineHeight: 1.5, marginBottom: 8 }}>
+                      <div style={{ textDecoration: 'line-through' }}>· Worked on various projects</div>
+                      <div style={{ textDecoration: 'line-through' }}>· Handled day-to-day operations</div>
+                      <div style={{ textDecoration: 'line-through' }}>· Participated in team meetings</div>
                     </div>
                     <div style={{ display: 'flex', gap: 3, flexWrap: 'wrap' }}>
-                      {['⚠ Weak headline', '⚠ No metrics', '⚠ 12 keywords missing'].map(w => (
-                        <span key={w} style={{ padding: '1px 5px', background: '#FEE2E2', color: '#DC2626', borderRadius: 3, fontSize: 7, fontWeight: 600 }}>{w}</span>
+                      {['Weak headline', 'No metrics', '12 keywords missing'].map(w => (
+                        <span key={w} style={{ display: 'inline-flex', alignItems: 'center', gap: 2, padding: '1px 5px', background: '#FEE2E2', color: '#DC2626', borderRadius: 3, fontSize: 7, fontWeight: 600 }}>
+                          <svg width="6" height="6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                            <line x1="12" y1="9" x2="12" y2="13" />
+                            <line x1="12" y1="17" x2="12.01" y2="17" />
+                          </svg>
+                          {w}
+                        </span>
                       ))}
                     </div>
                   </div>
@@ -2042,7 +2061,11 @@ export default function Home() {
                     </div>
                     <div style={{ height: 3, background: '#E5E7EB', borderRadius: 2, marginBottom: 10 }}><div style={{ height: '100%', width: '87%', background: '#34D399', borderRadius: 2 }} /></div>
                     <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginBottom: 8 }}>
-                      <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'linear-gradient(135deg, #4F46E5, #3730A3)' }} />
+                      <img
+                        src="https://api.dicebear.com/9.x/notionists/svg?seed=rajesh-optimized&backgroundColor=c7d2fe,ddd6fe,fbcfe8"
+                        alt="Optimized profile"
+                        style={{ width: 28, height: 28, borderRadius: '50%', background: '#EEF2FF' }}
+                      />
                       <div>
                         <div style={{ fontSize: 11, fontWeight: 700, color: '#0F172A' }}>Rajesh Kumar</div>
                         <div style={{ fontSize: 8, color: '#15803D', display: 'flex', alignItems: 'center', gap: 3 }}><span style={{ width: 5, height: 5, borderRadius: '50%', background: '#34D399', display: 'inline-block' }} />Updated just now</div>
@@ -2119,10 +2142,17 @@ export default function Home() {
               </div>
               <div style={{ height: 4, background: '#E5E7EB', borderRadius: 2, marginBottom: 14 }}><div style={{ height: '100%', width: '87%', background: '#34D399', borderRadius: 2 }} /></div>
               <div style={{ display: 'flex', gap: 10, alignItems: 'center', marginBottom: 12 }}>
-                <div style={{ width: 40, height: 40, borderRadius: '50%', background: 'linear-gradient(135deg, #4F46E5, #3730A3)' }} />
+                <img
+                  src="https://api.dicebear.com/9.x/notionists/svg?seed=rajesh-optimized&backgroundColor=c7d2fe,ddd6fe,fbcfe8"
+                  alt="Optimized profile"
+                  style={{ width: 40, height: 40, borderRadius: '50%', background: '#EEF2FF' }}
+                />
                 <div>
                   <div style={{ fontSize: 14, fontWeight: 700, color: '#0F172A' }}>Rajesh Kumar</div>
-                  <div style={{ fontSize: 11, color: '#15803D' }}>Updated just now</div>
+                  <div style={{ fontSize: 11, color: '#15803D', display: 'flex', alignItems: 'center', gap: 4 }}>
+                    <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#10B981' }} />
+                    Updated just now · 12 recruiter views
+                  </div>
                 </div>
               </div>
               <div style={{ fontSize: 13, color: '#15803D', lineHeight: 1.5, padding: '10px 12px', background: '#F0FDF4', borderRadius: 10, marginBottom: 12, fontWeight: 600, borderLeft: '3px solid #34D399' }}>

@@ -54,35 +54,223 @@ export default function MarketingStack() {
               }}>skip your profile</span> in 6 seconds
             </h2>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 20 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 20 }}>
             {[
-              { title: 'The Buzzword Headline', bad: 'Passionate results-driven professional seeking to leverage synergies', good: 'Product Manager who grew DAU from 12K to 180K at a Series B fintech', color: '#FF5A5F' },
-              { title: 'The Keyword Dump', bad: 'Python | Java | AWS | Docker | SQL | Agile | Seeking opportunities', good: 'Backend Engineer | Reduced API latency 62% across a 3M-user SaaS platform', color: '#F59E0B' },
-              { title: 'The Generic About', bad: 'Hard-working individual with excellent communication skills and a can-do attitude', good: 'Led 8-person engineering team shipping ₹4.2Cr revenue features. 3 promotions in 4 years.', color: '#7C3AED' },
-            ].map((card, i) => (
-              <div key={i} style={{ background: '#1E293B', borderRadius: 16, padding: '24px 20px', border: '1px solid #334155' }}>
-                <div style={{ fontSize: 13, fontWeight: 700, color: card.color, marginBottom: 16 }}>{card.title}</div>
-                <div style={{ display: 'flex', gap: 8, marginBottom: 8 }}>
-                  <div style={{ flex: 1, background: '#0F172A', borderRadius: 10, padding: '12px', border: '1px solid #DC262640' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 8 }}>
-                      <div style={{ width: 20, height: 20, borderRadius: '50%', background: '#374151' }} />
-                      <div style={{ height: 6, background: '#374151', borderRadius: 3, flex: 1 }} />
+              {
+                title: 'The buzzword headline',
+                category: 'Headline',
+                person: { name: 'Priya Sharma', role: 'Product Manager', loc: 'Bangalore', avatarSeed: 'priya-sharma' },
+                bad: 'Passionate results-driven professional seeking to leverage synergies',
+                good: 'Product Manager who grew DAU 12K → 180K at a Series B fintech',
+                accent: '#F43F5E',
+              },
+              {
+                title: 'The keyword dump',
+                category: 'Skills section',
+                person: { name: 'Vikram Mehta', role: 'Backend Engineer', loc: 'Pune', avatarSeed: 'vikram-mehta' },
+                bad: 'Python | Java | AWS | Docker | SQL | Agile | Seeking opportunities',
+                good: 'Backend Engineer · Reduced API latency 62% on a 3M-user SaaS platform',
+                accent: '#F59E0B',
+              },
+              {
+                title: 'The generic about',
+                category: 'About section',
+                person: { name: 'Anita Reddy', role: 'Engineering Lead', loc: 'Hyderabad', avatarSeed: 'anita-reddy' },
+                bad: 'Hard-working individual with excellent communication and a can-do attitude.',
+                good: 'Led 8-person engineering team shipping ₹4.2 Cr in revenue features. 3 promotions in 4 years.',
+                accent: '#A855F7',
+              },
+            ].map((c, i) => (
+              <div key={i} style={{
+                position: 'relative',
+                background: 'linear-gradient(180deg, #1A1A1F 0%, #131318 100%)',
+                borderRadius: 20,
+                padding: 18,
+                border: '1px solid rgba(255, 255, 255, 0.06)',
+                boxShadow: '0 16px 40px -16px rgba(0, 0, 0, 0.6)',
+                overflow: 'hidden',
+              }}>
+                {/* Card label */}
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <span style={{
+                      display: 'inline-flex', width: 24, height: 24, borderRadius: 6,
+                      background: `${c.accent}1F`,
+                      color: c.accent,
+                      alignItems: 'center', justifyContent: 'center', fontSize: 13, fontWeight: 800,
+                    }}>{i + 1}</span>
+                    <span style={{ fontSize: 14, fontWeight: 700, color: 'white', letterSpacing: '-0.01em' }}>{c.title}</span>
+                  </div>
+                  <span style={{
+                    fontSize: 10, fontWeight: 600, letterSpacing: '0.04em',
+                    color: '#A1A1AA', textTransform: 'uppercase',
+                    padding: '3px 8px', borderRadius: 999,
+                    background: 'rgba(255, 255, 255, 0.05)',
+                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                  }}>{c.category}</span>
+                </div>
+
+                {/* BEFORE — realistic LinkedIn-style profile card */}
+                <div style={{
+                  background: 'white',
+                  borderRadius: 12,
+                  padding: '14px 14px 12px',
+                  marginBottom: 10,
+                  position: 'relative',
+                  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04)',
+                }}>
+                  <span style={{
+                    position: 'absolute', top: 10, right: 10,
+                    fontSize: 9, fontWeight: 700, letterSpacing: '0.05em',
+                    color: '#DC2626', textTransform: 'uppercase',
+                    padding: '3px 8px', borderRadius: 999,
+                    background: '#FEF2F2', border: '1px solid #FECACA',
+                  }}>Before</span>
+                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}>
+                    <div style={{ position: 'relative', flexShrink: 0 }}>
+                      <img
+                        src={`https://api.dicebear.com/9.x/notionists/svg?seed=${c.person.avatarSeed}-bad&backgroundColor=e2e8f0,d1d5db,9ca3af`}
+                        alt={c.person.name}
+                        style={{ width: 44, height: 44, borderRadius: '50%', background: '#F1F5F9', filter: 'grayscale(0.5)' }}
+                      />
+                      {/* Open to Work ring */}
+                      <span aria-hidden="true" style={{
+                        position: 'absolute', inset: -2,
+                        borderRadius: '50%',
+                        boxShadow: 'inset 0 0 0 2px #16A34A',
+                      }} />
+                      <span style={{
+                        position: 'absolute', bottom: -3, left: '50%', transform: 'translateX(-50%)',
+                        background: '#16A34A', color: 'white',
+                        fontSize: 7, fontWeight: 700, letterSpacing: '0.04em',
+                        padding: '1px 6px', borderRadius: 999,
+                        whiteSpace: 'nowrap',
+                      }}>#OPENTOWORK</span>
                     </div>
-                    <div style={{ fontSize: 10, color: '#EF4444', textDecoration: 'line-through', lineHeight: 1.5, opacity: 0.8 }}>{card.bad}</div>
-                    <div style={{ marginTop: 8, display: 'flex', gap: 4 }}>
-                      <span style={{ padding: '1px 4px', background: '#DC262620', color: '#F87171', borderRadius: 3, fontSize: 7, fontWeight: 600 }}>⚠ Generic</span>
-                      <span style={{ padding: '1px 4px', background: '#DC262620', color: '#F87171', borderRadius: 3, fontSize: 7, fontWeight: 600 }}>⚠ No metrics</span>
+                    <div style={{ minWidth: 0, flex: 1 }}>
+                      <div style={{ fontSize: 14, fontWeight: 700, color: '#0A0A0A', lineHeight: 1.2 }}>
+                        {c.person.name}
+                      </div>
+                      <div style={{ fontSize: 11, color: '#525252', marginTop: 2, lineHeight: 1.35, fontStyle: 'italic', textDecoration: 'line-through', textDecorationColor: '#DC2626', textDecorationThickness: 1 }}>
+                        {c.bad}
+                      </div>
+                      <div style={{ fontSize: 10, color: '#737373', marginTop: 4, display: 'flex', gap: 6, alignItems: 'center', flexWrap: 'wrap' }}>
+                        <span>{c.person.loc}</span>
+                        <span style={{ color: '#D4D4D8' }}>·</span>
+                        <span>500+ connections</span>
+                      </div>
+                      <div style={{ display: 'flex', gap: 4, marginTop: 8, flexWrap: 'wrap' }}>
+                        {['Generic', 'No metrics', 'No keywords'].map(t => (
+                          <span key={t} style={{
+                            display: 'inline-flex', alignItems: 'center', gap: 3,
+                            fontSize: 9, fontWeight: 600,
+                            padding: '2px 6px', borderRadius: 4,
+                            color: '#DC2626', background: '#FEF2F2', border: '1px solid #FECACA',
+                          }}>
+                            <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                              <line x1="12" y1="9" x2="12" y2="13" />
+                              <line x1="12" y1="17" x2="12.01" y2="17" />
+                            </svg>
+                            {t}
+                          </span>
+                        ))}
+                      </div>
                     </div>
                   </div>
-                  <div style={{ flex: 1, background: '#0F172A', borderRadius: 10, padding: '12px', border: '1px solid #10B98140' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 8 }}>
-                      <div style={{ width: 20, height: 20, borderRadius: '50%', background: 'linear-gradient(135deg, #4F46E5, #3730A3)' }} />
-                      <div style={{ height: 6, background: '#34D399', borderRadius: 3, flex: 1 }} />
+                </div>
+
+                {/* Arrow divider */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, justifyContent: 'center', margin: '6px 0' }}>
+                  <span style={{ height: 1, width: 24, background: 'rgba(255, 255, 255, 0.1)' }} />
+                  <span style={{
+                    display: 'inline-flex', alignItems: 'center', gap: 4,
+                    fontSize: 10, fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase',
+                    color: '#A5B4FC',
+                  }}>
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <path d="M12 2v8" />
+                      <path d="M16 6l-4 4-4-4" />
+                    </svg>
+                    AI Rewrite
+                  </span>
+                  <span style={{ height: 1, width: 24, background: 'rgba(255, 255, 255, 0.1)' }} />
+                </div>
+
+                {/* AFTER — realistic LinkedIn-style profile card */}
+                <div style={{
+                  background: 'white',
+                  borderRadius: 12,
+                  padding: '14px 14px 12px',
+                  position: 'relative',
+                  boxShadow: '0 4px 16px -4px rgba(79, 70, 229, 0.20), 0 1px 3px rgba(0, 0, 0, 0.06)',
+                  border: '1px solid rgba(79, 70, 229, 0.18)',
+                }}>
+                  <span style={{
+                    position: 'absolute', top: 10, right: 10,
+                    fontSize: 9, fontWeight: 700, letterSpacing: '0.05em',
+                    color: 'white', textTransform: 'uppercase',
+                    padding: '3px 8px', borderRadius: 999,
+                    background: 'linear-gradient(135deg, #4F46E5, #7C3AED)',
+                    boxShadow: '0 2px 6px rgba(79, 70, 229, 0.35)',
+                  }}>After</span>
+                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}>
+                    <div style={{ position: 'relative', flexShrink: 0 }}>
+                      <img
+                        src={`https://api.dicebear.com/9.x/notionists/svg?seed=${c.person.avatarSeed}-good&backgroundColor=c7d2fe,ddd6fe,fbcfe8`}
+                        alt={c.person.name}
+                        style={{ width: 44, height: 44, borderRadius: '50%', background: '#EEF2FF' }}
+                      />
+                      <span style={{
+                        position: 'absolute', bottom: -2, right: -2,
+                        width: 12, height: 12, borderRadius: '50%',
+                        background: '#10B981', border: '2px solid white',
+                      }} />
                     </div>
-                    <div style={{ fontSize: 10, color: '#A7F3D0', fontWeight: 600, lineHeight: 1.5 }}><span style={{ background: '#10B98130', padding: '1px 3px', borderRadius: 2 }}>{card.good}</span></div>
-                    <div style={{ marginTop: 8, display: 'flex', gap: 4 }}>
-                      <span style={{ padding: '1px 4px', background: '#10B98120', color: '#34D399', borderRadius: 3, fontSize: 7, fontWeight: 600 }}>✓ Quantified</span>
-                      <span style={{ padding: '1px 4px', background: '#10B98120', color: '#34D399', borderRadius: 3, fontSize: 7, fontWeight: 600 }}>✓ ATS Ready</span>
+                    <div style={{ minWidth: 0, flex: 1 }}>
+                      <div style={{ display: 'flex', alignItems: 'baseline', gap: 6, flexWrap: 'wrap' }}>
+                        <div style={{ fontSize: 14, fontWeight: 700, color: '#0A0A0A', lineHeight: 1.2 }}>
+                          {c.person.name}
+                        </div>
+                        <span style={{
+                          display: 'inline-flex', alignItems: 'center', gap: 2,
+                          fontSize: 9, fontWeight: 700,
+                          color: '#4F46E5', padding: '1px 5px', borderRadius: 3,
+                          background: '#EEF2FF',
+                        }}>
+                          <svg width="8" height="8" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1l2.5 5 5.5.8-4 3.9.9 5.5L12 13.5l-4.9 2.6.9-5.5-4-3.9 5.5-.8z" /></svg>
+                          PRO
+                        </span>
+                      </div>
+                      <div style={{ fontSize: 11, color: '#0A0A0A', fontWeight: 600, marginTop: 2, lineHeight: 1.4 }}>
+                        <span style={{ background: 'linear-gradient(120deg, rgba(79, 70, 229, 0.10) 0%, rgba(124, 58, 237, 0.08) 50%, rgba(219, 39, 119, 0.10) 100%)', padding: '0 2px', borderRadius: 2 }}>
+                          {c.good}
+                        </span>
+                      </div>
+                      <div style={{ fontSize: 10, color: '#737373', marginTop: 4, display: 'flex', gap: 6, alignItems: 'center', flexWrap: 'wrap' }}>
+                        <span>{c.person.loc}</span>
+                        <span style={{ color: '#D4D4D8' }}>·</span>
+                        <span>500+ connections</span>
+                        <span style={{ color: '#D4D4D8' }}>·</span>
+                        <span style={{ color: '#16A34A', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: 3 }}>
+                          <span style={{ width: 5, height: 5, borderRadius: '50%', background: '#16A34A' }} />
+                          12 recruiter views today
+                        </span>
+                      </div>
+                      <div style={{ display: 'flex', gap: 4, marginTop: 8, flexWrap: 'wrap' }}>
+                        {['Quantified', 'ATS-ready', 'Recruiter-friendly'].map(t => (
+                          <span key={t} style={{
+                            display: 'inline-flex', alignItems: 'center', gap: 3,
+                            fontSize: 9, fontWeight: 600,
+                            padding: '2px 6px', borderRadius: 4,
+                            color: '#15803D', background: '#F0FDF4', border: '1px solid #BBF7D0',
+                          }}>
+                            <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                              <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                            {t}
+                          </span>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
