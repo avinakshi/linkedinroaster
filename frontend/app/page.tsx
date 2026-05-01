@@ -2114,44 +2114,105 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Trust strip: stats + plain-text company line ── */}
-      <section style={{ padding: '64px 0', background: 'white', borderTop: '1px solid var(--border-default)', borderBottom: '1px solid var(--border-default)' }}>
-        <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 24px' }}>
+      {/* ── Trust strip: premium glass stat cards ── */}
+      <section style={{
+        position: 'relative',
+        padding: '88px 0 80px',
+        background: 'linear-gradient(180deg, #FAFAFA 0%, #FFFFFF 100%)',
+        borderTop: '1px solid rgba(10, 10, 10, 0.06)',
+      }}>
+        {/* Subtle gradient orb */}
+        <div aria-hidden="true" style={{
+          position: 'absolute', top: '-30%', left: '50%', transform: 'translateX(-50%)',
+          width: 'min(80vw, 900px)', height: 400,
+          background: 'radial-gradient(ellipse at center, rgba(99, 102, 241, 0.08) 0%, transparent 60%)',
+          filter: 'blur(40px)', pointerEvents: 'none',
+        }} />
+        <div style={{ position: 'relative', maxWidth: 1180, margin: '0 auto', padding: '0 24px' }}>
+          <div style={{ textAlign: 'center', marginBottom: 48 }}>
+            <div style={{
+              display: 'inline-block',
+              fontSize: 12, fontWeight: 600, letterSpacing: '0.08em',
+              color: 'var(--accent-deep)', textTransform: 'uppercase',
+              padding: '6px 14px', borderRadius: 999,
+              background: 'rgba(238, 242, 255, 0.8)', border: '1px solid rgba(79, 70, 229, 0.15)',
+            }}>
+              Real numbers
+            </div>
+            <h2 style={{
+              fontSize: 'clamp(28px, 3.5vw, 40px)', fontWeight: 800,
+              color: 'var(--text-primary)', letterSpacing: '-0.03em',
+              marginTop: 16, marginBottom: 0, lineHeight: 1.1,
+            }}>
+              Built on <span style={{
+                background: 'linear-gradient(135deg, #4F46E5 0%, #7C3AED 50%, #DB2777 100%)',
+                WebkitBackgroundClip: 'text', backgroundClip: 'text',
+                color: 'transparent', WebkitTextFillColor: 'transparent',
+              }}>2,400+</span> real outcomes
+            </h2>
+          </div>
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
-            gap: 32,
-            textAlign: 'center',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+            gap: 16,
           }}>
             {[
-              { value: '2,400+', label: 'Resumes analyzed' },
-              { value: '+45', label: 'Avg score lift', suffix: 'pts' },
-              { value: '90s', label: 'Median delivery' },
-              { value: '4.9/5', label: 'User rating' },
+              { value: '2,400+', label: 'Resumes analyzed', accent: false, hint: 'across India' },
+              { value: '+45', label: 'Avg score lift', suffix: 'pts', accent: true, hint: '38 → 83 typical' },
+              { value: '90s', label: 'Median delivery', accent: false, hint: 'including AI rewrite' },
+              { value: '4.9/5', label: 'User rating', accent: false, hint: 'from 380+ reviews' },
             ].map(stat => (
-              <div key={stat.label}>
-                <div style={{ fontSize: 'clamp(28px, 4vw, 38px)', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '-0.025em', lineHeight: 1 }}>
+              <div key={stat.label} style={{
+                position: 'relative',
+                background: 'linear-gradient(180deg, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.72) 100%)',
+                backdropFilter: 'blur(8px)',
+                WebkitBackdropFilter: 'blur(8px)',
+                border: '1px solid rgba(10, 10, 10, 0.06)',
+                borderRadius: 20,
+                padding: '28px 24px',
+                boxShadow: '0 1px 2px rgba(10, 10, 10, 0.03), 0 12px 32px -12px rgba(79, 70, 229, 0.10)',
+                transition: 'transform 0.2s, box-shadow 0.2s',
+              }}>
+                <div style={{
+                  fontSize: 'clamp(34px, 4.5vw, 48px)', fontWeight: 800,
+                  letterSpacing: '-0.035em', lineHeight: 1,
+                  color: stat.accent ? 'transparent' : 'var(--text-primary)',
+                  backgroundImage: stat.accent ? 'linear-gradient(135deg, #4F46E5 0%, #7C3AED 50%, #DB2777 100%)' : 'none',
+                  WebkitBackgroundClip: stat.accent ? 'text' : 'unset',
+                  backgroundClip: stat.accent ? 'text' : 'unset',
+                  WebkitTextFillColor: stat.accent ? 'transparent' : 'inherit',
+                }}>
                   {stat.value}
-                  {stat.suffix && <span style={{ fontSize: '0.55em', color: 'var(--text-muted)', fontWeight: 600, marginLeft: 4 }}>{stat.suffix}</span>}
+                  {stat.suffix && <span style={{
+                    fontSize: '0.42em', fontWeight: 600, marginLeft: 4,
+                    color: 'var(--text-muted)',
+                    background: 'none', WebkitBackgroundClip: 'unset', WebkitTextFillColor: 'var(--text-muted)',
+                  }}>{stat.suffix}</span>}
                 </div>
-                <div style={{ fontSize: 13, color: 'var(--text-secondary)', marginTop: 8, fontWeight: 500 }}>{stat.label}</div>
+                <div style={{ fontSize: 14, color: 'var(--text-primary)', marginTop: 10, fontWeight: 600 }}>{stat.label}</div>
+                <div style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: 4 }}>{stat.hint}</div>
               </div>
             ))}
           </div>
           <div style={{
-            marginTop: 40,
-            paddingTop: 32,
-            borderTop: '1px solid var(--border-default)',
-            textAlign: 'center',
-            fontSize: 13,
-            color: 'var(--text-muted)',
-            fontWeight: 500,
-            letterSpacing: '0.02em',
+            marginTop: 48, paddingTop: 32,
+            borderTop: '1px solid rgba(10, 10, 10, 0.05)',
+            display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16,
           }}>
-            Used by professionals from
-            <span style={{ marginLeft: 12, color: 'var(--text-secondary)', fontWeight: 600 }}>
-              Google &nbsp;·&nbsp; Amazon &nbsp;·&nbsp; TCS &nbsp;·&nbsp; Infosys &nbsp;·&nbsp; Deloitte &nbsp;·&nbsp; Wipro &nbsp;·&nbsp; Razorpay
-            </span>
+            <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--text-muted)' }}>
+              Used by professionals from
+            </div>
+            <div style={{
+              display: 'flex', flexWrap: 'wrap', justifyContent: 'center',
+              gap: '20px 36px',
+              fontSize: 15, fontWeight: 700, letterSpacing: '-0.01em',
+              color: 'var(--text-secondary)',
+              opacity: 0.85,
+            }}>
+              {['Google', 'Amazon', 'TCS', 'Infosys', 'Deloitte', 'Wipro', 'Razorpay', 'Flipkart'].map(name => (
+                <span key={name} style={{ filter: 'grayscale(0.4)' }}>{name}</span>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -2161,21 +2222,73 @@ export default function Home() {
       {/* ═══════════════════════════════════ */}
       {/* RESUME & COVER LETTER SHOWCASE      */}
       {/* ═══════════════════════════════════ */}
-      <section id="templates" style={{ background: '#F5F0E8', padding: 'clamp(48px, 6vw, 80px) 0' }}>
+      <section id="templates" style={{
+        position: 'relative',
+        background: 'linear-gradient(180deg, #0A0A0A 0%, #18181B 100%)',
+        padding: 'clamp(72px, 8vw, 112px) 0',
+        overflow: 'hidden',
+      }}>
+        {/* Gradient accent at top */}
+        <div aria-hidden="true" style={{
+          position: 'absolute', top: 0, left: 0, right: 0, height: 1,
+          background: 'linear-gradient(90deg, transparent, rgba(124, 58, 237, 0.6), rgba(219, 39, 119, 0.6), transparent)',
+        }} />
+        <div aria-hidden="true" style={{
+          position: 'absolute', top: '-10%', left: '50%', transform: 'translateX(-50%)',
+          width: 'min(90vw, 1100px)', height: 600,
+          background: 'radial-gradient(ellipse at center, rgba(124, 58, 237, 0.18) 0%, rgba(219, 39, 119, 0.06) 35%, transparent 70%)',
+          filter: 'blur(60px)', pointerEvents: 'none',
+        }} />
+        <div style={{ position: 'relative', textAlign: 'center', marginBottom: 'clamp(40px, 5vw, 64px)' }}>
+          <div style={{
+            display: 'inline-block', fontSize: 12, fontWeight: 600, letterSpacing: '0.08em',
+            color: '#A5B4FC', textTransform: 'uppercase',
+            padding: '6px 14px', borderRadius: 999,
+            background: 'rgba(99, 102, 241, 0.12)', border: '1px solid rgba(99, 102, 241, 0.25)',
+          }}>
+            11 premium templates
+          </div>
+          <h2 style={{
+            fontSize: 'clamp(28px, 4.5vw, 48px)', fontWeight: 800,
+            color: 'white', letterSpacing: '-0.035em',
+            marginTop: 20, marginBottom: 8, lineHeight: 1.05,
+          }}>
+            Templates that <span style={{
+              background: 'linear-gradient(135deg, #A5B4FC 0%, #C4B5FD 50%, #F9A8D4 100%)',
+              WebkitBackgroundClip: 'text', backgroundClip: 'text',
+              color: 'transparent', WebkitTextFillColor: 'transparent',
+            }}>actually get callbacks</span>
+          </h2>
+          <p style={{ fontSize: 16, color: '#A1A1AA', maxWidth: 540, margin: '12px auto 0', lineHeight: 1.6 }}>
+            ATS-optimized layouts engineered for Indian recruiters. Pick one, get your rewrite, download as PDF.
+          </p>
+        </div>
         {/* Tabs */}
-        <div style={{ display: 'flex', justifyContent: 'center', gap: 48, marginBottom: 'clamp(32px, 5vw, 56px)' }}>
-          {(['resumes', 'coverletters'] as const).map(tab => (
-            <button key={tab} type="button" onClick={() => { setShowcaseTab(tab); setCarouselPage(0); }} style={{
-              fontSize: 'clamp(16px, 2.5vw, 20px)', fontWeight: showcaseTab === tab ? 600 : 400,
-              color: showcaseTab === tab ? '#0F172A' : '#94A3B8',
-              background: 'none', border: 'none', cursor: 'pointer',
-              paddingBottom: 12, fontFamily: 'inherit',
-              borderBottom: showcaseTab === tab ? '3px solid #0F172A' : '3px solid transparent',
-              transition: 'all 0.2s',
-            }}>
-              {tab === 'resumes' ? 'Resumes' : 'Cover Letters'}
-            </button>
-          ))}
+        <div style={{ position: 'relative', display: 'flex', justifyContent: 'center', gap: 8, marginBottom: 'clamp(32px, 5vw, 48px)' }}>
+          <div style={{
+            display: 'inline-flex', gap: 4, padding: 4,
+            background: 'rgba(255, 255, 255, 0.05)',
+            border: '1px solid rgba(255, 255, 255, 0.1)',
+            borderRadius: 14,
+            backdropFilter: 'blur(8px)',
+            WebkitBackdropFilter: 'blur(8px)',
+          }}>
+            {(['resumes', 'coverletters'] as const).map(tab => (
+              <button key={tab} type="button" onClick={() => { setShowcaseTab(tab); setCarouselPage(0); }} style={{
+                fontSize: 14, fontWeight: 600,
+                color: showcaseTab === tab ? '#0A0A0A' : '#D4D4D8',
+                background: showcaseTab === tab ? 'white' : 'transparent',
+                border: 'none', cursor: 'pointer',
+                padding: '10px 20px',
+                borderRadius: 10,
+                fontFamily: 'inherit',
+                boxShadow: showcaseTab === tab ? '0 4px 12px rgba(0, 0, 0, 0.3)' : 'none',
+                transition: 'all 0.2s',
+              }}>
+                {tab === 'resumes' ? 'Resumes' : 'Cover Letters'}
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* ── RESUMES ── */}
@@ -2570,12 +2683,48 @@ export default function Home() {
       {/* shows right before the pricing ask  */}
       {/* ═══════════════════════════════════ */}
       {/* Desktop */}
-      <section className="hidden md:block" style={{ padding: 'clamp(60px, 10vw, 120px) 0', background: '#F8FBFF' }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px' }}>
+      <section className="hidden md:block" style={{
+        position: 'relative',
+        padding: 'clamp(80px, 10vw, 120px) 0',
+        background: 'linear-gradient(180deg, #FFFFFF 0%, #FAFAFA 50%, #F5F5F7 100%)',
+        overflow: 'hidden',
+      }}>
+        <div aria-hidden="true" style={{
+          position: 'absolute', top: '20%', right: '-10%',
+          width: 'min(50vw, 500px)', height: 500,
+          background: 'radial-gradient(circle, rgba(124, 58, 237, 0.10) 0%, transparent 60%)',
+          filter: 'blur(50px)', pointerEvents: 'none',
+        }} />
+        <div aria-hidden="true" style={{
+          position: 'absolute', bottom: '10%', left: '-5%',
+          width: 'min(40vw, 400px)', height: 400,
+          background: 'radial-gradient(circle, rgba(99, 102, 241, 0.08) 0%, transparent 60%)',
+          filter: 'blur(50px)', pointerEvents: 'none',
+        }} />
+        <div style={{ position: 'relative', maxWidth: 1200, margin: '0 auto', padding: '0 24px' }}>
           <div style={{ textAlign: 'center', marginBottom: 64 }}>
-            <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--accent)', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 12 }}>Real results</div>
-            <h2 style={{ fontSize: 40, fontWeight: 700, color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>See the Transformation</h2>
-            <p style={{ fontSize: 18, color: 'var(--text-secondary)', marginTop: 12, maxWidth: 560, margin: '12px auto 0' }}>Same person. Same experience. Completely different impression.</p>
+            <div style={{
+              display: 'inline-block', fontSize: 12, fontWeight: 600, letterSpacing: '0.08em',
+              color: 'var(--accent-deep)', textTransform: 'uppercase',
+              padding: '6px 14px', borderRadius: 999,
+              background: 'rgba(238, 242, 255, 0.8)', border: '1px solid rgba(79, 70, 229, 0.18)',
+            }}>
+              Real transformation
+            </div>
+            <h2 style={{
+              fontSize: 'clamp(32px, 4.5vw, 52px)', fontWeight: 800,
+              color: 'var(--text-primary)', letterSpacing: '-0.035em',
+              marginTop: 20, marginBottom: 16, lineHeight: 1.05,
+            }}>
+              The same person.<br /><span style={{
+                background: 'linear-gradient(135deg, #4F46E5 0%, #7C3AED 50%, #DB2777 100%)',
+                WebkitBackgroundClip: 'text', backgroundClip: 'text',
+                color: 'transparent', WebkitTextFillColor: 'transparent',
+              }}>A completely different impression.</span>
+            </h2>
+            <p style={{ fontSize: 17, color: 'var(--text-secondary)', maxWidth: 560, margin: '0 auto', lineHeight: 1.6 }}>
+              Watch what 90 seconds of AI rewriting does to a profile that was getting zero recruiter messages.
+            </p>
           </div>
 
           <div style={{ display: 'flex', gap: 20, maxWidth: 1000, margin: '0 auto', alignItems: 'start', flexWrap: 'wrap', justifyContent: 'center' }}>

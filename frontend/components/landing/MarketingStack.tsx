@@ -13,11 +13,40 @@ export default function MarketingStack() {
   return (
     <>
       {/* ── Why Your Profile Isn't Working ── */}
-      <section style={{ padding: 'clamp(60px, 10vw, 120px) 0', background: '#0F172A', color: 'white' }}>
-        <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 24px' }}>
-          <div style={{ textAlign: 'center', marginBottom: 48 }}>
-            <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: 2, textTransform: 'uppercase', color: '#FF5A5F', marginBottom: 10 }}>The harsh truth</div>
-            <h2 style={{ fontSize: 'clamp(24px, 4vw, 36px)', fontWeight: 800, letterSpacing: '-0.02em', lineHeight: 1.2 }}>Why Recruiters Skip Your Profile</h2>
+      <section style={{
+        position: 'relative',
+        padding: 'clamp(80px, 10vw, 120px) 0',
+        background: 'linear-gradient(180deg, #0A0A0A 0%, #18181B 100%)',
+        color: 'white',
+        overflow: 'hidden',
+      }}>
+        <div aria-hidden="true" style={{
+          position: 'absolute', top: '-20%', right: '-10%',
+          width: 'min(60vw, 600px)', height: 600,
+          background: 'radial-gradient(circle, rgba(219, 39, 119, 0.18) 0%, rgba(124, 58, 237, 0.10) 35%, transparent 65%)',
+          filter: 'blur(60px)', pointerEvents: 'none',
+        }} />
+        <div style={{ position: 'relative', maxWidth: 1100, margin: '0 auto', padding: '0 24px' }}>
+          <div style={{ textAlign: 'center', marginBottom: 56 }}>
+            <div style={{
+              display: 'inline-block', fontSize: 12, fontWeight: 600, letterSpacing: '0.08em',
+              color: '#F9A8D4', textTransform: 'uppercase',
+              padding: '6px 14px', borderRadius: 999,
+              background: 'rgba(219, 39, 119, 0.10)', border: '1px solid rgba(219, 39, 119, 0.25)',
+            }}>
+              The harsh truth
+            </div>
+            <h2 style={{
+              fontSize: 'clamp(28px, 4.5vw, 48px)', fontWeight: 800,
+              letterSpacing: '-0.035em', lineHeight: 1.05,
+              marginTop: 20, marginBottom: 0, color: 'white',
+            }}>
+              3 reasons recruiters<br /><span style={{
+                background: 'linear-gradient(135deg, #F9A8D4 0%, #C4B5FD 50%, #A5B4FC 100%)',
+                WebkitBackgroundClip: 'text', backgroundClip: 'text',
+                color: 'transparent', WebkitTextFillColor: 'transparent',
+              }}>skip your profile</span> in 6 seconds
+            </h2>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 20 }}>
             {[
@@ -63,11 +92,35 @@ export default function MarketingStack() {
       </section>
 
       {/* ── Everything You Need ── */}
-      <section style={{ padding: 'clamp(60px, 10vw, 120px) 0', background: 'white', borderBottom: '1px solid #E5E7EB' }}>
+      <section style={{
+        padding: 'clamp(80px, 10vw, 120px) 0',
+        background: 'linear-gradient(180deg, #FFFFFF 0%, #FAFAFA 100%)',
+        borderBottom: '1px solid rgba(10, 10, 10, 0.06)',
+      }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px' }}>
           <div style={{ textAlign: 'center', marginBottom: 64 }}>
-            <div style={{ fontSize: 13, fontWeight: 700, color: '#4F46E5', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 12 }}>Features</div>
-            <h2 style={{ fontSize: 40, fontWeight: 700, color: '#0F172A', letterSpacing: '-0.02em' }}>Everything You Need to Land Interviews</h2>
+            <div style={{
+              display: 'inline-block', fontSize: 12, fontWeight: 600, letterSpacing: '0.08em',
+              color: '#3730A3', textTransform: 'uppercase',
+              padding: '6px 14px', borderRadius: 999,
+              background: 'rgba(238, 242, 255, 0.8)', border: '1px solid rgba(79, 70, 229, 0.18)',
+            }}>
+              What you get
+            </div>
+            <h2 style={{
+              fontSize: 'clamp(32px, 4.5vw, 52px)', fontWeight: 800,
+              color: '#0A0A0A', letterSpacing: '-0.035em',
+              marginTop: 20, marginBottom: 16, lineHeight: 1.05,
+            }}>
+              Everything to land<br /><span style={{
+                background: 'linear-gradient(135deg, #4F46E5 0%, #7C3AED 50%, #DB2777 100%)',
+                WebkitBackgroundClip: 'text', backgroundClip: 'text',
+                color: 'transparent', WebkitTextFillColor: 'transparent',
+              }}>your next interview</span>
+            </h2>
+            <p style={{ fontSize: 17, color: '#525252', maxWidth: 580, margin: '0 auto', lineHeight: 1.6 }}>
+              One ₹499 unlock — full LinkedIn rewrite, ATS resume in 11 templates, cover letter, and interview prep.
+            </p>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 24 }}>
             <div style={{ background: 'white', borderRadius: 24, padding: 28, border: '1px solid #E5E7EB', boxShadow: '0 10px 30px rgba(15,23,42,0.08)' }}>
@@ -119,11 +172,40 @@ export default function MarketingStack() {
       </section>
 
       {/* ── How It Works ── */}
-      <section id="how-it-works" style={{ padding: 'clamp(60px, 10vw, 120px) 0', background: '#F8FBFF', borderBottom: '1px solid #E5E7EB' }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px' }}>
+      <section id="how-it-works" style={{
+        position: 'relative',
+        padding: 'clamp(80px, 10vw, 120px) 0',
+        background: 'linear-gradient(180deg, #FAFAFA 0%, #FFFFFF 100%)',
+        borderBottom: '1px solid rgba(10, 10, 10, 0.06)',
+        overflow: 'hidden',
+      }}>
+        <div aria-hidden="true" style={{
+          position: 'absolute', top: '40%', left: '-10%',
+          width: 'min(50vw, 500px)', height: 500,
+          background: 'radial-gradient(circle, rgba(79, 70, 229, 0.08) 0%, transparent 60%)',
+          filter: 'blur(50px)', pointerEvents: 'none',
+        }} />
+        <div style={{ position: 'relative', maxWidth: 1200, margin: '0 auto', padding: '0 24px' }}>
           <div style={{ textAlign: 'center', marginBottom: 64 }}>
-            <div style={{ fontSize: 13, fontWeight: 700, color: '#4F46E5', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 12 }}>Simple process</div>
-            <h2 style={{ fontSize: 40, fontWeight: 700, color: '#0F172A', letterSpacing: '-0.02em' }}>How It Works</h2>
+            <div style={{
+              display: 'inline-block', fontSize: 12, fontWeight: 600, letterSpacing: '0.08em',
+              color: '#3730A3', textTransform: 'uppercase',
+              padding: '6px 14px', borderRadius: 999,
+              background: 'rgba(238, 242, 255, 0.8)', border: '1px solid rgba(79, 70, 229, 0.18)',
+            }}>
+              How it works
+            </div>
+            <h2 style={{
+              fontSize: 'clamp(32px, 4.5vw, 52px)', fontWeight: 800,
+              color: '#0A0A0A', letterSpacing: '-0.035em',
+              marginTop: 20, marginBottom: 0, lineHeight: 1.05,
+            }}>
+              From upload to <span style={{
+                background: 'linear-gradient(135deg, #4F46E5 0%, #7C3AED 50%, #DB2777 100%)',
+                WebkitBackgroundClip: 'text', backgroundClip: 'text',
+                color: 'transparent', WebkitTextFillColor: 'transparent',
+              }}>polished profile</span><br />in 90 seconds
+            </h2>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 32, maxWidth: 1080, margin: '0 auto' }}>
             {[
@@ -346,14 +428,74 @@ export default function MarketingStack() {
       </section>
 
       {/* ── Final CTA ── */}
-      <section style={{ padding: 'clamp(60px, 10vw, 120px) 0', background: '#F8FBFF' }}>
-        <div style={{ maxWidth: 1000, margin: '0 auto', padding: '0 24px' }}>
-          <div style={{ background: 'linear-gradient(135deg, #4F46E5, #3730A3)', borderRadius: 32, padding: '80px 48px', textAlign: 'center', boxShadow: '0 20px 50px rgba(15,23,42,0.15)' }}>
-            <h2 style={{ fontSize: 36, fontWeight: 700, color: 'white', marginBottom: 16, letterSpacing: '-0.02em' }}>Ready to Transform Your LinkedIn Profile?</h2>
-            <p style={{ fontSize: 18, color: 'rgba(255,255,255,0.85)', maxWidth: 500, margin: '0 auto 40px', lineHeight: 1.7 }}>Join thousands of professionals who improved their profiles and started getting more interviews.</p>
-            <button type="button" onClick={scrollToHero} style={{ height: 56, padding: '0 32px', background: 'white', color: '#4F46E5', fontSize: 16, fontWeight: 700, borderRadius: 16, border: 'none', cursor: 'pointer', boxShadow: '0 8px 20px rgba(0,0,0,0.12)' }}>
-              Analyze My Profile — Free Score &rarr;
-            </button>
+      <section style={{ padding: 'clamp(80px, 10vw, 140px) 0', background: 'linear-gradient(180deg, #FFFFFF 0%, #FAFAFA 100%)' }}>
+        <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 24px' }}>
+          <div style={{
+            position: 'relative',
+            background: 'linear-gradient(135deg, #18181B 0%, #0A0A0A 100%)',
+            borderRadius: 32,
+            padding: 'clamp(56px, 8vw, 96px) clamp(24px, 5vw, 64px)',
+            textAlign: 'center',
+            boxShadow: '0 30px 80px -20px rgba(79, 70, 229, 0.30), 0 0 0 1px rgba(255, 255, 255, 0.08) inset',
+            overflow: 'hidden',
+          }}>
+            {/* Mesh gradient overlay */}
+            <div aria-hidden="true" style={{
+              position: 'absolute', inset: 0,
+              background:
+                'radial-gradient(at 20% 0%, rgba(124, 58, 237, 0.30) 0%, transparent 50%), ' +
+                'radial-gradient(at 80% 100%, rgba(219, 39, 119, 0.22) 0%, transparent 50%), ' +
+                'radial-gradient(at 50% 50%, rgba(79, 70, 229, 0.18) 0%, transparent 60%)',
+              pointerEvents: 'none',
+            }} />
+            <div aria-hidden="true" style={{
+              position: 'absolute', inset: 0,
+              backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.04) 1px, transparent 0)',
+              backgroundSize: '24px 24px',
+              pointerEvents: 'none',
+            }} />
+            <div style={{ position: 'relative' }}>
+              <div style={{
+                display: 'inline-block', fontSize: 12, fontWeight: 600, letterSpacing: '0.08em',
+                color: '#C4B5FD', textTransform: 'uppercase',
+                padding: '6px 14px', borderRadius: 999,
+                background: 'rgba(124, 58, 237, 0.15)', border: '1px solid rgba(124, 58, 237, 0.30)',
+                marginBottom: 24,
+              }}>
+                Free • No signup • 90 seconds
+              </div>
+              <h2 style={{
+                fontSize: 'clamp(32px, 5vw, 56px)', fontWeight: 800,
+                color: 'white', marginBottom: 20, letterSpacing: '-0.04em',
+                lineHeight: 1.05,
+              }}>
+                Ready to stop<br /><span style={{
+                  background: 'linear-gradient(135deg, #A5B4FC 0%, #C4B5FD 50%, #F9A8D4 100%)',
+                  WebkitBackgroundClip: 'text', backgroundClip: 'text',
+                  color: 'transparent', WebkitTextFillColor: 'transparent',
+                }}>getting ghosted?</span>
+              </h2>
+              <p style={{ fontSize: 'clamp(15px, 2vw, 18px)', color: 'rgba(255, 255, 255, 0.75)', maxWidth: 540, margin: '0 auto 36px', lineHeight: 1.6 }}>
+                Upload your resume, get an AI score for free. Decide later if the rewrite is worth ₹499.
+              </p>
+              <button
+                type="button"
+                onClick={scrollToHero}
+                style={{
+                  height: 60, padding: '0 36px',
+                  background: 'linear-gradient(135deg, #FFFFFF 0%, #F4F4F5 100%)',
+                  color: '#0A0A0A', fontSize: 16, fontWeight: 700,
+                  borderRadius: 14, border: 'none', cursor: 'pointer',
+                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.18), 0 0 0 1px rgba(255, 255, 255, 0.2) inset',
+                  transition: 'transform 0.18s, box-shadow 0.18s',
+                  display: 'inline-flex', alignItems: 'center', gap: 10,
+                }}
+                onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 12px 28px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.2) inset'; }}
+                onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.18), 0 0 0 1px rgba(255, 255, 255, 0.2) inset'; }}
+              >
+                Get my free score &rarr;
+              </button>
+            </div>
           </div>
         </div>
       </section>
