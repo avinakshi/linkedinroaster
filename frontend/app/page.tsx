@@ -329,7 +329,7 @@ function ProfileInputForm({
       description: `${plan === 'pro' ? 'Pro' : 'Standard'} Career Transformation`,
       order_id: orderData.razorpay_order_id,
       prefill: { email: userEmail },
-      theme: { color: '#0D9488' },
+      theme: { color: '#4F46E5' },
       handler: function () {
         window.location.href = `/results/${orderData.order_id}`;
       },
@@ -1277,16 +1277,16 @@ export default function Home() {
                   }}
                   style={{
                     height: 60, padding: '0 32px',
-                    background: 'linear-gradient(135deg, #0F766E 0%, #0D9488 50%, #14B8A6 100%)',
+                    background: 'linear-gradient(135deg, #4338CA 0%, #4F46E5 50%, #6366F1 100%)',
                     borderRadius: 14, color: 'white', fontSize: 16, fontWeight: 600,
                     border: 'none', cursor: 'pointer',
-                    boxShadow: '0 1px 0 rgba(255,255,255,0.4) inset, 0 10px 24px -6px rgba(13, 148, 136, 0.45), 0 4px 8px rgba(13, 148, 136, 0.18)',
+                    boxShadow: '0 1px 0 rgba(255,255,255,0.4) inset, 0 10px 24px -6px rgba(79, 70, 229, 0.45), 0 4px 8px rgba(79, 70, 229, 0.18)',
                     transition: 'transform 0.18s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.18s',
                     letterSpacing: '-0.01em',
                     display: 'inline-flex', alignItems: 'center', gap: 10,
                   }}
-                  onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 1px 0 rgba(255,255,255,0.4) inset, 0 16px 36px -8px rgba(13, 148, 136, 0.55), 0 6px 12px rgba(13, 148, 136, 0.22)'; }}
-                  onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 1px 0 rgba(255,255,255,0.4) inset, 0 10px 24px -6px rgba(13, 148, 136, 0.45), 0 4px 8px rgba(13, 148, 136, 0.18)'; }}
+                  onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 1px 0 rgba(255,255,255,0.4) inset, 0 16px 36px -8px rgba(79, 70, 229, 0.55), 0 6px 12px rgba(79, 70, 229, 0.22)'; }}
+                  onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 1px 0 rgba(255,255,255,0.4) inset, 0 10px 24px -6px rgba(79, 70, 229, 0.45), 0 4px 8px rgba(79, 70, 229, 0.18)'; }}
                 >
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="17 8 12 3 7 8" /><line x1="12" y1="3" x2="12" y2="15" /></svg>
                   Upload Resume — Free Score
@@ -1310,7 +1310,7 @@ export default function Home() {
                     transition: 'all 0.15s',
                     display: 'inline-flex', alignItems: 'center', gap: 8,
                   }}
-                  onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255, 255, 255, 0.95)'; e.currentTarget.style.borderColor = 'rgba(13, 148, 136, 0.4)'; }}
+                  onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255, 255, 255, 0.95)'; e.currentTarget.style.borderColor = 'rgba(79, 70, 229, 0.4)'; }}
                   onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255, 255, 255, 0.6)'; e.currentTarget.style.borderColor = 'rgba(15, 23, 42, 0.08)'; }}
                 >
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>
@@ -1435,7 +1435,7 @@ export default function Home() {
                           <input value={confirmSkills} onChange={e => setConfirmSkills(e.target.value)} placeholder="Python, React, Project Management..."
                             style={{ width: '100%', padding: '8px 12px', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-default)', fontSize: 13, boxSizing: 'border-box' }} />
                         </div>
-                        <div style={{ background: 'var(--accent-subtle)', border: '1px solid #99F6E4', borderRadius: 'var(--radius-sm)', padding: '10px 12px' }}>
+                        <div style={{ background: 'var(--accent-subtle)', border: '1px solid #C7D2FE', borderRadius: 'var(--radius-sm)', padding: '10px 12px' }}>
                           <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--accent)', marginBottom: 4, display: 'block' }}>What role are you targeting?</label>
                           <input value={targetRole} onChange={e => setTargetRole(e.target.value)} placeholder="e.g. Product Manager at a Series B startup"
                             style={{ width: '100%', padding: '8px 12px', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-default)', fontSize: 13, boxSizing: 'border-box', background: 'white' }} />
@@ -1479,7 +1479,7 @@ export default function Home() {
                               border: `2px dashed ${resumeDragOver ? 'var(--accent)' : resumeParsed ? 'var(--success)' : 'rgba(15, 23, 42, 0.12)'}`,
                               borderRadius: 16, padding: '36px 24px', textAlign: 'center', marginBottom: 14,
                               background: resumeDragOver
-                                ? 'linear-gradient(135deg, rgba(13, 148, 136, 0.08) 0%, rgba(20, 184, 166, 0.04) 100%)'
+                                ? 'linear-gradient(135deg, rgba(79, 70, 229, 0.08) 0%, rgba(99, 102, 241, 0.04) 100%)'
                                 : resumeParsed
                                   ? 'linear-gradient(135deg, rgba(5, 150, 105, 0.06) 0%, rgba(16, 185, 129, 0.03) 100%)'
                                   : 'linear-gradient(180deg, rgba(248, 250, 252, 0.5) 0%, rgba(255, 255, 255, 0.8) 100%)',
@@ -1491,7 +1491,7 @@ export default function Home() {
                             <input ref={resumeInputRef} type="file" accept=".pdf,.docx" onChange={e => { const f = e.target.files?.[0]; if (f) uploadAndParseResume(f); }} style={{ display: 'none' }} />
                             {resumeUploading ? (
                               <>
-                                <div style={{ width: 48, height: 48, margin: '0 auto 12px', border: '3px solid rgba(13, 148, 136, 0.15)', borderTopColor: 'var(--accent)', borderRadius: '50%', animation: 'spin 0.7s linear infinite' }} />
+                                <div style={{ width: 48, height: 48, margin: '0 auto 12px', border: '3px solid rgba(79, 70, 229, 0.15)', borderTopColor: 'var(--accent)', borderRadius: '50%', animation: 'spin 0.7s linear infinite' }} />
                                 <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--accent)' }}>Parsing your resume...</div>
                                 <div style={{ fontSize: 11, color: 'var(--text-secondary)', marginTop: 4 }}>Extracting your data &bull; 5-10 seconds</div>
                                 <style>{`@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }`}</style>
@@ -1500,8 +1500,8 @@ export default function Home() {
                               <>
                                 <div style={{
                                   width: 56, height: 56, borderRadius: 16,
-                                  background: 'linear-gradient(135deg, rgba(13, 148, 136, 0.12), rgba(20, 184, 166, 0.06))',
-                                  border: '1px solid rgba(13, 148, 136, 0.16)',
+                                  background: 'linear-gradient(135deg, rgba(79, 70, 229, 0.12), rgba(99, 102, 241, 0.06))',
+                                  border: '1px solid rgba(79, 70, 229, 0.16)',
                                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                                   margin: '0 auto 16px',
                                   color: 'var(--accent)',
@@ -1748,7 +1748,7 @@ export default function Home() {
                                   // Default
                                   : ['Software Developer', 'Data Analyst', 'Business Analyst', 'Marketing Executive', 'HR Executive']
                                 ).map(r => (
-                                  <button key={r} onClick={() => setStudentTargetRole(r)} style={{ padding: '4px 12px', borderRadius: 16, border: studentTargetRole === r ? '2px solid var(--accent)' : '1px solid #D1D5DB', background: studentTargetRole === r ? '#F0FDFA' : 'white', fontSize: 12, cursor: 'pointer', color: '#191919' }}>{r}</button>
+                                  <button key={r} onClick={() => setStudentTargetRole(r)} style={{ padding: '4px 12px', borderRadius: 16, border: studentTargetRole === r ? '2px solid var(--accent)' : '1px solid #D1D5DB', background: studentTargetRole === r ? '#EEF2FF' : 'white', fontSize: 12, cursor: 'pointer', color: '#191919' }}>{r}</button>
                                 ))}
                               </div>
                               <div style={{ display: 'flex', gap: 8, marginTop: 8 }}>
@@ -1899,7 +1899,7 @@ export default function Home() {
               {/* Sidebar */}
               <div style={{ width: 190, background: '#FAFBFC', borderRight: '1px solid #E5E7EB', padding: '16px 0', flexShrink: 0, display: 'flex', flexDirection: 'column' }}>
                 <div style={{ padding: '4px 16px 16px', fontSize: 14, fontWeight: 800, color: '#0F172A', display: 'flex', alignItems: 'center', gap: 4, borderBottom: '1px solid #E5E7EB', marginBottom: 8 }}>
-                  <span style={{ color: '#0D9488' }}>Profile</span>Roaster
+                  <span style={{ color: '#4F46E5' }}>Profile</span>Roaster
                 </div>
                 {[
                   { label: 'Dashboard', icon: '▦', active: false },
@@ -1909,7 +1909,7 @@ export default function Home() {
                   { label: 'Interview Prep', icon: '◇', active: false },
                   { label: 'Export', icon: '↗', active: false },
                 ].map((item, i) => (
-                  <div key={i} style={{ padding: '7px 14px', fontSize: 11, fontWeight: item.active ? 600 : 400, color: item.active ? '#0D9488' : '#64748B', background: item.active ? '#F0FDFA' : 'transparent', borderLeft: item.active ? '3px solid #0D9488' : '3px solid transparent', display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <div key={i} style={{ padding: '7px 14px', fontSize: 11, fontWeight: item.active ? 600 : 400, color: item.active ? '#4F46E5' : '#64748B', background: item.active ? '#EEF2FF' : 'transparent', borderLeft: item.active ? '3px solid #4F46E5' : '3px solid transparent', display: 'flex', alignItems: 'center', gap: 8 }}>
                     <span style={{ fontSize: 10, opacity: 0.6 }}>{item.icon}</span>{item.label}
                   </div>
                 ))}
@@ -1917,7 +1917,7 @@ export default function Home() {
                 <div style={{ marginTop: 'auto', padding: '12px 14px', borderTop: '1px solid #E5E7EB' }}>
                   <div style={{ fontSize: 9, fontWeight: 600, color: '#94A3B8', letterSpacing: 1, marginBottom: 6 }}>QUICK STATS</div>
                   <div style={{ fontSize: 10, color: '#64748B', marginBottom: 4 }}>Profile Score: <span style={{ color: '#15803D', fontWeight: 700 }}>87/100</span></div>
-                  <div style={{ fontSize: 10, color: '#64748B', marginBottom: 4 }}>Keywords: <span style={{ color: '#0D9488', fontWeight: 700 }}>14/16</span></div>
+                  <div style={{ fontSize: 10, color: '#64748B', marginBottom: 4 }}>Keywords: <span style={{ color: '#4F46E5', fontWeight: 700 }}>14/16</span></div>
                   <div style={{ fontSize: 10, color: '#64748B' }}>ATS Ready: <span style={{ color: '#15803D', fontWeight: 700 }}>Yes</span></div>
                 </div>
               </div>
@@ -1928,14 +1928,14 @@ export default function Home() {
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
                   <div style={{ display: 'flex', gap: 0, background: 'white', borderRadius: 8, border: '1px solid #E2E8F0', overflow: 'hidden' }}>
                     {['Overview', 'Headline', 'Summary', 'Experience', 'Skills'].map((tab, i) => (
-                      <div key={tab} style={{ padding: '6px 12px', fontSize: 10, fontWeight: i === 0 ? 700 : 500, color: i === 0 ? '#0D9488' : '#94A3B8', background: i === 0 ? '#F0FDFA' : 'white', borderRight: i < 4 ? '1px solid #E2E8F0' : 'none', cursor: 'default' }}>
+                      <div key={tab} style={{ padding: '6px 12px', fontSize: 10, fontWeight: i === 0 ? 700 : 500, color: i === 0 ? '#4F46E5' : '#94A3B8', background: i === 0 ? '#EEF2FF' : 'white', borderRight: i < 4 ? '1px solid #E2E8F0' : 'none', cursor: 'default' }}>
                         {tab}
                       </div>
                     ))}
                   </div>
                   <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
                     <span style={{ fontSize: 9, color: '#94A3B8' }}>Last scan: 2 min ago</span>
-                    <div style={{ padding: '4px 8px', background: '#0D9488', color: 'white', borderRadius: 6, fontSize: 9, fontWeight: 600 }}>Re-analyze</div>
+                    <div style={{ padding: '4px 8px', background: '#4F46E5', color: 'white', borderRadius: 6, fontSize: 9, fontWeight: 600 }}>Re-analyze</div>
                   </div>
                 </div>
 
@@ -1943,7 +1943,7 @@ export default function Home() {
                 <div style={{ display: 'flex', gap: 10, marginBottom: 14 }}>
                   {[
                     { label: 'Profile Score', value: '87', sub: '/100', color: '#15803D', bg: '#F0FDF4', border: '#BBF7D0' },
-                    { label: 'ATS Match', value: '92', sub: '%', color: '#0D9488', bg: '#F0FDFA', border: '#99F6E4' },
+                    { label: 'ATS Match', value: '92', sub: '%', color: '#4F46E5', bg: '#EEF2FF', border: '#C7D2FE' },
                     { label: 'Recruiter Score', value: 'A+', sub: '', color: '#7C3AED', bg: '#F5F3FF', border: '#DDD6FE' },
                     { label: 'Keywords', value: '14', sub: '/16', color: '#F59E0B', bg: '#FFFBEB', border: '#FDE68A' },
                   ].map((m, i) => (
@@ -1985,8 +1985,8 @@ export default function Home() {
 
                   {/* Arrow */}
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, flexDirection: 'column', gap: 4 }}>
-                    <div style={{ width: 32, height: 32, borderRadius: '50%', background: '#0D9488', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: 12, boxShadow: '0 4px 12px rgba(13,148,136,0.35)' }}>→</div>
-                    <div style={{ fontSize: 8, fontWeight: 700, color: '#0D9488' }}>AI Fix</div>
+                    <div style={{ width: 32, height: 32, borderRadius: '50%', background: '#4F46E5', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: 12, boxShadow: '0 4px 12px rgba(79, 70, 229,0.35)' }}>→</div>
+                    <div style={{ fontSize: 8, fontWeight: 700, color: '#4F46E5' }}>AI Fix</div>
                   </div>
 
                   {/* Optimized Profile — dominant */}
@@ -2002,7 +2002,7 @@ export default function Home() {
                     </div>
                     <div style={{ height: 3, background: '#E5E7EB', borderRadius: 2, marginBottom: 10 }}><div style={{ height: '100%', width: '87%', background: '#34D399', borderRadius: 2 }} /></div>
                     <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginBottom: 8 }}>
-                      <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'linear-gradient(135deg, #0D9488, #115E59)' }} />
+                      <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'linear-gradient(135deg, #4F46E5, #3730A3)' }} />
                       <div>
                         <div style={{ fontSize: 11, fontWeight: 700, color: '#0F172A' }}>Rajesh Kumar</div>
                         <div style={{ fontSize: 8, color: '#15803D', display: 'flex', alignItems: 'center', gap: 3 }}><span style={{ width: 5, height: 5, borderRadius: '50%', background: '#34D399', display: 'inline-block' }} />Updated just now</div>
@@ -2011,8 +2011,8 @@ export default function Home() {
                     <div style={{ fontSize: 10, color: '#15803D', lineHeight: 1.4, padding: '6px 8px', background: '#F0FDF4', borderRadius: 6, marginBottom: 6, fontWeight: 600, borderLeft: '2px solid #34D399' }}>
                       &ldquo;Full-Stack Engineer | Built apps serving 50K+ users | React + AWS + Node.js&rdquo;
                     </div>
-                    <div style={{ fontSize: 8, fontWeight: 600, color: '#0D9488', marginBottom: 4, display: 'flex', alignItems: 'center', gap: 4 }}>
-                      <span style={{ padding: '1px 4px', background: '#F0FDFA', borderRadius: 3, fontSize: 7 }}>AI Suggestion</span> Summary rewritten
+                    <div style={{ fontSize: 8, fontWeight: 600, color: '#4F46E5', marginBottom: 4, display: 'flex', alignItems: 'center', gap: 4 }}>
+                      <span style={{ padding: '1px 4px', background: '#EEF2FF', borderRadius: 3, fontSize: 7 }}>AI Suggestion</span> Summary rewritten
                     </div>
                     <div style={{ fontSize: 9, color: '#374151', lineHeight: 1.5, marginBottom: 8 }}>
                       Full-stack engineer with 5 years shipping production apps at scale. Led microservices migration for <span style={{ background: '#D1FAE5', padding: '0 2px', borderRadius: 2 }}>50K+ DAU</span>. Reduced API latency by <span style={{ background: '#D1FAE5', padding: '0 2px', borderRadius: 2 }}>40%</span>. Mentored 4 junior devs.
@@ -2035,7 +2035,7 @@ export default function Home() {
                 <div style={{ display: 'flex', gap: 10, marginTop: 12 }}>
                   <div style={{ flex: 1, display: 'flex', gap: 6 }}>
                     {[
-                      { label: 'Recruiter Match', value: '+38%', color: '#0D9488' },
+                      { label: 'Recruiter Match', value: '+38%', color: '#4F46E5' },
                       { label: 'Score Jump', value: '42→87', color: '#15803D' },
                       { label: 'Strength', value: 'Strong', color: '#F59E0B' },
                     ].map((m, i) => (
@@ -2051,7 +2051,7 @@ export default function Home() {
                     <div style={{ height: 3, background: '#E2E8F0', borderRadius: 1, marginBottom: 2 }} />
                     <div style={{ height: 3, background: '#E2E8F0', borderRadius: 1, marginBottom: 2, width: '80%' }} />
                     <div style={{ height: 3, background: '#E2E8F0', borderRadius: 1, width: '60%' }} />
-                    <div style={{ fontSize: 5, color: '#0D9488', fontWeight: 600, marginTop: 3 }}>View →</div>
+                    <div style={{ fontSize: 5, color: '#4F46E5', fontWeight: 600, marginTop: 3 }}>View →</div>
                   </div>
                 </div>
               </div>
@@ -2079,7 +2079,7 @@ export default function Home() {
               </div>
               <div style={{ height: 4, background: '#E5E7EB', borderRadius: 2, marginBottom: 14 }}><div style={{ height: '100%', width: '87%', background: '#34D399', borderRadius: 2 }} /></div>
               <div style={{ display: 'flex', gap: 10, alignItems: 'center', marginBottom: 12 }}>
-                <div style={{ width: 40, height: 40, borderRadius: '50%', background: 'linear-gradient(135deg, #0D9488, #115E59)' }} />
+                <div style={{ width: 40, height: 40, borderRadius: '50%', background: 'linear-gradient(135deg, #4F46E5, #3730A3)' }} />
                 <div>
                   <div style={{ fontSize: 14, fontWeight: 700, color: '#0F172A' }}>Rajesh Kumar</div>
                   <div style={{ fontSize: 11, color: '#15803D' }}>Updated just now</div>
@@ -2100,7 +2100,7 @@ export default function Home() {
             {/* Bottom metric */}
             <div style={{ padding: '12px 16px', borderTop: '1px solid #E5E7EB', display: 'flex', gap: 8 }}>
               {[
-                { label: 'Recruiter Match', value: '+38%', color: '#0D9488' },
+                { label: 'Recruiter Match', value: '+38%', color: '#4F46E5' },
                 { label: 'Keywords Added', value: '12', color: '#15803D' },
                 { label: 'Score Jump', value: '42→87', color: '#F59E0B' },
               ].map((m, i) => (
@@ -2611,7 +2611,7 @@ export default function Home() {
 
             {/* Arrow */}
             <div className="hidden md:flex" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', paddingTop: 200 }}>
-              <div style={{ width: 48, height: 48, borderRadius: '50%', background: 'var(--accent)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 8px 20px rgba(13,148,136,0.3)', fontSize: 18, color: 'white' }}>&rarr;</div>
+              <div style={{ width: 48, height: 48, borderRadius: '50%', background: 'var(--accent)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 8px 20px rgba(79, 70, 229,0.3)', fontSize: 18, color: 'white' }}>&rarr;</div>
               <div style={{ textAlign: 'center', marginTop: 8, fontSize: 11, fontWeight: 700 }}>
                 <span style={{ color: '#DC2626' }}>42</span>
                 <span style={{ color: 'var(--text-muted)' }}> &rarr; </span>

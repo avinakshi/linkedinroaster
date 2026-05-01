@@ -57,12 +57,12 @@ export default function TemplatesPage() {
       <header style={{ background: 'rgba(255,255,255,0.92)', backdropFilter: 'blur(12px)', borderBottom: '1px solid #E2E8F0', position: 'sticky', top: 0, zIndex: 50 }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '12px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <a href="/" style={{ textDecoration: 'none', fontSize: 17, fontWeight: 800, letterSpacing: '-0.02em' }}>
-            <span style={{ color: '#0D9488' }}>Profile</span><span style={{ color: '#0F172A' }}>Roaster</span>
+            <span style={{ color: '#4F46E5' }}>Profile</span><span style={{ color: '#0F172A' }}>Roaster</span>
           </a>
           <div style={{ display: 'flex', gap: 20, alignItems: 'center' }}>
             <a href="/pricing" style={{ fontSize: 13, fontWeight: 600, color: '#64748B', textDecoration: 'none' }}>Pricing</a>
             <a href="/dashboard" style={{ fontSize: 13, fontWeight: 600, color: '#64748B', textDecoration: 'none' }}>Dashboard</a>
-            <a href="/" style={{ padding: '8px 20px', background: '#0D9488', color: 'white', borderRadius: 10, fontSize: 13, fontWeight: 600, textDecoration: 'none' }}>Get Started</a>
+            <a href="/" style={{ padding: '8px 20px', background: '#4F46E5', color: 'white', borderRadius: 10, fontSize: 13, fontWeight: 600, textDecoration: 'none' }}>Get Started</a>
           </div>
         </div>
       </header>
@@ -80,9 +80,9 @@ export default function TemplatesPage() {
           {CATEGORIES.map(cat => (
             <button key={cat} onClick={() => setFilter(cat)} style={{
               padding: '8px 20px', borderRadius: 999, fontSize: 13, fontWeight: 600,
-              border: filter === cat ? '1px solid #0D9488' : '1px solid #E2E8F0',
-              background: filter === cat ? '#F0FDFA' : 'white',
-              color: filter === cat ? '#0D9488' : '#64748B',
+              border: filter === cat ? '1px solid #4F46E5' : '1px solid #E2E8F0',
+              background: filter === cat ? '#EEF2FF' : 'white',
+              color: filter === cat ? '#4F46E5' : '#64748B',
               cursor: 'pointer', transition: 'all 0.15s', fontFamily: 'inherit',
             }}>
               {cat}{cat === 'All' ? ` (${TEMPLATES.length})` : ''}
@@ -116,12 +116,12 @@ export default function TemplatesPage() {
                 {/* Hover overlay */}
                 <div style={{
                   position: 'absolute', inset: '12px 12px 0 12px', borderRadius: 4,
-                  background: 'rgba(13, 148, 136, 0.85)',
+                  background: 'rgba(79, 70, 229, 0.85)',
                   display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 8,
                   opacity: hoveredId === t.id ? 1 : 0,
                   transition: 'opacity 0.2s ease',
                 }}>
-                  <span style={{ padding: '10px 24px', background: 'white', color: '#0D9488', borderRadius: 10, fontSize: 14, fontWeight: 700 }}>Use This Template</span>
+                  <span style={{ padding: '10px 24px', background: 'white', color: '#4F46E5', borderRadius: 10, fontSize: 14, fontWeight: 700 }}>Use This Template</span>
                   <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.8)' }}>Included with all plans</span>
                 </div>
               </div>
@@ -130,7 +130,7 @@ export default function TemplatesPage() {
                 <div style={{ fontSize: 15, fontWeight: 700, color: '#0F172A', marginBottom: 4 }}>{t.name}</div>
                 <div style={{ fontSize: 12, color: '#64748B', marginBottom: 8 }}>{t.description}</div>
                 <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-                  {t.ats === 'high' && <span style={{ padding: '2px 8px', background: '#F0FDFA', color: '#0D9488', borderRadius: 6, fontSize: 10, fontWeight: 600 }}>ATS Friendly</span>}
+                  {t.ats === 'high' && <span style={{ padding: '2px 8px', background: '#EEF2FF', color: '#4F46E5', borderRadius: 6, fontSize: 10, fontWeight: 600 }}>ATS Friendly</span>}
                   {t.ats === 'medium' && <span style={{ padding: '2px 8px', background: '#FFFBEB', color: '#D97706', borderRadius: 6, fontSize: 10, fontWeight: 600 }}>ATS Compatible</span>}
                   {idx < 3 && <span style={{ padding: '2px 8px', background: '#FFF1F2', color: '#E11D48', borderRadius: 6, fontSize: 10, fontWeight: 600 }}>Popular</span>}
                   <span style={{ padding: '2px 8px', background: '#F1F5F9', color: '#64748B', borderRadius: 6, fontSize: 10, fontWeight: 600 }}>{t.category}</span>
@@ -145,7 +145,7 @@ export default function TemplatesPage() {
       <section style={{ padding: '80px 24px', background: 'white', textAlign: 'center', borderTop: '1px solid #E2E8F0' }}>
         <h2 style={{ fontSize: 28, fontWeight: 800, color: '#0F172A', marginBottom: 12 }}>Ready to build your resume?</h2>
         <p style={{ fontSize: 16, color: '#64748B', marginBottom: 28, maxWidth: 400, margin: '0 auto 28px' }}>Upload your resume and we fill any template with AI-optimized content.</p>
-        <a href="/" style={{ display: 'inline-block', padding: '14px 32px', background: '#0D9488', color: 'white', borderRadius: 14, fontSize: 16, fontWeight: 700, textDecoration: 'none', boxShadow: '0 6px 20px rgba(13,148,136,0.25)' }}>
+        <a href="/" style={{ display: 'inline-block', padding: '14px 32px', background: '#4F46E5', color: 'white', borderRadius: 14, fontSize: 16, fontWeight: 700, textDecoration: 'none', boxShadow: '0 6px 20px rgba(79, 70, 229,0.25)' }}>
           Get Started Free
         </a>
       </section>

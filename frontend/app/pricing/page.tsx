@@ -93,7 +93,7 @@ function PlanCard({ plan }: { plan: Plan }) {
         flexDirection: 'column',
         background: '#FFFFFF',
         borderRadius: 12,
-        border: isHighlighted ? '2px solid #0D9488' : '1px solid #E0E0E0',
+        border: isHighlighted ? '2px solid #4F46E5' : '1px solid #E0E0E0',
         padding: 28,
         boxShadow: '0 1px 3px rgba(0,0,0,0.08)',
       }}
@@ -105,7 +105,7 @@ function PlanCard({ plan }: { plan: Plan }) {
             top: -14,
             left: '50%',
             transform: 'translateX(-50%)',
-            background: '#0D9488',
+            background: '#4F46E5',
             color: '#fff',
             fontSize: 11,
             fontWeight: 700,
@@ -126,7 +126,7 @@ function PlanCard({ plan }: { plan: Plan }) {
           fontWeight: 600,
           letterSpacing: '0.06em',
           textTransform: 'uppercase',
-          color: isHighlighted ? '#0D9488' : '#666666',
+          color: isHighlighted ? '#4F46E5' : '#666666',
           marginBottom: 4,
         }}
       >
@@ -196,10 +196,10 @@ function PlanCard({ plan }: { plan: Plan }) {
           textAlign: 'center',
           textDecoration: 'none',
           cursor: 'pointer',
-          color: isHighlighted ? '#FFFFFF' : plan.name === 'Standard' ? '#0D9488' : '#666666',
-          background: isHighlighted ? '#0D9488' : '#FFFFFF',
-          boxShadow: isHighlighted ? '0 6px 16px rgba(13, 148, 136, 0.28)' : 'none',
-          border: isHighlighted ? 'none' : plan.name === 'Standard' ? '1.5px solid #0D9488' : '1px solid #E0E0E0',
+          color: isHighlighted ? '#FFFFFF' : plan.name === 'Standard' ? '#4F46E5' : '#666666',
+          background: isHighlighted ? '#4F46E5' : '#FFFFFF',
+          boxShadow: isHighlighted ? '0 6px 16px rgba(79, 70, 229, 0.28)' : 'none',
+          border: isHighlighted ? 'none' : plan.name === 'Standard' ? '1.5px solid #4F46E5' : '1px solid #E0E0E0',
           boxSizing: 'border-box',
         }}
       >
@@ -367,7 +367,7 @@ export default function PricingPage() {
           }}
         >
           &#128274; Secure UPI/Card via Razorpay &bull;{' '}
-          <Link href="/refund" style={{ color: '#0D9488', textDecoration: 'none' }}>
+          <Link href="/refund" style={{ color: '#4F46E5', textDecoration: 'none' }}>
             Refund policy
           </Link>{' '}
           &bull; 100% private &bull; Data deleted in 30 days

@@ -41,7 +41,7 @@ export default function MarketingStack() {
                   </div>
                   <div style={{ flex: 1, background: '#0F172A', borderRadius: 10, padding: '12px', border: '1px solid #10B98140' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 8 }}>
-                      <div style={{ width: 20, height: 20, borderRadius: '50%', background: 'linear-gradient(135deg, #0D9488, #115E59)' }} />
+                      <div style={{ width: 20, height: 20, borderRadius: '50%', background: 'linear-gradient(135deg, #4F46E5, #3730A3)' }} />
                       <div style={{ height: 6, background: '#34D399', borderRadius: 3, flex: 1 }} />
                     </div>
                     <div style={{ fontSize: 10, color: '#A7F3D0', fontWeight: 600, lineHeight: 1.5 }}><span style={{ background: '#10B98130', padding: '1px 3px', borderRadius: 2 }}>{card.good}</span></div>
@@ -55,7 +55,7 @@ export default function MarketingStack() {
             ))}
           </div>
           <div style={{ textAlign: 'center', marginTop: 36 }}>
-            <button type="button" onClick={scrollToHero} style={{ background: '#0D9488', color: 'white', fontSize: 15, fontWeight: 600, padding: '14px 32px', borderRadius: 14, border: 'none', cursor: 'pointer', boxShadow: '0 6px 20px rgba(13,148,136,0.3)' }}>
+            <button type="button" onClick={scrollToHero} style={{ background: '#4F46E5', color: 'white', fontSize: 15, fontWeight: 600, padding: '14px 32px', borderRadius: 14, border: 'none', cursor: 'pointer', boxShadow: '0 6px 20px rgba(79, 70, 229,0.3)' }}>
               Find Out What&rsquo;s Wrong With Yours &rarr;
             </button>
           </div>
@@ -66,7 +66,7 @@ export default function MarketingStack() {
       <section style={{ padding: 'clamp(60px, 10vw, 120px) 0', background: 'white', borderBottom: '1px solid #E5E7EB' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px' }}>
           <div style={{ textAlign: 'center', marginBottom: 64 }}>
-            <div style={{ fontSize: 13, fontWeight: 700, color: '#0D9488', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 12 }}>Features</div>
+            <div style={{ fontSize: 13, fontWeight: 700, color: '#4F46E5', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 12 }}>Features</div>
             <h2 style={{ fontSize: 40, fontWeight: 700, color: '#0F172A', letterSpacing: '-0.02em' }}>Everything You Need to Land Interviews</h2>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 24 }}>
@@ -122,7 +122,7 @@ export default function MarketingStack() {
       <section id="how-it-works" style={{ padding: 'clamp(60px, 10vw, 120px) 0', background: '#F8FBFF', borderBottom: '1px solid #E5E7EB' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px' }}>
           <div style={{ textAlign: 'center', marginBottom: 64 }}>
-            <div style={{ fontSize: 13, fontWeight: 700, color: '#0D9488', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 12 }}>Simple process</div>
+            <div style={{ fontSize: 13, fontWeight: 700, color: '#4F46E5', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 12 }}>Simple process</div>
             <h2 style={{ fontSize: 40, fontWeight: 700, color: '#0F172A', letterSpacing: '-0.02em' }}>How It Works</h2>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 32, maxWidth: 1080, margin: '0 auto' }}>
@@ -132,7 +132,7 @@ export default function MarketingStack() {
               { num: '03', icon: '🚀', title: 'Download & Apply', desc: 'LinkedIn rewrite, ATS resume, cover letter, and interview prep.', preview: 'Resume ready for download' },
             ].map((s, i) => (
               <div key={i} style={{ background: 'white', borderRadius: 24, padding: 32, border: '1px solid #E5E7EB', boxShadow: '0 10px 30px rgba(15,23,42,0.08)', display: 'flex', flexDirection: 'column' }}>
-                <div style={{ width: 64, height: 64, background: '#F0FDFA', borderRadius: 20, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 28, marginBottom: 20 }}>{s.icon}</div>
+                <div style={{ width: 64, height: 64, background: '#EEF2FF', borderRadius: 20, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 28, marginBottom: 20 }}>{s.icon}</div>
                 <div style={{ fontSize: 48, fontWeight: 800, color: '#E2E8F0', marginBottom: 12 }}>{s.num}</div>
                 <div style={{ fontSize: 20, fontWeight: 700, color: '#0F172A', marginBottom: 8 }}>{s.title}</div>
                 <div style={{ fontSize: 15, color: '#64748B', lineHeight: 1.7, flex: 1, marginBottom: 20 }}>{s.desc}</div>
@@ -238,7 +238,7 @@ export default function MarketingStack() {
       <section id="faq" style={{ padding: 'clamp(60px, 10vw, 120px) 0', background: 'var(--bg-surface)', borderBottom: '1px solid var(--border-default)' }}>
         <div className="landing-section" style={{ maxWidth: 720 }}>
           <div style={{ textAlign: 'center', marginBottom: 48 }}>
-            <div style={{ fontSize: 13, fontWeight: 700, color: '#0D9488', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 12 }}>FAQ</div>
+            <div style={{ fontSize: 13, fontWeight: 700, color: '#4F46E5', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 12 }}>FAQ</div>
             <h2 style={{ fontSize: 40, fontWeight: 700, color: '#0F172A', letterSpacing: '-0.02em' }}>Frequently Asked Questions</h2>
           </div>
           {[
@@ -276,7 +276,7 @@ export default function MarketingStack() {
       <section style={{ padding: 'clamp(60px, 10vw, 120px) 0', background: 'white', borderBottom: '1px solid #E5E7EB' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px' }}>
           <div style={{ textAlign: 'center', marginBottom: 64 }}>
-            <div style={{ fontSize: 13, fontWeight: 700, color: '#0D9488', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 12 }}>Testimonials</div>
+            <div style={{ fontSize: 13, fontWeight: 700, color: '#4F46E5', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 12 }}>Testimonials</div>
             <h2 style={{ fontSize: 40, fontWeight: 700, color: '#0F172A', letterSpacing: '-0.02em' }}>What Our Users Say</h2>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: 24 }}>
@@ -317,7 +317,7 @@ export default function MarketingStack() {
               <thead>
                 <tr style={{ background: '#F8FAFC' }}>
                   <th style={{ padding: '14px 20px', textAlign: 'left', fontWeight: 600, color: '#6B7280', borderBottom: '1px solid #E5E7EB' }}>Feature</th>
-                  <th style={{ padding: '14px 20px', textAlign: 'center', fontWeight: 700, color: 'var(--accent)', borderBottom: '1px solid #E5E7EB', background: '#F0FDFA' }}>ProfileRoaster</th>
+                  <th style={{ padding: '14px 20px', textAlign: 'center', fontWeight: 700, color: 'var(--accent)', borderBottom: '1px solid #E5E7EB', background: '#EEF2FF' }}>ProfileRoaster</th>
                   <th style={{ padding: '14px 20px', textAlign: 'center', fontWeight: 600, color: '#6B7280', borderBottom: '1px solid #E5E7EB' }}>ChatGPT</th>
                   <th style={{ padding: '14px 20px', textAlign: 'center', fontWeight: 600, color: '#6B7280', borderBottom: '1px solid #E5E7EB' }}>Resume Writer</th>
                 </tr>
@@ -348,10 +348,10 @@ export default function MarketingStack() {
       {/* ── Final CTA ── */}
       <section style={{ padding: 'clamp(60px, 10vw, 120px) 0', background: '#F8FBFF' }}>
         <div style={{ maxWidth: 1000, margin: '0 auto', padding: '0 24px' }}>
-          <div style={{ background: 'linear-gradient(135deg, #0D9488, #115E59)', borderRadius: 32, padding: '80px 48px', textAlign: 'center', boxShadow: '0 20px 50px rgba(15,23,42,0.15)' }}>
+          <div style={{ background: 'linear-gradient(135deg, #4F46E5, #3730A3)', borderRadius: 32, padding: '80px 48px', textAlign: 'center', boxShadow: '0 20px 50px rgba(15,23,42,0.15)' }}>
             <h2 style={{ fontSize: 36, fontWeight: 700, color: 'white', marginBottom: 16, letterSpacing: '-0.02em' }}>Ready to Transform Your LinkedIn Profile?</h2>
             <p style={{ fontSize: 18, color: 'rgba(255,255,255,0.85)', maxWidth: 500, margin: '0 auto 40px', lineHeight: 1.7 }}>Join thousands of professionals who improved their profiles and started getting more interviews.</p>
-            <button type="button" onClick={scrollToHero} style={{ height: 56, padding: '0 32px', background: 'white', color: '#0D9488', fontSize: 16, fontWeight: 700, borderRadius: 16, border: 'none', cursor: 'pointer', boxShadow: '0 8px 20px rgba(0,0,0,0.12)' }}>
+            <button type="button" onClick={scrollToHero} style={{ height: 56, padding: '0 32px', background: 'white', color: '#4F46E5', fontSize: 16, fontWeight: 700, borderRadius: 16, border: 'none', cursor: 'pointer', boxShadow: '0 8px 20px rgba(0,0,0,0.12)' }}>
               Analyze My Profile — Free Score &rarr;
             </button>
           </div>
