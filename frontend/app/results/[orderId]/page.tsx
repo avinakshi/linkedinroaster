@@ -1420,7 +1420,7 @@ export default function ResultsPage() {
   const [linkedinUploading, setLinkedinUploading] = useState(false);
   const [linkedinUploadDone, setLinkedinUploadDone] = useState(false);
   const linkedinFileRef = useRef<HTMLInputElement>(null);
-  const [activeSection, setActiveSection] = useState<'score' | 'rewrite' | 'resume' | 'prep' | 'share'>('score');
+  const [activeSection, setActiveSection] = useState<'score' | 'rewrite' | 'resume' | 'prep'>('score');
   const [resumes, setResumes] = useState<any[]>([]);
   const [resumesLoading, setResumesLoading] = useState(true);
   const [prepLoading, setPrepLoading] = useState(false);
@@ -1690,11 +1690,10 @@ export default function ResultsPage() {
       <div className="tab-bar" style={{ position: 'sticky', top: 0, zIndex: 50 }}>
         <div style={{ maxWidth: 900, margin: '0 auto', padding: '0 16px', display: 'flex', gap: 0, overflowX: 'auto' }}>
           {[
-            { key: 'score', label: 'Score', icon: '\ud83d\udcca', num: 1 },
-            { key: 'rewrite', label: 'LinkedIn Rewrite', icon: '\u270d\ufe0f', num: 2 },
-            { key: 'resume', label: 'Resume', icon: '\ud83d\udcc4', num: 3 },
-            { key: 'prep', label: 'Interview Prep', icon: '\ud83c\udfaf', num: 4 },
-            { key: 'share', label: 'More', icon: '\u2699\ufe0f', num: 5 },
+            { key: 'score', label: 'Score', num: 1 },
+            { key: 'rewrite', label: 'LinkedIn Rewrite', num: 2 },
+            { key: 'resume', label: 'Resume', num: 3 },
+            { key: 'prep', label: 'Interview Prep', num: 4 },
           ].map(tab => (
             <button
               key={tab.key}
@@ -2190,41 +2189,104 @@ export default function ResultsPage() {
         </div>
       )}
 
-      {/* ═══ SHARE & MORE TAB ═══ */}
-      {activeSection === 'share' && (
-        <div style={{ maxWidth: 800, margin: '0 auto', padding: '20px 16px', display: 'flex', flexDirection: 'column', gap: 16 }}>
+{/* ═══ Always-visible footer: Feedback + WhatsApp share ═══ */}
+      <section style={{ background: 'var(--bg-canvas)', padding: '24px 16px 32px' }}>
+        <div style={{ maxWidth: 800, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 16 }}>
+
           {/* Feedback widget */}
-          <div style={{ background: '#FFFFFF', borderRadius: 16, border: '1px solid #E5E7EB', padding: '24px 28px', boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
+          <div style={{
+            background: '#FFFFFF',
+            borderRadius: 16,
+            border: '1px solid rgba(10, 10, 10, 0.06)',
+            padding: '20px 24px',
+            boxShadow: '0 1px 3px rgba(10, 10, 10, 0.03)',
+          }}>
             <FeedbackWidget orderId={orderId} />
           </div>
 
-          {/* Share buttons */}
-          <SafeRender name="ShareButtons">
-            <ShareButtons
-              caption={rewrite.linkedin_post_hook}
-              cardUrl={results.card_image_url}
-              orderId={orderId}
-              beforeScore={scores.before.overall}
-              afterScore={scores.after.overall}
-              referralUrl={referral_url}
-            />
-          </SafeRender>
+          {/* WhatsApp share — downloads card on share */}
+          {results.card_image_url && (
+            <div style={{
+              background: '#FFFFFF',
+              borderRadius: 16,
+              border: '1px solid rgba(10, 10, 10, 0.06)',
+              padding: '20px 24px',
+              boxShadow: '0 1px 3px rgba(10, 10, 10, 0.03)',
+              display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap',
+            }}>
+              <img
+                src={results.card_image_url}
+                alt="Your result card"
+                style={{
+                  width: 120, height: 'auto', flexShrink: 0,
+                  borderRadius: 10, border: '1px solid rgba(10, 10, 10, 0.06)',
+                  boxShadow: '0 4px 12px rgba(10, 10, 10, 0.06)',
+                }}
+              />
+              <div style={{ flex: '1 1 240px', minWidth: 0 }}>
+                <div style={{ fontSize: 16, fontWeight: 700, color: 'var(--text-primary)', marginBottom: 4, letterSpacing: '-0.01em' }}>
+                  Share your transformation
+                </div>
+                <div style={{ fontSize: 13, color: 'var(--text-secondary)', lineHeight: 1.55, marginBottom: 12 }}>
+                  Tap share — your result card downloads to your phone, and a WhatsApp message opens up so you can send it to anyone.
+                </div>
+                <button
+                  type="button"
+                  onClick={async () => {
+                    const cardUrl = results.card_image_url!;
+                    const waText = `My LinkedIn profile just got rewritten by AI: ${scores.before.overall} \u2192 ${scores.after.overall}\n\nGet yours: https://profileroaster.in`;
 
-          {/* Referral widget */}
-          <SafeRender name="ReferralWidget">
-            <ReferralWidget code={referral_code} url={referral_url} cardUrl={results.card_image_url} />
-          </SafeRender>
+                    // Try Web Share API with file (mobile)
+                    if (typeof navigator !== 'undefined' && navigator.share && navigator.canShare) {
+                      try {
+                        const r = await fetch(cardUrl);
+                        const blob = await r.blob();
+                        const file = new File([blob], 'profile-rewrite-card.png', { type: 'image/png' });
+                        if (navigator.canShare({ files: [file] })) {
+                          await navigator.share({ title: 'My LinkedIn transformation', text: waText, files: [file] });
+                          return;
+                        }
+                      } catch { /* fall through */ }
+                    }
 
-          {/* Upgrade to Pro (Standard only) */}
-          {!isPro && (
-            <div style={{ background: 'linear-gradient(135deg, #004182, #0B69C7)', borderRadius: 12, padding: '20px 24px', color: 'white' }}>
-              <div style={{ fontSize: 16, fontWeight: 700, marginBottom: 4 }}>Upgrade to Pro</div>
-              <div style={{ fontSize: 13, opacity: 0.85, marginBottom: 12, lineHeight: 1.5 }}>5 headline variations, all 11 templates, 3 cover letters, ATS keywords</div>
-              <button onClick={handleUpgrade} style={{ padding: '10px 24px', background: 'white', color: '#0B69C7', border: 'none', borderRadius: 50, fontSize: 14, fontWeight: 700, cursor: 'pointer' }}>Upgrade &#8212; &#8377;500</button>
+                    // Desktop / fallback: download card AND open wa.me
+                    try {
+                      const r = await fetch(cardUrl);
+                      const blob = await r.blob();
+                      const url = window.URL.createObjectURL(blob);
+                      const a = document.createElement('a');
+                      a.href = url;
+                      a.download = `profile-rewrite-${orderId.slice(0, 8)}.png`;
+                      document.body.appendChild(a);
+                      a.click();
+                      document.body.removeChild(a);
+                      window.URL.revokeObjectURL(url);
+                    } catch { /* ignore download failure */ }
+                    window.open(`https://wa.me/?text=${encodeURIComponent(waText)}`, '_blank');
+                  }}
+                  style={{
+                    display: 'inline-flex', alignItems: 'center', gap: 8,
+                    padding: '11px 20px', borderRadius: 12, border: 'none',
+                    background: '#25D366', color: 'white',
+                    fontSize: 14, fontWeight: 700, cursor: 'pointer',
+                    boxShadow: '0 4px 12px rgba(37, 211, 102, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
+                    letterSpacing: '-0.005em',
+                    transition: 'transform 0.15s, box-shadow 0.15s',
+                  }}
+                  onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-1px)'; e.currentTarget.style.boxShadow = '0 6px 16px rgba(37, 211, 102, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2)'; }}
+                  onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 12px rgba(37, 211, 102, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.2)'; }}
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                  </svg>
+                  Share on WhatsApp
+                </button>
+              </div>
             </div>
           )}
+
         </div>
-      )}
+      </section>
 
       {/* ═══ Disclaimer ═══ */}
       <section style={{ background: 'var(--bg-canvas)', padding: '20px 16px' }}>
