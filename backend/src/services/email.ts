@@ -3,6 +3,7 @@ import { query } from '../db';
 import ResultsEmail from '../emails/ResultsEmail';
 import RefundEmail from '../emails/RefundEmail';
 import TeaserFollowUpEmail from '../emails/TeaserFollowUpEmail';
+import AbandonedCartEmail from '../emails/AbandonedCartEmail';
 
 const resend = new Resend(process.env.RESEND_API_KEY || 'dummy_key');
 const FROM = `ProfileRoaster <${process.env.FROM_EMAIL || 'support@profileroaster.in'}>`;
@@ -251,5 +252,41 @@ export async function sendStudentWelcomeEmails(
     } catch (err) {
       console.error(`Failed to send welcome email to ${student.email}:`, (err as Error).message);
     }
+  }
+}
+
+export async function sendAbandonedCartEmail(order: any): Promise<boolean> {
+  if (!EMAIL_ENABLED) {
+    console.log(`[EMAIL DISABLED] Would send abandoned-cart email to ${order.email}`);
+    return false;
+  }
+
+  const subject = 'Your AI rewrite is one click away — complete checkout';
+
+  try {
+    const { error } = await resend.emails.send({
+      from: FROM,
+      to: order.email,
+      subject,
+      react: AbandonedCartEmail({
+        email: order.email,
+        plan: order.plan,
+        orderId: order.id,
+      }),
+    });
+    if (error) throw error;
+
+    // Mark sent in sequence_emails_sent JSONB
+    await query(
+      `UPDATE orders
+       SET sequence_emails_sent = COALESCE(sequence_emails_sent, '{}'::jsonb)
+                                    || jsonb_build_object('abandoned_cart_at', NOW())
+       WHERE id = $1`,
+      [order.id],
+    );
+    return true;
+  } catch (err) {
+    console.error('sendAbandonedCartEmail failed:', (err as Error).message);
+    return false;
   }
 }

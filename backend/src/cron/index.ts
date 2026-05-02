@@ -1,6 +1,6 @@
 import cron from 'node-cron';
 import { query } from '../db';
-import { sendTeaserFollowUp } from '../services/email';
+import { sendTeaserFollowUp, sendAbandonedCartEmail } from '../services/email';
 import { processEmailSequences } from '../services/email-sequences';
 
 // ═══════════════════════════════════════════════════════
@@ -163,10 +163,54 @@ function startEmailSequenceCron(): void {
   console.log('[CRON] Email sequences scheduled: daily 05:00 UTC (10:30 AM IST)');
 }
 
+// ═══════════════════════════════════════════════════════
+// CRON 5 — ABANDONED CART REMINDER
+// Send a single reminder to users who created an order (Razorpay order)
+// but never completed payment, 2-24 hours after the attempt.
+// Schedule: every 30 minutes
+// ═══════════════════════════════════════════════════════
+export async function runAbandonedCartReminders(): Promise<{ sent: number; skipped: number }> {
+  // Find orders pending for >= 2h and < 24h, not yet reminded
+  const candidates = await query(`
+    SELECT id, email, plan
+    FROM orders
+    WHERE payment_status = 'pending'
+      AND email IS NOT NULL
+      AND created_at < NOW() - INTERVAL '2 hours'
+      AND created_at > NOW() - INTERVAL '24 hours'
+      AND (sequence_emails_sent->>'abandoned_cart_at') IS NULL
+    LIMIT 100
+  `);
+
+  let sent = 0;
+  let skipped = 0;
+  for (const order of candidates.rows) {
+    const ok = await sendAbandonedCartEmail(order);
+    if (ok) sent++; else skipped++;
+  }
+
+  if (candidates.rows.length > 0) {
+    console.log(`[CRON] Abandoned cart: ${sent} sent, ${skipped} failed (of ${candidates.rows.length})`);
+  }
+  return { sent, skipped };
+}
+
+export function startAbandonedCartCron(): void {
+  cron.schedule('*/30 * * * *', async () => {
+    try {
+      await runAbandonedCartReminders();
+    } catch (err) {
+      console.error('[CRON] Abandoned cart failed:', (err as Error).message);
+    }
+  });
+  console.log('[CRON] Abandoned cart reminders scheduled: every 30 minutes');
+}
+
 // Start all crons
 export function startAllCrons(): void {
   startDataCleanupCron();
   startTeaserFollowUpCron();
   startStuckOrderCron();
   startEmailSequenceCron();
+  startAbandonedCartCron();
 }

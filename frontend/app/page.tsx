@@ -1094,15 +1094,15 @@ export default function Home() {
               &#8377;999 <span style={{ fontSize: 16, fontWeight: 500, color: 'var(--text-secondary)' }}>one-time</span>
             </div>
             <div style={{ fontSize: 12, color: 'var(--text-muted)', marginBottom: 4 }}>All taxes included &middot; No recurring charges</div>
-            <div style={{ fontSize: 13, color: 'var(--text-secondary)', marginBottom: 24 }}>Everything in Standard, plus more.</div>
+            <div style={{ fontSize: 13, color: 'var(--text-secondary)', marginBottom: 24 }}>For job-seekers targeting a specific role.</div>
             <ul style={{ listStyle: 'none', textAlign: 'left', marginBottom: 28, padding: 0 }}>
               {[
                 'Everything in Standard',
-                'All premium resume templates',
-                'Priority AI processing',
-                'Job-description-tailored rewrite',
-                'Targeted cover letter',
-                'Advanced interview coaching',
+                'Job-description tailored — paste the JD, get a rewrite that matches it',
+                '5 headline variations to A/B test on LinkedIn',
+                'Cover letter customised to that exact role',
+                'Priority AI processing — usually under 60 seconds',
+                'Advanced ATS keyword matching for the target role',
               ].map((f, i) => (
                 <li key={i} style={{ fontSize: 14, color: '#333', padding: '8px 0', borderBottom: '1px solid var(--bg-subtle)', display: 'flex', alignItems: 'center', gap: 10 }}>
                   <span style={{ color: 'var(--success)', fontWeight: 700, fontSize: 16, flexShrink: 0 }}>&#10003;</span>
@@ -1348,55 +1348,34 @@ export default function Home() {
 
                   {/* ═══ CONFIRMATION SCREEN ═══ */}
                   {showConfirmScreen ? (
+                    /* Fallback only \u2014 used when AI fails to extract a headline. Single-field input, fast path. */
                     <div style={{ animation: 'slideUp 0.3s ease' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 14 }}>
-                        <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'var(--success)', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14 }}>&#10003;</div>
+                        <div aria-hidden="true" style={{ width: 28, height: 28, borderRadius: '50%', background: 'var(--success)', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14 }}>&#10003;</div>
                         <div>
                           <div style={{ fontSize: 15, fontWeight: 700, color: 'var(--success)' }}>
-                            {inputSource === 'resume' ? 'Resume Parsed!' : 'LinkedIn PDF Parsed!'}
+                            File received
                           </div>
                           <div style={{ fontSize: 11, color: 'var(--text-secondary)' }}>
-                            {inputSource === 'resume' ? resumeFileName : pdfFileName} &mdash; Review and confirm your details
+                            {inputSource === 'resume' ? resumeFileName : pdfFileName} &mdash; we just need one detail to score it.
                           </div>
                         </div>
                       </div>
 
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                        <div>
-                          <label style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-primary)', marginBottom: 4, display: 'block' }}>Name</label>
-                          <input value={confirmName} onChange={e => setConfirmName(e.target.value)} placeholder="Your name"
-                            style={{ width: '100%', padding: '8px 12px', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-default)', fontSize: 13, boxSizing: 'border-box' }} />
-                        </div>
-                        <div>
-                          <label style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-primary)', marginBottom: 4, display: 'block' }}>
-                            Headline / Job Title <span style={{ color: '#DC2626' }}>*</span>
-                          </label>
-                          <input value={confirmHeadline} onChange={e => setConfirmHeadline(e.target.value)} placeholder="e.g. Senior Manager | B2B Sales | 6+ Years"
-                            style={{ width: '100%', padding: '8px 12px', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-default)', fontSize: 13, boxSizing: 'border-box' }} />
-                          {confirmHeadline.length > 0 && confirmHeadline.trim().length < 10 && (
-                            <p style={{ fontSize: 11, color: '#CC1016', marginTop: 2 }}>Please add a complete headline.</p>
-                          )}
-                        </div>
-                        <div>
-                          <label style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-primary)', marginBottom: 4, display: 'block' }}>Experience</label>
-                          <textarea value={confirmExperience} onChange={e => setConfirmExperience(e.target.value)} placeholder="Your work experience..." rows={3}
-                            style={{ width: '100%', padding: '8px 12px', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-default)', fontSize: 12, resize: 'vertical', boxSizing: 'border-box', lineHeight: 1.5 }} />
-                        </div>
-                        <div>
-                          <label style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-primary)', marginBottom: 4, display: 'block' }}>Education</label>
-                          <textarea value={confirmEducation} onChange={e => setConfirmEducation(e.target.value)} placeholder="Your education..." rows={2}
-                            style={{ width: '100%', padding: '8px 12px', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-default)', fontSize: 12, resize: 'vertical', boxSizing: 'border-box', lineHeight: 1.5 }} />
-                        </div>
-                        <div>
-                          <label style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-primary)', marginBottom: 4, display: 'block' }}>Skills</label>
-                          <input value={confirmSkills} onChange={e => setConfirmSkills(e.target.value)} placeholder="Python, React, Project Management..."
-                            style={{ width: '100%', padding: '8px 12px', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-default)', fontSize: 13, boxSizing: 'border-box' }} />
-                        </div>
-                        <div style={{ background: 'var(--accent-subtle)', border: '1px solid #C7D2FE', borderRadius: 'var(--radius-sm)', padding: '10px 12px' }}>
-                          <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--accent)', marginBottom: 4, display: 'block' }}>What role are you targeting?</label>
-                          <input value={targetRole} onChange={e => setTargetRole(e.target.value)} placeholder="e.g. Product Manager at a Series B startup"
-                            style={{ width: '100%', padding: '8px 12px', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-default)', fontSize: 13, boxSizing: 'border-box', background: 'white' }} />
-                        </div>
+                      <div>
+                        <label style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-primary)', marginBottom: 4, display: 'block' }}>
+                          What&rsquo;s your current job title or headline? <span style={{ color: '#DC2626' }}>*</span>
+                        </label>
+                        <input
+                          value={confirmHeadline}
+                          onChange={e => setConfirmHeadline(e.target.value)}
+                          placeholder="e.g. Senior Product Manager | Fintech | 6+ years"
+                          autoFocus
+                          style={{ width: '100%', padding: '12px 14px', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-default)', fontSize: 14, boxSizing: 'border-box' }}
+                        />
+                        {confirmHeadline.length > 0 && confirmHeadline.trim().length < 10 && (
+                          <p style={{ fontSize: 11, color: '#CC1016', marginTop: 4 }}>Please add a complete headline (at least 10 characters).</p>
+                        )}
                       </div>
 
                       <button
@@ -1412,10 +1391,10 @@ export default function Home() {
                       >
                         {loading ? (
                           <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
-                            <span style={{ width: 16, height: 16, border: '2px solid rgba(255,255,255,0.3)', borderTopColor: 'white', borderRadius: '50%', animation: 'spin 0.6s linear infinite', display: 'inline-block' }} />
-                            Analyzing...
+                            <span aria-hidden="true" style={{ width: 16, height: 16, border: '2px solid rgba(255,255,255,0.3)', borderTopColor: 'white', borderRadius: '50%', animation: 'spin 0.6s linear infinite', display: 'inline-block' }} />
+                            Analyzing&hellip;
                           </span>
-                        ) : 'Get My Free Score \u2192'}
+                        ) : 'Get my free score \u2192'}
                       </button>
                       <div onClick={resetUpload} style={{ fontSize: 12, color: 'var(--accent)', textAlign: 'center', marginTop: 8, cursor: 'pointer', textDecoration: 'underline' }}>
                         Upload a different file
