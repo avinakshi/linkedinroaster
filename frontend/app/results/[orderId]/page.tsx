@@ -890,7 +890,7 @@ function ResumeBuilderSection({ orderId, maxResumes = 3, plan = 'standard' }: { 
         const rzp = new (window as any).Razorpay({
           key: data.razorpay_key, amount: data.amount, currency: data.currency,
           order_id: data.razorpay_order_id, name: 'ProfileRoaster',
-          description: 'Upgrade to Pro', theme: { color: '#0A66C2' },
+          description: 'Upgrade to Pro', theme: { color: '#4F46E5' },
           handler: () => { window.location.reload(); },
           modal: { ondismiss: () => { document.body.style.overflow = ''; } },
         });
@@ -1292,7 +1292,7 @@ function UpsellBanner({ orderId }: { orderId: string }) {
         const rzp = new (window as any).Razorpay({
           key: data.razorpay_key, amount: data.amount, currency: data.currency,
           order_id: data.razorpay_order_id, name: 'ProfileRoaster',
-          description: 'Upgrade to Pro', theme: { color: '#0A66C2' },
+          description: 'Upgrade to Pro', theme: { color: '#4F46E5' },
           handler: () => { window.location.reload(); },
           modal: { ondismiss: () => { document.body.style.overflow = ''; } },
         });
@@ -1604,7 +1604,7 @@ export default function ResultsPage() {
   // Copy handlers
   function handleCopy(text: string, field: string) { copyToClipboard(text); setCopiedField(field); setTimeout(() => setCopiedField(''), 2000); }
   function CopyBtn({ text, field }: { text: string; field: string }) {
-    return <button onClick={() => handleCopy(text, field)} style={{ padding: '4px 14px', background: copiedField === field ? '#057642' : '#E8F0FE', color: copiedField === field ? 'white' : '#0A66C2', border: 'none', borderRadius: 6, fontSize: 12, fontWeight: 600, cursor: 'pointer', whiteSpace: 'nowrap' }}>{copiedField === field ? 'Copied!' : 'Copy'}</button>;
+    return <button onClick={() => handleCopy(text, field)} style={{ padding: '4px 14px', background: copiedField === field ? '#10B981' : '#EEF2FF', color: copiedField === field ? 'white' : '#4F46E5', border: 'none', borderRadius: 6, fontSize: 12, fontWeight: 600, cursor: 'pointer', whiteSpace: 'nowrap' }}>{copiedField === field ? 'Copied!' : 'Copy'}</button>;
   }
 
   // Upgrade handler for sidebar
@@ -1628,7 +1628,7 @@ export default function ResultsPage() {
         const rzp = new (window as any).Razorpay({
           key: d.razorpay_key, amount: d.amount, currency: d.currency,
           order_id: d.razorpay_order_id, name: 'ProfileRoaster', description: 'Upgrade to Pro',
-          theme: { color: '#0A66C2' },
+          theme: { color: '#4F46E5' },
           handler: () => { window.location.reload(); },
           modal: { ondismiss: () => { document.body.style.overflow = ''; } },
         });
@@ -1949,14 +1949,35 @@ export default function ResultsPage() {
 
           {/* Resume Builder CTA — primary for resume users */}
           {isResumeMode && (
-            <div style={{ background: 'linear-gradient(135deg, #057642, #16A34A)', borderRadius: 12, padding: '24px 28px', color: 'white', marginBottom: 16 }}>
-              <div style={{ fontSize: 18, fontWeight: 700, marginBottom: 6 }}>Your Improved Resume is Ready</div>
-              <div style={{ fontSize: 13, opacity: 0.9, lineHeight: 1.5, marginBottom: 16 }}>
-                AI fixed {missingKeywords.length > 0 ? missingKeywords.length + ' missing keywords, ' : ''}{weakVerbs.length > 0 ? weakVerbs.length + ' weak verbs, ' : ''}and optimized your bullets for ATS scanners. Build your resume now.
-              </div>
-              <div style={{ display: 'flex', gap: 10 }}>
-                <button onClick={handleResumeCTA} style={{ padding: '12px 28px', background: 'white', color: '#057642', border: 'none', borderRadius: 50, fontSize: 14, fontWeight: 700, cursor: 'pointer' }}>
-                  Build My Resume
+            <div style={{
+              position: 'relative',
+              background: 'linear-gradient(135deg, #18181B 0%, #0A0A0A 100%)',
+              borderRadius: 16,
+              padding: '24px 28px',
+              color: 'white',
+              marginBottom: 16,
+              overflow: 'hidden',
+            }}>
+              <div aria-hidden="true" style={{
+                position: 'absolute', inset: 0,
+                background: 'radial-gradient(at 0% 0%, rgba(124, 58, 237, 0.28) 0%, transparent 55%), radial-gradient(at 100% 100%, rgba(219, 39, 119, 0.20) 0%, transparent 55%)',
+                pointerEvents: 'none',
+              }} />
+              <div style={{ position: 'relative' }}>
+                <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#C4B5FD', marginBottom: 6 }}>Your improved resume</div>
+                <div style={{ fontSize: 18, fontWeight: 700, marginBottom: 6, letterSpacing: '-0.015em' }}>Built from your actual experience</div>
+                <div style={{ fontSize: 13, color: 'rgba(255, 255, 255, 0.72)', lineHeight: 1.55, marginBottom: 16 }}>
+                  AI fixed {missingKeywords.length > 0 ? missingKeywords.length + ' missing keywords, ' : ''}{weakVerbs.length > 0 ? weakVerbs.length + ' weak verbs, ' : ''}and optimized your bullets for ATS scanners. Pick a template and download.
+                </div>
+                <button onClick={handleResumeCTA} style={{
+                  padding: '12px 22px',
+                  background: 'linear-gradient(135deg, #FFFFFF 0%, #F4F4F5 100%)',
+                  color: '#0A0A0A',
+                  border: 'none', borderRadius: 12,
+                  fontSize: 14, fontWeight: 700, cursor: 'pointer',
+                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.4)',
+                }}>
+                  Build my resume
                 </button>
               </div>
             </div>
@@ -2090,56 +2111,169 @@ export default function ResultsPage() {
 
       {/* ═══ RESUME TAB ═══ */}
       {activeSection === 'resume' && (
-        <div style={{ maxWidth: 800, margin: '0 auto', padding: '20px 16px' }}>
-          <div style={{ background: '#FFFFFF', borderRadius: 16, border: '1px solid #E5E7EB', padding: '24px 28px', boxShadow: '0 1px 3px rgba(0,0,0,0.04)', marginBottom: 16 }}>
-            <h2 style={{ fontSize: 20, fontWeight: 800, color: '#191919', margin: '0 0 16px' }}>Your ATS Resume</h2>
-
-            {/* Quick download banner */}
-            {!resumesLoading && resumes.length > 0 && (
-              <div style={{ background: 'linear-gradient(135deg, #F0FDF4, #DCFCE7)', border: '1px solid #BBF7D0', borderRadius: 12, padding: '20px 24px', marginBottom: 16, display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
-                <div>
-                  <div style={{ fontSize: 16, fontWeight: 700, color: '#057642' }}>Your resume is ready!</div>
-                  <div style={{ fontSize: 13, color: '#374151', marginTop: 2 }}>{resumes[0].target_role || 'Professional Resume'} &bull; ATS Score: {resumes[0].ats_score || '--'}%</div>
+        <div style={{ maxWidth: 820, margin: '0 auto', padding: '20px 16px' }}>
+          {/* Hero card — your improved resume */}
+          {!resumesLoading && resumes.length > 0 && (
+            <div style={{
+              position: 'relative',
+              background: 'linear-gradient(180deg, #FFFFFF 0%, #FAFAFA 100%)',
+              borderRadius: 20,
+              border: '1px solid rgba(79, 70, 229, 0.12)',
+              padding: '28px',
+              marginBottom: 16,
+              boxShadow: '0 1px 3px rgba(10, 10, 10, 0.04), 0 16px 40px -16px rgba(79, 70, 229, 0.16)',
+              overflow: 'hidden',
+            }}>
+              <div aria-hidden="true" style={{
+                position: 'absolute', top: '-30%', right: '-15%',
+                width: 320, height: 320,
+                background: 'radial-gradient(circle, rgba(124, 58, 237, 0.10) 0%, transparent 60%)',
+                filter: 'blur(40px)', pointerEvents: 'none',
+              }} />
+              <div style={{ position: 'relative' }}>
+                <div style={{
+                  display: 'inline-flex', alignItems: 'center', gap: 6,
+                  fontSize: 11, fontWeight: 600, letterSpacing: '0.08em',
+                  color: '#3730A3', textTransform: 'uppercase',
+                  padding: '5px 12px', borderRadius: 999,
+                  background: 'rgba(238, 242, 255, 0.85)',
+                  border: '1px solid rgba(79, 70, 229, 0.18)',
+                  marginBottom: 14,
+                }}>
+                  <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#10B981' }} />
+                  Your improved resume is ready
                 </div>
-                <div style={{ display: 'flex', gap: 8 }}>
-                  <a href={`/resume/${resumes[0].id}`} style={{ padding: '10px 20px', background: '#057642', color: 'white', borderRadius: 8, fontSize: 14, fontWeight: 600, textDecoration: 'none' }}>Download PDF</a>
-                  <a href={`/resume/${resumes[0].id}/edit`} style={{ padding: '10px 20px', background: 'white', color: '#057642', border: '1.5px solid #057642', borderRadius: 8, fontSize: 14, fontWeight: 600, textDecoration: 'none' }}>Edit</a>
+                <h2 style={{ fontSize: 'clamp(22px, 3vw, 28px)', fontWeight: 800, color: '#0A0A0A', letterSpacing: '-0.02em', margin: '0 0 6px', lineHeight: 1.15 }}>
+                  Built from <span style={{
+                    background: 'linear-gradient(135deg, #4F46E5 0%, #7C3AED 50%, #DB2777 100%)',
+                    WebkitBackgroundClip: 'text', backgroundClip: 'text',
+                    color: 'transparent', WebkitTextFillColor: 'transparent',
+                  }}>your actual experience</span>
+                </h2>
+                <div style={{ fontSize: 14, color: '#525252', lineHeight: 1.55, marginBottom: 18 }}>
+                  AI rewrote your bullets, added quantification, and matched ATS keywords for{' '}
+                  <strong style={{ color: '#0A0A0A' }}>{resumes[0].target_role || 'your target role'}</strong>.
+                  {resumes[0].ats_score ? <> Your ATS score: <strong style={{ color: '#4F46E5' }}>{resumes[0].ats_score}%</strong>.</> : null}
+                </div>
+                <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+                  <a
+                    href={`/resume/${resumes[0].id}`}
+                    style={{
+                      display: 'inline-flex', alignItems: 'center', gap: 8,
+                      padding: '12px 22px',
+                      background: 'linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%)',
+                      color: 'white', fontSize: 14, fontWeight: 700,
+                      borderRadius: 12, textDecoration: 'none',
+                      boxShadow: '0 8px 20px rgba(79, 70, 229, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
+                    }}
+                  >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                      <polyline points="7 10 12 15 17 10" />
+                      <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg>
+                    Download PDF
+                  </a>
+                  <a
+                    href={`/resume/${resumes[0].id}/edit`}
+                    style={{
+                      display: 'inline-flex', alignItems: 'center', gap: 8,
+                      padding: '12px 22px',
+                      background: 'white', color: '#0A0A0A',
+                      fontSize: 14, fontWeight: 700,
+                      borderRadius: 12, textDecoration: 'none',
+                      border: '1px solid rgba(10, 10, 10, 0.12)',
+                    }}
+                  >
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <path d="M12 20h9" />
+                      <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
+                    </svg>
+                    Try another template
+                  </a>
                 </div>
               </div>
-            )}
+            </div>
+          )}
 
+          {/* All resumes list + build new */}
+          <div style={{
+            background: '#FFFFFF',
+            borderRadius: 16,
+            border: '1px solid rgba(10, 10, 10, 0.06)',
+            padding: '24px 28px',
+            boxShadow: '0 1px 3px rgba(10, 10, 10, 0.03)',
+            marginBottom: 16,
+          }}>
             {resumesLoading ? (
-              <div style={{ textAlign: 'center', padding: 32, color: '#666' }}>Loading your resume...</div>
+              <div style={{ textAlign: 'center', padding: 32, color: 'var(--text-muted)' }}>Loading your resume…</div>
             ) : resumes.length > 0 ? (
-              <div>
+              <>
+                {resumes.length > 1 && (
+                  <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.08em', color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: 12 }}>
+                    All your resumes ({resumes.length})
+                  </div>
+                )}
                 {resumes.map((r: any, i: number) => (
-                  <div key={r.id} style={{ background: '#F9FAFB', borderRadius: 10, padding: '16px 20px', marginBottom: 12, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 10 }}>
-                    <div>
-                      <div style={{ fontSize: 15, fontWeight: 600, color: '#191919' }}>{r.target_role || `Resume ${i + 1}`}</div>
-                      <div style={{ fontSize: 12, color: '#666', marginTop: 2 }}>
-                        Template: {r.template_id || 'Classic'}
-                        {r.ats_score ? <span style={{ color: '#057642', fontWeight: 600, marginLeft: 8 }}>ATS: {r.ats_score}%</span> : null}
+                  <div key={r.id} style={{
+                    background: '#FAFAFA',
+                    borderRadius: 12,
+                    padding: '14px 18px',
+                    marginBottom: 10,
+                    display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 10,
+                    border: '1px solid rgba(10, 10, 10, 0.04)',
+                  }}>
+                    <div style={{ minWidth: 0 }}>
+                      <div style={{ fontSize: 14, fontWeight: 600, color: '#0A0A0A' }}>{r.target_role || `Resume ${i + 1}`}</div>
+                      <div style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: 2 }}>
+                        Template: {r.template_id || 'classic'}
+                        {r.ats_score ? <span style={{ color: '#4F46E5', fontWeight: 600, marginLeft: 8 }}>ATS {r.ats_score}%</span> : null}
                       </div>
                     </div>
-                    <div style={{ display: 'flex', gap: 8 }}>
-                      <a href={`/resume/${r.id}`} style={{ padding: '8px 16px', background: '#0B69C7', color: 'white', borderRadius: 8, fontSize: 13, fontWeight: 600, textDecoration: 'none' }}>View & Download</a>
-                      <a href={`/resume/${r.id}/edit`} style={{ padding: '8px 16px', background: '#F3F4F6', color: '#191919', borderRadius: 8, fontSize: 13, fontWeight: 600, textDecoration: 'none', border: '1px solid #D1D5DB' }}>Edit</a>
+                    <div style={{ display: 'flex', gap: 6 }}>
+                      <a href={`/resume/${r.id}`} style={{ padding: '7px 14px', background: '#4F46E5', color: 'white', borderRadius: 8, fontSize: 12, fontWeight: 600, textDecoration: 'none' }}>View &amp; Download</a>
+                      <a href={`/resume/${r.id}/edit`} style={{ padding: '7px 14px', background: 'white', color: '#0A0A0A', borderRadius: 8, fontSize: 12, fontWeight: 600, textDecoration: 'none', border: '1px solid rgba(10, 10, 10, 0.12)' }}>Edit</a>
                     </div>
                   </div>
                 ))}
-                <div style={{ marginTop: 16 }}>
-                  <a href={`/resume?orderId=${orderId}`} style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '10px 20px', background: '#057642', color: 'white', borderRadius: 50, fontSize: 14, fontWeight: 600, textDecoration: 'none' }}>
-                    + Generate Another Resume
+                <div style={{ marginTop: 16, paddingTop: 16, borderTop: '1px solid rgba(10, 10, 10, 0.06)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 10 }}>
+                  <div>
+                    <div style={{ fontSize: 14, fontWeight: 700, color: '#0A0A0A' }}>Need a different version?</div>
+                    <div style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: 2 }}>
+                      Build one tailored to a specific role or company. {resumes.length}/{isPro ? 10 : 5} used.
+                    </div>
+                  </div>
+                  <a href={`/resume?orderId=${orderId}`} style={{
+                    display: 'inline-flex', alignItems: 'center', gap: 6,
+                    padding: '10px 18px', background: 'white', color: '#4F46E5',
+                    border: '1.5px solid #4F46E5',
+                    borderRadius: 10, fontSize: 13, fontWeight: 700, textDecoration: 'none',
+                  }}>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <line x1="12" y1="5" x2="12" y2="19" />
+                      <line x1="5" y1="12" x2="19" y2="12" />
+                    </svg>
+                    Build new from scratch
                   </a>
-                  <span style={{ fontSize: 12, color: '#666', marginLeft: 12 }}>{resumes.length}/{isPro ? 10 : 5} used</span>
                 </div>
-              </div>
+              </>
             ) : (
-              <div style={{ textAlign: 'center', padding: 32 }}>
-                <div style={{ fontSize: 48, marginBottom: 12 }}>{'\ud83d\udcc4'}</div>
-                <p style={{ fontSize: 15, fontWeight: 600, color: '#191919', marginBottom: 4 }}>Your resume is being generated...</p>
-                <p style={{ fontSize: 13, color: '#666', marginBottom: 16 }}>This usually takes 30-60 seconds after results are ready.</p>
-                <a href={`/resume?orderId=${orderId}`} style={{ display: 'inline-block', padding: '10px 24px', background: '#0B69C7', color: 'white', borderRadius: 50, fontSize: 14, fontWeight: 600, textDecoration: 'none' }}>
+              <div style={{ textAlign: 'center', padding: '40px 20px' }}>
+                <div aria-hidden="true" style={{
+                  width: 56, height: 56, borderRadius: 16,
+                  background: 'linear-gradient(135deg, rgba(79, 70, 229, 0.12), rgba(99, 102, 241, 0.06))',
+                  border: '1px solid rgba(79, 70, 229, 0.16)',
+                  display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                  color: '#4F46E5', marginBottom: 16,
+                }}>
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                    <polyline points="14 2 14 8 20 8" />
+                  </svg>
+                </div>
+                <p style={{ fontSize: 15, fontWeight: 700, color: '#0A0A0A', marginBottom: 4 }}>Your resume is being generated…</p>
+                <p style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 16 }}>30–60 seconds after the rewrite finishes.</p>
+                <a href={`/resume?orderId=${orderId}`} style={{ display: 'inline-block', padding: '11px 22px', background: 'linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%)', color: 'white', borderRadius: 12, fontSize: 14, fontWeight: 700, textDecoration: 'none' }}>
                   Build Resume Now
                 </a>
               </div>
@@ -2275,10 +2409,10 @@ export default function ResultsPage() {
               />
               <div style={{ flex: '1 1 240px', minWidth: 0 }}>
                 <div style={{ fontSize: 16, fontWeight: 700, color: 'var(--text-primary)', marginBottom: 4, letterSpacing: '-0.01em' }}>
-                  Share your transformation
+                  Loved your new resume? Help a friend
                 </div>
                 <div style={{ fontSize: 13, color: 'var(--text-secondary)', lineHeight: 1.55, marginBottom: 12 }}>
-                  Tap share — your result card downloads to your phone, and a WhatsApp message opens up so you can send it to anyone.
+                  Tap share — your result card downloads to your phone, and a WhatsApp message opens up so you can send it to a friend who could use a rewrite too.
                 </div>
                 <button
                   type="button"
