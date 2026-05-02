@@ -707,17 +707,7 @@ export default function Home() {
     if (planParam === 'standard' || planParam === 'pro') {
       setTimeout(() => heroRef.current?.scrollIntoView({ behavior: 'smooth' }), 200);
     }
-    const tabParam = params.get('tab');
-    if (tabParam === 'student') {
-      setActiveInputTab('student');
-      setInputSource('student');
-    } else if (tabParam === 'questionnaire') {
-      setActiveInputTab('questionnaire');
-      setInputSource('questionnaire');
-    } else if (tabParam === 'linkedin') {
-      setActiveInputTab('linkedin');
-      setInputSource('linkedin');
-    }
+    // Legacy ?tab=* deep-links are no-ops — single drop zone auto-detects type by filename.
   }, []);
 
   // ── Core teaser runner ──
@@ -725,7 +715,7 @@ export default function Home() {
     const today = new Date().toISOString().split('T')[0];
     const lsKey = `teaser_count_${today}`;
     const count = parseInt(localStorage.getItem(lsKey) || '0', 10);
-    if (count >= 5) { setRateLimited(true); return; }
+    if (count >= 20) { setRateLimited(true); return; }
 
     track('teaser_started', { input_source: inputSource, target_role: targetRole || qTargetRole || undefined });
 
@@ -765,6 +755,23 @@ export default function Home() {
       setLoadingProgress(0);
       setLoadingStage('');
       setLoading(false);
+    }
+  }
+
+  // ── Smart upload — auto-detects LinkedIn export vs resume by filename ──
+  function smartUpload(file: File) {
+    const lower = file.name.toLowerCase();
+    // LinkedIn's "Save to PDF" defaults to "Profile.pdf" or filenames containing "linkedin"
+    const looksLikeLinkedIn =
+      lower === 'profile.pdf' ||
+      /^profile.*\.pdf$/i.test(file.name) ||
+      lower.includes('linkedin');
+    if (looksLikeLinkedIn && file.type === 'application/pdf') {
+      setInputSource('linkedin');
+      uploadAndParsePdf(file);
+    } else {
+      setInputSource('resume');
+      uploadAndParseResume(file);
     }
   }
 
@@ -1046,6 +1053,7 @@ export default function Home() {
             <div style={{ fontSize: 48, fontWeight: 900, color: 'var(--text-primary)', marginBottom: 4 }}>
               &#8377;499 <span style={{ fontSize: 16, fontWeight: 500, color: 'var(--text-secondary)' }}>one-time</span>
             </div>
+            <div style={{ fontSize: 12, color: 'var(--text-muted)', marginBottom: 4 }}>All taxes included &middot; No recurring charges</div>
             <div style={{ fontSize: 13, color: 'var(--text-secondary)', marginBottom: 24 }}>Pay once. Download forever.</div>
             <ul style={{ listStyle: 'none', textAlign: 'left', marginBottom: 28, padding: 0 }}>
               {[
@@ -1085,6 +1093,7 @@ export default function Home() {
             <div style={{ fontSize: 48, fontWeight: 900, color: 'var(--text-primary)', marginBottom: 4 }}>
               &#8377;999 <span style={{ fontSize: 16, fontWeight: 500, color: 'var(--text-secondary)' }}>one-time</span>
             </div>
+            <div style={{ fontSize: 12, color: 'var(--text-muted)', marginBottom: 4 }}>All taxes included &middot; No recurring charges</div>
             <div style={{ fontSize: 13, color: 'var(--text-secondary)', marginBottom: 24 }}>Everything in Standard, plus more.</div>
             <ul style={{ listStyle: 'none', textAlign: 'left', marginBottom: 28, padding: 0 }}>
               {[
@@ -1333,24 +1342,7 @@ export default function Home() {
             <div data-upload-area style={{ flex: '1 1 380px', minWidth: 0, maxWidth: 500 }}>
               <div className="pr-upload-shell">
 
-                {/* Tab navigation — clean pills */}
-                <div className="pr-tab-rail">
-                  <div style={{ display: 'inline-flex', gap: 4, padding: 4, background: 'var(--bg-canvas)', borderRadius: 10, width: '100%' }}>
-                    {/* Student tab hidden — accessible via /?tab=student */}
-                    <button onClick={() => { setActiveInputTab('resume'); setInputSource('resume'); }}
-                      style={{ flex: 1, padding: '9px 12px', fontSize: 13, fontWeight: activeInputTab === 'resume' ? 700 : 500, borderRadius: 8, border: 'none', cursor: 'pointer', background: activeInputTab === 'resume' ? 'var(--bg-surface)' : 'transparent', color: activeInputTab === 'resume' ? 'var(--accent)' : 'var(--text-secondary)', boxShadow: activeInputTab === 'resume' ? '0 1px 3px rgba(0,0,0,0.08)' : 'none', transition: 'all 0.15s' }}>
-                      Resume
-                    </button>
-                    <button onClick={() => { setActiveInputTab('linkedin'); setInputSource('linkedin'); }}
-                      style={{ flex: 1, padding: '9px 12px', fontSize: 13, fontWeight: activeInputTab === 'linkedin' ? 700 : 500, borderRadius: 8, border: 'none', cursor: 'pointer', background: activeInputTab === 'linkedin' ? 'var(--bg-surface)' : 'transparent', color: activeInputTab === 'linkedin' ? 'var(--accent)' : 'var(--text-secondary)', boxShadow: activeInputTab === 'linkedin' ? '0 1px 3px rgba(0,0,0,0.08)' : 'none', transition: 'all 0.15s' }}>
-                      LinkedIn
-                    </button>
-                    <button onClick={() => { setActiveInputTab('questionnaire'); setInputSource('questionnaire'); }}
-                      style={{ flex: 1, padding: '9px 12px', fontSize: 13, fontWeight: activeInputTab === 'questionnaire' ? 700 : 500, borderRadius: 8, border: 'none', cursor: 'pointer', background: activeInputTab === 'questionnaire' ? 'var(--bg-surface)' : 'transparent', color: activeInputTab === 'questionnaire' ? 'var(--accent)' : 'var(--text-secondary)', boxShadow: activeInputTab === 'questionnaire' ? '0 1px 3px rgba(0,0,0,0.08)' : 'none', transition: 'all 0.15s' }}>
-                      No File
-                    </button>
-                  </div>
-                </div>
+                {/* Single drop zone — auto-detects resume vs LinkedIn PDF by filename. Tab switcher removed. */}
 
                 <div style={{ padding: '20px 20px 16px' }}>
 
@@ -1432,71 +1424,72 @@ export default function Home() {
                   ) : (
                     <>
                       {/* ═══ TAB 1: RESUME UPLOAD ═══ */}
-                      {activeInputTab === 'resume' && (
-                        <div>
-                          <div
-                            onClick={() => resumeInputRef.current?.click()}
-                            onDrop={(e) => { e.preventDefault(); setResumeDragOver(false); const f = e.dataTransfer.files?.[0]; if (f) uploadAndParseResume(f); }}
-                            onDragOver={(e) => { e.preventDefault(); setResumeDragOver(true); }}
-                            onDragLeave={(e) => { e.preventDefault(); setResumeDragOver(false); }}
-                            style={{
-                              position: 'relative',
-                              border: `2px dashed ${resumeDragOver ? 'var(--accent)' : resumeParsed ? 'var(--success)' : 'rgba(15, 23, 42, 0.12)'}`,
-                              borderRadius: 16, padding: '36px 24px', textAlign: 'center', marginBottom: 14,
-                              background: resumeDragOver
-                                ? 'linear-gradient(135deg, rgba(79, 70, 229, 0.08) 0%, rgba(99, 102, 241, 0.04) 100%)'
-                                : resumeParsed
-                                  ? 'linear-gradient(135deg, rgba(5, 150, 105, 0.06) 0%, rgba(16, 185, 129, 0.03) 100%)'
-                                  : 'linear-gradient(180deg, rgba(248, 250, 252, 0.5) 0%, rgba(255, 255, 255, 0.8) 100%)',
-                              cursor: resumeUploading ? 'wait' : 'pointer',
-                              transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
-                              transform: resumeDragOver ? 'scale(1.01)' : 'scale(1)',
-                            }}
-                          >
-                            <input ref={resumeInputRef} type="file" accept=".pdf,.docx" onChange={e => { const f = e.target.files?.[0]; if (f) uploadAndParseResume(f); }} style={{ display: 'none' }} />
-                            {resumeUploading ? (
-                              <>
-                                <div style={{ width: 48, height: 48, margin: '0 auto 12px', border: '3px solid rgba(79, 70, 229, 0.15)', borderTopColor: 'var(--accent)', borderRadius: '50%', animation: 'spin 0.7s linear infinite' }} />
-                                <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--accent)' }}>Parsing your resume...</div>
-                                <div style={{ fontSize: 11, color: 'var(--text-secondary)', marginTop: 4 }}>Extracting your data &bull; 5-10 seconds</div>
-                                <style>{`@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }`}</style>
-                              </>
-                            ) : (
-                              <>
-                                <div style={{
-                                  width: 56, height: 56, borderRadius: 16,
-                                  background: 'linear-gradient(135deg, rgba(79, 70, 229, 0.12), rgba(99, 102, 241, 0.06))',
-                                  border: '1px solid rgba(79, 70, 229, 0.16)',
-                                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                  margin: '0 auto 16px',
-                                  color: 'var(--accent)',
-                                }}>
-                                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                                    <polyline points="14 2 14 8 20 8" />
-                                    <line x1="12" y1="18" x2="12" y2="12" />
-                                    <polyline points="9 15 12 12 15 15" />
-                                  </svg>
-                                </div>
-                                <div style={{ fontSize: 16, fontWeight: 700, color: 'var(--text-primary)', letterSpacing: '-0.01em' }}>{resumeDragOver ? 'Drop to upload' : 'Drop resume or click to browse'}</div>
-                                <div style={{ fontSize: 13, color: 'var(--text-secondary)', marginTop: 6 }}>PDF or DOCX &bull; up to 10MB</div>
-                              </>
-                            )}
-                          </div>
-
-                          {resumeError && (
-                            <div style={{ background: '#FEF2F2', border: '1px solid #FECACA', borderRadius: 'var(--radius-sm)', padding: '8px 12px', marginBottom: 8, fontSize: 12, color: '#DC2626' }}>
-                              {resumeError}
-                            </div>
+                      {/* Single drop zone — auto-detects resume vs LinkedIn export by filename */}
+                      <div>
+                        <div
+                          onClick={() => resumeInputRef.current?.click()}
+                          onDrop={(e) => { e.preventDefault(); setResumeDragOver(false); const f = e.dataTransfer.files?.[0]; if (f) smartUpload(f); }}
+                          onDragOver={(e) => { e.preventDefault(); setResumeDragOver(true); }}
+                          onDragLeave={(e) => { e.preventDefault(); setResumeDragOver(false); }}
+                          style={{
+                            position: 'relative',
+                            border: `2px dashed ${resumeDragOver ? 'var(--accent)' : (resumeParsed || pdfParsed) ? 'var(--success)' : 'rgba(15, 23, 42, 0.12)'}`,
+                            borderRadius: 16, padding: '36px 24px', textAlign: 'center', marginBottom: 14,
+                            background: resumeDragOver
+                              ? 'linear-gradient(135deg, rgba(79, 70, 229, 0.08) 0%, rgba(99, 102, 241, 0.04) 100%)'
+                              : (resumeParsed || pdfParsed)
+                                ? 'linear-gradient(135deg, rgba(5, 150, 105, 0.06) 0%, rgba(16, 185, 129, 0.03) 100%)'
+                                : 'linear-gradient(180deg, rgba(248, 250, 252, 0.5) 0%, rgba(255, 255, 255, 0.8) 100%)',
+                            cursor: (resumeUploading || pdfUploading) ? 'wait' : 'pointer',
+                            transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+                            transform: resumeDragOver ? 'scale(1.01)' : 'scale(1)',
+                          }}
+                        >
+                          <input ref={resumeInputRef} type="file" accept=".pdf,.docx" onChange={e => { const f = e.target.files?.[0]; if (f) smartUpload(f); }} style={{ display: 'none' }} />
+                          {(resumeUploading || pdfUploading) ? (
+                            <>
+                              <div style={{ width: 48, height: 48, margin: '0 auto 12px', border: '3px solid rgba(79, 70, 229, 0.15)', borderTopColor: 'var(--accent)', borderRadius: '50%', animation: 'spin 0.7s linear infinite' }} />
+                              <div role="status" aria-live="polite" style={{ fontSize: 14, fontWeight: 700, color: 'var(--accent)' }}>
+                                {pdfUploading ? 'Parsing your LinkedIn PDF…' : 'Parsing your resume…'}
+                              </div>
+                              <div style={{ fontSize: 11, color: 'var(--text-secondary)', marginTop: 4 }}>Extracting your data &bull; 5-10 seconds</div>
+                              <style>{`@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }`}</style>
+                            </>
+                          ) : (
+                            <>
+                              <div aria-hidden="true" style={{
+                                width: 56, height: 56, borderRadius: 16,
+                                background: 'linear-gradient(135deg, rgba(79, 70, 229, 0.12), rgba(99, 102, 241, 0.06))',
+                                border: '1px solid rgba(79, 70, 229, 0.16)',
+                                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                margin: '0 auto 16px',
+                                color: 'var(--accent)',
+                              }}>
+                                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                  <polyline points="14 2 14 8 20 8" />
+                                  <line x1="12" y1="18" x2="12" y2="12" />
+                                  <polyline points="9 15 12 12 15 15" />
+                                </svg>
+                              </div>
+                              <div style={{ fontSize: 16, fontWeight: 700, color: 'var(--text-primary)', letterSpacing: '-0.01em' }}>{resumeDragOver ? 'Drop to upload' : 'Drop your resume or LinkedIn PDF'}</div>
+                              <div style={{ fontSize: 13, color: 'var(--text-secondary)', marginTop: 6 }}>PDF or DOCX &bull; up to 10MB &bull; auto-detects type</div>
+                            </>
                           )}
-
-                          <div style={{ display: 'flex', justifyContent: 'center', gap: 12, marginTop: 8, fontSize: 11, color: 'var(--text-muted)' }}>
-                            <span>&#128274; Encrypted</span>
-                            <span>&#9889; Instant</span>
-                            <span>&#127873; Free</span>
-                          </div>
                         </div>
-                      )}
+
+                        {(resumeError || pdfError) && (
+                          <div role="alert" style={{ background: '#FEF2F2', border: '1px solid #FECACA', borderRadius: 'var(--radius-sm)', padding: '8px 12px', marginBottom: 8, fontSize: 12, color: '#DC2626' }}>
+                            {resumeError || pdfError}
+                          </div>
+                        )}
+
+                        <div style={{ display: 'flex', justifyContent: 'center', gap: 12, marginTop: 8, fontSize: 11, color: 'var(--text-muted)' }}>
+                          <span>&#128274; Encrypted</span>
+                          <span>&#9889; Instant</span>
+                          <span>&#127873; Free</span>
+                        </div>
+                      </div>
 
                       {/* ═══ TAB 2: LINKEDIN PDF ═══ */}
                       {activeInputTab === 'linkedin' && (

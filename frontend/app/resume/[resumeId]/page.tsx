@@ -186,6 +186,22 @@ export default function ResumePreviewPage() {
 
   return (
     <div style={{ minHeight: '100vh', background: 'var(--bg-canvas)', fontFamily: "'Inter', system-ui, sans-serif" }}>
+      {/* Print stylesheet — hide page chrome on Cmd+P, print only the resume */}
+      <style>{`
+        @media print {
+          body * { visibility: hidden !important; }
+          [data-print-target], [data-print-target] * { visibility: visible !important; }
+          [data-print-target] {
+            position: absolute !important;
+            top: 0 !important; left: 0 !important;
+            width: 100% !important; max-width: 100% !important;
+            box-shadow: none !important;
+            border-radius: 0 !important;
+            background: #fff !important;
+          }
+          @page { margin: 0.5in; }
+        }
+      `}</style>
 
       {/* HEADER */}
       <header style={{ height: 52, background: '#FFFFFF', borderBottom: '1px solid #E5E7EB', display: 'flex', alignItems: 'center', padding: '0 20px', justifyContent: 'space-between', position: 'sticky', top: 0, zIndex: 100 }}>
@@ -337,7 +353,7 @@ export default function ResumePreviewPage() {
 
         {/* RIGHT PANEL — Resume Preview */}
         <div style={{ flex: 1, overflowY: 'auto', padding: '24px 24px 120px', display: 'flex', justifyContent: 'center', alignItems: 'flex-start' }}>
-          <div style={{ width: '100%', maxWidth: 794, background: 'white', borderRadius: 8, boxShadow: '0 4px 24px rgba(0,0,0,0.08)' }}>
+          <div data-print-target style={{ width: '100%', maxWidth: 794, background: 'white', borderRadius: 8, boxShadow: '0 4px 24px rgba(0,0,0,0.08)' }}>
             {resume.resume_data && renderResumeHTML(resume.resume_data, templateId)}
           </div>
         </div>
@@ -362,7 +378,7 @@ export default function ResumePreviewPage() {
         </div>
 
         {/* Mobile Resume Preview */}
-        <div style={{ background: 'white', borderRadius: 8, boxShadow: '0 2px 12px rgba(0,0,0,0.06)' }}>
+        <div data-print-target style={{ background: 'white', borderRadius: 8, boxShadow: '0 2px 12px rgba(0,0,0,0.06)' }}>
           {resume.resume_data && renderResumeHTML(resume.resume_data, templateId)}
         </div>
       </div>
